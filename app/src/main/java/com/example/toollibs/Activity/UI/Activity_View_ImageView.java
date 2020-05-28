@@ -1,12 +1,25 @@
 package com.example.toollibs.Activity.UI;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.constraint.solver.GoalRow;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,10 +30,26 @@ import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.InternetUtil;
 import com.example.toollibs.Util.SystemUtil;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Activity_View_ImageView extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView;
     private Button bSearch, bZoomIn, bZoomOut, bRotate, bAlbum, bCamera, bCircle;
     private EditTextDelIcon etInput;
+    private Bitmap curBitmap;
+
+    private static final int GO_ALBUM_CODE = 101;
+    private static final int GO_CAMERA_CODE = 102;
+    private static final int OPEN_URL_FAIL = 0;
+    private static final int OPEN_URL_SUCCESS = 1;
+
+    private static final String[] NEEDED_PERMISSIONS = new String[]{
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +76,10 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
 
     private void setData() {
         //set default image
-        imageView.setImageBitmap(BitmapUtil.getBitmapFromRes(getApplicationContext(), R.drawable.img_bg));
+        //imageView.setImageResource(R.drawable.img_bg);
+        //imageView.setImageDrawable(getResources().getDrawable(R.drawable.img_bg));
+        curBitmap = BitmapUtil.getBitmapFromRes(getApplicationContext(), R.drawable.img_bg);
+        imageView.setImageBitmap(curBitmap);
     }
 
     private void setListener() {
@@ -66,11 +98,12 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
-                case 0://no return
+                case OPEN_URL_FAIL://no return
                     SystemUtil.ShowToast(getApplicationContext(), "Please check your URL, then try again!");
                     break;
-                case 1:
-                    imageView.setImageBitmap((Bitmap) msg.obj);
+                case OPEN_URL_SUCCESS:
+                    curBitmap = (Bitmap) msg.obj;
+                    imageView.setImageBitmap(curBitmap);
                     break;
             }
         }
@@ -89,21 +122,29 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
 
                 break;
             case R.id.bRotate:
-
+                curBitmap = BitmapUtil.RotateBitmap(curBitmap, 60, false);
+                imageView.setImageBitmap(curBitmap);
                 break;
             case R.id.bAlbum:
-
+                openAlbum();
                 break;
             case R.id.bCamera:
-
+                if(verifyPermissions(this,NEEDED_PERMISSIONS[2])){
+                    Log.d("Tag", "提示是否要授权");
+                    ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, 3);
+                }else{
+                   openCamera();
+                }
                 break;
             case R.id.bCircle:
-
+                curBitmap = BitmapUtil.GetCircleBitmap(curBitmap);
+                imageView.setImageBitmap(curBitmap);
                 break;
         }
     }
 
     private void getOnlineImage(final String input){
+        //must be in a sub thread to open a url
         new Thread(){
             @Override
             public void run() {
@@ -116,16 +157,66 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
                 }else{
                     bitmap = InternetUtil.GetBitmapFromUrl(input);
                 }
-
+                Log.d("Tag", "open url: "+ input);
                 Message msg = Message.obtain();
                 if(bitmap==null){
-                    msg.what = 0;
+                    msg.what = OPEN_URL_FAIL;
                 }else{
-                    msg.what = 1;
+                    msg.what = OPEN_URL_SUCCESS;
                 }
                 msg.obj = bitmap;
                 handler.sendMessage(msg);
             }
         }.start();
+    }
+
+    private void openAlbum(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, GO_ALBUM_CODE);
+        Log.d("Tag", "jump to album");
+    }
+
+    private void openCamera(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  //跳转到 ACTION_IMAGE_CAPTURE
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"fileImg.jpg")));
+        startActivityForResult(intent,GO_CAMERA_CODE);
+        Log.d("Tag", "jump to camera");
+    }
+
+    public boolean verifyPermissions(Activity activity, java.lang.String permission) {
+        int Permission = ActivityCompat.checkSelfPermission(activity,permission);
+        if (Permission == PackageManager.PERMISSION_GRANTED) {
+            Log.d("Tag","已经同意权限");
+            return true;
+        }else{
+            Log.d("Tag","没有同意权限");
+            return false;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //album
+        if(requestCode==GO_ALBUM_CODE && resultCode==RESULT_OK){
+            Uri uri = data.getData();
+            ContentResolver contentResolver = this.getContentResolver();
+            try {
+                curBitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(uri));
+                imageView.setImageBitmap(curBitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else if (requestCode==GO_CAMERA_CODE && resultCode==RESULT_OK){
+            try {
+                Uri uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"fileImg.jpg"));
+                curBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                imageView.setImageBitmap(curBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

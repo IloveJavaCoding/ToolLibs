@@ -100,9 +100,11 @@ public class BitmapUtil {
     //operation on bitmap
     //rotate
     public static Bitmap RotateBitmap(Bitmap bitmap, int degree, boolean isRecycle){
-        if(degree%360 ==0){
+        if(degree%360 == 0){
             return bitmap;
         }
+
+        degree = degree%360;
 
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
