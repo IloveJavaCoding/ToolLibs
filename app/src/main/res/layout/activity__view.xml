@@ -1,9 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity.UI.Activity_View">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_30"/>
+
+            <Button
+                android:id="@+id/bImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ImageView"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bWebView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="WebView"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bVideoView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="VideoView"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bCalendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CalendarView"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bTextureView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Texture_Surface_view"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bMapView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MapView"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

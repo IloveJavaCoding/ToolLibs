@@ -17,8 +17,7 @@ public class SlideToggleButton extends View {
 
     private float currentX; //手指滑动的距离
     private OnisCheckedChangeListener listener;
-    
-    
+
     public SlideToggleButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }

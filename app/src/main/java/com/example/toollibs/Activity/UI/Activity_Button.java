@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.ToggleButton;
 
 import com.example.toollibs.OverWriteClass.SlideToggleButton;
@@ -26,6 +27,8 @@ public class Activity_Button extends AppCompatActivity {
 
     private ToggleButton tbDefault, tbSelector;
     private SlideToggleButton slideToggleButton;
+
+    private Switch switchDefault;
 
     private boolean isGreen;
     @Override
@@ -60,8 +63,9 @@ public class Activity_Button extends AppCompatActivity {
 
         tbDefault = findViewById(R.id.tbDefault);
         tbSelector = findViewById(R.id.tbSelector);
-
         slideToggleButton = findViewById(R.id.stbSlide);
+
+        switchDefault = findViewById(R.id.switchDefault);
 
         isGreen = true;
     }
@@ -211,6 +215,18 @@ public class Activity_Button extends AppCompatActivity {
             @Override
             public void onisCheckedChange(Boolean state) {
                 if(state){
+                    SystemUtil.ShowToast(getApplicationContext(), "Open");
+                }else{
+                    SystemUtil.ShowToast(getApplicationContext(), "Off");
+                }
+            }
+        });
+
+        switchDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    //checked
                     SystemUtil.ShowToast(getApplicationContext(), "Open");
                 }else{
                     SystemUtil.ShowToast(getApplicationContext(), "Off");

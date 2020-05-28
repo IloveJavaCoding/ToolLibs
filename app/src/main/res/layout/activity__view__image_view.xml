@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.UI.Activity_View_ImageView">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@drawable/gradient"
+        android:padding="@dimen/padding_15">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_15"
+        android:layout_margin="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <com.example.toollibs.OverWriteClass.EditTextDelIcon
+            android:id="@+id/delInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="url"
+            android:paddingLeft="@dimen/padding_10"
+            android:paddingBottom="@dimen/padding_5"
+            android:paddingTop="@dimen/padding_5"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:background="@drawable/edit_text_frame"/>
+
+        <Button
+            android:id="@+id/bSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="@dimen/padding_5"
+            android:layout_marginRight="@dimen/padding_5"
+            android:background="@drawable/selector_button"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_15"
+        android:layout_margin="@dimen/margin_10">
+
+        <Button
+            android:id="@+id/bZoomIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_15"
+            android:text="Zoom --"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:background="@drawable/selector_button"/>
+
+        <Button
+            android:id="@+id/bZoomOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"
+            android:text="Zoom ++"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:background="@drawable/selector_button"/>
+
+        <Button
+            android:id="@+id/bRotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:text="Rotate"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:background="@drawable/selector_button"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_15"
+        android:layout_margin="@dimen/margin_10">
+
+        <Button
+            android:id="@+id/bAlbum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_15"
+            android:text="Open Album"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:background="@drawable/selector_button"/>
+
+        <Button
+            android:id="@+id/bCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:text="Open Camera"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:background="@drawable/selector_button"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_15"
+        android:layout_margin="@dimen/margin_10">
+
+        <Button
+            android:id="@+id/bCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Circle"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:background="@drawable/selector_button"/>
+    </LinearLayout>
+</LinearLayout>
