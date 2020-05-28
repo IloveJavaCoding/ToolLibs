@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.Fragment_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_10"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_listView"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="ListView"
+                android:textSize="@dimen/text_size_20"
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_text" />
+
+            <RadioButton
+                android:id="@+id/radio_GridView"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="GridView"
+                android:textSize="@dimen/text_size_20"
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_text" />
+
+            <RadioButton
+                android:id="@+id/radio_recycleView"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="RecycleVieew"
+                android:textSize="@dimen/text_size_20"
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_text" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+    </FrameLayout>
+</LinearLayout>

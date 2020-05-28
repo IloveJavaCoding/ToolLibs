@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.Dialog_Activity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_30"/>
+
+    <Button
+        android:id="@+id/bDialog1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dialog 1"
+        android:textColor="@color/colorWhite"
+        android:padding="@dimen/padding_5"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_20"
+        android:background="@drawable/selector_button"/>
+
+    <Button
+        android:id="@+id/bDialog2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dialog 2"
+        android:textColor="@color/colorWhite"
+        android:padding="@dimen/padding_5"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_20"
+        android:background="@drawable/selector_button"/>
+
+    <Button
+        android:id="@+id/bDialog3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dialog 3"
+        android:textColor="@color/colorWhite"
+        android:padding="@dimen/padding_5"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_20"
+        android:background="@drawable/selector_button"/>
+
+    <Button
+        android:id="@+id/bDialog4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dialog 4"
+        android:textColor="@color/colorWhite"
+        android:padding="@dimen/padding_5"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_20"
+        android:background="@drawable/selector_button"/>
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.PosterView_Activity">
+
+    <com.example.toollibs.OverWriteClass.PosterView
+        android:id="@+id/posterView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:padding="@dimen/padding_10"
+        android:background="@drawable/gradient"/>
+
+    <Button
+        android:id="@+id/bChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Images"
+        android:textColor="@color/colorWhite"
+        android:padding="@dimen/padding_5"
+        android:background="@drawable/selector_button"
+        android:layout_margin="@dimen/margin_15"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/bDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Dialog"
+        android:textColor="@color/colorWhite"
+        android:padding="@dimen/padding_5"
+        android:background="@drawable/selector_button"
+        android:layout_margin="@dimen/margin_15"
+        android:layout_gravity="center"/>
+</LinearLayout>

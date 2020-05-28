@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.Urat5168_Activity">
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="00:00 00"
+        android:background="@color/colorBlack"
+        android:textColor="@color/colorYellow"
+        android:layout_gravity="right"/>
+
+    <TextView
+        android:id="@+id/tvShow"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="@dimen/padding_15"
+        android:hint="output"
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/bPath"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Get Root Path"
+        android:textColor="@color/colorWhite"
+        android:padding="@dimen/padding_5"
+        android:background="@drawable/selector_button"
+        android:layout_margin="@dimen/margin_15"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/bScreenCap"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Screen Cap"
+        android:textColor="@color/colorWhite"
+        android:padding="@dimen/padding_5"
+        android:background="@drawable/selector_button"
+        android:layout_margin="@dimen/margin_15"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/bReBoot"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="ReBoot"
+        android:textColor="@color/colorWhite"
+        android:padding="@dimen/padding_5"
+        android:background="@drawable/selector_button"
+        android:layout_margin="@dimen/margin_15"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/bRotate"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Locked"
+        android:textColor="@color/colorRed"
+        android:padding="@dimen/padding_5"
+        android:background="@drawable/selector_button"
+        android:layout_margin="@dimen/margin_15"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/bImage"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="GetImage"
+        android:textColor="@color/colorWhite"
+        android:padding="@dimen/padding_5"
+        android:background="@drawable/selector_button"
+        android:layout_margin="@dimen/margin_15"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
+</LinearLayout>

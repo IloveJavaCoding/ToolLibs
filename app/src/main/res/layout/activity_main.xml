@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_30"/>
+
+            <Button
+                android:id="@+id/bText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Text"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bSelector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selector"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bShow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data Show"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bar"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bDelET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Del EditText"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Spinner"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bPosterView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Poster"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bDialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dialog"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fragment"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bTimeSelector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TimeSelector"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bRCG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="R_C_Group"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SeekBar"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/b5168"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="5168"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

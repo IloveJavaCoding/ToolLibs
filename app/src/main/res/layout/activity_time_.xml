@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.Time_Activity">
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="00:00 00"
+        android:background="@color/colorBlack"
+        android:textColor="@color/colorYellow"
+        android:layout_gravity="right"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hour: "/>
+
+        <EditText
+            android:id="@+id/etHour"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_3"
+            android:inputType="numberDecimal"
+            android:maxLength="2"
+            android:background="@drawable/edit_text_frame"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:text="Mins: "/>
+
+        <EditText
+            android:id="@+id/etMinute"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_3"
+            android:inputType="numberDecimal"
+            android:maxLength="2"
+            android:background="@drawable/edit_text_frame"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/bConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+
+    <ToggleButton
+        android:id="@+id/tbSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_15"/>
+</LinearLayout>

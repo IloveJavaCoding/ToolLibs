@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.TimerSelector_Activity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_10"/>
+
+    <TextView
+        android:id="@+id/tvBirth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_10"
+        android:padding="@dimen/padding_3"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorBlack"/>
+
+    <RadioGroup
+        android:id="@+id/radioG"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_5">
+
+        <RadioButton
+            android:id="@+id/rbLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_gravity="center"
+            android:checked="true" />
+
+        <TextView
+            android:text="M1(YMD)"
+            android:textSize="@dimen/text_size_20"
+            android:textColor="@color/colorRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
+
+        <RadioButton
+            android:id="@+id/rbRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:text="M2(DHM)"
+            android:textSize="@dimen/text_size_20"
+            android:textColor="@color/colorGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/bChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Choose"
+        android:textColor="@color/colorWhite"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_15"
+        android:background="@drawable/selector_button"/>
+</LinearLayout>

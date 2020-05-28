@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.UI.Activity_Text">
+
+    <TextView
+        android:id="@+id/tvLamp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="@dimen/padding_10"
+        android:background="@color/colorBlack"
+        android:gravity="center_vertical"
+        android:text="***"
+        android:textSize="@dimen/text_size_25"
+        android:focusable="true"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password: "/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_5"
+                android:hint="numberPassword"
+                android:inputType="numberPassword"
+                android:background="@drawable/edit_text_frame"/>
+
+            <ToggleButton
+                android:id="@+id/tbControl"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_10"
+                android:background="@drawable/selector_check_passowrd"
+                android:textOff=""
+                android:textOn="" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter to over: "/>
+
+        <EditText
+            android:id="@+id/etEnter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:paddingLeft="@dimen/padding_5"
+            android:hint="enter"
+            android:maxLines="1"
+            android:background="@drawable/edit_text_frame"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_15"
+        android:orientation="horizontal">
+
+        <com.example.toollibs.OverWriteClass.EditTextDelIcon
+            android:id="@+id/etDel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_weight="1"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:padding="@dimen/padding_3"
+            android:background="@drawable/edit_text_frame" />
+
+        <Button
+            android:id="@+id/bEnter"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:text="Enter"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/selector_button"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

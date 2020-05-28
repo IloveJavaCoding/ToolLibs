@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Alarm_Activity"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    android:padding="@dimen/padding_15">
+
+    <TextView
+        android:id="@+id/tvTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_15"
+        android:text="Alarming"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_size_25"
+        android:textAlignment="center"
+        android:layout_above="@+id/view"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/bCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_15"
+        android:text="Confirm"
+        android:textColor="@color/colorRed"
+        android:background="@drawable/selector_button_grey"
+        android:layout_below="@+id/view"/>
+</RelativeLayout>
