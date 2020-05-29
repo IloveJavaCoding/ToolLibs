@@ -1,6 +1,7 @@
 package com.example.toollibs.Util;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -68,12 +69,13 @@ public class SystemUtil {
     }
 
     //rotate ImageView
-    public static ObjectAnimator RotateIV(ImageView imgView, int dur){
+    @SuppressLint("WrongConstant")
+    public static ObjectAnimator rotateIV(ImageView imgView, int dur){
         ObjectAnimator animator = ObjectAnimator.ofFloat(imgView, "rotation", 0f,360f);
         animator.setDuration(dur);
         animator.setInterpolator(new LinearInterpolator());
         animator.setRepeatCount(-1);
-        animator.setRepeatMode(ObjectAnimator.RESTART);//infinity
+        animator.setRepeatMode(ObjectAnimator.INFINITE);//infinity
 
         return animator;
     }

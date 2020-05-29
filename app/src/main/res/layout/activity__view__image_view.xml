@@ -24,7 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_15"
-        android:layout_margin="@dimen/margin_10"
         android:orientation="horizontal">
 
         <com.example.toollibs.OverWriteClass.EditTextDelIcon
@@ -51,93 +50,113 @@
             android:background="@drawable/selector_button"/>
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_15"
-        android:layout_margin="@dimen/margin_10">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/bZoomIn"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_15"
-            android:text="Zoom --"
-            android:textColor="@color/colorWhite"
-            android:textAllCaps="false"
-            android:layout_weight="1"
-            android:background="@drawable/selector_button"/>
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bZoomOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:layout_marginRight="@dimen/margin_15"
-            android:text="Zoom ++"
-            android:textColor="@color/colorWhite"
-            android:textAllCaps="false"
-            android:layout_weight="1"
-            android:background="@drawable/selector_button"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_15">
 
-        <Button
-            android:id="@+id/bRotate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:text="Rotate"
-            android:textColor="@color/colorWhite"
-            android:textAllCaps="false"
-            android:layout_weight="1"
-            android:background="@drawable/selector_button"/>
-    </LinearLayout>
+                <Button
+                    android:id="@+id/bZoomIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:text="Zoom --"
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_button"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_15"
-        android:layout_margin="@dimen/margin_10">
+                <Button
+                    android:id="@+id/bZoomOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:text="Zoom ++"
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_button"/>
 
-        <Button
-            android:id="@+id/bAlbum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_15"
-            android:text="Open Album"
-            android:textColor="@color/colorWhite"
-            android:textAllCaps="false"
-            android:layout_weight="1"
-            android:background="@drawable/selector_button"/>
+                <Button
+                    android:id="@+id/bRotate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:text="Rotate"
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_button"/>
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/bCamera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:text="Open Camera"
-            android:textColor="@color/colorWhite"
-            android:textAllCaps="false"
-            android:layout_weight="1"
-            android:background="@drawable/selector_button"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_15">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_15"
-        android:layout_margin="@dimen/margin_10">
+                <Button
+                    android:id="@+id/bAlbum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:text="Open Album"
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_button"/>
 
-        <Button
-            android:id="@+id/bCircle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Circle"
-            android:textColor="@color/colorWhite"
-            android:textAllCaps="false"
-            android:layout_weight="1"
-            android:background="@drawable/selector_button"/>
-    </LinearLayout>
+                <Button
+                    android:id="@+id/bCamera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:text="Open Camera"
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_button"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_15">
+
+                <Button
+                    android:id="@+id/bCircle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:text="Circle"
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_button"/>
+
+                <Button
+                    android:id="@+id/bAnimator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:text="Animator"
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_button"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

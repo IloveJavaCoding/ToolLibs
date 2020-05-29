@@ -1,5 +1,6 @@
 package com.example.toollibs.Activity.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -38,25 +39,27 @@ public class Activity_View extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch (v.getId()){
             case R.id.bImageView:
-
+                intent = new Intent(this, Activity_View_ImageView.class);
                 break;
             case R.id.bWebView:
-
+                intent = new Intent(this, Activity_View_WebView.class);
                 break;
             case R.id.bCalendarView:
-
+                intent = new Intent(this, Activity_View_ImageView.class);
                 break;
             case R.id.bVideoView:
-
+                intent = new Intent(this, Activity_View_ImageView.class);
                 break;
             case R.id.bTextureView:
-
+                intent = new Intent(this, Activity_View_ImageView.class);
                 break;
             case R.id.bMapView:
-
+                intent = new Intent(this, Activity_View_ImageView.class);
                 break;
         }
+        startActivity(intent);
     }
 }

@@ -1,6 +1,8 @@
 package com.example.toollibs.Activity.UI;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -27,6 +29,7 @@ import android.widget.ImageView;
 import com.example.toollibs.OverWriteClass.EditTextDelIcon;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
+import com.example.toollibs.Util.FileUtil;
 import com.example.toollibs.Util.InternetUtil;
 import com.example.toollibs.Util.SystemUtil;
 
@@ -36,14 +39,20 @@ import java.io.IOException;
 
 public class Activity_View_ImageView extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView;
-    private Button bSearch, bZoomIn, bZoomOut, bRotate, bAlbum, bCamera, bCircle;
+    private Button bSearch, bZoomIn, bZoomOut, bRotate, bAlbum, bCamera, bCircle, bAnimator;
     private EditTextDelIcon etInput;
-    private Bitmap curBitmap;
 
+    private Bitmap curBitmap;
+    private Uri imageUris;
+    private ObjectAnimator animator;
+
+    private final int DURATION = 5000;
     private static final int GO_ALBUM_CODE = 101;
     private static final int GO_CAMERA_CODE = 102;
+    private static final int GO_CROP_CODE = 103;
     private static final int OPEN_URL_FAIL = 0;
     private static final int OPEN_URL_SUCCESS = 1;
+    private static final int ACTION_REQUEST_PERMISSIONS = 0x003;
 
     private static final String[] NEEDED_PERMISSIONS = new String[]{
             Manifest.permission.CAMERA,
@@ -70,6 +79,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
         bAlbum = findViewById(R.id.bAlbum);
         bCamera = findViewById(R.id.bCamera);
         bCircle = findViewById(R.id.bCircle);
+        bAnimator = findViewById(R.id.bAnimator);
 
         etInput = findViewById(R.id.delInput);
     }
@@ -78,8 +88,10 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
         //set default image
         //imageView.setImageResource(R.drawable.img_bg);
         //imageView.setImageDrawable(getResources().getDrawable(R.drawable.img_bg));
-        curBitmap = BitmapUtil.getBitmapFromRes(getApplicationContext(), R.drawable.img_bg);
+        curBitmap = BitmapUtil.getBitmapFromRes(getApplicationContext(), R.drawable.img_bg2);
         imageView.setImageBitmap(curBitmap);
+
+        animator = SystemUtil.rotateIV(imageView, DURATION);
     }
 
     private void setListener() {
@@ -91,6 +103,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
         bAlbum.setOnClickListener(this);
         bCamera.setOnClickListener(this);
         bCircle.setOnClickListener(this);
+        bAnimator.setOnClickListener(this);
     }
 
     private Handler handler = new Handler(){
@@ -116,29 +129,56 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
                 getOnlineImage(etInput.getText().toString().trim());
                 break;
             case R.id.bZoomIn:
-
+                if(curBitmap.getWidth()<51){
+                    SystemUtil.ShowToast(getApplicationContext(),"Can not be smaller!");
+                }else{
+                    curBitmap = BitmapUtil.scaleBitmap(curBitmap, 0.75f);
+                    imageView.setImageBitmap(curBitmap);
+                }
                 break;
             case R.id.bZoomOut:
-
+                if(curBitmap.getWidth()>1001){
+                    SystemUtil.ShowToast(getApplicationContext(),"Can not be bigger!");
+                }else{
+                    curBitmap = BitmapUtil.scaleBitmap(curBitmap, 1.25f);
+                    imageView.setImageBitmap(curBitmap);
+                }
                 break;
             case R.id.bRotate:
-                curBitmap = BitmapUtil.RotateBitmap(curBitmap, 60, false);
+                //??? the size will be changed while rotating
+                curBitmap = BitmapUtil.rotateBitmap(curBitmap, 60);
+                Log.d("Tag", "宽度: ..." + curBitmap.getWidth());
                 imageView.setImageBitmap(curBitmap);
                 break;
             case R.id.bAlbum:
                 openAlbum();
                 break;
             case R.id.bCamera:
-                if(verifyPermissions(this,NEEDED_PERMISSIONS[2])){
+                if(!SystemUtil.CheckPermission(this, NEEDED_PERMISSIONS)){
                     Log.d("Tag", "提示是否要授权");
-                    ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, 3);
+                    ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
+                    return;
                 }else{
-                   openCamera();
+                    openCamera();
                 }
                 break;
             case R.id.bCircle:
                 curBitmap = BitmapUtil.GetCircleBitmap(curBitmap);
                 imageView.setImageBitmap(curBitmap);
+                break;
+            case R.id.bAnimator:
+                if(animator.isStarted()){
+                    if(animator.isPaused()){
+                        animator.resume();
+                        Log.d("Tag", "resume");
+                    }else{
+                        animator.pause();
+                        Log.d("Tag", "paused");
+                    }
+                }else{
+                    animator.start();
+                    Log.d("Tag", "animator start");
+                }
                 break;
         }
     }
@@ -179,21 +219,38 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
     }
 
     private void openCamera(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  //跳转到 ACTION_IMAGE_CAPTURE
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"fileImg.jpg")));
-        startActivityForResult(intent,GO_CAMERA_CODE);
-        Log.d("Tag", "jump to camera");
+        String state = Environment.getExternalStorageState();
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+            Log.d("Tag", "try to open camera");
+            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            startActivityForResult(intent,GO_CAMERA_CODE);
+            Log.d("Tag", "jump to camera");
+        } else {
+            SystemUtil.ShowToast(this, "没有SD卡");
+        }
     }
 
-    public boolean verifyPermissions(Activity activity, java.lang.String permission) {
-        int Permission = ActivityCompat.checkSelfPermission(activity,permission);
-        if (Permission == PackageManager.PERMISSION_GRANTED) {
-            Log.d("Tag","已经同意权限");
-            return true;
-        }else{
-            Log.d("Tag","没有同意权限");
-            return false;
-        }
+    private void imageZoom(Uri uri) {
+        imageUris = getTempUri();
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 4);
+        intent.putExtra("aspectY", 3);
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 200);
+        intent.putExtra("scale", true);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUris);
+        intent.putExtra("return-data", false);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true); // no face detection
+        startActivityForResult(intent,GO_CROP_CODE);
+    }
+
+    protected Uri getTempUri() {
+        File file = getExternalFilesDir(FileUtil.GetAppRootPth(getApplicationContext()));
+        File f = new File(file, "temp.jpg");
+        return Uri.fromFile(f);
     }
 
     @Override
@@ -210,12 +267,34 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
                 e.printStackTrace();
             }
         }else if (requestCode==GO_CAMERA_CODE && resultCode==RESULT_OK){
-            try {
-                Uri uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"fileImg.jpg"));
-                curBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+            Uri uri = data.getData();
+            if (uri != null) {
+                imageZoom(uri);
+            }else{
+                Bundle bundle = data.getExtras();
+                curBitmap = (Bitmap)bundle.get("data");
                 imageView.setImageBitmap(curBitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
+            }
+        }else if(requestCode==GO_CROP_CODE){
+            imageView.setImageURI(imageUris);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        boolean isAllGranted = true;
+        for (int grantResult : grantResults) {
+            isAllGranted &= (grantResult == PackageManager.PERMISSION_GRANTED);
+        }
+
+        if (requestCode == ACTION_REQUEST_PERMISSIONS) {
+            if (isAllGranted) {
+                //get all requested permissions
+
+            } else {
+                SystemUtil.ShowToast(getApplicationContext(),"Permission denied!");
+                finish();
             }
         }
     }

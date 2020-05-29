@@ -66,15 +66,16 @@ public class Activity_Button extends AppCompatActivity {
         slideToggleButton = findViewById(R.id.stbSlide);
 
         switchDefault = findViewById(R.id.switchDefault);
-
-        isGreen = true;
     }
 
     private void setData() {
-        slideToggleButton.setIsChecked(false);
+        rButton21.setChecked(true);
+        isGreen = true;
+
         slideToggleButton.setToggle_bkg_on(BitmapUtil.getBitmapFromRes(getApplicationContext(), R.drawable.icon_toggle_on));
         slideToggleButton.setToggle_bkg_off(BitmapUtil.getBitmapFromRes(getApplicationContext(), R.drawable.icon_toggle_off));
-        slideToggleButton.setToggle_slip(BitmapUtil.getBitmapFromRes(getApplicationContext(), R.drawable.icon_toggle_slide));
+        slideToggleButton.setToggle_slip(BitmapUtil.getBitmapFromRes(getApplicationContext(), R.drawable.icon_toggle_slip));
+        slideToggleButton.setIsChecked(false);
     }
 
     private void setListener() {

@@ -99,22 +99,51 @@ public class BitmapUtil {
 
     //operation on bitmap
     //rotate
-    public static Bitmap RotateBitmap(Bitmap bitmap, int degree, boolean isRecycle){
+    public static Bitmap rotateBitmap(Bitmap bitmap, final int degree){
         if(degree%360 == 0){
             return bitmap;
         }
 
-        degree = degree%360;
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
 
         Matrix matrix = new Matrix();
-        matrix.postRotate(degree);
-        Bitmap newBm = Bitmap.createBitmap(bitmap,0,0, bitmap.getWidth(), bitmap.getHeight(), matrix,true);
+        matrix.setRotate(degree, w/2, h/2);
+        Bitmap newBm = Bitmap.createBitmap(bitmap,0,0, w, h, matrix,true);//bg
 
-        if(isRecycle && newBm!=bitmap){
+        if(newBm!=bitmap){
             bitmap.recycle();
         }
 
         return newBm;
+    }
+
+    public static Bitmap rotateBitmap2(Bitmap bm, final int orientationDegree) {
+        Matrix m = new Matrix();
+        m.setRotate(orientationDegree, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+        float targetX, targetY;
+        if (orientationDegree == 90) {
+            targetX = bm.getHeight();
+            targetY = 0;
+        } else {
+            targetX = bm.getHeight();
+            targetY = bm.getWidth();
+        }
+
+        final float[] values = new float[9];
+        m.getValues(values);
+
+        float x1 = values[Matrix.MTRANS_X];
+        float y1 = values[Matrix.MTRANS_Y];
+
+        m.postTranslate(targetX - x1, targetY - y1);
+        Bitmap bm1 = Bitmap.createBitmap(bm.getHeight(), bm.getWidth(), Bitmap.Config.ARGB_8888);
+
+        Paint paint = new Paint();
+        Canvas canvas = new Canvas(bm1);
+        canvas.drawBitmap(bm, m, paint);
+
+        return bm1;
     }
 
     //get circle shape
@@ -138,7 +167,7 @@ public class BitmapUtil {
         paint.setAntiAlias(true);
         canvas.drawARGB(0,0,0,0);
         paint.setColor(Color.WHITE);
-        canvas.drawRoundRect(rectF,roundPx-20,roundPx-20,paint);
+        canvas.drawRoundRect(rectF,roundPx,roundPx,paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 
         final Rect src = new Rect(0,0,w,h);
@@ -148,7 +177,7 @@ public class BitmapUtil {
     }
 
     //zoom
-    public static Bitmap ZoomBitmap(Bitmap bitmap, int w, int h){
+    public static Bitmap zoomBitmap(Bitmap bitmap, int w, int h){
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         float scaleW = (float)w/width ;
@@ -162,6 +191,20 @@ public class BitmapUtil {
 
         return newBm;
     }
+
+    public static Bitmap scaleBitmap(Bitmap bitmap, final float scale){
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale,scale);
+
+        Bitmap newBm = Bitmap.createBitmap(bitmap,0,0,width,height,matrix,true);
+        bitmap.recycle();
+
+        return newBm;
+    }
+
 
     //scale
     public static Bitmap ScaleBitmap(Bitmap bitmap, int aimW, int aimH, boolean isRecycle){

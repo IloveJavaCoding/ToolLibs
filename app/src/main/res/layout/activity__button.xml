@@ -7,243 +7,254 @@
     android:orientation="vertical"
     tools:context=".Activity.UI.Activity_Button">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_15">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_15"
-            android:text="Button"
-            android:textColor="@color/colorWhite"
-            android:textAllCaps="false"
-            android:background="@drawable/selector_button"/>
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_15"
-            android:src="@drawable/icon_image_button"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_15">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="default"
-            android:textSize="@dimen/text_size_20"
-            android:padding="@dimen/padding_5"/>
-
-        <RadioGroup
-            android:id="@+id/rGroup1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/rButton1"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Male"
-                android:textColor="@drawable/selector_text"
-                android:checked="true" />
-            <RadioButton
-                android:id="@+id/rButton2"
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_15">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:text="Button"
+                    android:textColor="@color/colorWhite"
+                    android:textAllCaps="false"
+                    android:background="@drawable/selector_button"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:src="@drawable/icon_image_button"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Female"
-                android:textColor="@drawable/selector_text"/>
-        </RadioGroup>
-    </LinearLayout>
+                android:orientation="vertical"
+                android:padding="@dimen/padding_15">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_15">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="default"
+                    android:textSize="@dimen/text_size_20"
+                    android:padding="@dimen/padding_5"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="self icon"
-            android:textSize="@dimen/text_size_20"
-            android:padding="@dimen/padding_5"/>
+                <RadioGroup
+                    android:id="@+id/rGroup1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <RadioGroup
-            android:id="@+id/rGroup2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/rButton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Male"
+                        android:textColor="@drawable/selector_text"
+                        android:checked="true" />
+                    <RadioButton
+                        android:id="@+id/rButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Female"
+                        android:textColor="@drawable/selector_text"/>
+                </RadioGroup>
+            </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/rButton3"
-                android:layout_width="50dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_10"
-                android:text="Male"
-                android:gravity="center"
-                android:button="@null"
-                android:background="@drawable/selector_text"
-                android:checked="true" />
+                android:orientation="vertical"
+                android:padding="@dimen/padding_15">
 
-            <RadioButton
-                android:id="@+id/rButton4"
-                android:layout_width="50dp"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="self icon"
+                    android:textSize="@dimen/text_size_20"
+                    android:padding="@dimen/padding_5"/>
+
+                <RadioGroup
+                    android:id="@+id/rGroup2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rButton3"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_10"
+                        android:text="Male"
+                        android:gravity="center"
+                        android:button="@null"
+                        android:background="@drawable/selector_check_bg"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/rButton4"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_10"
+                        android:gravity="center"
+                        android:text="Female"
+                        android:button="@null"
+                        android:background="@drawable/selector_check_bg" />
+                </RadioGroup>
+
+                <RadioGroup
+                    android:id="@+id/rGroup3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rButton5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_10"
+                        android:text="Male"
+                        android:textColor="@drawable/selector_text"
+                        android:gravity="center"
+                        android:button="@drawable/radio_button_style"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/rButton6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_10"
+                        android:gravity="center"
+                        android:text="Female"
+                        android:textColor="@drawable/selector_text"
+                        android:button="@drawable/radio_button_style"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_10"
-                android:gravity="center"
-                android:text="Female"
-                android:button="@null"
-                android:background="@drawable/selector_text" />
-        </RadioGroup>
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_15">
 
-        <RadioGroup
-            android:id="@+id/rGroup3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/rButton5"
-                android:layout_width="wrap_content"
+                    <CheckBox
+                        android:id="@+id/checkbox1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="貂蝉"
+                        android:textColor="@drawable/selector_text"/>
+
+                    <CheckBox
+                        android:id="@+id/checkbox2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="孙尚香"
+                        android:textColor="@drawable/selector_text"/>
+
+                    <CheckBox
+                        android:id="@+id/checkbox3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="公孙离"
+                        android:textColor="@drawable/selector_text"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_15">
+
+                    <CheckBox
+                        android:id="@+id/checkbox4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_5"
+                        android:text="阿离"
+                        android:textColor="@drawable/selector_text"
+                        android:button="@drawable/radio_button_style"/>
+
+                    <CheckBox
+                        android:id="@+id/checkbox5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_5"
+                        android:text="苏苏"
+                        android:textColor="@drawable/selector_text"
+                        android:button="@drawable/radio_button_style"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_10"
-                android:text="Male"
-                android:textColor="@drawable/selector_text"
-                android:gravity="center"
-                android:button="@drawable/radio_button_style"
-                android:checked="true"/>
+                android:padding="@dimen/padding_15"
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rButton6"
-                android:layout_width="wrap_content"
+                <ToggleButton
+                    android:id="@+id/tbDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOn="open"
+                    android:textOff="off"
+                    android:checked="true"/>
+
+                <ToggleButton
+                    android:id="@+id/tbSelector"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:background="@drawable/selector_toggle_button"
+                    android:textOn=""
+                    android:textOff=""
+                    android:checked="true"/>
+
+                <com.example.toollibs.OverWriteClass.SlideToggleButton
+                    android:id="@+id/stbSlide"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginLeft="@dimen/margin_15"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_10"
-                android:gravity="center"
-                android:text="Female"
-                android:textColor="@drawable/selector_text"
-                android:button="@drawable/radio_button_style"/>
-        </RadioGroup>
-    </LinearLayout>
+                android:padding="@dimen/padding_15"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_15">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/checkbox1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="貂蝉"
-                android:textColor="@drawable/selector_text"/>
-
-            <CheckBox
-                android:id="@+id/checkbox2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="孙尚香"
-                android:textColor="@drawable/selector_text"/>
-
-            <CheckBox
-                android:id="@+id/checkbox3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="公孙离"
-                android:textColor="@drawable/selector_text"/>
+                <Switch
+                    android:id="@+id/switchDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOn="on"
+                    android:textOff="off"
+                    android:checked="false"/>
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_15">
-
-            <CheckBox
-                android:id="@+id/checkbox4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_5"
-                android:text="阿离"
-                android:textColor="@drawable/selector_text"
-                android:button="@drawable/radio_button_style"/>
-
-            <CheckBox
-                android:id="@+id/checkbox5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_5"
-                android:text="苏苏"
-                android:textColor="@drawable/selector_text"
-                android:button="@drawable/radio_button_style"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding_15"
-        android:orientation="horizontal">
-
-        <ToggleButton
-            android:id="@+id/tbDefault"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOn="open"
-            android:textOff="off"
-            android:checked="true"/>
-
-        <ToggleButton
-            android:id="@+id/tbSelector"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:background="@drawable/selector_toggle_button"
-            android:textOn=""
-            android:textOff=""
-            android:checked="true"/>
-
-        <com.example.toollibs.OverWriteClass.SlideToggleButton
-            android:id="@+id/stbSlide"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="@dimen/margin_15"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding_15"
-        android:orientation="horizontal">
-
-        <Switch
-            android:id="@+id/switchDefault"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOn="on"
-            android:textOff="off"
-            android:checked="false"/>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
