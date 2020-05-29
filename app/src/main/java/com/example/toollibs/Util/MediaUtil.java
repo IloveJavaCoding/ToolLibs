@@ -187,7 +187,7 @@ public class MediaUtil {
         return videos;
     }
 
-    public static VideoFile getVideoFileInformation(String path) throws IOException {
+    public static VideoFile getVideoFileInformation(String path) {
         VideoFile videoFile = null;
         File file = new File(path);
         if(file.exists()){
@@ -197,8 +197,12 @@ public class MediaUtil {
             videoFile = new VideoFile();
 
             MediaPlayer mediaPlayer = new MediaPlayer();
-            mediaPlayer.setDataSource(file.getPath());
-            mediaPlayer.prepare();
+            try {
+                mediaPlayer.setDataSource(file.getPath());
+                mediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             long duration = mediaPlayer.getDuration();
 
             videoFile.setId(0);
@@ -227,5 +231,4 @@ public class MediaUtil {
         MediaPlayer mediaPlayer = MediaPlayer.create(context, i);
         return  mediaPlayer.getDuration();
     }
-
 }

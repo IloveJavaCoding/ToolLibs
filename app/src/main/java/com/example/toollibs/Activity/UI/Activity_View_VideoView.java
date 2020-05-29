@@ -1,5 +1,6 @@
 package com.example.toollibs.Activity.UI;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.example.toollibs.R;
+import com.example.toollibs.SelfClass.VideoFile;
 import com.example.toollibs.Util.DateUtil;
 import com.example.toollibs.Util.MediaUtil;
 
@@ -35,6 +38,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
     private Thread thread;
     private static final int HIDE_CONTROL_CODE = 0X001;
     private static final int SEND_TIME_CODE = 0X002;
+    private static final int OPEN_VIDEO_FILE_CODE = 0X003;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,11 +185,19 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         videoView.pause();
     }
 
+    private void openLocalFile(){
+        Intent intent = new Intent();
+        intent.setType("video/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,OPEN_VIDEO_FILE_CODE);
+        Log.d("Tag", "open local file");
+    }
+
     @Override
     public void onClick(final View v) {
         switch (v.getId()){
             case R.id.bChooseFile:
-
+                openLocalFile();
                 break;
              case R.id.ivControl:
                 if(videoView.isPlaying()){
@@ -219,6 +231,28 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
                 msg.obj = videoView.getCurrentPosition();
                 handler.sendMessage(msg);
             }
+        }
+    }
+
+    private void resetVideoView(String path) {
+        VideoFile videoFile = MediaUtil.getVideoFileInformation(path);
+        videoView.setVideoPath(videoFile.getPath());
+        setBackground(null);
+        seekBar.setMax((int)videoFile.getDuration());
+        tvDuration.setText(DateUtil.FormatTime(videoFile.getDuration()));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==OPEN_VIDEO_FILE_CODE && resultCode==RESULT_OK){
+            Log.d("Tag", "Feedback.......");
+            Uri uri = data.getData();
+            String path = uri.getPath();
+            Log.d("Tag", "......."+ path);
+
+            resetVideoView(path);
+            showControl();
         }
     }
 }
