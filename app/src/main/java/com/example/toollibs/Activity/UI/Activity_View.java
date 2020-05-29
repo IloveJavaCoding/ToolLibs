@@ -51,7 +51,7 @@ public class Activity_View extends AppCompatActivity implements View.OnClickList
                 intent = new Intent(this, Activity_View_ImageView.class);
                 break;
             case R.id.bVideoView:
-                intent = new Intent(this, Activity_View_ImageView.class);
+                intent = new Intent(this, Activity_View_VideoView.class);
                 break;
             case R.id.bTextureView:
                 intent = new Intent(this, Activity_View_ImageView.class);
