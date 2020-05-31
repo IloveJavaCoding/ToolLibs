@@ -65,7 +65,8 @@ public class Time_Activity extends AppCompatActivity {
     private Intent getMsgIntent() {
         Intent intent=new Intent(this, AlarmReceiver.class);
         intent.setAction(action);
-        intent.putExtra("msg","闹钟开启");//tag
+        intent.putExtra("tag","闹钟开启");//tag
+        intent.putExtra("time", tvTime.getText().toString());
         return intent;
     }
 

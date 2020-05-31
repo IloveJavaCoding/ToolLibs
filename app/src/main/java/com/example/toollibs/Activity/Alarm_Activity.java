@@ -39,7 +39,7 @@ public class Alarm_Activity extends AppCompatActivity {
         display.getSize(size);
         layoutParams.gravity = Gravity.TOP;
         layoutParams.width =size.x;
-        layoutParams.height = (int)(size.y*0.3);
+        //layoutParams.height = size.y;
     }
 
     private void setListener() {
@@ -61,5 +61,6 @@ public class Alarm_Activity extends AppCompatActivity {
 
     private void exitActivity(){
         this.finish();
+        //System.exit(0);
     }
 }
