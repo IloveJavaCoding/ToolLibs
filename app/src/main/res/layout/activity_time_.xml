@@ -20,54 +20,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_10"
+        android:padding="@dimen/padding_15"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hour: "/>
-
-        <EditText
-            android:id="@+id/etHour"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_3"
-            android:inputType="numberDecimal"
-            android:maxLength="2"
-            android:background="@drawable/edit_text_frame"/>
+            android:text="Alarm: "/>
 
         <TextView
+            android:id="@+id/tvClock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:text="Mins: "/>
-
-        <EditText
-            android:id="@+id/etMinute"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_3"
-            android:inputType="numberDecimal"
-            android:maxLength="2"
-            android:background="@drawable/edit_text_frame"/>
+            android:layout_marginLeft="@dimen/margin_10"
+            android:text=""
+            android:textColor="@color/colorPrimary"/>
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/bConfirm"
+        <RadioButton
+            android:id="@+id/rbConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Start"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@drawable/selector_text" />
     </LinearLayout>
-
-    <ToggleButton
-        android:id="@+id/tbSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_15"/>
 </LinearLayout>

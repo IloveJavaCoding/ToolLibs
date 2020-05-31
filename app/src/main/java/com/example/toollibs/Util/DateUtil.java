@@ -102,4 +102,20 @@ public class DateUtil {
 
         return rightNow.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
+
+    public static int[] getYMDHMS_Date(Date time) {
+        int[] arr = new int[6];
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(time);
+
+        arr[0] = calendar.get(Calendar.YEAR);
+        arr[1] = calendar.get(Calendar.MONTH+1);
+        arr[2] = calendar.get(Calendar.DAY_OF_MONTH);
+
+        arr[3] = calendar.get(Calendar.HOUR_OF_DAY);
+        arr[4] = calendar.get(Calendar.MINUTE);
+        arr[5] = calendar.get(Calendar.SECOND);
+
+        return arr;
+    }
 }

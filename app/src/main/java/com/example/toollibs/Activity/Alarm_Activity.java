@@ -14,7 +14,7 @@ import android.widget.Button;
 import com.example.toollibs.R;
 
 public class Alarm_Activity extends AppCompatActivity {
-    private Button bCancel;
+    private Button bStop, bSnooze;
     private MediaPlayer player;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,8 @@ public class Alarm_Activity extends AppCompatActivity {
     }
 
     private void init(){
-        bCancel = findViewById(R.id.bCancel);
+        bStop = findViewById(R.id.bStop);
+        bSnooze = findViewById(R.id.bSnooze);
         player.create(getApplicationContext(), R.raw.xiafeng).start();
     }
 
@@ -36,17 +37,24 @@ public class Alarm_Activity extends AppCompatActivity {
         WindowManager.LayoutParams layoutParams = window.getAttributes();
         Point size = new Point();
         display.getSize(size);
-        layoutParams.gravity = Gravity.CENTER;
+        layoutParams.gravity = Gravity.TOP;
         layoutParams.width =size.x;
-        layoutParams.height = (int)(size.y*0.4);
+        layoutParams.height = (int)(size.y*0.3);
     }
 
     private void setListener() {
-        bCancel.setOnClickListener(new View.OnClickListener() {
+        bStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 player.pause();
                 exitActivity();
+            }
+        });
+
+        bSnooze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
             }
         });
     }

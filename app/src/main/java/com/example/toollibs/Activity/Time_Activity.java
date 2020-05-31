@@ -12,28 +12,32 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.example.toollibs.Activity.Receiver.AlarmReceiver;
+import com.example.toollibs.OverWriteClass.PosterView;
 import com.example.toollibs.R;
+import com.example.toollibs.SelfClass.TimeSelector;
 import com.example.toollibs.Util.DateUtil;
 import com.example.toollibs.Util.SystemUtil;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.zip.Inflater;
 
 public class Time_Activity extends AppCompatActivity {
-    private EditText etHour, etMins;
-    private TextView tvTime;
-    private Button rbStart;
-    private int hour, minute;
+    private TextView tvTime, tvClock;
+    private RadioButton rbStart;
     private Thread thread;
-    private ToggleButton tbSwitch;
 
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private final String action = "com.example.ToolLibs.alarm";;
+    private final String maxTime = "2020-12-30 23:59";
+    private boolean isSet = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +50,9 @@ public class Time_Activity extends AppCompatActivity {
 
     private void init() {
         tvTime = findViewById(R.id.tvTime);
-        etHour = findViewById(R.id.etHour);
-        etMins = findViewById(R.id.etMinute);
+        tvClock = findViewById(R.id.tvClock);
 
-        rbStart = findViewById(R.id.bConfirm);
-        tbSwitch = findViewById(R.id.tbSwitch);
+        rbStart = findViewById(R.id.rbConfirm);
 
         initAlarm();
     }
@@ -73,49 +75,50 @@ public class Time_Activity extends AppCompatActivity {
     }
 
     private void setListener() {
-        rbStart.setOnClickListener(new View.OnClickListener() {
+        rbStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if(judge()){
-                    //start
-                    rbStart.setTextColor(Color.RED);
-                    SystemUtil.ShowToast(getApplicationContext(),"Start alarm.");
-                    activeAlarm();
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    timeSelector();
                 }else{
-                    SystemUtil.ShowToast(getApplicationContext(),"Invalidate!!!");
+                    alarmManager.cancel(pendingIntent);
+                    tvClock.setText(" ");
                 }
             }
         });
-
     }
 
-    private boolean judge() {
-        String H = etHour.getText().toString();
-        String M = etMins.getText().toString();
+    private void timeSelector(){
+        TimeSelector timeSelector = new TimeSelector(this, new TimeSelector.ResultHandler() {
+            @Override
+            public void handle(Date time) {
+                tvClock.setText(DateUtil.Date2String(time, "yyyy-MM-dd HH:mm"));
 
-        if(H!=null && M!=null){
-            hour = Integer.parseInt(H);
-            minute = Integer.parseInt(M);
-
-            return true;
-        }else{
-            return false;
-        }
+                int[] temp = DateUtil.getYMDHMS_Date(time);
+                SystemUtil.ShowToast(getApplicationContext(),"Start alarm.");
+                activeAlarm(temp[2],temp[3],temp[4]);
+                isSet = true;
+            }
+        },DateUtil.getCurTime(), maxTime);
+        timeSelector.setMode(TimeSelector.MODE.YMDHM);
+        timeSelector.show();
+        timeSelector.setIsLoop(false);
     }
 
-    private void activeAlarm() {
+    private void activeAlarm(int d, int h, int m) {
         if(Build.VERSION.SDK_INT<19){
-            alarmManager.set(AlarmManager.RTC_WAKEUP,getTimeDiff(hour,minute,0),pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP,getTimeDiff(d,h,m),pendingIntent);
         }else{
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,getTimeDiff(hour,minute,0),pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP,getTimeDiff(d,h,m),pendingIntent);
         }
     }
 
-    private long getTimeDiff(int h, int m, int s) {
+    private long getTimeDiff(int d, int h, int m) {
         Calendar ca=Calendar.getInstance();
+        ca.set(Calendar.DAY_OF_MONTH, d);
         ca.set(Calendar.HOUR_OF_DAY,h);
         ca.set(Calendar.MINUTE,m);
-        ca.set(Calendar.SECOND,s);
+        ca.set(Calendar.SECOND, 0);
         return ca.getTimeInMillis();
     }
 
