@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.PowerManager;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
@@ -39,13 +40,36 @@ public class SystemUtil {
         if (bmp != null)
         {
             String sdCardPath = FileUtil.GetAppRootPth(activity);
-            BitmapUtil.Bitmap2Local(bmp,sdCardPath,"screenshot.png");
+            BitmapUtil.Bitmap2Local(bmp, sdCardPath,"screenshot.png");
         }
     }
 
     public static void reBoot(Context context){
         PowerManager pManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        pManager.reboot("");
+        pManager.reboot("recovery");
+    }
+
+    /**
+     * 1.PARTIAL_WAKE_LOCK：保证CPU保持高性能运行，而屏幕和键盘背光（也可能是触摸按键的背光）关闭。一般情况下都会使用这个WakeLock。
+     * 2.ACQUIRE_CAUSES_WAKEUP：这个WakeLock除了会使CPU高性能运行外还会导致屏幕亮起，即使屏幕原先处于关闭的状态下。
+     * 3.ON_AFTER_RELEASE：如果释放WakeLock的时候屏幕处于亮着的状态，则在释放WakeLock之后让屏幕再保持亮一小会。如果释放WakeLock的时候屏幕本身就没亮，则不会有动作
+     * ————————————————
+     * 版权声明：本文为CSDN博主「jianning-wu」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+     * 原文链接：https://blog.csdn.net/weixin_37730482/article/details/80108786
+     * @param context
+     * @return
+     */
+    @SuppressLint("InvalidWakeLockTag")
+    public static PowerManager.WakeLock getWakeLock(Context context){
+        PowerManager pManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = pManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "IncallUI");
+        wakeLock.acquire();
+
+        return wakeLock;
+    }
+
+    public static void releaseWakeLock(PowerManager.WakeLock wakeLock){
+        wakeLock.release();
     }
 
     //keyboard control

@@ -48,7 +48,7 @@ public class Activity_View extends AppCompatActivity implements View.OnClickList
                 intent = new Intent(this, Activity_View_WebView.class);
                 break;
             case R.id.bCalendarView:
-                intent = new Intent(this, Activity_View_ImageView.class);
+                intent = new Intent(this, Activity_View_Calendar.class);
                 break;
             case R.id.bVideoView:
                 intent = new Intent(this, Activity_View_VideoView.class);
@@ -57,7 +57,7 @@ public class Activity_View extends AppCompatActivity implements View.OnClickList
                 intent = new Intent(this, Activity_View_ImageView.class);
                 break;
             case R.id.bMapView:
-                intent = new Intent(this, Activity_View_ImageView.class);
+                intent = new Intent(this, Activity_View_MapView.class);
                 break;
         }
         startActivity(intent);

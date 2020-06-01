@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.toollibs">
 
     <application
@@ -11,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.UI.Activity_View_VideoView"></activity>
+        <activity android:name=".Activity.UI.Activity_View_MapView"></activity>
+        <activity android:name=".Activity.UI.Activity_View_Calendar"></activity>
+        <activity android:name=".Activity.UI.Activity_View_VideoView" />
         <activity android:name=".Activity.UI.Activity_View_WebView" />
         <activity android:name=".Activity.UI.Activity_View_ImageView" />
         <activity android:name=".Activity.UI.Activity_Bar" />
@@ -20,8 +23,9 @@
         <activity android:name=".Activity.UI.Activity_View" />
         <activity android:name=".Activity.UI.Activity_Button" />
         <activity android:name=".Activity.UI.Activity_Text" />
-        <activity android:name=".Activity.Alarm_Activity"
-            android:theme="@style/TransparentBG"/>
+        <activity
+            android:name=".Activity.Alarm_Activity"
+            android:theme="@style/TransparentBG" />
         <activity android:name=".Activity.Time_Activity" />
         <activity android:name=".Activity.Urat5168_Activity">
             <intent-filter>
@@ -65,7 +69,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.PERMISSIONS_STORAGE" />
-
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

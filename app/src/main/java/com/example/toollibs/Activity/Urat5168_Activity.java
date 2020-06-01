@@ -4,12 +4,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -98,26 +102,60 @@ public class Urat5168_Activity extends AppCompatActivity implements View.OnClick
                 SystemUtil.screenCap(this);
                 break;
             case R.id.bReBoot:
-                new AlertDialog.Builder(this)
-                        .setTitle("提示")
-                        .setMessage("确认重启么？")
-                        .setPositiveButton("重启", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SystemUtil.reBoot(getApplicationContext());
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // 取消当前对话框
-                                dialog.cancel();
-                            }
-                        }).show();
+                reBootDialog();
                 break;
             case R.id.bImage:
                 imageView.setImageBitmap(BitmapUtil.GetBitmapFromFile(rootPath+"/screenshot.png"));
                 break;
+            case R.id.bRotate:
+                rotateScreen();
+                break;
+        }
+    }
+
+    private void reBootDialog(){
+        new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("确认重启么？")
+                .setPositiveButton("重启", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("tag", "reboot...");
+                        SystemUtil.reBoot(getApplicationContext());
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 取消当前对话框
+                        dialog.cancel();
+                    }
+                }).show();
+    }
+
+    private void updateApk(){
+        Intent intent = new Intent();
+        intent.setAction("com.example.demo0525.install");
+        intent.putExtra("package_name", "com.example.demo0525");    //待升级apk 包名，如：com.test.xxx
+        intent.putExtra("package_absolute_path", getPackageResourcePath());   //待升级apk文件存储绝对路径 如：/mnt/sdcard/xxx.apk
+        intent.putExtra("start_activity_name", "com.example.demo0525.MainActivity");   //待升级apk main activity名字，如com.test.xxx.mainActivity
+        intent.putExtra("info", 1);
+        intent.putExtra("package_type", 1);
+        sendBroadcast(intent);
+    }
+
+    private void rotateScreen() {
+        if(!isLocked){
+            isLocked = true;
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+            bScreenRotate.setText("Locked");
+            bScreenRotate.setTextColor(Color.argb(255,255,0,0));
+        }else{
+            isLocked = false;
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+            bScreenRotate.setText("UnLocked");
+            bScreenRotate.setTextColor(Color.argb(255,255,255,255));
+            //can rotate
         }
     }
 
