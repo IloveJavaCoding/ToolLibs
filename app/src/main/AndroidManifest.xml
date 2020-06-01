@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.Radio_Check_Group_Activity" />
-        <activity android:name=".Activity.SeekBar_Activity" />
+        <activity android:name=".Activity.UI.Activity_Bar_SeekBar" />
         <activity android:name=".Activity.TimerSelector_Activity" />
         <activity android:name=".Activity.Fragment_Activity" />
         <activity android:name=".Activity.Dialog_Activity" />

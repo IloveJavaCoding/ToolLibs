@@ -1,4 +1,4 @@
-package com.example.toollibs.Activity;
+package com.example.toollibs.Activity.UI;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.toollibs.R;
 
-public class SeekBar_Activity extends AppCompatActivity {
+public class Activity_Bar_SeekBar extends AppCompatActivity {
     private EditText r,g,b;
     private View view;
     private TextView notice;

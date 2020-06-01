@@ -93,10 +93,10 @@
                 android:background="@drawable/selector_button"/>
 
             <Button
-                android:id="@+id/bSystem"
+                android:id="@+id/bDemo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="System Operation"
+                android:text="Demos"
                 android:textColor="@color/colorWhite"
                 android:padding="@dimen/padding_5"
                 android:textAllCaps="false"

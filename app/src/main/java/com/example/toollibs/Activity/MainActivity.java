@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +14,7 @@ import android.widget.Button;
 import com.example.toollibs.Activity.Interface.NetStateChangeObserver;
 import com.example.toollibs.Activity.Receiver.NetStateChangeReceiver;
 import com.example.toollibs.Activity.UI.Activity_Bar;
+import com.example.toollibs.Activity.UI.Activity_Bar_SeekBar;
 import com.example.toollibs.Activity.UI.Activity_Button;
 import com.example.toollibs.Activity.UI.Activity_Selector;
 import com.example.toollibs.Activity.UI.Activity_Show_Data;
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button bDelET, bSpinner, bPoster, bFragment, bDialog,
             bTimeSelector, bRCGroup, bSeekBar, b5168, bTime;
 
-    private Button bText, bButton, bView, bSelector, bShow, bBar;
+    private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo;
 
     private static final String[] NEEDED_PERMISSIONS = new String[]{
             Manifest.permission.CAMERA,
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bSelector = findViewById(R.id.bSelector);
         bShow = findViewById(R.id.bShow);
         bBar = findViewById(R.id.bBar);
+        bDemo = findViewById(R.id.bDemo);
 
         bDelET = findViewById(R.id.bDelET);
         bSpinner = findViewById(R.id.bSpinner);
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bSelector.setOnClickListener(this);
         bShow.setOnClickListener(this);
         bBar.setOnClickListener(this);
+        bDemo.setOnClickListener(this);
 
         bDelET.setOnClickListener(this);
         bSpinner.setOnClickListener(this);
@@ -116,6 +118,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bBar:
                 intent = new Intent(this, Activity_Bar.class);
                 break;
+            case R.id.bDemo:
+                intent = new Intent(this, Activity_View.class);
+                break;
 
             case R.id.bDelET:
                 intent = new Intent(this, DelEditText_Activity.class);
@@ -139,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, Radio_Check_Group_Activity.class);
                 break;
             case R.id.bSeekBar:
-                intent = new Intent(this, SeekBar_Activity.class);
+                intent = new Intent(this, Activity_Bar_SeekBar.class);
                 break;
             case R.id.b5168:
                 intent = new Intent(this, Urat5168_Activity.class);

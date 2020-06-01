@@ -4,135 +4,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.SeekBar_Activity"
+    tools:context=".Activity.UI.Activity_Bar_SeekBar"
     android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="RGB adapter"
-        android:padding="10dp"
-        android:gravity="center"
-        android:background="@drawable/gradient"
-        android:textSize="25dp"
-        android:textColor="#ffffff"/>
-
-    <View
-        android:id="@+id/color"
-        android:layout_margin="45dp"
-        android:layout_gravity="center"
-        android:background="@drawable/shape_circle"
-        android:layout_width="200dp"
-        android:layout_height="200dp"/>
-
-    <TextView
-        android:id="@+id/tv_notice"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:textSize="22sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
         android:orientation="vertical">
-        <LinearLayout
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="R: "
-                android:textSize="22dp"
-                android:textColor="@color/colorRed"/>
+            android:text="RGB adapter"
+            android:padding="5dp"
+            android:gravity="center"
+            android:background="@drawable/gradient"
+            android:textSize="@dimen/text_size_20"
+            android:textColor="#ffffff"/>
 
-            <SeekBar
-                android:id="@+id/bar_r"
-                android:layout_width="255dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="10dp" />
+        <View
+            android:id="@+id/color"
+            android:layout_margin="@dimen/margin_30"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_circle"
+            android:layout_width="150dp"
+            android:layout_height="150dp"/>
 
-            <EditText
-                android:id="@+id/Rin"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:enabled="false"
-                android:hint="0"
-                android:maxLength="3"
-                android:textColor="@color/colorRed"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:background="@drawable/edit_text_frame"/>
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_notice"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_18"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-            <TextView
-                android:layout_width="wrap_content"
+            android:padding="@dimen/padding_10"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="G: "
-                android:textSize="22dp"
-                android:textColor="@color/colorGreen"/>
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R: "
+                    android:textSize="22dp"
+                    android:textColor="@color/colorRed"/>
 
-            <SeekBar
-                android:id="@+id/bar_g"
-                android:layout_width="255dp"
+                <SeekBar
+                    android:id="@+id/bar_r"
+                    android:layout_width="255dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp" />
+
+                <EditText
+                    android:id="@+id/Rin"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:enabled="false"
+                    android:hint="0"
+                    android:maxLength="3"
+                    android:textColor="@color/colorRed"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center"
+                    android:background="@drawable/edit_text_frame"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="10dp" />
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="G: "
+                    android:textSize="22dp"
+                    android:textColor="@color/colorGreen"/>
 
-            <EditText
-                android:id="@+id/Gin"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:enabled="false"
-                android:hint="0"
-                android:maxLength="3"
-                android:textColor="@color/colorGreen"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:background="@drawable/edit_text_frame"/>
-        </LinearLayout>
+                <SeekBar
+                    android:id="@+id/bar_g"
+                    android:layout_width="255dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-            <TextView
-                android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/Gin"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:enabled="false"
+                    android:hint="0"
+                    android:maxLength="3"
+                    android:textColor="@color/colorGreen"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center"
+                    android:background="@drawable/edit_text_frame"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="B: "
-                android:textSize="22dp"
-                android:textColor="@color/colorBlue"/>
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B: "
+                    android:textSize="22dp"
+                    android:textColor="@color/colorBlue"/>
 
-            <SeekBar
-                android:id="@+id/bar_b"
-                android:layout_width="255dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="10dp" />
+                <SeekBar
+                    android:id="@+id/bar_b"
+                    android:layout_width="255dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp" />
 
-            <EditText
-                android:id="@+id/Bin"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:enabled="false"
-                android:hint="0"
-                android:maxLength="3"
-                android:textColor="@color/colorBlue"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:background="@drawable/edit_text_frame"/>
+                <EditText
+                    android:id="@+id/Bin"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:enabled="false"
+                    android:hint="0"
+                    android:maxLength="3"
+                    android:textColor="@color/colorBlue"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center"
+                    android:background="@drawable/edit_text_frame"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
 </LinearLayout>
