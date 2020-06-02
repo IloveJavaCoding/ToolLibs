@@ -48,6 +48,10 @@
             </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="20b74253686f5ef930e5431f85e3fd27"/>
+
         <receiver android:name=".Activity.Receiver.MyBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.example.ToolLibs.execshellcommand" />
@@ -70,7 +74,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.PERMISSIONS_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
 </manifest>

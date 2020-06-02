@@ -6,8 +6,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -115,5 +117,14 @@ public class SystemUtil {
         }
         return allGranted;
     }
-    //
+
+    //vibrator
+    public static void vibrator(Context context){
+        AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        int ringerMode = am.getRingerMode();
+        if (ringerMode != 0) {
+            Vibrator vv = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
+            vv.vibrate(500L);
+        }
+    }
 }
