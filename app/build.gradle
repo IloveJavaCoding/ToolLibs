@@ -37,7 +37,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation files('libs/zip4j-1.3.2.jar')
     implementation files('libs/jaudiotagger-2.0.2.jar')
-    implementation files('lib/AMapLocation.zip')
-    implementation files('lib/AMapLocation_DemoDocs.zip')
     implementation 'com.prolificinteractive:material-calendarview:1.4.2'
+    implementation files('libs/AMap_Location_V4.9.0_20200302.jar')
 }

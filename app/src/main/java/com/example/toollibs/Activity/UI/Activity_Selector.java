@@ -48,5 +48,4 @@ public class Activity_Selector extends AppCompatActivity {
             }
         });
     }
-
 }

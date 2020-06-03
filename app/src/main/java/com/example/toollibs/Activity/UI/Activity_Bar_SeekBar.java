@@ -1,5 +1,6 @@
 package com.example.toollibs.Activity.UI;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
@@ -8,11 +9,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.toollibs.R;
+import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_Bar_SeekBar extends AppCompatActivity {
     private EditText r,g,b;
@@ -126,6 +130,69 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
                 iB = seekBar.getProgress();
                 b.setText(""+iB);
                 Rendering(iR, iG, iB);
+            }
+        });
+
+        r.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))){
+                    //hide keyboard
+                    ((InputMethodManager)r.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(r.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    //do something
+                    int input = Integer.parseInt(r.getText().toString());
+                    if(input>255){
+                        input = 255;
+                        r.setText("255");
+                    }
+                    barR.setProgress(input);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        g.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))){
+                    //hide keyboard
+                    ((InputMethodManager)g.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(g.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    //do something
+                    int input = Integer.parseInt(g.getText().toString());
+                    if(input>255){
+                        input = 255;
+                        g.setText("255");
+                    }
+                    barG.setProgress(input);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        b.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))){
+                    //hide keyboard
+                    ((InputMethodManager)b.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(b.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    //do something
+                    int input = Integer.parseInt(b.getText().toString());
+                    if(input>255){
+                        input = 255;
+                        b.setText("255");
+                    }
+                    barB.setProgress(input);
+                    return true;
+                }
+                return false;
             }
         });
     }
