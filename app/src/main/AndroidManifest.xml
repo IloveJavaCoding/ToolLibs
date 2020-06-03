@@ -12,8 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.UI.Activity_View_MapView"></activity>
-        <activity android:name=".Activity.UI.Activity_View_Calendar"></activity>
+        <activity android:name=".Activity.UI.Activity_App_Setting"></activity>
+        <activity android:name=".Activity.UI.Activity_View_MapView" />
+        <activity android:name=".Activity.UI.Activity_View_Calendar" />
         <activity android:name=".Activity.UI.Activity_View_VideoView" />
         <activity android:name=".Activity.UI.Activity_View_WebView" />
         <activity android:name=".Activity.UI.Activity_View_ImageView" />
@@ -50,8 +51,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="20b74253686f5ef930e5431f85e3fd27"/>
-        <service android:name="com.amap.api.location.APSService" />
+            android:value="20b74253686f5ef930e5431f85e3fd27" />
 
         <receiver android:name=".Activity.Receiver.BootReceiver">
             <intent-filter>
@@ -64,6 +64,7 @@
                 <action android:name="com.example.ToolLibs.alarm" />
             </intent-filter>
         </receiver>
+        <service android:name="com.amap.api.location.APSService" />
     </application>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -76,12 +77,11 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于开机启动 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
-    <!-- 用于开机启动-->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 </manifest>
