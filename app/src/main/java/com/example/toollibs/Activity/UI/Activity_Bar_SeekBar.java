@@ -15,14 +15,16 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.toollibs.OverWriteClass.VerticalSeekBar;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_Bar_SeekBar extends AppCompatActivity {
     private EditText r,g,b;
     private View view;
-    private TextView notice;
+    private TextView notice, tvVSB;
     private SeekBar barR, barG, barB;
+    private VerticalSeekBar verticalSeekBar;
     private Integer iR, iG, iB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +42,12 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
 
         view = findViewById(R.id.color);
         notice = findViewById(R.id.tv_notice);
+        tvVSB = findViewById(R.id.tvVSB);
 
         barR = findViewById(R.id.bar_r);
         barG = findViewById(R.id.bar_g);
         barB = findViewById(R.id.bar_b);
+        verticalSeekBar = findViewById(R.id.vSeekBar);
 
         setData();
     }
@@ -56,6 +60,8 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
         barR.setMax(255);
         barG.setMax(255);
         barB.setMax(255);
+
+        verticalSeekBar.setMax(100);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             barR.getThumb().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);//滑块
@@ -193,6 +199,23 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+
+        verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                tvVSB.setText(seekBar.getProgress()+"");
             }
         });
     }
