@@ -7,9 +7,8 @@
     android:orientation="vertical"
     tools:context=".Activity.UI.Activity_View_MapView">
 
-    <TextView
-        android:id="@+id/position_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
