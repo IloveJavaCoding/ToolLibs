@@ -39,4 +39,10 @@
         <item name="android:windowBackground">@color/colorTransparent</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+    <style name="MyRatingBar" parent="Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/icon_moon</item>
+        <item name="android:maxHeight">30dp</item>
+        <item name="android:minHeight">30dp</item>
+    </style>
 </resources>
