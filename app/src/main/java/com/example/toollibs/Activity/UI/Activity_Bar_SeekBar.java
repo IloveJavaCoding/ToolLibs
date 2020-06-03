@@ -58,8 +58,8 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
         barB.setMax(255);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            barR.getThumb().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-            barR.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+            barR.getThumb().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);//滑块
+            barR.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);//进度条
 
             barG.getThumb().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
             barG.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
