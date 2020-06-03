@@ -53,13 +53,12 @@
             android:value="20b74253686f5ef930e5431f85e3fd27"/>
         <service android:name="com.amap.api.location.APSService" />
 
-        <receiver android:name=".Activity.Receiver.MyBroadcastReceiver">
+        <receiver android:name=".Activity.Receiver.BootReceiver">
             <intent-filter>
-                <action android:name="com.example.ToolLibs.execshellcommand" />
-                <action android:name="com.example.ToolLibs.install" />
-                <action android:name="com.example.ToolLibs.reboot" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <receiver android:name=".Activity.Receiver.AlarmReceiver">
             <intent-filter>
                 <action android:name="com.example.ToolLibs.alarm" />
@@ -82,4 +81,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <!-- 用于开机启动-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 </manifest>
