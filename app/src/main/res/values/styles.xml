@@ -41,8 +41,8 @@
     </style>
 
     <style name="MyRatingBar" parent="Widget.AppCompat.RatingBar">
-        <item name="android:progressDrawable">@drawable/icon_moon</item>
-        <item name="android:maxHeight">30dp</item>
-        <item name="android:minHeight">30dp</item>
+        <item name="android:progressDrawable">@drawable/my_rating_bar</item>
+        <item name="android:maxHeight">32dp</item>
+        <item name="android:minHeight">32dp</item>
     </style>
 </resources>

@@ -41,10 +41,8 @@ public class Activity_Bar extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, Activity_Bar_SeekBar.class);
                 break;
             case R.id.bRatingBar:
-
-                break;
             case R.id.bProcessBar:
-
+                intent = new Intent(this, Activity_Bar_ProcessBar.class);
                 break;
             case R.id.bToolbar:
 
