@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.UI.Activity_App_Setting"></activity>
+        <activity android:name=".Activity.UI.Activity_Bar_ProcessBar"></activity>
+        <activity android:name=".Activity.UI.Activity_App_Setting" />
         <activity android:name=".Activity.UI.Activity_View_MapView" />
         <activity android:name=".Activity.UI.Activity_View_Calendar" />
         <activity android:name=".Activity.UI.Activity_View_VideoView" />
@@ -58,12 +59,12 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".Activity.Receiver.AlarmReceiver">
             <intent-filter>
                 <action android:name="com.example.ToolLibs.alarm" />
             </intent-filter>
         </receiver>
+
         <service android:name="com.amap.api.location.APSService" />
     </application>
     <uses-permission android:name="android.permission.CAMERA" />
@@ -78,8 +79,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于开机启动 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于开机启动 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
