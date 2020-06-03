@@ -36,9 +36,17 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
     private LinearLayout layoutControl;
 
     private Thread thread;
-    private static final int HIDE_CONTROL_CODE = 0X001;
-    private static final int SEND_TIME_CODE = 0X002;
-    private static final int OPEN_VIDEO_FILE_CODE = 0X003;
+    private String videoPath;
+
+    private static final int HIDE_CONTROL_CODE = 0x001;
+    private static final int SEND_TIME_CODE = 0x002;
+    private static final int OPEN_VIDEO_FILE_CODE = 0x003;
+    private static final int FULL_SCREEN_CODE = 0x004;
+
+    public static final String KEY_PATH = "path";
+    public static final String KEY_CUR_TIME = "curTime";
+    public static final String KEY_TOTAL_TIME = "totalTime";
+    public static final String KEY_BUNDLE = "video";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,9 +220,22 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
 
                 break;
             case R.id.ivFullScreen:
-
+                fullScreen();
                 break;
         }
+    }
+
+    private void fullScreen() {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+
+        bundle.putString(KEY_PATH, videoPath);
+        bundle.putInt(KEY_CUR_TIME, videoView.getCurrentPosition());
+        bundle.putInt(KEY_TOTAL_TIME, videoView.getDuration());
+        intent.putExtra(KEY_BUNDLE, bundle);
+
+        startActivityForResult(intent, FULL_SCREEN_CODE);
+        Log.d("tag", "go to full screen");
     }
 
     public class videoThread implements Runnable{
@@ -248,11 +269,14 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         if(requestCode==OPEN_VIDEO_FILE_CODE && resultCode==RESULT_OK){
             Log.d("Tag", "Feedback.......");
             Uri uri = data.getData();
-            String path = uri.getPath();
-            Log.d("Tag", "......."+ path);
+            videoPath = uri.getPath();
+            Log.d("Tag", "......."+ videoPath);
 
-            resetVideoView(path);
+            resetVideoView(videoPath);
             showControl();
+        }else if(requestCode==FULL_SCREEN_CODE && requestCode==RESULT_OK){//receive data from full screen
+            Log.d("tag", "back from full screen");
+            videoView.seekTo(data.getExtras().getInt(Activity_View_FullScreen.KEY_FEEDBACK));
         }
     }
 }
