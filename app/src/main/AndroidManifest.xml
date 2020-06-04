@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Activity.UI.Activity_View_FullScreen"
-            android:screenOrientation="landscape"
+            android:screenOrientation="fullSensor"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         <activity android:name=".Activity.UI.Activity_Bar_ProcessBar" />
         <activity android:name=".Activity.UI.Activity_App_Setting" />

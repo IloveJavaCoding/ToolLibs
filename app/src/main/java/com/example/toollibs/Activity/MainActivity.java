@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.example.toollibs.Activity.Interface.NetStateChangeObserver;
 import com.example.toollibs.Activity.Receiver.NetStateChangeReceiver;
+import com.example.toollibs.Activity.UI.Activity_App_Setting;
 import com.example.toollibs.Activity.UI.Activity_Bar;
 import com.example.toollibs.Activity.UI.Activity_Bar_SeekBar;
 import com.example.toollibs.Activity.UI.Activity_Button;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button bDelET, bSpinner, bPoster, bFragment, bDialog,
             bTimeSelector, bRCGroup, bSeekBar, b5168, bTime;
 
-    private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo;
+    private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bSetting;
 
     private static final String[] NEEDED_PERMISSIONS = new String[]{
             Manifest.permission.CAMERA,
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bShow = findViewById(R.id.bShow);
         bBar = findViewById(R.id.bBar);
         bDemo = findViewById(R.id.bDemo);
+        bSetting = findViewById(R.id.bSetting);
 
         bDelET = findViewById(R.id.bDelET);
         bSpinner = findViewById(R.id.bSpinner);
@@ -84,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bShow.setOnClickListener(this);
         bBar.setOnClickListener(this);
         bDemo.setOnClickListener(this);
+        bSetting.setOnClickListener(this);
 
         bDelET.setOnClickListener(this);
         bSpinner.setOnClickListener(this);
@@ -120,7 +123,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, Activity_Bar.class);
                 break;
             case R.id.bDemo:
-                intent = new Intent(this, Activity_View.class);
+                //intent = new Intent(this, Activity_View.class);
+                break;
+            case R.id.bSetting:
+                intent = new Intent(this, Activity_App_Setting.class);
                 break;
 
             case R.id.bDelET:
