@@ -105,18 +105,6 @@
                 android:background="@drawable/selector_button"/>
 
             <Button
-                android:id="@+id/bDelET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Del EditText"
-                android:textColor="@color/colorWhite"
-                android:padding="@dimen/padding_5"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_15"
-                android:background="@drawable/selector_button"/>
-
-            <Button
                 android:id="@+id/bSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,30 +157,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TimeSelector"
-                android:textColor="@color/colorWhite"
-                android:padding="@dimen/padding_5"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_15"
-                android:background="@drawable/selector_button"/>
-
-            <Button
-                android:id="@+id/bRCG"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="R_C_Group"
-                android:textColor="@color/colorWhite"
-                android:padding="@dimen/padding_5"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_15"
-                android:background="@drawable/selector_button"/>
-
-            <Button
-                android:id="@+id/bSeekBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="SeekBar"
                 android:textColor="@color/colorWhite"
                 android:padding="@dimen/padding_5"
                 android:textAllCaps="false"

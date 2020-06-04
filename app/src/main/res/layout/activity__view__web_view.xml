@@ -4,7 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity.UI.Activity_View_WebView">
+
+    <LinearLayout
+        android:id="@+id/Line"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="visible"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:padding="@dimen/padding_5"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:inputType="text"
+            android:background="@drawable/edit_text_frame"/>
+
+        <Button
+            android:id="@+id/bSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_10"
+            android:text="Search"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/selector_button"/>
+
+</LinearLayout>
 
     <WebView
         android:id="@+id/webView"

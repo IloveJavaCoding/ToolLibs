@@ -163,7 +163,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
                 }
                 break;
             case R.id.bCircle:
-                curBitmap = BitmapUtil.GetCircleBitmap(curBitmap);
+                curBitmap = BitmapUtil.getCircleBitmap(curBitmap);
                 imageView.setImageBitmap(curBitmap);
                 break;
             case R.id.bAnimator:

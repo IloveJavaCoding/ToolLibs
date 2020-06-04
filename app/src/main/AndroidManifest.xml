@@ -37,14 +37,12 @@
                 <action android:name="android.intent.action.DIAL" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.Radio_Check_Group_Activity" />
         <activity android:name=".Activity.UI.Activity_Bar_SeekBar" />
         <activity android:name=".Activity.TimerSelector_Activity" />
         <activity android:name=".Activity.Fragment_Activity" />
         <activity android:name=".Activity.Dialog_Activity" />
         <activity android:name=".Activity.PosterView_Activity" />
         <activity android:name=".Activity.Spinner_Activity" />
-        <activity android:name=".Activity.DelEditText_Activity" />
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

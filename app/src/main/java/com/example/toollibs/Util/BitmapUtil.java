@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 
 import com.example.toollibs.R;
 
@@ -154,9 +155,37 @@ public class BitmapUtil {
         Canvas canvas = new Canvas(aimBm);
 
         final Paint paint = new Paint();
-        final Rect rect = new Rect(0,0, w, h);
+        int length = w>h? h:w;
+        int left = w>h? (int)(w - length)/2: (int)(h - length)/2;
+        Log.d("tag", "w,h...."+w +"..."+h);
+        final Rect rect = new Rect(left,0, length, length);//w,h
         final RectF rectF = new RectF(rect);
 
+        //float roundP = w>h ? h/2.0f : w/2.0f;
+        float roundP = length/2.0f;
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0,0,0,0);
+        paint.setColor(Color.WHITE);
+        canvas.drawRoundRect(rectF,roundP,roundP,paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+
+        final Rect src = new Rect(0,0,length,length);//w,h
+        canvas.drawBitmap(bitmap, src, rect, paint);
+
+        return aimBm;
+    }
+
+    public static Bitmap getCircleBitmap(Bitmap bitmap){
+        bitmap = cutBitmap(bitmap);
+
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        Bitmap aimBm = Bitmap.createBitmap(w,h, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(aimBm);
+
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0,0, w, h);//w,h
+        final RectF rectF = new RectF(rect);
         float roundP = w>h ? h/2.0f : w/2.0f;
 
         paint.setAntiAlias(true);
@@ -165,10 +194,37 @@ public class BitmapUtil {
         canvas.drawRoundRect(rectF,roundP,roundP,paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 
-        final Rect src = new Rect(0,0,w,h);
+        final Rect src = new Rect(0,0,w,h);//w,h
         canvas.drawBitmap(bitmap, src, rect, paint);
 
         return aimBm;
+    }
+
+    //cut bitmap
+    public static Bitmap cutBitmap(Bitmap bitmap){
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        if(width==height){
+            return bitmap;
+        }
+
+        int len;
+        int offset;
+        Bitmap newBm;
+        if(width>height){
+            len = height;
+            offset= (width-len)/2;
+            newBm = Bitmap.createBitmap(bitmap,offset,0,len, len, null,true);
+            bitmap.recycle();
+            return newBm;
+        }else{
+            len = width;
+            offset= (height-len)/2;
+            newBm = Bitmap.createBitmap(bitmap,0,offset,len, len, null,true);
+            bitmap.recycle();
+            return newBm;
+        }
     }
 
     //zoom

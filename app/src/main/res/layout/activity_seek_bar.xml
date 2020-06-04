@@ -138,20 +138,24 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="150dp"
+        android:layout_margin="@dimen/margin_15">
 
         <com.example.toollibs.OverWriteClass.VerticalSeekBar
             android:id="@+id/vSeekBar"
             android:layout_width="wrap_content"
-            android:layout_height="150dip"/>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_15"/>
 
         <TextView
             android:id="@+id/tvVSB"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_5"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/vSeekBar" />
+    </RelativeLayout>
 
 </LinearLayout>

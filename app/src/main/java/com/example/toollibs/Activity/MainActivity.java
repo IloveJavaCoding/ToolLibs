@@ -26,8 +26,7 @@ import com.example.toollibs.Activity.Interface.NetworkType;
 import com.example.toollibs.Util.SystemUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NetStateChangeObserver {
-    private Button bDelET, bSpinner, bPoster, bFragment, bDialog,
-            bTimeSelector, bRCGroup, bSeekBar, b5168, bTime;
+    private Button bSpinner, bPoster, bFragment, bDialog, bTimeSelector, b5168, bTime;
 
     private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bSetting;
 
@@ -61,14 +60,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bDemo = findViewById(R.id.bDemo);
         bSetting = findViewById(R.id.bSetting);
 
-        bDelET = findViewById(R.id.bDelET);
         bSpinner = findViewById(R.id.bSpinner);
         bPoster = findViewById(R.id.bPosterView);
         bFragment = findViewById(R.id.bFragment);
         bDialog = findViewById(R.id.bDialog);
         bTimeSelector = findViewById(R.id.bTimeSelector);
-        bRCGroup = findViewById(R.id.bRCG);
-        bSeekBar = findViewById(R.id.bSeekBar);
         b5168 = findViewById(R.id.b5168);
         bTime = findViewById(R.id.bTime);
 
@@ -88,14 +84,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bDemo.setOnClickListener(this);
         bSetting.setOnClickListener(this);
 
-        bDelET.setOnClickListener(this);
         bSpinner.setOnClickListener(this);
         bPoster.setOnClickListener(this);
         bFragment.setOnClickListener(this);
         bDialog.setOnClickListener(this);
         bTimeSelector.setOnClickListener(this);
-        bRCGroup.setOnClickListener(this);
-        bSeekBar.setOnClickListener(this);
         b5168.setOnClickListener(this);
         bTime.setOnClickListener(this);
     }
@@ -129,9 +122,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, Activity_App_Setting.class);
                 break;
 
-            case R.id.bDelET:
-                intent = new Intent(this, DelEditText_Activity.class);
-                break;
             case R.id.bSpinner:
                 intent = new Intent(this, Spinner_Activity.class);
                 break;
@@ -146,12 +136,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bTimeSelector:
                 intent = new Intent(this, TimerSelector_Activity.class);
-                break;
-            case R.id.bRCG:
-                intent = new Intent(this, Radio_Check_Group_Activity.class);
-                break;
-            case R.id.bSeekBar:
-                intent = new Intent(this, Activity_Bar_SeekBar.class);
                 break;
             case R.id.b5168:
                 intent = new Intent(this, Urat5168_Activity.class);

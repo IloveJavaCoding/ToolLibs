@@ -42,6 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/padding_5"
+                android:paddingTop="@dimen/padding_3"
+                android:paddingBottom="@dimen/padding_3"
                 android:hint="numberPassword"
                 android:inputType="numberPassword"
                 android:background="@drawable/edit_text_frame"/>
@@ -76,6 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10"
             android:paddingLeft="@dimen/padding_5"
+            android:paddingTop="@dimen/padding_3"
+            android:paddingBottom="@dimen/padding_3"
             android:hint="enter"
             android:maxLines="1"
             android:background="@drawable/edit_text_frame"/>
@@ -95,7 +99,9 @@
             android:layout_weight="1"
             android:ellipsize="middle"
             android:singleLine="true"
-            android:padding="@dimen/padding_3"
+            android:paddingLeft="@dimen/padding_5"
+            android:paddingTop="@dimen/padding_3"
+            android:paddingBottom="@dimen/padding_3"
             android:background="@drawable/edit_text_frame" />
 
         <Button
@@ -107,8 +113,5 @@
             android:textColor="@color/colorWhite"
             android:background="@drawable/selector_button"/>
     </LinearLayout>
-
-
-
 
 </LinearLayout>
