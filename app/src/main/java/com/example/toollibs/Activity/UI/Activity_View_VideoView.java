@@ -74,8 +74,8 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
     }
 
     private void setData() {
-        videoView.setVideoURI(Uri.parse("android.resource://com.example.toollibs/"+R.raw.video));
-        long duration = MediaUtil.getDuration(this, R.raw.video);
+        videoView.setVideoURI(Uri.parse("android.resource://com.example.toollibs/"+R.raw.yys));
+        long duration = MediaUtil.getDuration(this, R.raw.yys);
         setBackground(null);
         seekBar.setMax((int)duration);
         tvDuration.setText(DateUtil.FormatTime(duration));

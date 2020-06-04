@@ -46,7 +46,7 @@ public class Activity_View_FullScreen extends AppCompatActivity {
 
     private void setData() {
         if(path.equals("")){
-            videoView.setVideoURI(Uri.parse("android.resource://com.example.toollibs/"+R.raw.video));
+            videoView.setVideoURI(Uri.parse("android.resource://com.example.toollibs/"+R.raw.yys));
         }else{
             videoView.setVideoPath(path);
         }

@@ -28,7 +28,7 @@ public class Alarm_Activity extends AppCompatActivity {
     private void init(){
         bStop = findViewById(R.id.bStop);
         bSnooze = findViewById(R.id.bSnooze);
-        player.create(getApplicationContext(), R.raw.xiafeng).start();
+        player.create(getApplicationContext(), R.raw.bloom_of_youth).start();
     }
 
     private void layout_Setting(){
