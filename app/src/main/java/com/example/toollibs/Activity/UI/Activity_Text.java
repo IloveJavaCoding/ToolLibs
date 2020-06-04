@@ -94,7 +94,7 @@ public class Activity_Text extends AppCompatActivity {
                 if(isChecked){
                     etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }else{
-                    etPassword.setTransformationMethod(transformationMethod.getInstance());
+                    etPassword.setTransformationMethod(transformationMethod);
                 }
             }
         });
