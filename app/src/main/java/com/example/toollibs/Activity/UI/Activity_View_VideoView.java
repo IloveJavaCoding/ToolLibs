@@ -188,6 +188,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         videoView.start();
         layoutControl.setVisibility(View.VISIBLE);
         hideControl();
+        Log.d("Tag", "playing...");
     }
 
     private void pauseVideo(){
@@ -228,6 +229,10 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
     }
 
     private void fullScreen() {
+        if(videoView.isPlaying()){
+            videoView.pause();
+        }
+        Log.d("tag", "go to full screen1");
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
 
@@ -237,7 +242,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         intent.putExtra(KEY_BUNDLE, bundle);
 
         startActivityForResult(intent, FULL_SCREEN_CODE);
-        Log.d("tag", "go to full screen");
+        Log.d("tag", "go to full screen2");
     }
 
     public class videoThread implements Runnable{
