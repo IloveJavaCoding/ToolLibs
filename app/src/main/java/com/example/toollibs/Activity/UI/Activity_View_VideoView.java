@@ -69,6 +69,8 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
 
         seekBar = findViewById(R.id.seekBar);
         layoutControl = findViewById(R.id.layout_control);
+
+        videoPath = "";
     }
 
     private void setData() {

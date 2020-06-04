@@ -139,66 +139,45 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
             }
         });
 
-        r.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        r.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))){
-                    //hide keyboard
-                    ((InputMethodManager)r.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(r.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-                    //do something
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
                     int input = Integer.parseInt(r.getText().toString());
                     if(input>255){
                         input = 255;
                         r.setText("255");
                     }
                     barR.setProgress(input);
-                    return true;
                 }
-                return false;
             }
         });
 
-        g.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        g.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))){
-                    //hide keyboard
-                    ((InputMethodManager)g.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(g.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-                    //do something
-                    int input = Integer.parseInt(g.getText().toString());
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    int input = Integer.parseInt(r.getText().toString());
                     if(input>255){
                         input = 255;
                         g.setText("255");
                     }
                     barG.setProgress(input);
-                    return true;
                 }
-                return false;
             }
         });
 
-        b.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        b.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))){
-                    //hide keyboard
-                    ((InputMethodManager)b.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(b.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-                    //do something
-                    int input = Integer.parseInt(b.getText().toString());
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    int input = Integer.parseInt(r.getText().toString());
                     if(input>255){
                         input = 255;
                         b.setText("255");
                     }
                     barB.setProgress(input);
-                    return true;
                 }
-                return false;
             }
         });
 

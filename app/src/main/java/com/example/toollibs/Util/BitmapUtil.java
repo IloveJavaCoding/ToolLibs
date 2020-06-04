@@ -157,17 +157,12 @@ public class BitmapUtil {
         final Rect rect = new Rect(0,0, w, h);
         final RectF rectF = new RectF(rect);
 
-        float roundPx;
-        if(w>h){
-            roundPx = h / 2.0f;
-        }else{
-            roundPx = w / 2.0f;
-        }
+        float roundP = w>h ? h/2.0f : w/2.0f;
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0,0,0,0);
         paint.setColor(Color.WHITE);
-        canvas.drawRoundRect(rectF,roundPx,roundPx,paint);
+        canvas.drawRoundRect(rectF,roundP,roundP,paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 
         final Rect src = new Rect(0,0,w,h);

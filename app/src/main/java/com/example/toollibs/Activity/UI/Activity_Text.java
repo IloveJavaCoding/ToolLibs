@@ -26,6 +26,8 @@ public class Activity_Text extends AppCompatActivity {
     private Button bEnter;
     private ToggleButton tbControl;
 
+    private SelfPasswordTransformationMethod transformationMethod;
+
     private static final String DEFAULT_TEXT = "What is faith? If it does't endure when we are tested the most?";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,8 @@ public class Activity_Text extends AppCompatActivity {
         bEnter = findViewById(R.id.bEnter);
         tbControl = findViewById(R.id.tbControl);
 
-        etPassword.setTransformationMethod(new SelfPasswordTransformationMethod('$'));
+        transformationMethod = new SelfPasswordTransformationMethod('@');
+        etPassword.setTransformationMethod(transformationMethod);
     }
 
     private void setData() {
@@ -91,7 +94,7 @@ public class Activity_Text extends AppCompatActivity {
                 if(isChecked){
                     etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }else{
-                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    etPassword.setTransformationMethod(transformationMethod.getInstance());
                 }
             }
         });

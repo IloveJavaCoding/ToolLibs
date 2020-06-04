@@ -23,6 +23,9 @@ import android.widget.Toast;
 public class SystemUtil {
     private static InputMethodManager inputMethodManager;
 
+    public static final int ORIENTATION_LANDSCAPE = 0;
+    public static final int ORIENTATION_PORTRAIT = 1;
+
     //system notices
     public static void ShowToast(Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
@@ -127,4 +130,22 @@ public class SystemUtil {
             vv.vibrate(500L);
         }
     }
+
+    //横、竖屏
+    /*
+    public static void setOrientation(int orientation){
+        switch (orientation){
+            case ORIENTATION_LANDSCAPE:
+                RuntimeExec.getInstance().executeRootCommand("setprop persist.sys.screenorientation landscape");
+                RuntimeExec.getInstance().executeRootCommand("setprop persist.sys.win.rotation 0");
+                RuntimeExec.getInstance().executeRootCommand("reboot");
+                break;
+            case ORIENTATION_PORTRAIT:
+                RuntimeExec.getInstance().executeRootCommand("setprop persist.sys.screenorientation portrait");
+                RuntimeExec.getInstance().executeRootCommand("setprop persist.sys.win.rotation 90");
+                RuntimeExec.getInstance().executeRootCommand("reboot");
+                break;
+        }
+    }
+     */
 }
