@@ -99,7 +99,7 @@ public class Urat5168_Activity extends AppCompatActivity implements View.OnClick
                 sendBroadcast(intent);
                  */
 
-                SystemUtil.screenCap(this);
+                SystemUtil.screenCap(this, "temp.png");
                 break;
             case R.id.bReBoot:
                 reBootDialog();

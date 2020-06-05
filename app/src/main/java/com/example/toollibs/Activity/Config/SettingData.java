@@ -32,4 +32,15 @@ public class SettingData {
         editor.putString(key, value);
         editor.commit();
     }
+
+    public static int getInt(Context context, String fileName, String key, int defValue){
+        return getShared(context, fileName).getInt(key, defValue);
+    }
+
+    public static void setInt(Context context, String fileName, String key, String value) {
+        SharedPreferences sp = getShared(context, fileName);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
 }

@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import com.example.toollibs.Activity.Config.Constant;
 
 import java.io.File;
+import java.util.Locale;
 
 public class SystemUtil {
     private static InputMethodManager inputMethodManager;
@@ -43,7 +46,7 @@ public class SystemUtil {
     }
 
     //screen cap
-    public static void screenCap(Activity activity)
+    public static void screenCap(Activity activity, String fileName)
     {
         View dView = activity.getWindow().getDecorView();
         dView.setDrawingCacheEnabled(true);
@@ -52,7 +55,7 @@ public class SystemUtil {
         if (bmp != null)
         {
             String sdCardPath = FileUtil.GetAppRootPth(activity);
-            BitmapUtil.Bitmap2Local(bmp, sdCardPath,"screenshot.png");
+            BitmapUtil.Bitmap2Local(bmp, sdCardPath, fileName);
         }
     }
 
@@ -158,6 +161,7 @@ public class SystemUtil {
         return "";
     }
 
+    //get system storage info
     public static long getSystemStore(Context context, String type){
         File file = Environment.getExternalStorageDirectory();
         if (file.exists()){
@@ -171,6 +175,22 @@ public class SystemUtil {
             }
         }
         return -1;
+    }
+
+    //set app language
+    public static void setLanguage(Context context, int languageId){
+        Resources mResources = context.getResources();
+        Configuration mConfiguration = mResources.getConfiguration();
+        switch (languageId){
+            case Constant.LANGUAGE_CHINA:
+                mConfiguration.locale = Locale.SIMPLIFIED_CHINESE;
+                mResources.updateConfiguration(mConfiguration,mResources.getDisplayMetrics());
+                break;
+            case Constant.LANGUAGE_ENGLISH:
+                mConfiguration.locale = Locale.US;
+                mResources.updateConfiguration(mConfiguration,mResources.getDisplayMetrics());
+                break;
+        }
     }
 
     //横、竖屏
