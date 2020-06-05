@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -16,6 +19,7 @@ public class Activity_Bar_ProcessBar extends AppCompatActivity {
     private ProgressBar progressBar1, progressBar2;
     private RatingBar ratingBar1, ratingBar2;
     private TextView tvRating1, tvRating2;
+    private Toolbar toolBar;
 
     private final int PROCESS_BAR_NUM = 0x002;
     @Override
@@ -29,6 +33,9 @@ public class Activity_Bar_ProcessBar extends AppCompatActivity {
     }
 
     private void init() {
+        toolBar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolBar);
+
         progressBar1 = findViewById(R.id.processBar1);
         progressBar2 = findViewById(R.id.processBar2);
 
@@ -41,6 +48,26 @@ public class Activity_Bar_ProcessBar extends AppCompatActivity {
     }
 
     private void setData() {
+        toolBar.setNavigationIcon(R.drawable.img_back);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setTitle(getString(R.string.app_name));
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.item1:
+                SystemUtil.ShowToast(getApplicationContext(), "item1");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private Handler mHandler = new Handler(){
@@ -72,6 +99,13 @@ public class Activity_Bar_ProcessBar extends AppCompatActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 tvRating2.setText(rating+"");
+            }
+        });
+
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

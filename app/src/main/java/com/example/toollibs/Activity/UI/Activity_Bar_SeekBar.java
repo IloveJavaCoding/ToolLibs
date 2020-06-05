@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -157,7 +158,7 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
-                    int input = Integer.parseInt(r.getText().toString());
+                    int input = Integer.parseInt(g.getText().toString());
                     if(input>255){
                         input = 255;
                         g.setText("255");
@@ -171,7 +172,7 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
-                    int input = Integer.parseInt(r.getText().toString());
+                    int input = Integer.parseInt(b.getText().toString());
                     if(input>255){
                         input = 255;
                         b.setText("255");
@@ -194,7 +195,8 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                tvVSB.setText(seekBar.getProgress()+"");
+                Log.d("tag", "seek bar change...");
+                tvVSB.setText(""+seekBar.getProgress());
             }
         });
     }

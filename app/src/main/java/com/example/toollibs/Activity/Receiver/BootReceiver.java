@@ -13,11 +13,15 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if(Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction()) &&
                 SettingData.getBoolean(context, SettingData.AUTO_START_KEY, Constant.AUTO_START_DEFAULT)){
-            Intent thisIntent = new Intent(context, MainActivity.class);
-            thisIntent.setAction("android.intent.action.MAIN");
-            thisIntent.addCategory("android.intent.category.LAUNCHER");
-            thisIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(thisIntent);
+            startApp(context);
         }
+    }
+
+    private void startApp(Context context){
+        Intent thisIntent = new Intent(context, MainActivity.class);
+        thisIntent.setAction("android.intent.action.MAIN");
+        thisIntent.addCategory("android.intent.category.LAUNCHER");
+        thisIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(thisIntent);
     }
 }
