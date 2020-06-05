@@ -26,14 +26,14 @@ public class Activity_App_Setting extends AppCompatActivity {
     }
 
     private void setData() {
-        rbAutoStart.setChecked(SettingData.getBoolean(getApplicationContext(), SettingData.AUTO_START_KEY, Constant.AUTO_START_DEFAULT));
+            rbAutoStart.setChecked(SettingData.getBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUTO_START_KEY, Constant.AUTO_START_DEFAULT));
     }
 
     private void setListener() {
         rbAutoStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SettingData.setBoolean(getApplicationContext(), SettingData.AUTO_START_KEY, isChecked? true:false);
+                SettingData.setBoolean(getApplicationContext(),Constant.CONFIG_FILE, Constant.AUTO_START_KEY, isChecked? true:false);
             }
         });
     }

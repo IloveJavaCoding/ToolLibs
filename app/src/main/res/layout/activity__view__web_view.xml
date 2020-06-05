@@ -14,15 +14,15 @@
         android:visibility="visible"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etInput"
+        <AutoCompleteTextView
+            android:id="@+id/atvInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/padding_3"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:padding="@dimen/padding_5"
-            android:layout_marginLeft="@dimen/margin_10"
-            android:inputType="text"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
             android:background="@drawable/edit_text_frame"/>
 
         <Button

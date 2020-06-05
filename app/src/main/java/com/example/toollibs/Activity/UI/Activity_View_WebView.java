@@ -1,5 +1,6 @@
 package com.example.toollibs.Activity.UI;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,57 +8,82 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AutoCompleteTextView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.toollibs.Activity.Config.Constant;
+import com.example.toollibs.Activity.Config.SettingData;
 import com.example.toollibs.R;
 
 import java.security.Key;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Activity_View_WebView extends AppCompatActivity {
     private WebView webView;
-    private EditText etInput;
+    private AutoCompleteTextView input;
     private Button bSearch;
+    private List<String> list;
+
+    private static final String DEFAULT_URL = "https://www.sohu.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__view__web_view);
 
+        getData();;
         init();
         setData();
         setListener();
     }
 
+    private void getData() {
+        list = new ArrayList<>();
+        String cache = SettingData.getString(getApplicationContext(), Constant.URL_FILE, Constant.URL_KEY, "");
+        if(!cache.equals("")){
+            list.add(cache);
+        }
+    }
+
     private void init() {
+        input = findViewById(R.id.atvInput);
         webView = findViewById(R.id.webView);
-        etInput = findViewById(R.id.etInput);
         bSearch = findViewById(R.id.bSearch);
     }
 
     private void setData() {
-
+        input.setAdapter(new AutoAdapter(this, list));
+        input.setThreshold(2);
     }
 
     private void setListener() {
         bSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Url = etInput.getText().toString();
-                Url = Url.toLowerCase();
-                if(Url.equals("")){
-                    Url="sohu";
+                String url = input.getText().toString();
+                url = url.toLowerCase();
+                if(url.equals("")){
+                    url=DEFAULT_URL;
                 }
 
                 webView.getSettings().setJavaScriptEnabled(true);
                 webView.setWebChromeClient(new MyChromeClient());
                 webView.setWebViewClient(new MyViewClient());
-                webView.loadUrl("https://www."+Url+".com");
+                webView.loadUrl(url);
+                SettingData.setString(getApplicationContext(), Constant.URL_FILE, Constant.URL_KEY, url);
             }
         });
     }
@@ -92,7 +118,7 @@ public class Activity_View_WebView extends AppCompatActivity {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
-            etInput.setText(title);
+            //etInput.setText(title);
         }
     }
 
@@ -115,6 +141,76 @@ public class Activity_View_WebView extends AppCompatActivity {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             webView.evaluateJavascript("javascript;alert('Hello')",null);
+        }
+    }
+
+    class AutoAdapter extends BaseAdapter implements Filterable{
+        Context context;
+        LayoutInflater inflater;
+        List<String> list;
+        List<String> data;
+        int icon;
+
+        public AutoAdapter(Context context, List<String> list){
+            this.context = context;
+            inflater = LayoutInflater.from(context);
+            this.list = list;
+        }
+        @Override
+        public int getCount() {
+            return list==null? 0:list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            View view = inflater.inflate(R.layout.layout_auto_text,null);
+            TextView tvAuto = view.findViewById(R.id.tvText);
+            ImageView ivClose = view.findViewById(R.id.imgDel);
+            tvAuto.setText(list.get(position));
+            ivClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    list.remove(position);
+                    notifyDataSetChanged();
+                }
+            });
+            return view;
+        }
+
+        @Override
+        public Filter getFilter() {
+            Filter filter = new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults results = new FilterResults();
+                    List<String> aList = new ArrayList<>();
+                    if(constraint != null){
+                        for (String s: list) {
+                            aList.add(s);
+                        }
+                    }
+                    results.count = aList.size();
+                    results.values = aList;
+                    return results;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    data = (List<String>) results.values;
+                    notifyDataSetChanged();
+                }
+            };
+            return filter;
         }
     }
 }

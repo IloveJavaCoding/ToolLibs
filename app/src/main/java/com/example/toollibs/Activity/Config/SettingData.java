@@ -7,20 +7,29 @@ import android.content.SharedPreferences;
  * use sharedPreference
  */
 public class SettingData {
-    private static final String CONFIG_FILE = "config";
-    private static final int MODE_PRIVATE = 0X0000;
-
-    public static final String AUTO_START_KEY = "auto_start";
-
-    public static  boolean getBoolean(Context context, String key, boolean defValue) {
-        SharedPreferences sp = context.getSharedPreferences(CONFIG_FILE, MODE_PRIVATE);
-        return sp.getBoolean(key, defValue);
+    private static SharedPreferences getShared(Context context, String fileName){
+        return context.getSharedPreferences(fileName, Constant.MODE_PRIVATE);
     }
 
-    public static void setBoolean(Context context, String key, boolean value) {
-        SharedPreferences sp = context.getSharedPreferences(CONFIG_FILE, MODE_PRIVATE);
+    public static  boolean getBoolean(Context context, String fileName, String key, boolean defValue) {
+        return getShared(context, fileName).getBoolean(key, defValue);
+    }
+
+    public static void setBoolean(Context context, String fileName, String key, boolean value) {
+        SharedPreferences sp = getShared(context, fileName);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean(key, value);
+        editor.commit();
+    }
+
+    public static String getString(Context context, String fileName, String key, String defValue){
+        return getShared(context, fileName).getString(key, defValue);
+    }
+
+    public static void setString(Context context, String fileName, String key, String value) {
+        SharedPreferences sp = getShared(context, fileName);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(key, value);
         editor.commit();
     }
 }

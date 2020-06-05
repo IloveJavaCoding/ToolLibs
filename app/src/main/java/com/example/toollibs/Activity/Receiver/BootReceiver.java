@@ -12,7 +12,7 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction()) &&
-                SettingData.getBoolean(context, SettingData.AUTO_START_KEY, Constant.AUTO_START_DEFAULT)){
+                SettingData.getBoolean(context, Constant.CONFIG_FILE, Constant.AUTO_START_KEY, Constant.AUTO_START_DEFAULT)){
             startApp(context);
         }
     }
