@@ -13,8 +13,9 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/videoLayout"
             android:layout_width="match_parent"
-            android:background="@drawable/gradient"
+            android:background="@color/colorBlack"
             android:layout_height="220dp">
 
             <VideoView
@@ -90,36 +91,16 @@
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/bChooseFile"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="..."
-                android:textSize="18sp"
-                android:textColor="@color/colorBlack"
-                android:singleLine="true"
-                android:ellipsize="end"/>
-
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="..."
-                android:textSize="18sp"
-                android:textColor="@color/colorBlack" />
+                android:text="Open Local File"
+                android:textColor="@color/colorWhite"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_20"
+                android:background="@drawable/selector_button"/>
         </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/bChooseFile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Open Local File"
-        android:textColor="@color/colorWhite"
-        android:textAllCaps="false"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/margin_20"
-        android:background="@drawable/selector_button"/>
-
 </LinearLayout>

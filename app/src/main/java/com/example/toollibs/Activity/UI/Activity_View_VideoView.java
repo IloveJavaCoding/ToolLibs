@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +27,7 @@ import com.example.toollibs.R;
 import com.example.toollibs.SelfClass.VideoFile;
 import com.example.toollibs.Util.DateUtil;
 import com.example.toollibs.Util.MediaUtil;
+import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_View_VideoView extends AppCompatActivity implements View.OnClickListener {
     private Button bChooseFile;
@@ -34,9 +36,10 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
     private ImageView imgControl, imgVoice, imgFullScreen;
     private SeekBar seekBar;
     private LinearLayout layoutControl;
+    private RelativeLayout videoLayout;
 
     private Thread thread;
-    private String videoPath;
+    private boolean isFull;
 
     private static final int HIDE_CONTROL_CODE = 0x001;
     private static final int SEND_TIME_CODE = 0x002;
@@ -69,8 +72,9 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
 
         seekBar = findViewById(R.id.seekBar);
         layoutControl = findViewById(R.id.layout_control);
+        videoLayout = findViewById(R.id.videoLayout);
 
-        videoPath = "";
+        isFull = false;
     }
 
     private void setData() {
@@ -223,8 +227,33 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
 
                 break;
             case R.id.ivFullScreen:
-                fullScreen();
+                //fullScreen();
+                landScreen();
                 break;
+        }
+    }
+
+    private void landScreen(){
+        //int rot = getWindowManager().getDefaultDisplay().getRotation();
+        if(!isFull){
+            isFull = true;
+            bChooseFile.setVisibility(View.INVISIBLE);
+
+            RelativeLayout.LayoutParams layoutParams =
+                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            videoLayout.setLayoutParams(layoutParams);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        }else{
+            RelativeLayout.LayoutParams lp = new  RelativeLayout.LayoutParams(SystemUtil.GetScreenDM(getApplicationContext()).widthPixels,220);
+            lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            videoLayout.setLayoutParams(lp);
+            isFull = false;
+            bChooseFile.setVisibility(View.VISIBLE);
         }
     }
 
@@ -236,7 +265,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
 
-        bundle.putString(KEY_PATH, videoPath);
+        //bundle.putString(KEY_PATH, videoPath);
         bundle.putInt(KEY_CUR_TIME, videoView.getCurrentPosition());
         bundle.putInt(KEY_TOTAL_TIME, videoView.getDuration());
         intent.putExtra(KEY_BUNDLE, bundle);
@@ -276,14 +305,14 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         if(requestCode==OPEN_VIDEO_FILE_CODE && resultCode==RESULT_OK){
             Log.d("Tag", "Feedback.......");
             Uri uri = data.getData();
-            videoPath = uri.getPath();
+            String videoPath = uri.getPath();
             Log.d("Tag", "......."+ videoPath);
 
             resetVideoView(videoPath);
             showControl();
         }else if(requestCode==FULL_SCREEN_CODE && requestCode==RESULT_OK){//receive data from full screen
             Log.d("tag", "back from full screen");
-            videoView.seekTo(data.getExtras().getInt(Activity_View_FullScreen.KEY_FEEDBACK));
+            //videoView.seekTo(data.getExtras().getInt(Activity_View_FullScreen.KEY_FEEDBACK));
         }
     }
 }
