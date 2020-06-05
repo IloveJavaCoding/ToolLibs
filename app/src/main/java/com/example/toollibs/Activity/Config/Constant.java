@@ -1,6 +1,7 @@
 package com.example.toollibs.Activity.Config;
 
 public class Constant {
+    //string
     public static final String CONFIG_FILE = "config";
     public static final String URL_FILE = "url";
 
@@ -8,7 +9,9 @@ public class Constant {
     public static final String TYPE_FREE = "free";
     public static final String TYPE_USED = "used";
 
+    public static final String[] LANGUAGE = {"简体中文", "English"};
 
+    //int
     public static final int LANGUAGE_CHINA = 0;
     public static final int LANGUAGE_ENGLISH = 1;
     public static final int MODE_PRIVATE = 0X0000;

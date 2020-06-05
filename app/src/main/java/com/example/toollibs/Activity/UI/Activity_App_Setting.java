@@ -11,6 +11,7 @@ import com.example.toollibs.R;
 
 public class Activity_App_Setting extends AppCompatActivity {
     private RadioButton rbAutoStart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
