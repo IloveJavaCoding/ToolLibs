@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.UI.Activity_View_FullScreen" />
         <activity android:name=".Activity.UI.Activity_Bar_ProcessBar" />
         <activity android:name=".Activity.UI.Activity_App_Setting" />
         <activity android:name=".Activity.UI.Activity_View_MapView" />

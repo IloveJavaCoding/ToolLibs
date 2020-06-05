@@ -44,12 +44,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
     private static final int HIDE_CONTROL_CODE = 0x001;
     private static final int SEND_TIME_CODE = 0x002;
     private static final int OPEN_VIDEO_FILE_CODE = 0x003;
-    private static final int FULL_SCREEN_CODE = 0x004;
 
-    public static final String KEY_PATH = "path";
-    public static final String KEY_CUR_TIME = "curTime";
-    public static final String KEY_TOTAL_TIME = "totalTime";
-    public static final String KEY_BUNDLE = "video";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -227,7 +222,6 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
 
                 break;
             case R.id.ivFullScreen:
-                //fullScreen();
                 landScreen();
                 break;
         }
@@ -255,23 +249,6 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
             isFull = false;
             bChooseFile.setVisibility(View.VISIBLE);
         }
-    }
-
-    private void fullScreen() {
-        if(videoView.isPlaying()){
-            videoView.pause();
-        }
-        Log.d("tag", "go to full screen1");
-        Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-
-        //bundle.putString(KEY_PATH, videoPath);
-        bundle.putInt(KEY_CUR_TIME, videoView.getCurrentPosition());
-        bundle.putInt(KEY_TOTAL_TIME, videoView.getDuration());
-        intent.putExtra(KEY_BUNDLE, bundle);
-
-        startActivityForResult(intent, FULL_SCREEN_CODE);
-        Log.d("tag", "go to full screen2");
     }
 
     public class videoThread implements Runnable{
@@ -310,9 +287,6 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
 
             resetVideoView(videoPath);
             showControl();
-        }else if(requestCode==FULL_SCREEN_CODE && requestCode==RESULT_OK){//receive data from full screen
-            Log.d("tag", "back from full screen");
-            //videoView.seekTo(data.getExtras().getInt(Activity_View_FullScreen.KEY_FEEDBACK));
         }
     }
 }
