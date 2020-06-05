@@ -18,6 +18,7 @@ import android.widget.ToggleButton;
 
 import com.example.toollibs.OverWriteClass.SelfPasswordTransformationMethod;
 import com.example.toollibs.R;
+import com.example.toollibs.SelfClass.MarqueeHorizontalText;
 import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_Text extends AppCompatActivity {
@@ -25,9 +26,9 @@ public class Activity_Text extends AppCompatActivity {
     private EditText etPassword, etEnter, etDel;
     private Button bEnter;
     private ToggleButton tbControl;
+    private View view;
 
     private SelfPasswordTransformationMethod transformationMethod;
-
     private static final String DEFAULT_TEXT = "What is faith? If it does't endure when we are tested the most?";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class Activity_Text extends AppCompatActivity {
 
         bEnter = findViewById(R.id.bEnter);
         tbControl = findViewById(R.id.tbControl);
+        view = findViewById(R.id.view);
 
         transformationMethod = new SelfPasswordTransformationMethod('@');
         etPassword.setTransformationMethod(transformationMethod);
@@ -57,6 +59,16 @@ public class Activity_Text extends AppCompatActivity {
         tvLamp.setTextColor(Color.YELLOW);
         //tvLamp.setTextColor(getResources().getColor(R.color.colorYellow));
         tvLamp.setSelected(true);
+
+    }
+
+    private void setMaquee(){
+        MarqueeHorizontalText marqueeText = (MarqueeHorizontalText) view;
+        marqueeText.setTextSize(25);
+        marqueeText.setTextColor(Color.YELLOW);
+        marqueeText.setBackgroundColor(Color.BLACK);
+        marqueeText.setTextSpeed(10);
+        marqueeText.setContent(DEFAULT_TEXT);
     }
 
     private void setListener() {

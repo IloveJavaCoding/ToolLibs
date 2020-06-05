@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +22,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.toollibs.Activity.Config.Constant;
+
+import java.io.File;
 
 public class SystemUtil {
     private static InputMethodManager inputMethodManager;
@@ -129,6 +136,41 @@ public class SystemUtil {
             Vibrator vv = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
             vv.vibrate(500L);
         }
+    }
+
+    //network type
+    public static String getNetWorkTypeString(Context context){
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager!=null){
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if (networkInfo!=null){
+                int type = networkInfo.getType();
+                switch (type){
+                    case ConnectivityManager.TYPE_MOBILE:
+                        return "\n(数据)";
+                    case ConnectivityManager.TYPE_WIFI:
+                        return "\n(WIFI)";
+                    case ConnectivityManager.TYPE_ETHERNET:
+                        return "\n(有线)";
+                }
+            }
+        }
+        return "";
+    }
+
+    public static long getSystemStore(Context context, String type){
+        File file = Environment.getExternalStorageDirectory();
+        if (file.exists()){
+            switch (type){
+                case Constant.TYPE_TOTAL:
+                    return file.getTotalSpace();
+                case Constant.TYPE_FREE:
+                    return file.getFreeSpace();
+                case Constant.TYPE_USED:
+                    return file.getTotalSpace()-file.getFreeSpace();
+            }
+        }
+        return -1;
     }
 
     //横、竖屏

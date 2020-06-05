@@ -29,6 +29,8 @@ public class Activity_Selector extends AppCompatActivity {
 
     private void setData() {
         timePicker.setIs24HourView(true);
+        timePicker.setCurrentHour(9);
+        timePicker.setCurrentMinute(30);
     }
 
     private void steListener() {
