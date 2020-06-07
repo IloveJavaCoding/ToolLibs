@@ -30,8 +30,7 @@
                 android:text="ListView"
                 android:textSize="@dimen/text_size_20"
                 android:textAlignment="center"
-                android:textColor="@drawable/selector_text"
-                android:checked="true"/>
+                android:textColor="@drawable/selector_text" />
 
             <RadioButton
                 android:id="@+id/radio_GridView"

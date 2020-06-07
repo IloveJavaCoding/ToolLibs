@@ -27,7 +27,7 @@ public class ListView_Adapter<T> extends BaseAdapter implements View.OnClickList
 
     @Override
     public int getCount() {
-        return data.size();
+        return data==null? 0:data.size();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ListView_Adapter<T> extends BaseAdapter implements View.OnClickList
         interListener.itemClick(view);
     }
 
-    //selfdefine container for components in the layout;
+    //self define container for components in the layout;
     static class ViewHolder {
         public TextView tvData;
         public ImageView image;
@@ -61,7 +61,7 @@ public class ListView_Adapter<T> extends BaseAdapter implements View.OnClickList
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.layout_view, null);
+            convertView = inflater.inflate(R.layout.layout_list_view, null);
             holder = new ViewHolder();
 
             holder.tvData = convertView.findViewById(R.id.tvData);

@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.toollibs.Activity.Adapters.ListView_Adapter;
 import com.example.toollibs.R;
+import com.example.toollibs.Util.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,14 +46,26 @@ public class Fragment_ListView extends Fragment implements ListView_Adapter.Inte
 
     private void setData() {
         list = new ArrayList<>();
-        String[] strArray = getResources().getStringArray(R.array.Date);
-        list = Arrays.asList(strArray);
+        list.add("Monday");
+        list.add("Tuesday");
+        list.add("Wednesday");
+        list.add("Thursday");
+        list.add("Friday");
+        list.add("Saturday");
+        list.add("Sunday");
 
         adapter = new ListView_Adapter<>(view.getContext(), list, this);
         listView.setAdapter(adapter);
     }
 
     private void setListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //focus curtain line
+                SystemUtil.ShowToast(getContext(), list.get(i));
+            }
+        });
 
     }
 
@@ -61,6 +76,7 @@ public class Fragment_ListView extends Fragment implements ListView_Adapter.Inte
         switch (v.getId()){
            case R.id.image:
                //do something
+               Log.d("tag", "delete........" + list.get(position));
                list.remove(position);
                adapter.notifyDataSetChanged();
                break;

@@ -17,5 +17,6 @@
         android:id="@+id/image"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:background="@drawable/selector_button_transparent"
         android:padding="@dimen/padding_5" />
 </LinearLayout>
