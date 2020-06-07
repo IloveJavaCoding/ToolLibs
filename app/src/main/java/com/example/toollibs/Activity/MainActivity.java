@@ -26,7 +26,7 @@ import com.example.toollibs.Activity.Interface.NetworkType;
 import com.example.toollibs.Util.SystemUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NetStateChangeObserver {
-    private Button bPoster, bFragment, bDialog, bTimeSelector, b5168, bTime;
+    private Button bPoster, bDialog, bTimeSelector, b5168, bTime;
 
     private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bSetting;
 
@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bSetting = findViewById(R.id.bSetting);
 
         bPoster = findViewById(R.id.bPosterView);
-        bFragment = findViewById(R.id.bFragment);
         bDialog = findViewById(R.id.bDialog);
         bTimeSelector = findViewById(R.id.bTimeSelector);
         b5168 = findViewById(R.id.b5168);
@@ -84,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bSetting.setOnClickListener(this);
 
         bPoster.setOnClickListener(this);
-        bFragment.setOnClickListener(this);
         bDialog.setOnClickListener(this);
         bTimeSelector.setOnClickListener(this);
         b5168.setOnClickListener(this);
@@ -124,9 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bPosterView:
                 intent = new Intent(this, PosterView_Activity.class);
                 break;
-            case R.id.bFragment:
-                intent = new Intent(this, Fragment_Activity.class);
-                break;
+
             case R.id.bDialog:
                 intent = new Intent(this, Dialog_Activity.class);
                 break;
