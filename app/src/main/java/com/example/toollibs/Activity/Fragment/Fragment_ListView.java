@@ -9,18 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.toollibs.Activity.Adapters.ListView_Adapter;
 import com.example.toollibs.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Fragment_ListView extends Fragment {
+public class Fragment_ListView extends Fragment implements ListView_Adapter.InterListener {
     private View view;
     private ListView listView;
+    private ListView_Adapter adapter;
     private List<String> list;
 
     @Nullable
@@ -42,59 +45,25 @@ public class Fragment_ListView extends Fragment {
         list = new ArrayList<>();
         String[] strArray = getResources().getStringArray(R.array.Date);
         list = Arrays.asList(strArray);
-        listView.setAdapter(new ListView_Adapter<>(view.getContext(), list));
+
+        adapter = new ListView_Adapter<>(view.getContext(), list, this);
+        listView.setAdapter(adapter);
     }
 
     private void setListener() {
 
     }
-}
-
-class ListView_Adapter<T> extends BaseAdapter{
-    private Context context;
-    private LayoutInflater inflater;
-    private List<T> data;
-
-    public ListView_Adapter(Context context, List<T> list){
-        this.context = context;
-        this.inflater = LayoutInflater.from(context);
-        this.data = list;
-    }
-    @Override
-    public int getCount() {
-        return data.size();
-    }
 
     @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    static class ViewHolder{
-        public TextView tvData;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-
-        if(convertView==null){
-            convertView = inflater.inflate(R.layout.layout_view,null);
-            holder = new ViewHolder();
-
-            holder.tvData = convertView.findViewById(R.id.tvData);
-
-            convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder) convertView.getTag();
+    public void itemClick(View v) {
+        //get the position of item that was clicked
+        int position = (Integer)v.getTag();
+        switch (v.getId()){
+           case R.id.image:
+               //do something
+               list.remove(position);
+               adapter.notifyDataSetChanged();
+               break;
         }
-
-        holder.tvData.setText(data.get(position).toString());
-        return convertView;
     }
 }

@@ -36,7 +36,6 @@
         </activity>
         <activity android:name=".Activity.UI.Activity_Bar_SeekBar" />
         <activity android:name=".Activity.TimerSelector_Activity" />
-        <activity android:name=".Activity.Fragment_Activity" />
         <activity android:name=".Activity.Dialog_Activity" />
         <activity android:name=".Activity.PosterView_Activity" />
         <activity android:name=".Activity.Spinner_Activity" />
