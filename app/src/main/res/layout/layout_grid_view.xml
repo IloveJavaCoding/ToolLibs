@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="@dimen/text_size_20"
+        android:textAlignment="center"
         android:textColor="@color/colorRed"/>
 
     <ImageView
