@@ -18,7 +18,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_30"/>
+                android:layout_height="@dimen/margin_20"/>
 
             <Button
                 android:id="@+id/bText"
@@ -97,18 +97,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Demos"
-                android:textColor="@color/colorWhite"
-                android:padding="@dimen/padding_5"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_15"
-                android:background="@drawable/selector_button"/>
-
-            <Button
-                android:id="@+id/bSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Spinner"
                 android:textColor="@color/colorWhite"
                 android:padding="@dimen/padding_5"
                 android:textAllCaps="false"

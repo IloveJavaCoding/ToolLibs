@@ -1,5 +1,6 @@
 package com.example.toollibs.Activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,7 +11,9 @@ import android.widget.Spinner;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.SystemUtil;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Spinner_Activity extends AppCompatActivity {
     private Spinner spinner1, spinner2;
@@ -34,10 +37,13 @@ public class Spinner_Activity extends AppCompatActivity {
         spinner2 = findViewById(R.id.spinner2);
     }
 
+
     private void setData() {
         strArray = getResources().getStringArray(R.array.Date);
         int[] intArray = getResources().getIntArray(R.array.google_colors);
-        //list = Arrays.stream(intArray).boxed().collect(Collectors.toList());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            list = Arrays.stream(intArray).boxed().collect(Collectors.toList());
+        }
 
         //set default value
         data1 = strArray[0];

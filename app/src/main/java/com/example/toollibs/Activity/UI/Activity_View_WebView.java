@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import android.webkit.WebViewClient;
 import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -28,7 +26,6 @@ import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.Activity.Config.SettingData;
 import com.example.toollibs.R;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +49,7 @@ public class Activity_View_WebView extends AppCompatActivity {
 
     private void getData() {
         list = new ArrayList<>();
-        String cache = SettingData.getString(getApplicationContext(), Constant.URL_FILE, Constant.URL_KEY, "");
+        String cache = SettingData.getString(getApplicationContext(), Constant.URL_FILE, Constant.URL_KEY, DEFAULT_URL);
         if(!cache.equals("")){
             list.add(cache);
         }
@@ -149,7 +146,6 @@ public class Activity_View_WebView extends AppCompatActivity {
         LayoutInflater inflater;
         List<String> list;
         List<String> data;
-        int icon;
 
         public AutoAdapter(Context context, List<String> list){
             this.context = context;

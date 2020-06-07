@@ -10,11 +10,9 @@
     <TextView
         android:id="@+id/tvLamp"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:padding="@dimen/padding_10"
+        android:layout_height="80dp"
         android:background="@color/colorBlack"
         android:gravity="center_vertical"
-        android:text="***"
         android:textSize="@dimen/text_size_25"
         android:focusable="true"
         android:singleLine="true"
@@ -88,14 +86,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_15"
+        android:padding="@dimen/padding_10"
         android:orientation="horizontal">
 
         <com.example.toollibs.OverWriteClass.EditTextDelIcon
             android:id="@+id/etDel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_10"
             android:layout_weight="1"
             android:ellipsize="middle"
             android:singleLine="true"
@@ -114,9 +111,34 @@
             android:background="@drawable/selector_button"/>
     </LinearLayout>
 
-    <View
-        android:id="@+id/view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_10"
+        android:orientation="horizontal">
 
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.toollibs.SelfClass.MarqueeHorizontalText
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_gravity="bottom"/>
+    </LinearLayout>
 </LinearLayout>

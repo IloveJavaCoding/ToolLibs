@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".Activity.UI.Activity_View_VideoView">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/videoLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/colorBlack"
+        android:layout_alignParentTop="true"
+        android:layout_height="220dp">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/ivControl"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/img_video_triangle"
+            android:layout_centerInParent="true" />
 
         <RelativeLayout
-            android:id="@+id/videoLayout"
+            android:id="@+id/layout_control"
             android:layout_width="match_parent"
-            android:background="@color/colorBlack"
-            android:layout_height="220dp">
-
-            <VideoView
-                android:id="@+id/videoView"
-                android:layout_centerInParent="true"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <ImageView
-                android:id="@+id/ivControl"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/img_video_triangle"
-                android:layout_centerInParent="true" />
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:layout_marginRight="@dimen/margin_5"
+            android:layout_marginBottom="@dimen/margin_10">
 
             <LinearLayout
-                android:id="@+id/layout_control"
-                android:layout_width="match_parent"
+                android:id="@+id/layout1"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/margin_5"
-                android:layout_marginRight="@dimen/margin_5"
-                android:layout_marginBottom="@dimen/margin_10"
                 android:orientation="horizontal">
 
                 <TextView
@@ -51,56 +52,72 @@
 
                 <SeekBar
                     android:id="@+id/seekBar"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:layout_toRightOf="@+id/tvCurrentTime" />
 
                 <TextView
                     android:id="@+id/tvDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/seekBar"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size_15"
                     android:text="03:13" />
-
-                <ImageView
-                    android:id="@+id/ivSound"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="@dimen/margin_5"
-
-                    android:background="@drawable/selector_button_player"
-                    android:src="@drawable/img_video_voice"
-                    android:scaleType="fitCenter" />
-
-                <ImageView
-                    android:id="@+id/ivFullScreen"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="@dimen/margin_5"
-                    android:background="@drawable/selector_button_player"
-                    android:src="@drawable/img_video_full"
-                    android:scaleType="fitCenter" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivSound"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:layout_toRightOf="@+id/layout1"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/selector_button_player"
+                android:src="@drawable/img_video_voice"
+                android:scaleType="fitCenter" />
+
+            <com.example.toollibs.OverWriteClass.VerticalSeekBar
+                android:id="@+id/vsbVoice"
+                android:layout_width="10dp"
+                android:layout_height="100dp"
+                android:layout_above="@id/ivSound"
+                android:layout_marginRight="@dimen/margin_30"
+                android:layout_alignParentRight="true"/>
+
+            <ImageView
+                android:id="@+id/ivFullScreen"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:layout_toRightOf="@+id/ivSound"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/selector_button_player"
+                android:src="@drawable/img_video_full"
+                android:scaleType="fitCenter" />
         </RelativeLayout>
 
-        <LinearLayout
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/videoLayout"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bChooseFile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/bChooseFile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Open Local File"
-                android:textColor="@color/colorWhite"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_20"
-                android:background="@drawable/selector_button"/>
-        </LinearLayout>
+            android:text="Open Local File"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_20"
+            android:background="@drawable/selector_button"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

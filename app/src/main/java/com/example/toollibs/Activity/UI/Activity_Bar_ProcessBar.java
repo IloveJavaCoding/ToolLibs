@@ -1,5 +1,6 @@
 package com.example.toollibs.Activity.UI;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -48,7 +49,9 @@ public class Activity_Bar_ProcessBar extends AppCompatActivity {
     }
 
     private void setData() {
-        toolBar.setNavigationIcon(R.drawable.img_back);
+        Drawable drawable = getResources().getDrawable(R.drawable.img_back);
+        drawable.setBounds(0,0,30,30);
+        toolBar.setNavigationIcon(drawable);
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         getSupportActionBar().setTitle(getString(R.string.app_name));
 

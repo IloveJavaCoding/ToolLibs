@@ -1,6 +1,5 @@
 package com.example.toollibs.Activity.UI;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
@@ -8,17 +7,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.toollibs.OverWriteClass.VerticalSeekBar;
 import com.example.toollibs.R;
-import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_Bar_SeekBar extends AppCompatActivity {
     private EditText r,g,b;
@@ -140,6 +135,24 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
             }
         });
 
+        verticalSeekBar.setOnVerticalSeekBarChangeListener(new VerticalSeekBar.OnVerticalSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(VerticalSeekBar var1, int var2, boolean var3) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(VerticalSeekBar var1) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(VerticalSeekBar var1) {
+                Log.d("tag", "seek bar change...");
+                tvVSB.setText(""+var1.getProgress());
+            }
+        });
+
         r.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -179,24 +192,6 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
                     }
                     barB.setProgress(input);
                 }
-            }
-        });
-
-        verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                Log.d("tag", "seek bar change...");
-                tvVSB.setText(""+seekBar.getProgress());
             }
         });
     }
