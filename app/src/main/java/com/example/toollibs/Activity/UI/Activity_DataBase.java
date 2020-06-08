@@ -72,12 +72,16 @@ public class Activity_DataBase extends AppCompatActivity {
         strAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sGrade.setAdapter(strAdapter2);
 
-        list = dbHelper.getAllStudents();
+        getDataList();
+    }
+
+    private void getDataList(){
+        list = dbHelper.getAllStudents2();
         tvData.setText(list!=null?getContent(list):"The data base is empty!");
     }
 
     private String getContent(List<Students> list) {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder("*");
         for(int i=0; i<list.size(); i++){
             builder.append("Id: ");
             builder.append(list.get(i).getId()+"\n");
@@ -108,6 +112,7 @@ public class Activity_DataBase extends AppCompatActivity {
                     students.setGrade(getInt());
 
                     if(dbHelper.addStudent(students)){
+                        getDataList();
                         SystemUtil.ShowToast(getApplicationContext(), "Add successful.");
                         clear();
                     }else{
