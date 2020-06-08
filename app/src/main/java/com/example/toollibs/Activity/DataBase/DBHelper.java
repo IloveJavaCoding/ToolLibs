@@ -58,10 +58,15 @@ public class DBHelper {
 
     //=========ops for each dao==========
     //insert/add
-    public void addStudent(Students students){
+    public boolean addStudent(Students students){
         if(students.getId()!=null){
+            if(idStudentExist(students.getId())){
+                return false;
+            }
             studentDao.insert(students);
+            return true;
         }
+        return false;
     }
 
     //delete/move

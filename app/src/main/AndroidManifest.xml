@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Activity.UI.Activity_DataBase"></activity>
         <activity android:name=".Activity.UI.Activity_Bar_ProcessBar" />
         <activity android:name=".Activity.UI.Activity_App_Setting" />
         <activity android:name=".Activity.UI.Activity_View_MapView" />
@@ -75,8 +76,8 @@
     <uses-permission android:name="android.permission.PERMISSIONS_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于开机启动 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 用于开机启动 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
