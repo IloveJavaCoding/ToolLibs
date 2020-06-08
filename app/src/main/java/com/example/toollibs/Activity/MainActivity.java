@@ -17,6 +17,7 @@ import com.example.toollibs.Activity.UI.Activity_App_Setting;
 import com.example.toollibs.Activity.UI.Activity_Bar;
 import com.example.toollibs.Activity.UI.Activity_Bar_SeekBar;
 import com.example.toollibs.Activity.UI.Activity_Button;
+import com.example.toollibs.Activity.UI.Activity_DataBase;
 import com.example.toollibs.Activity.UI.Activity_Selector;
 import com.example.toollibs.Activity.UI.Activity_Show_Data;
 import com.example.toollibs.Activity.UI.Activity_Text;
@@ -28,7 +29,7 @@ import com.example.toollibs.Util.SystemUtil;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NetStateChangeObserver {
     private Button bPoster, bDialog, bTimeSelector, b5168, bTime;
 
-    private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bSetting;
+    private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bDatabase, bSetting;
 
     private static final String[] NEEDED_PERMISSIONS = new String[]{
             Manifest.permission.CAMERA,
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bShow = findViewById(R.id.bShow);
         bBar = findViewById(R.id.bBar);
         bDemo = findViewById(R.id.bDemo);
+        bDatabase = findViewById(R.id.bDatabase);
         bSetting = findViewById(R.id.bSetting);
 
         bPoster = findViewById(R.id.bPosterView);
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bShow.setOnClickListener(this);
         bBar.setOnClickListener(this);
         bDemo.setOnClickListener(this);
+        bDatabase.setOnClickListener(this);
         bSetting.setOnClickListener(this);
 
         bPoster.setOnClickListener(this);
@@ -112,7 +115,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, Activity_Bar.class);
                 break;
             case R.id.bDemo:
-                //intent = new Intent(this, Activity_View.class);
+                intent = new Intent(this, Time_Activity.class);
+                break;
+            case R.id.bDatabase:
+                intent = new Intent(this, Activity_DataBase.class);
                 break;
             case R.id.bSetting:
                 intent = new Intent(this, Activity_App_Setting.class);
