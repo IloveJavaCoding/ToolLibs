@@ -9,7 +9,7 @@ import org.greenrobot.greendao.query.QueryBuilder;
 import java.util.List;
 
 /**
- *  need do all the ops for each created dao X3
+ *  need do all the ops for each created dao X2
  */
 public class DBHelper {
     private Context context;
@@ -21,7 +21,7 @@ public class DBHelper {
     //each dao 1
     private StudentDao studentDao;
 
-    public DBHelper(Context context) {
+    private DBHelper(Context context) {
         this.context = context;
 
         DaoSession session = getDaoSession(context);
@@ -65,14 +65,20 @@ public class DBHelper {
     }
 
     //delete/move
-    public void deleteStudent(Students students){
+    public boolean deleteStudent(Students students){
         if(students.getId()!=null){
             studentDao.delete(students);
+            return true;
         }
+        return false;
     }
 
-    public void deleteStudentByKey(String id){
-        studentDao.deleteByKey(id);
+    public boolean deleteStudentByKey(String id){
+        if(idStudentExist(id)){
+            studentDao.deleteByKey(id);
+            return true;
+        }
+        return false;
     }
 
     //update base primary key
@@ -107,5 +113,13 @@ public class DBHelper {
     //get by key
     private Students getStudentByKey(String id) {
         return studentDao.load(id);
+    }
+
+    //judge exists or not by key
+    public boolean idStudentExist(String id){
+        if(getStudentByKey(id)==null){
+            return false;
+        }
+        return true;
     }
 }

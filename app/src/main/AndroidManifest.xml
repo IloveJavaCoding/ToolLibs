@@ -38,7 +38,6 @@
         <activity android:name=".Activity.TimerSelector_Activity" />
         <activity android:name=".Activity.Dialog_Activity" />
         <activity android:name=".Activity.PosterView_Activity" />
-        <activity android:name=".Activity.Spinner_Activity" />
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
