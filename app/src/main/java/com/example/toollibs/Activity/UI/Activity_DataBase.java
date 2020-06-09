@@ -60,6 +60,7 @@ public class Activity_DataBase extends AppCompatActivity {
         tvData = findViewById(R.id.tvData);
 
         dbHelper = DBHelper.getInstance(getApplicationContext());
+
         getDataList();
     }
 
@@ -77,7 +78,7 @@ public class Activity_DataBase extends AppCompatActivity {
     }
 
     private void getDataList(){
-        list = dbHelper.getAllStudents2();
+        list = dbHelper.getAllStudents();
         tvData.setText(list!=null?getContent(list):"The data base is empty!");
     }
 
@@ -195,7 +196,7 @@ public class Activity_DataBase extends AppCompatActivity {
         }
 
         if(id.length()!=10){
-            etId.setError("Error!!!");
+            etId.setError("length=10");
             return false;
         }
 

@@ -88,7 +88,6 @@
                 android:layout_height="wrap_content"
                 android:hint="option"
                 android:textAlignment="textEnd"
-                android:enabled="false"
                 android:background="@drawable/edit_text_frame_rect"/>
         </LinearLayout>
 
