@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -210,4 +211,57 @@ public class SystemUtil {
         }
     }
      */
+
+    //set screen brightness
+    public static int getSystemScreenBrightness(Activity activity) {
+        try {
+            return Settings.System.getInt(activity.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static boolean isAutoBrightness(Activity activity) {
+        try {
+            int autoBrightness = Settings.System.getInt(
+                    activity.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE);
+            if (autoBrightness == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+                return true;
+            }
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static void setScreenBritness(Activity activity, int brightness) {//0-255
+        WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+        if (brightness == -1) {
+            lp.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+        } else {
+            if (brightness < 10) {
+                brightness = 10;
+            }
+            lp.screenBrightness = Float.valueOf(brightness / 255f);
+            Settings.System.putInt(activity.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS, brightness);
+        }
+        activity.getWindow().setAttributes(lp);
+    }
+
+    public static void closeAutoBrightness(Activity activity) {
+        Settings.System.putInt(activity.getContentResolver(),
+                Settings.System.SCREEN_BRIGHTNESS_MODE,
+                Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+    }
+
+    public static void openAutoBrightness(Activity activity) {
+        setScreenBritness(activity, -1);
+        Settings.System.putInt(activity.getContentResolver(),
+                Settings.System.SCREEN_BRIGHTNESS_MODE,
+                Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+    }
 }
