@@ -2,6 +2,7 @@ package com.example.toollibs.Activity.UI;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,6 +48,7 @@ public class Activity_DataBase extends AppCompatActivity {
     }
 
     private void init() {
+        Log.d("tag", "...get in...");
         etId = findViewById(R.id.etId);
         etName = findViewById(R.id.etName);
         etBirth = findViewById(R.id.etBirth);
@@ -58,6 +60,7 @@ public class Activity_DataBase extends AppCompatActivity {
         tvData = findViewById(R.id.tvData);
 
         dbHelper = DBHelper.getInstance(getApplicationContext());
+        getDataList();
     }
 
     private void setData() {
@@ -71,8 +74,6 @@ public class Activity_DataBase extends AppCompatActivity {
         ArrayAdapter<String> strAdapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, grades);
         strAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sGrade.setAdapter(strAdapter2);
-
-        getDataList();
     }
 
     private void getDataList(){
@@ -85,6 +86,8 @@ public class Activity_DataBase extends AppCompatActivity {
         for(int i=0; i<list.size(); i++){
             builder.append("Id: ");
             builder.append(list.get(i).getId()+"\n");
+            builder.append("StudentId: ");
+            builder.append(list.get(i).getStudentId()+"\n");
             builder.append("Name: ");
             builder.append(list.get(i).getName()+"\n");
             builder.append("Gender: ");
@@ -105,7 +108,7 @@ public class Activity_DataBase extends AppCompatActivity {
             public void onClick(View v) {
                 if(judge()){
                     Students students = new Students();
-                    students.setId(etId.getText().toString().trim());
+                    students.setStudentId(etId.getText().toString().trim());
                     students.setName(etName.getText().toString().trim());
                     students.setAge(age);
                     students.setGender(gender);

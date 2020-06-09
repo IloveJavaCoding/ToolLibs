@@ -19,18 +19,18 @@ public class DBHelper {
     private DaoMaster daoMaster;
 
     //each dao 1
-    private StudentDao studentDao;
+    private StudentsDao studentsDao;
 
     private DBHelper(Context context) {
         this.context = context;
 
         DaoSession session = getDaoSession(context);
         //init each dao 2
-        studentDao = session.getStudentDao();
+        studentsDao = session.getStudentsDao();
     }
 
     private DaoSession getDaoSession(Context context) {
-        if(daoSession!=null){
+        if(daoSession == null){
             daoMaster = getDaoMaster(context);
             daoSession = daoMaster.newSession();
         }
@@ -38,7 +38,7 @@ public class DBHelper {
     }
 
     private DaoMaster getDaoMaster(Context context) {
-        if(daoMaster!=null){
+        if(daoMaster == null){
             DBOpenHelper helper = new DBOpenHelper(context, DBOpenHelper.DATABASE_NAME, null);
             daoMaster = new DaoMaster(helper.getWritableDb());
         }
@@ -59,11 +59,8 @@ public class DBHelper {
     //=========ops for each dao==========
     //insert/add
     public boolean addStudent(Students students){
-        if(students.getId()!=null){
-            if(idStudentExist(students.getId())){
-                return false;
-            }
-            studentDao.insert(students);
+        if(students.getStudentId()!=null){
+            studentsDao.insert(students);
             return true;
         }
         return false;
@@ -72,56 +69,53 @@ public class DBHelper {
     //delete/move
     public boolean deleteStudent(Students students){
         if(students.getId()!=null){
-            studentDao.delete(students);
+            studentsDao.delete(students);
             return true;
         }
         return false;
     }
 
-    public boolean deleteStudentByKey(String id){
-        if(idStudentExist(id)){
-            studentDao.deleteByKey(id);
-            return true;
-        }
-        return false;
+    public boolean deleteStudentByKey(Long id){
+        studentsDao.deleteByKey(id);
+        return true;
     }
 
     //update base primary key
-    public void updateStudent1(String id, String gender, int age){
+    public void updateStudent1(Long id, String gender, int age){
         Students students = getStudentByKey(id);
         students.setGender(gender);
         students.setAge(age);
 
-        studentDao.update(students);
+        studentsDao.update(students);
     }
 
     public void updateStudent2(Students students){
-        studentDao.update(students);
+        studentsDao.update(students);
     }
 
     //list/query
     public List<Students> getAllStudents(){
-        QueryBuilder<Students> qb = studentDao.queryBuilder();
+        QueryBuilder<Students> qb = studentsDao.queryBuilder();
         return qb.build().list();
     }
 
     public List<Students> getAllStudents2(){
-        return studentDao.loadAll();
+        return studentsDao.loadAll();
     }
 
     public List<Students> getStudentByGender(String gender){
-        QueryBuilder<Students> qb = studentDao.queryBuilder();
-        qb.where(StudentDao.Properties.Gender.eq(gender));
+        QueryBuilder<Students> qb = studentsDao.queryBuilder();
+        qb.where(StudentsDao.Properties.Gender.eq(gender));
         return qb.build().list();
     }
 
     //get by key
-    private Students getStudentByKey(String id) {
-        return studentDao.load(id);
+    private Students getStudentByKey(Long id) {
+        return studentsDao.load(id);
     }
 
     //judge exists or not by key
-    public boolean idStudentExist(String id){
+    public boolean idStudentExist(Long id){
         if(getStudentByKey(id)==null){
             return false;
         }
