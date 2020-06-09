@@ -19,6 +19,7 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.InputMethodManager;
@@ -237,7 +238,7 @@ public class SystemUtil {
         return false;
     }
 
-    public static void setScreenBritness(Activity activity, int brightness) {//0-255
+    public static void setScreenBrightness(Activity activity, int brightness) {//0-255
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
         if (brightness == -1) {
             lp.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
@@ -252,6 +253,14 @@ public class SystemUtil {
         activity.getWindow().setAttributes(lp);
     }
 
+    //========
+    public void setBrightness(Activity activity, float brightness){
+        Window window = activity.getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.screenBrightness = brightness;
+        window.setAttributes(lp);
+    }
+
     public static void closeAutoBrightness(Activity activity) {
         Settings.System.putInt(activity.getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS_MODE,
@@ -259,7 +268,7 @@ public class SystemUtil {
     }
 
     public static void openAutoBrightness(Activity activity) {
-        setScreenBritness(activity, -1);
+        setScreenBrightness(activity, -1);
         Settings.System.putInt(activity.getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
