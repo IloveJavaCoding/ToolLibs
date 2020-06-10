@@ -1,4 +1,4 @@
-package com.example.toollibs.Activity;
+package com.example.toollibs.Activity.Demo;
 
 import android.app.Dialog;
 import android.graphics.BitmapFactory;
@@ -18,7 +18,7 @@ import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.SystemUtil;
 
-public class PosterView_Activity extends AppCompatActivity {
+public class Demo_PosterView_Activity extends AppCompatActivity {
     private Button bChange, bDialog;
 
     private boolean isChanged = false;

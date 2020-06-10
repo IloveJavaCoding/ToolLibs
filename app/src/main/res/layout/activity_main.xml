@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/img_bg_app2"
     tools:context=".Activity.MainActivity">
 
     <ScrollView
@@ -105,34 +106,10 @@
                 android:background="@drawable/selector_button"/>
 
             <Button
-                android:id="@+id/bPosterView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Poster"
-                android:textColor="@color/colorWhite"
-                android:padding="@dimen/padding_5"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_15"
-                android:background="@drawable/selector_button"/>
-
-            <Button
                 android:id="@+id/bDialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Dialog"
-                android:textColor="@color/colorWhite"
-                android:padding="@dimen/padding_5"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_15"
-                android:background="@drawable/selector_button"/>
-
-            <Button
-                android:id="@+id/bTimeSelector"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TimeSelector"
                 android:textColor="@color/colorWhite"
                 android:padding="@dimen/padding_5"
                 android:textAllCaps="false"

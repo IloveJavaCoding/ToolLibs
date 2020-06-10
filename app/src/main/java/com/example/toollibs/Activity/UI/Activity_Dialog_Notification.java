@@ -1,4 +1,4 @@
-package com.example.toollibs.Activity;
+package com.example.toollibs.Activity.UI;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -31,7 +31,7 @@ import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.SystemUtil;
 
-public class Dialog_Activity extends AppCompatActivity implements View.OnClickListener{
+public class Activity_Dialog_Notification extends AppCompatActivity implements View.OnClickListener{
     private Button bDialog1, bDialog2, bDialog3, bDialog4;
     private Button bNotification;
     private EditTextDelIcon etInput;

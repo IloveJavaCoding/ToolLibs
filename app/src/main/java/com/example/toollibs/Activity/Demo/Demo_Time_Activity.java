@@ -1,4 +1,4 @@
-package com.example.toollibs.Activity.UI;
+package com.example.toollibs.Activity.Demo;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -28,7 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.zip.Inflater;
 
-public class Time_Activity extends AppCompatActivity {
+public class Demo_Time_Activity extends AppCompatActivity {
     private TextView tvTime, tvClock;
     private RadioButton rbStart;
     private Thread thread;

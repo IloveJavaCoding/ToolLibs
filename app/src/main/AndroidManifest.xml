@@ -47,16 +47,16 @@
         <activity
             android:name=".Activity.Alarm_Activity"
             android:theme="@style/TransparentBG" />
-        <activity android:name=".Activity.UI.Time_Activity" />
+        <activity android:name=".Activity.Demo.Demo_Time_Activity" />
         <activity android:name=".Activity.Urat5168_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.DIAL" />
             </intent-filter>
         </activity>
         <activity android:name=".Activity.UI.Activity_Bar_SeekBar" />
-        <activity android:name=".Activity.TimerSelector_Activity" />
-        <activity android:name=".Activity.Dialog_Activity" />
-        <activity android:name=".Activity.PosterView_Activity" />
+        <activity android:name=".Activity.Demo.Demo_TimerSelector_Activity" />
+        <activity android:name=".Activity.UI.Activity_Dialog_Notification" />
+        <activity android:name=".Activity.Demo.Demo_PosterView_Activity" />
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

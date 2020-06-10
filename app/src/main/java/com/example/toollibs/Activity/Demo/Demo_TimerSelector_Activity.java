@@ -1,4 +1,4 @@
-package com.example.toollibs.Activity;
+package com.example.toollibs.Activity.Demo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +13,7 @@ import com.example.toollibs.Util.DateUtil;
 
 import java.util.Date;
 
-public class TimerSelector_Activity extends AppCompatActivity {
+public class Demo_TimerSelector_Activity extends AppCompatActivity {
     private TextView tvBirthday;
     private Button bChoose;
     private RadioGroup radioGroup;

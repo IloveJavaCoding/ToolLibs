@@ -106,7 +106,7 @@ public class MediaUtil {
             FileDescriptor descriptor = null;
             if(logoId<=0){
                 //uri = Uri.parse("content://media/external/audio/media/"+songId+"/albumart");
-                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cover_default);
+                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.img_cover_default);
 
             }else{
                 Uri uri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), logoId);

@@ -17,17 +17,18 @@ import com.example.toollibs.Activity.UI.Activity_App_Setting;
 import com.example.toollibs.Activity.UI.Activity_Bar;
 import com.example.toollibs.Activity.UI.Activity_Button;
 import com.example.toollibs.Activity.UI.Activity_DataBase;
+import com.example.toollibs.Activity.UI.Activity_Demos;
+import com.example.toollibs.Activity.UI.Activity_Dialog_Notification;
 import com.example.toollibs.Activity.UI.Activity_Selector;
 import com.example.toollibs.Activity.UI.Activity_Show_Data;
 import com.example.toollibs.Activity.UI.Activity_Text;
 import com.example.toollibs.Activity.UI.Activity_View;
-import com.example.toollibs.Activity.UI.Time_Activity;
 import com.example.toollibs.R;
 import com.example.toollibs.Activity.Interface.NetworkType;
 import com.example.toollibs.Util.SystemUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NetStateChangeObserver {
-    private Button bPoster, bDialog, bTimeSelector, b5168;
+    private Button bDialog, b5168;
 
     private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bDatabase, bSetting;
 
@@ -62,9 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bDatabase = findViewById(R.id.bDatabase);
         bSetting = findViewById(R.id.bSetting);
 
-        bPoster = findViewById(R.id.bPosterView);
         bDialog = findViewById(R.id.bDialog);
-        bTimeSelector = findViewById(R.id.bTimeSelector);
         b5168 = findViewById(R.id.b5168);
 
         if(!SystemUtil.CheckPermission(this, NEEDED_PERMISSIONS)){
@@ -84,9 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bDatabase.setOnClickListener(this);
         bSetting.setOnClickListener(this);
 
-        bPoster.setOnClickListener(this);
         bDialog.setOnClickListener(this);
-        bTimeSelector.setOnClickListener(this);
         b5168.setOnClickListener(this);
     }
 
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, Activity_Bar.class);
                 break;
             case R.id.bDemo:
-                intent = new Intent(this, Time_Activity.class);
+                intent = new Intent(this, Activity_Demos.class);
                 break;
             case R.id.bDatabase:
                 intent = new Intent(this, Activity_DataBase.class);
@@ -122,16 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, Activity_App_Setting.class);
                 break;
 
-
-            case R.id.bPosterView:
-                intent = new Intent(this, PosterView_Activity.class);
-                break;
-
             case R.id.bDialog:
-                intent = new Intent(this, Dialog_Activity.class);
-                break;
-            case R.id.bTimeSelector:
-                intent = new Intent(this, TimerSelector_Activity.class);
+                intent = new Intent(this, Activity_Dialog_Notification.class);
                 break;
             case R.id.b5168:
                 intent = new Intent(this, Urat5168_Activity.class);
