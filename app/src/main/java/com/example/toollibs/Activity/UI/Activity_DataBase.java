@@ -79,7 +79,7 @@ public class Activity_DataBase extends AppCompatActivity {
 
     private void getDataList(){
         list = dbHelper.getAllStudents();
-        tvData.setText(list!=null?getContent(list):"The data base is empty!");
+        tvData.setText(list.size()>0?getContent(list):"The data base is empty!");
     }
 
     private String getContent(List<Students> list) {

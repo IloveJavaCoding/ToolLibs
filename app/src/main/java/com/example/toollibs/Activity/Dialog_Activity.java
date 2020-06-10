@@ -9,11 +9,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +84,45 @@ public class Dialog_Activity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    private void sendNotification(String channelId, String title, String msg){
+        //1. get notification service
+        NotificationManager manager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        //2. create notification  channel version>26
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            String channelName = "默认通知";
+            manager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH));
+        }
+
+        //3. set intent(active when click the notification)
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.baidu.com"));
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+
+        //4. init notification, get instance
+        Notification notification = new NotificationCompat.Builder(this,"default")
+                .setContentTitle(title) //title
+                .setContentText(msg) //message
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
+                .setContentIntent(pendingIntent)//intent
+                .setAutoCancel(true)//cancel the notification when click head
+                .setFullScreenIntent(pendingIntent, true)  //hang the notification
+                .build();
+
+                //.setCategory(Notification.CATEGORY_MESSAGE) //version>21
+                //.setVisibility(Notification.VISIBILITY_PUBLIC)// can be show in the Locker page >21
+
+        /**
+         * 1.VISIBILITY_PRIVATE : 显示基本信息，如通知的图标，但隐藏通知的全部内容；
+         * 2.VISIBILITY_PUBLIC : 显示通知的全部内容；
+         * 3.VISIBILITY_SECRET : 不显示任何内容，包括图标。
+         */
+
+        //5. send notification
+        manager.notify(1,notification);
+    }
+
     private void callThread(final int seconds, final String msg){
         new Thread(){
             @Override
@@ -90,55 +132,12 @@ public class Dialog_Activity extends AppCompatActivity implements View.OnClickLi
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                sentNotification(1, msg);
+                sendNotification("channel1", "Title", msg);
                 super.run();
             }
         }.start();
     }
 
-    private void sentNotification(int id, String msg) {
-        //1. get notification service
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        //2. set intent(active when click the notification)
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.baidu.com"));
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-
-        //3. create notification  channel version>26
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("001", "channelName", NotificationManager.IMPORTANCE_HIGH);
-            channel.enableVibration(true);
-            channel.setImportance(NotificationManager.IMPORTANCE_DEFAULT);
-            manager.createNotificationChannel(channel);
-        }
-
-        //3. init notification, get instance
-        Notification notification = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            notification = new Notification.Builder(getApplicationContext())
-                    .setContentTitle("Title")//title
-                    .setContentText(msg)//message
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setLargeIcon(BitmapUtil.getBitmapFromRes(getApplicationContext(), R.drawable.icon_qq))
-                    .setWhen(System.currentTimeMillis())//build time
-                    .setContentIntent(pendingIntent)//intent
-                    .setAutoCancel(true)//cancel the notification when click head
-                    //.setDefaults(Notification.DEFAULT_ALL)//set vibrate effect, sound, light
-                    .setFullScreenIntent(pendingIntent, true)//hang the notification
-                    //.setPriority(Notification.PRIORITY_DEFAULT)
-                    .setCategory(Notification.CATEGORY_MESSAGE) //version>21
-                    .setVisibility(Notification.VISIBILITY_PUBLIC)// can be show in the Locker page >21
-                    .build();
-        }
-        /**
-         * 1.VISIBILITY_PRIVATE : 显示基本信息，如通知的图标，但隐藏通知的全部内容；
-         * 2.VISIBILITY_PUBLIC : 显示通知的全部内容；
-         * 3.VISIBILITY_SECRET : 不显示任何内容，包括图标。
-         */
-
-        //4. send notification
-        manager.notify(id, notification);
-    }
 
     private void showDefaultDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

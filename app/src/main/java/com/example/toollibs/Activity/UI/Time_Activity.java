@@ -1,4 +1,4 @@
-package com.example.toollibs.Activity;
+package com.example.toollibs.Activity.UI;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
