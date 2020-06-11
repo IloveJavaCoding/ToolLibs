@@ -84,45 +84,6 @@ public class Activity_Dialog_Notification extends AppCompatActivity implements V
         }
     }
 
-    private void sendNotification(String channelId, String title, String msg){
-        //1. get notification service
-        NotificationManager manager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        //2. create notification  channel version>26
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            String channelName = "默认通知";
-            manager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH));
-        }
-
-        //3. set intent(active when click the notification)
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.baidu.com"));
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-
-        //4. init notification, get instance
-        Notification notification = new NotificationCompat.Builder(this,"default")
-                .setContentTitle(title) //title
-                .setContentText(msg) //message
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
-                .setContentIntent(pendingIntent)//intent
-                .setAutoCancel(true)//cancel the notification when click head
-                .setFullScreenIntent(pendingIntent, true)  //hang the notification
-                .build();
-
-                //.setCategory(Notification.CATEGORY_MESSAGE) //version>21
-                //.setVisibility(Notification.VISIBILITY_PUBLIC)// can be show in the Locker page >21
-
-        /**
-         * 1.VISIBILITY_PRIVATE : 显示基本信息，如通知的图标，但隐藏通知的全部内容；
-         * 2.VISIBILITY_PUBLIC : 显示通知的全部内容；
-         * 3.VISIBILITY_SECRET : 不显示任何内容，包括图标。
-         */
-
-        //5. send notification
-        manager.notify(1,notification);
-    }
-
     private void callThread(final int seconds, final String msg){
         new Thread(){
             @Override
@@ -132,7 +93,8 @@ public class Activity_Dialog_Notification extends AppCompatActivity implements V
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                sendNotification("channel1", "Title", msg);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.baidu.com"));
+                SystemUtil.sendNotification(getApplicationContext(), "channel1", intent, "Title", msg, 1);
                 super.run();
             }
         }.start();

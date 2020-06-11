@@ -3,19 +3,27 @@ package com.example.toollibs.Util;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -28,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.toollibs.Activity.Config.Constant;
+import com.example.toollibs.R;
 
 import java.io.File;
 import java.util.Locale;
@@ -272,5 +281,45 @@ public class SystemUtil {
         Settings.System.putInt(activity.getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+    }
+
+    //=====================notification=============================
+    public static void sendNotification(Context context, String channelId, Intent intent, String title, String msg, int id){
+        //1. get notification service
+        NotificationManager manager=(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //2. create notification  channel version>26
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            String channelName = "Default Name";
+            manager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH));
+        }
+
+        //3. set intent(active when click the notification)
+        //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.baidu.com"));
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+        //4. init notification, get instance
+        Notification notification = new NotificationCompat.Builder(context,channelId)
+                .setContentTitle(title) //title
+                .setContentText(msg) //message
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher))
+                .setContentIntent(pendingIntent)//intent
+                .setAutoCancel(true)//cancel the notification when click head
+                .setFullScreenIntent(pendingIntent, true)  //hang the notification
+                .build();
+
+        //.setCategory(Notification.CATEGORY_MESSAGE) //version>21
+        //.setVisibility(Notification.VISIBILITY_PUBLIC)// can be show in the Locker page >21
+
+        /**
+         * 1.VISIBILITY_PRIVATE : 显示基本信息，如通知的图标，但隐藏通知的全部内容；
+         * 2.VISIBILITY_PUBLIC : 显示通知的全部内容；
+         * 3.VISIBILITY_SECRET : 不显示任何内容，包括图标。
+         */
+
+        //5. send notification
+        manager.notify(id,notification);
     }
 }

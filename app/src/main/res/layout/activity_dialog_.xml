@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.Dialog_Activity">
+    tools:context=".Activity.UI.Activity_Dialog_Notification">
 
     <View
         android:layout_width="match_parent"
