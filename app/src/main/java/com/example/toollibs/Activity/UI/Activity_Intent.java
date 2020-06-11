@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.toollibs.OverWriteClass.EditTextDelIcon;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.IntentUtil;
@@ -19,6 +20,9 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
     private ImageView imageView;
     private Button bImage, bAudio, bVideo, bText;
     private TextView tvImage, tvAudio, tvVideo, tvText;
+
+    private EditTextDelIcon etInput;
+    private Button bSearch;
 
     private Button bDial1, bEmail, bRecord, bContract;
 
@@ -56,6 +60,9 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
         bEmail = findViewById(R.id.bOpenEmail);
         bRecord = findViewById(R.id.bOpenRecord);
         bContract = findViewById(R.id.bOpenContract);
+
+        etInput = findViewById(R.id.etDel);
+        bSearch = findViewById(R.id.bSearch);
     }
 
     private void setData() {
@@ -76,6 +83,8 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
         bEmail.setOnClickListener(this);
         bRecord.setOnClickListener(this);
         bContract.setOnClickListener(this);
+
+        bSearch.setOnClickListener(this);
     }
 
     @Override
@@ -128,6 +137,10 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
                 IntentUtil.openContract(this);
                 break;
 
+            case R.id.bSearch:
+                String key = etInput.getText().toString().trim();
+                IntentUtil.searchInfo(this, key==null?"I love you":key);
+                break;
         }
     }
 
