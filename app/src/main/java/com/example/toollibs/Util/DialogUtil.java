@@ -57,15 +57,6 @@ public class DialogUtil {
                 .show();
     }
 
-    public static Dialog showViewDialog(Context context, String title, int resId, DialogInterface.OnClickListener listener){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        return builder.setTitle(title)
-                .setView(resId)
-                .setNegativeButton(R.string.cancel,listener)
-                .setPositiveButton(R.string.confirm,listener)
-                .show();
-    }
-
     public static Dialog showMsgDialog(Context context, String title, String message, DialogInterface.OnClickListener listener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         return builder.setTitle(title)

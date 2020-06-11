@@ -9,10 +9,12 @@ import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
@@ -24,8 +26,8 @@ import java.util.Collections;
  * some common api for file operation
  */
 public class FileUtil {
-    //get external file path
-    public static String GetRootPath(){
+    //==========================get external file path=============================
+    public static String getRootPath(){
         //storage/emulated/0
         return Environment.getExternalStorageDirectory().getAbsolutePath();
     }
@@ -45,7 +47,7 @@ public class FileUtil {
         return context.getFilesDir().getAbsolutePath();
     }
 
-    //create file/dir
+    //====================create file/dir================================
     public static boolean CreateFile(String path, String fileName){
         File file = new File(path+"/"+fileName);
 
@@ -62,7 +64,7 @@ public class FileUtil {
         }
     }
 
-    public static boolean CreateDirs(String folder){
+    public static boolean createDirs(String folder){
         File file = new File(folder);
 
         if(!file.exists()) {
@@ -72,8 +74,8 @@ public class FileUtil {
         return false;
     }
 
-    //delete file/dir
-    public static void DeleteDir(String dir){
+    //=========================delete file/dir============================
+    public static void deleteDir(String dir){
         File file = new File(dir);
         if(file.exists()){
             DeleteDirWithFile(file);
@@ -97,29 +99,29 @@ public class FileUtil {
         file.delete();
     }
 
-    //get file/dir info
-    public static int GetFilesNumber(String dir){
+    //========================get file/dir info============================
+    public static int getFilesNumber(String dir){
         File file = new File(dir);
 
         return file.listFiles().length;
     }
 
-    public static String[] GetFilesList(String dir){
+    public static String[] getFilesList(String dir){
         File file = new File(dir);
 
         return file.list();
     }
 
-    //change file/dir name
-    public static void ChangeFile_DirName(String path, String oldName, String newName){
+    //===========================change file/dir name=======================
+    public static void whangeFile_DirName(String path, String oldName, String newName){
         File oldFile = new File(path+"/"+oldName);
         File newFile = new File(path+"/"+newName);
 
         oldFile.renameTo(newFile);
     }
 
-    //read and write content
-    public static void WriteToFile(String content, String path, String fileName){
+    //========================read and write content===========================
+    public static void writeToFile(String content, String path, String fileName){
         File file = new File(path+fileName);
         if(!file.exists()){
             CreateFile(path, fileName);
@@ -139,7 +141,29 @@ public class FileUtil {
         }
     }
 
-    public static String ReadContents(String path, String fileName, String format){
+    public static File getFileFromBytes(byte[] bytes, String outputFile) {
+        BufferedOutputStream stream = null;
+        File file = null;
+        try {
+            file = new File(outputFile);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            stream = new BufferedOutputStream(fileOutputStream);
+            stream.write(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+        return file;
+    }
+
+    public static String readContents(String path, String fileName, String format){
         if(format==null){
             format="utf-8";
         }
@@ -178,7 +202,7 @@ public class FileUtil {
         return builder.toString();
     }
 
-    //zip/unzip file/dir
+    //===========================zip/unzip file/dir==============================
     public static void unZip(String path, String aimPath, String password) throws ZipException {
         File file = new File(path);
         if(!file.exists()){
