@@ -30,7 +30,7 @@
 
                 <Button
                     android:id="@+id/bOpenImage"
-                    android:layout_width="200dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Image"
                     android:textColor="@color/colorWhite"
@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/text_size_18"/>
+                    android:textSize="@dimen/text_size_15"/>
             </LinearLayout>
 
             <LinearLayout
@@ -53,7 +53,7 @@
 
                 <Button
                     android:id="@+id/bOpenAudio"
-                    android:layout_width="200dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Audio"
                     android:textColor="@color/colorWhite"
@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/text_size_18"/>
+                    android:textSize="@dimen/text_size_15"/>
             </LinearLayout>
 
             <LinearLayout
@@ -76,7 +76,7 @@
 
                 <Button
                     android:id="@+id/bOpenVideo"
-                    android:layout_width="200dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Video"
                     android:textColor="@color/colorWhite"
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/text_size_18"/>
+                    android:textSize="@dimen/text_size_15"/>
             </LinearLayout>
 
             <LinearLayout
@@ -99,7 +99,7 @@
 
                 <Button
                     android:id="@+id/bOpenText"
-                    android:layout_width="200dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Text"
                     android:textColor="@color/colorWhite"
@@ -111,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/text_size_18"/>
+                    android:textSize="@dimen/text_size_15"/>
             </LinearLayout>
 
             <LinearLayout
