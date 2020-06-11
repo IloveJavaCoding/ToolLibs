@@ -5,16 +5,25 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import java.io.File;
+import java.util.Calendar;
 
 /**
  * setAction require add <intent-filter> </intent-filter> into <activity> </activity>
  */
 public class IntentUtil {
+    //======================share to others=======================
+    public static void shareText( Activity activity, String title, String text) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, title);
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        activity.startActivity(Intent.createChooser(intent, title));
+    }
+
     //===================open file use third app==================
     //"http://www.google.com"
     public static void openBrowser(Activity activity, String url){
@@ -35,13 +44,12 @@ public class IntentUtil {
     }
 
     //open map
-
     /*
      * @param activity
      * @param location "38.899533, -77.036476"
      */
     public static void openMap(Activity activity, String location){
-        Uri uri = Uri.parse ("geo: " + location);
+        Uri uri = Uri.parse ("geo:" + location);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         activity.startActivity(intent);
     }
@@ -55,6 +63,12 @@ public class IntentUtil {
         activity.startActivityForResult(intent, requestCode);
     }
 
+    public static void openContract(Activity activity){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(ContactsContract.Data.CONTENT_URI);
+        activity.startActivity(intent);
+    }
+
     //=====================dial, sms, email======================
     //go to dial app
     //<intent-filter>
@@ -65,6 +79,7 @@ public class IntentUtil {
         activity.startActivity(intent);
     }
 
+    //  <uses-permission android:name="android.permission.CALL_PHONE" />
     public static void dialNumber(Activity activity, String number){
         Uri uri = Uri.parse("tel:" + number);
         Intent intent = new Intent(Intent.ACTION_DIAL, uri);
@@ -84,6 +99,12 @@ public class IntentUtil {
         intent.putExtra(Intent.EXTRA_TEXT, msg);
         intent.setType("text/plain");
         activity.startActivity(Intent.createChooser(intent, title));
+    }
+
+    public static void sendEmail2(Activity activity, String mail){
+        Uri uri = Uri.parse("mailto:" + mail);
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        activity.startActivity(intent);
     }
 
     //===================read file return file path==========================
@@ -122,6 +143,13 @@ public class IntentUtil {
         activity.startActivityForResult(intent,requestCode);
     }
 
+    public static void openCamera4ImageAndSave(Activity activity, String path, int requestCode){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE"
+        long time = Calendar.getInstance().getTimeInMillis();
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(path, time + ".jpg")));
+        activity.startActivityForResult(intent,requestCode);
+    }
+
     //open camera for record video
     /**
      * @param activity
@@ -130,11 +158,14 @@ public class IntentUtil {
      * @param sizeLimit  the maximum allowed size.
      * @param durationLimit the maximum allowed recording duration in seconds.
      */
-    public static void openCamera4Video(Activity activity, int requestCode, int quality, int sizeLimit, int durationLimit){
+    public static void openCamera4Video(Activity activity, int requestCode, int quality, int sizeLimit, int durationLimit, String path){
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, quality);
         intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, sizeLimit);
         intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, durationLimit);//max seconds
+
+        long time = Calendar.getInstance().getTimeInMillis();
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(path, time + ".mp4")));
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -165,5 +196,4 @@ public class IntentUtil {
         intent.setDataAndType(uri, "image/*"); //mp4
         activity.startActivity(intent);
     }
-
 }
