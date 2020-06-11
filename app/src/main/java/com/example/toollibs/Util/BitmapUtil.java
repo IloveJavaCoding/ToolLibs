@@ -1,5 +1,7 @@
 package com.example.toollibs.Util;
 
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +16,8 @@ import android.graphics.RectF;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 
 import com.example.toollibs.R;
 
@@ -256,7 +260,6 @@ public class BitmapUtil {
         return newBm;
     }
 
-
     //scale
     public static Bitmap ScaleBitmap(Bitmap bitmap, int aimW, int aimH, boolean isRecycle){
         if(bitmap.getWidth()==aimW && bitmap.getHeight()==aimH){
@@ -269,5 +272,17 @@ public class BitmapUtil {
         }
 
         return aimBm;
+    }
+
+    //rotate ImageView
+    @SuppressLint("WrongConstant")
+    public static ObjectAnimator rotateIV(ImageView imgView, int dur){
+        ObjectAnimator animator = ObjectAnimator.ofFloat(imgView, "rotation", 0f,360f);
+        animator.setDuration(dur);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setRepeatCount(-1);
+        animator.setRepeatMode(ObjectAnimator.INFINITE);//infinity
+
+        return animator;
     }
 }

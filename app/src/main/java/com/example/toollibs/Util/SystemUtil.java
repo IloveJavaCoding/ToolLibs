@@ -1,8 +1,8 @@
 package com.example.toollibs.Util;
 
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -17,7 +17,6 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.PowerManager;
@@ -29,13 +28,12 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.toollibs.Activity.Config.Constant;
+import com.example.toollibs.Activity.RuntimeExec;
 import com.example.toollibs.R;
 
 import java.io.File;
@@ -44,10 +42,19 @@ import java.util.Locale;
 public class SystemUtil {
     private static InputMethodManager inputMethodManager;
 
-    public static final int ORIENTATION_LANDSCAPE = 0;
-    public static final int ORIENTATION_PORTRAIT = 1;
+    //=================keyboard control===============================
+    public static void ShowKeyBoard(EditText et){
+        et.setFocusable(true);
+        et.requestFocus();
+        inputMethodManager = (InputMethodManager) et.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(et,InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
 
-    //system notices
+    public static void CloseKeyBoard(EditText et){
+        inputMethodManager.hideSoftInputFromWindow(et.getWindowToken(),0);
+    }
+
+    //======================system notices======================
     public static void ShowToast(Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
     }
@@ -56,7 +63,16 @@ public class SystemUtil {
         Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
     }
 
-    //screen cap
+    //======================window attributes=========================
+    public static DisplayMetrics GetScreenDM(Context context) {
+        WindowManager manager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(dm);
+
+        return dm;  //dm.widthPixels;  //dm.heightPixels;
+    }
+
+    //======================screen cap===========================
     public static void screenCap(Activity activity, String fileName)
     {
         View dView = activity.getWindow().getDecorView();
@@ -70,67 +86,23 @@ public class SystemUtil {
         }
     }
 
+    public static void screenShot(Activity activity, String fileName){
+        String path = FileUtil.GetAppRootPth(activity) + File.separator + fileName;
+        RuntimeExec.takeScreenShot(path);
+    }
+
+    //=======================reboot========================================
     public static void reBoot(Context context){
         PowerManager pManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         pManager.reboot("recovery");
     }
 
-    /**
-     * 1.PARTIAL_WAKE_LOCK：保证CPU保持高性能运行，而屏幕和键盘背光（也可能是触摸按键的背光）关闭。一般情况下都会使用这个WakeLock。
-     * 2.ACQUIRE_CAUSES_WAKEUP：这个WakeLock除了会使CPU高性能运行外还会导致屏幕亮起，即使屏幕原先处于关闭的状态下。
-     * 3.ON_AFTER_RELEASE：如果释放WakeLock的时候屏幕处于亮着的状态，则在释放WakeLock之后让屏幕再保持亮一小会。如果释放WakeLock的时候屏幕本身就没亮，则不会有动作
-     * ————————————————
-     * 版权声明：本文为CSDN博主「jianning-wu」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-     * 原文链接：https://blog.csdn.net/weixin_37730482/article/details/80108786
-     * @param context
-     * @return
-     */
-    @SuppressLint("InvalidWakeLockTag")
-    public static PowerManager.WakeLock getWakeLock(Context context){
-        PowerManager pManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = pManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "IncallUI");
-        wakeLock.acquire();
-
-        return wakeLock;
+    public static void reBoot(){
+        String cmd = "reboot";
+        RuntimeExec.getInstance().executeCommand(cmd);
     }
 
-    public static void releaseWakeLock(PowerManager.WakeLock wakeLock){
-        wakeLock.release();
-    }
-
-    //keyboard control
-    public static void ShowKeyBoard(EditText et){
-        et.setFocusable(true);
-        et.requestFocus();
-        inputMethodManager = (InputMethodManager) et.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.showSoftInput(et,InputMethodManager.HIDE_IMPLICIT_ONLY);
-    }
-
-    public static void CloseKeyBoard(EditText et){
-        inputMethodManager.hideSoftInputFromWindow(et.getWindowToken(),0);
-    }
-
-    //window attributes
-    public static DisplayMetrics GetScreenDM(Context context) {
-        WindowManager manager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        manager.getDefaultDisplay().getMetrics(dm);
-        return dm;
-    }
-
-    //rotate ImageView
-    @SuppressLint("WrongConstant")
-    public static ObjectAnimator rotateIV(ImageView imgView, int dur){
-        ObjectAnimator animator = ObjectAnimator.ofFloat(imgView, "rotation", 0f,360f);
-        animator.setDuration(dur);
-        animator.setInterpolator(new LinearInterpolator());
-        animator.setRepeatCount(-1);
-        animator.setRepeatMode(ObjectAnimator.INFINITE);//infinity
-
-        return animator;
-    }
-
-    //permission check
+    //=============================permission check=======================
     public static boolean CheckPermission(Context context, String[] permissions){
         if (permissions == null || permissions.length == 0) {
             return true;
@@ -142,7 +114,7 @@ public class SystemUtil {
         return allGranted;
     }
 
-    //vibrator
+    //=================================vibrator=============================
     public static void vibrator(Context context){
         AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         int ringerMode = am.getRingerMode();
@@ -152,7 +124,7 @@ public class SystemUtil {
         }
     }
 
-    //network type
+    //===================network type==============================
     public static String getNetWorkTypeString(Context context){
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager!=null){
@@ -172,7 +144,7 @@ public class SystemUtil {
         return "";
     }
 
-    //get system storage info
+    //=================get system memory info======================
     public static long getSystemStore(Context context, String type){
         File file = Environment.getExternalStorageDirectory();
         if (file.exists()){
@@ -188,7 +160,30 @@ public class SystemUtil {
         return -1;
     }
 
-    //set app language
+    public static long getSystemMemory(Context context, String type){
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo info = new ActivityManager.MemoryInfo();
+        manager.getMemoryInfo(info);
+
+        switch (type) {
+            case Constant.TYPE_TOTAL:
+                return info.totalMem;
+            case Constant.TYPE_FREE:
+                return info.availMem;
+            case Constant.TYPE_USED:
+                return info.totalMem - info.availMem;
+        }
+        return -1;
+    }
+
+    public static boolean isLowMemory(Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo info = new ActivityManager.MemoryInfo();
+        manager.getMemoryInfo(info);
+        return info.lowMemory;
+    }
+
+    //=====================set app language==========================
     public static void setLanguage(Context context, int languageId){
         Resources mResources = context.getResources();
         Configuration mConfiguration = mResources.getConfiguration();
@@ -204,25 +199,21 @@ public class SystemUtil {
         }
     }
 
-    //横、竖屏
-    /*
+    //==============================横、竖屏 app===================================
     public static void setOrientation(int orientation){
         switch (orientation){
-            case ORIENTATION_LANDSCAPE:
-                RuntimeExec.getInstance().executeRootCommand("setprop persist.sys.screenorientation landscape");
-                RuntimeExec.getInstance().executeRootCommand("setprop persist.sys.win.rotation 0");
-                RuntimeExec.getInstance().executeRootCommand("reboot");
+            case Constant.ORIENTATION_LANDSCAPE:
+                RuntimeExec.getInstance().executeCommand("setprop persist.sys.screenorientation landscape");
+                RuntimeExec.getInstance().executeCommand("reboot");
                 break;
-            case ORIENTATION_PORTRAIT:
-                RuntimeExec.getInstance().executeRootCommand("setprop persist.sys.screenorientation portrait");
-                RuntimeExec.getInstance().executeRootCommand("setprop persist.sys.win.rotation 90");
-                RuntimeExec.getInstance().executeRootCommand("reboot");
+            case Constant.ORIENTATION_PORTRAIT:
+                RuntimeExec.getInstance().executeCommand("setprop persist.sys.screenorientation portrait");
+                RuntimeExec.getInstance().executeCommand("reboot");
                 break;
         }
     }
-     */
 
-    //set screen brightness
+    //==========================set screen brightness===================================
     public static int getSystemScreenBrightness(Activity activity) {
         try {
             return Settings.System.getInt(activity.getContentResolver(),
@@ -283,7 +274,7 @@ public class SystemUtil {
                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
     }
 
-    //=====================notification=============================
+    //==================================notification====================================
     public static void sendNotification(Context context, String channelId, Intent intent, String title, String msg, int id){
         //1. get notification service
         NotificationManager manager=(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -322,4 +313,27 @@ public class SystemUtil {
         //5. send notification
         manager.notify(id,notification);
     }
+
+
+    //=====================================================================================
+    /**
+     * 1.PARTIAL_WAKE_LOCK：保证CPU保持高性能运行，而屏幕和键盘背光（也可能是触摸按键的背光）关闭。一般情况下都会使用这个WakeLock。
+     * 2.ACQUIRE_CAUSES_WAKEUP：这个WakeLock除了会使CPU高性能运行外还会导致屏幕亮起，即使屏幕原先处于关闭的状态下。
+     * 3.ON_AFTER_RELEASE：如果释放WakeLock的时候屏幕处于亮着的状态，则在释放WakeLock之后让屏幕再保持亮一小会。如果释放WakeLock的时候屏幕本身就没亮，则不会有动作
+     * @param context
+     * @return
+     */
+    @SuppressLint("InvalidWakeLockTag")
+    public static PowerManager.WakeLock getWakeLock(Context context){
+        PowerManager pManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = pManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "IncallUI");
+        wakeLock.acquire();
+
+        return wakeLock;
+    }
+
+    public static void releaseWakeLock(PowerManager.WakeLock wakeLock){
+        wakeLock.release();
+    }
+
 }

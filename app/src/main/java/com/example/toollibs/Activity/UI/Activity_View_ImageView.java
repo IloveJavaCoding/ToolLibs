@@ -91,7 +91,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
         curBitmap = BitmapUtil.getBitmapFromRes(getApplicationContext(), R.drawable.img_bg2);
         imageView.setImageBitmap(curBitmap);
 
-        animator = SystemUtil.rotateIV(imageView, DURATION);
+        animator = BitmapUtil.rotateIV(imageView, DURATION);
     }
 
     private void setListener() {

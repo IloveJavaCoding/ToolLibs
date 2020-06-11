@@ -16,6 +16,9 @@ public class Constant {
     public static final int LANGUAGE_ENGLISH = 1;
     public static final int MODE_PRIVATE = 0X0000;
 
+    public static final int ORIENTATION_LANDSCAPE = 0;
+    public static final int ORIENTATION_PORTRAIT = 1;
+
     //default value
     public static final boolean AUTO_START_DEFAULT = true;
     public static final int LANGUAGE_DEFAULT = 0;
