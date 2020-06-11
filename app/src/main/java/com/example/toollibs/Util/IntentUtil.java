@@ -193,7 +193,14 @@ public class IntentUtil {
     public static void openImageFile(Activity activity, String filePath) {
         Uri uri = Uri.fromFile(new File(filePath));
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(uri, "image/*"); //mp4
+        intent.setDataAndType(uri, "image/*"); //image
         activity.startActivity(intent);
     }
+    public static void openTextFile(Activity activity, String filePath) {
+        Uri uri = Uri.fromFile(new File(filePath));
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, "Text/plain"); //text
+        activity.startActivity(intent);
+    }
+
 }

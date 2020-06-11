@@ -19,6 +19,7 @@ import com.example.toollibs.Activity.UI.Activity_Button;
 import com.example.toollibs.Activity.UI.Activity_DataBase;
 import com.example.toollibs.Activity.UI.Activity_Demos;
 import com.example.toollibs.Activity.UI.Activity_Dialog_Notification;
+import com.example.toollibs.Activity.UI.Activity_Intent;
 import com.example.toollibs.Activity.UI.Activity_Selector;
 import com.example.toollibs.Activity.UI.Activity_Show_Data;
 import com.example.toollibs.Activity.UI.Activity_Text;
@@ -30,7 +31,7 @@ import com.example.toollibs.Util.SystemUtil;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NetStateChangeObserver {
     private Button bDialog, b5168;
 
-    private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bDatabase, bSetting;
+    private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bIntent, bDatabase, bSetting;
 
     private static final String[] NEEDED_PERMISSIONS = new String[]{
             Manifest.permission.CAMERA,
@@ -39,7 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Manifest.permission.INTERNET,
             Manifest.permission.ACCESS_NETWORK_STATE,
             Manifest.permission.ACCESS_WIFI_STATE,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.CALL_PHONE
+
     };
     private static final int ACTION_REQUEST_PERMISSIONS = 0x001;
     @Override
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bShow = findViewById(R.id.bShow);
         bBar = findViewById(R.id.bBar);
         bDemo = findViewById(R.id.bDemo);
+        bIntent = findViewById(R.id.bIntent);
         bDatabase = findViewById(R.id.bDatabase);
         bSetting = findViewById(R.id.bSetting);
 
@@ -80,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bShow.setOnClickListener(this);
         bBar.setOnClickListener(this);
         bDemo.setOnClickListener(this);
+        bIntent.setOnClickListener(this);
         bDatabase.setOnClickListener(this);
         bSetting.setOnClickListener(this);
 
@@ -111,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bDemo:
                 intent = new Intent(this, Activity_Demos.class);
+                break;
+            case R.id.bIntent:
+                intent = new Intent(this, Activity_Intent.class);
                 break;
             case R.id.bDatabase:
                 intent = new Intent(this, Activity_DataBase.class);

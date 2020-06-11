@@ -118,6 +118,18 @@
                 android:background="@drawable/selector_button"/>
 
             <Button
+                android:id="@+id/bIntent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Intent"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
                 android:id="@+id/b5168"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
