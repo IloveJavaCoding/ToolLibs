@@ -212,6 +212,7 @@ public class IntentUtil {
         intent.setDataAndType(uri, "image/*"); //image
         activity.startActivity(intent);
     }
+
     public static void openTextFile(Activity activity, String filePath) {
         Uri uri = Uri.fromFile(new File(filePath));
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -225,9 +226,9 @@ public class IntentUtil {
 
         if ("file".equalsIgnoreCase(uri.getScheme())){//使用第三方应用打开
             path = uri.getPath();
-        }else{
+        }else{//content.provider
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
-                path = getPath(context, uri);
+                path = getPath(uri, contentResolver, context);
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(uri, contentResolver);
             }
@@ -248,7 +249,7 @@ public class IntentUtil {
         return res;
     }
 
-    private static String getPath(Context context, Uri uri) {
+    private static String getPath(Uri uri, ContentResolver contentResolver, Context context) {
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
         // DocumentProvider
@@ -268,7 +269,7 @@ public class IntentUtil {
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
 
-                return getDataColumn(context, contentUri, null, null);
+                return getDataColumn(contentResolver, contentUri, null, null);
             }
             // MediaProvider
             else if (isMediaDocument(uri)) {
@@ -288,12 +289,12 @@ public class IntentUtil {
                 final String selection = "_id=?";
                 final String[] selectionArgs = new String[]{split[1]};
 
-                return getDataColumn(context, contentUri, selection, selectionArgs);
+                return getDataColumn(contentResolver, contentUri, selection, selectionArgs);
             }
         }
         // MediaStore (and general)
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            return getDataColumn(context, uri, null, null);
+            return getDataColumn(contentResolver, uri, null, null);
         }
         // File
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
@@ -302,13 +303,13 @@ public class IntentUtil {
         return null;
     }
 
-    private static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+    private static String getDataColumn(ContentResolver contentResolver, Uri uri, String selection, String[] selectionArgs) {
         Cursor cursor = null;
         final String column = "_data";
         final String[] projection = {column};
 
         try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);
+            cursor = contentResolver.query(uri, projection, selection, selectionArgs, null);
             if (cursor != null && cursor.moveToFirst()) {
                 final int column_index = cursor.getColumnIndexOrThrow(column);
                 return cursor.getString(column_index);
