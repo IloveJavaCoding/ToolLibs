@@ -2,12 +2,9 @@ package com.example.toollibs.Activity.UI;
 
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,9 +15,7 @@ import android.widget.TextView;
 
 import com.example.toollibs.OverWriteClass.EditTextDelIcon;
 import com.example.toollibs.R;
-import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.IntentUtil;
-import com.example.toollibs.Util.InternetUtil;
 
 import java.io.FileNotFoundException;
 
@@ -160,41 +155,22 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-    public static String getFilePathFromContentUri(Uri uri, ContentResolver contentResolver) {
-        String filePath;
-        String[] filePathColumn = {MediaStore.MediaColumns.DATA};
-
-        Cursor cursor = contentResolver.query(uri, filePathColumn, null, null, null);
-
-        cursor.moveToFirst();
-
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        filePath = cursor.getString(columnIndex);
-        cursor.close();
-        return filePath;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Uri uri = data.getData();
         ContentResolver contentResolver = this.getContentResolver();
-        String path = uri.toString();
-        String path2 = getFilePathFromContentUri(uri,contentResolver);
-        Log.d("tag", "path: "+ path2);
+
+        String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
+        Log.d("tag", "uri: " + path);
         switch (requestCode){
             case OPEN_IMAGE_CODE:
                 if(resultCode==RESULT_OK){
                     tvImage.setText(path);
-
                     try {
                         imageView.setImageBitmap(BitmapFactory.decodeStream(contentResolver.openInputStream(uri)));
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-
-                    //imageView.setImageBitmap(BitmapUtil.GetBitmapFromFile(path));
-                    //Bundle bundle = data.getExtras();
-                    //imageView.setImageBitmap((Bitmap)bundle.get("data"));
                 }
                 break;
             case OPEN_AUDIO_CODE:
