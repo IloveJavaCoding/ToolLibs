@@ -287,7 +287,7 @@ public class SystemUtil {
 
         //3. set intent(active when click the notification)
         //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.baidu.com"));
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //4. init notification, get instance
         Notification notification = new NotificationCompat.Builder(context,channelId)
