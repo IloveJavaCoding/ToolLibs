@@ -191,7 +191,7 @@ public class IntentUtil {
      * @param filePath "file:///sdcard/song.mp3"
      */
     public static void openAudioFile(Activity activity, String filePath){
-        Uri uri = Uri.parse(filePath);
+        Uri uri = Uri.parse("file://" + filePath);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "audio/*"); //mp3
         activity.startActivity(intent);
@@ -199,7 +199,7 @@ public class IntentUtil {
 
     //"file:///sdcard/video.mp4"
     public static void openVideoFile(Activity activity, String filePath) {
-        Uri uri = Uri.parse(filePath);
+        Uri uri = Uri.parse("file://" + filePath);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "video/*"); //mp4
         activity.startActivity(intent);
@@ -207,7 +207,7 @@ public class IntentUtil {
 
     //"/mnt/sdcard/images/001041580.jpg"
     public static void openImageFile(Activity activity, String filePath) {
-        Uri uri = Uri.parse(filePath);;
+        Uri uri = Uri.parse("file://" + filePath);;
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "image/*"); //image
         activity.startActivity(intent);
