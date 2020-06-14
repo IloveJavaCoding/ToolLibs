@@ -3,6 +3,7 @@ package com.example.toollibs.Activity.UI;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,16 +12,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.toollibs.OverWriteClass.EditTextDelIcon;
 import com.example.toollibs.R;
+import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.IntentUtil;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Activity_Intent extends AppCompatActivity implements View.OnClickListener {
-    private ImageView imageView;
+    private ImageView imageView, imgShare, imgPlay;
     private Button bImage, bAudio, bVideo, bText;
     private TextView tvImage, tvAudio, tvVideo, tvText;
 
@@ -28,6 +32,9 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
     private Button bSearch;
 
     private Button bDial1, bEmail, bRecord, bContract;
+
+    private RelativeLayout laoutPlay;
+    private MediaPlayer mediaPlayer;
 
     private static final int OPEN_IMAGE_CODE = 0x001;
     private static final int OPEN_AUDIO_CODE = 0x002;
@@ -48,6 +55,7 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
 
     private void init() {
         imageView = findViewById(R.id.imageView);
+        imgShare = findViewById(R.id.imgShare);
 
         bImage = findViewById(R.id.bOpenImage);
         bAudio = findViewById(R.id.bOpenAudio);
@@ -66,6 +74,10 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
 
         etInput = findViewById(R.id.etDel);
         bSearch = findViewById(R.id.bSearch);
+
+        imgPlay = findViewById(R.id.imgPlay);
+        laoutPlay = findViewById(R.id.layoutPlay);
+        mediaPlayer = new MediaPlayer();
     }
 
     private void setData() {
@@ -88,6 +100,8 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
         bContract.setOnClickListener(this);
 
         bSearch.setOnClickListener(this);
+        imgShare.setOnClickListener(this);
+        imgPlay.setOnClickListener(this);
     }
 
     @Override
@@ -144,6 +158,20 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
                 String key = etInput.getText().toString().trim();
                 IntentUtil.searchInfo(this, key==null?"I love you":key);
                 break;
+            case R.id.imgShare:
+                IntentUtil.shareText(this, "Share", "Hello!");
+                break;
+            case R.id.imgPlay:
+                if(mediaPlayer.isPlaying()){
+                    //pause
+                    mediaPlayer.pause();
+                    imgPlay.setImageResource(R.drawable.img_video_pause);
+                }else{
+                    //play
+                    imgPlay.setImageResource(R.drawable.img_video_play);
+                    mediaPlayer.start();
+                }
+                break;
         }
     }
 
@@ -153,6 +181,30 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
         }
 
         return true;
+    }
+
+    private void initPlayer(String path) {
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.reset();
+        }
+
+        try {
+            mediaPlayer.setDataSource(path);
+            mediaPlayer.prepare();
+            mediaPlayer.setLooping(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(mediaPlayer!=null){
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+            mediaPlayer.release();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -166,16 +218,18 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
             case OPEN_IMAGE_CODE:
                 if(resultCode==RESULT_OK){
                     tvImage.setText(path);
-                    try {
-                        imageView.setImageBitmap(BitmapFactory.decodeStream(contentResolver.openInputStream(uri)));
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+
+                    imageView.setImageBitmap(BitmapUtil.GetBitmapFromFile(path));
+                    //imageView.setImageBitmap(BitmapFactory.decodeStream(contentResolver.openInputStream(uri)));
                 }
                 break;
             case OPEN_AUDIO_CODE:
                 if(resultCode==RESULT_OK){
                     tvAudio.setText(path);
+
+                    //init mediaPlayer
+                    initPlayer(path);
+                    laoutPlay.setVisibility(View.VISIBLE);
                 }
                 break;
             case OPEN_VIDEO_CODE:

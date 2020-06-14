@@ -16,10 +16,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgShare"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="@dimen/padding_3"
+                    android:layout_margin="@dimen/margin_5"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/icon_share"/>
+            </RelativeLayout>
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
+                android:src="@drawable/img_ad"
                 android:scaleType="centerInside"/>
 
             <LinearLayout
@@ -41,8 +56,9 @@
                     android:id="@+id/tvImgPath"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:textSize="@dimen/text_size_15"/>
+                    android:textSize="@dimen/text_size_10"/>
             </LinearLayout>
 
             <LinearLayout
@@ -64,9 +80,25 @@
                     android:id="@+id/tvAudioPath"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:textSize="@dimen/text_size_15"/>
+                    android:textSize="@dimen/text_size_10"/>
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutPlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_10"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/imgPlay"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/img_video_pause"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,8 +119,9 @@
                     android:id="@+id/tvVideoPath"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:textSize="@dimen/text_size_15"/>
+                    android:textSize="@dimen/text_size_10"/>
             </LinearLayout>
 
             <LinearLayout
@@ -110,8 +143,9 @@
                     android:id="@+id/tvTextPath"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:textSize="@dimen/text_size_15"/>
+                    android:textSize="@dimen/text_size_10"/>
             </LinearLayout>
 
             <LinearLayout
