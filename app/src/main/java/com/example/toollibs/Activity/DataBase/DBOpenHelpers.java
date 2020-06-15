@@ -11,18 +11,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class DBOpenHelper extends DaoMaster.DevOpenHelper {
+public class DBOpenHelpers extends DaoMaster.DevOpenHelper {
     //data base name
     public static final String DATABASE_NAME = "studentInfo.db";
 
     private Context context;
     private File dataBasePath;
 
-    public DBOpenHelper(Context context, String name) {
+    public DBOpenHelpers(Context context, String name) {
         super(context, name);
     }
 
-    public DBOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory) {
+    public DBOpenHelpers(Context context, String name, SQLiteDatabase.CursorFactory factory) {
         super(context, name, factory);
         this.context = context;
         dataBasePath = context.getDatabasePath(DATABASE_NAME);

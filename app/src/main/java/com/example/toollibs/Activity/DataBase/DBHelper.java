@@ -39,7 +39,7 @@ public class DBHelper {
 
     private DaoMaster getDaoMaster(Context context) {
         if(daoMaster == null){
-            DBOpenHelper helper = new DBOpenHelper(context, DBOpenHelper.DATABASE_NAME, null);
+            DBOpenHelpers helper = new DBOpenHelpers(context, DBOpenHelpers.DATABASE_NAME, null);
             daoMaster = new DaoMaster(helper.getWritableDb());
         }
         return daoMaster;
