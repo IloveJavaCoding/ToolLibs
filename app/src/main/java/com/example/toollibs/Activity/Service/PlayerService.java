@@ -3,12 +3,14 @@ package com.example.toollibs.Activity.Service;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.toollibs.R;
+import com.example.toollibs.Util.FileUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -58,9 +60,12 @@ public class PlayerService extends Service {
     //=======================================================================
     //play default music
     private void playDefault(){
+        if (mediaPlayer!=null){
+            mediaPlayer.reset();
+        }
         mediaPlayer = MediaPlayer.create(this, R.raw.bloom_of_youth);
         mediaPlayer.setLooping(true);
-        playMusic();
+        mediaPlayer.start();
     }
 
     //single source
@@ -135,15 +140,14 @@ public class PlayerService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "on create...");
-        mediaPlayer = new MediaPlayer();
-        currentIndex = 0;
+        //mediaPlayer = new MediaPlayer();
+        //mediaPlayer = MediaPlayer.create(this, R.raw.bloom_of_youth);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "on start command...");
-        playMusic();
-
+        //mediaPlayer.start();
         return super.onStartCommand(intent, flags, startId);
     }
 
