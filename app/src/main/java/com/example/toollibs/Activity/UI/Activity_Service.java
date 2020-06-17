@@ -25,12 +25,16 @@ import java.io.IOException;
 public class Activity_Service extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "service_activity";
     private ToggleButton tbStatue;
-    private ImageView player1, player2;
+    private ImageView player1, player2, player3;
     private TextView tvLog;
+
+    private MediaPlayer mediaPlayer;
 
     private String log;
     private PlayerService service;
     private ServiceConnection connection;
+
+    private final String url = "https://eu-sycdn.kuwo.cn/15e64f54ac4c761a7297abe6457c1345/5ee9d276/resource/n3/41/2/3787506072.mp3";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,7 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
         tbStatue = findViewById(R.id.tbStatue);
         player1 = findViewById(R.id.imgPlay);
         player2 = findViewById(R.id.imgPlay2);
+        player3 = findViewById(R.id.imgPlay3);
         tvLog = findViewById(R.id.tvLog);
     }
 
@@ -65,6 +70,8 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
                 service = null;
             }
         };
+
+        initPlayer(url);
     }
 
     private void setListener() {
@@ -108,6 +115,36 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
                 Intent intent1 = new Intent(getApplicationContext(), PlayerService.class);
                 stopService(intent1);
                 break;
+            case R.id.imgPlay3:
+                if(mediaPlayer.isPlaying()){
+                    //pause
+                    mediaPlayer.pause();
+                    player3.setImageResource(R.drawable.img_video_pause);
+                }else{
+                    //play
+                    player3.setImageResource(R.drawable.img_video_play);
+                    mediaPlayer.start();
+                }
+                break;
+        }
+    }
+
+    private void initPlayer(String url) {
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(url);
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
         }
     }
 }

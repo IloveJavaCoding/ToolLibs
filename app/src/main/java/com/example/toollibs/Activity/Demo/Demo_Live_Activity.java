@@ -58,6 +58,7 @@ public class Demo_Live_Activity extends AppCompatActivity {
     private void startPlayDTMB(){
         HdiPlayer.initPlay();
         LiveSource source = null;
+        //new LiveSource("扬州","754000.6875.64",81,73,9,2);
         if (source==null){
             source = Constant.DEFAULT_LIVE_SOURCE;
         }

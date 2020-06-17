@@ -2,12 +2,14 @@ package com.example.toollibs.Util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -41,15 +43,29 @@ public class InternetUtil {
 
     //download file from url
     public static void downloadFile(String strUrl, String path, String fileName) {
-        File file = new File(path+"/"+fileName);
+        File file = new File(path+File.separator+fileName);
 
         if (file.exists()) {
             //--------------------------
         } else {
             try {
                 URL url = new URL(strUrl);
-                URLConnection conn = url.openConnection();
-                InputStream inputStream = conn.getInputStream();
+                //URLConnection conn = url.openConnection();
+
+                //===============================================
+                HttpURLConnection http = (HttpURLConnection) url.openConnection();;
+                http.connect();
+                int code = http.getResponseCode();
+                if(code!=200){
+                    //connect error
+                    Log.d("tag", "connect failed!!!");
+                    return;
+                }
+                //length of file
+                int length = http.getContentLength();
+                //================================================
+
+                InputStream inputStream = http.getInputStream();
 
                 byte[] buffer = new byte[1024];
                 int len;
@@ -57,6 +73,7 @@ public class InternetUtil {
                 while ((len = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, len);
                 }
+                Log.d("tag", "download successful!");
                 outputStream.close();
                 inputStream.close();
             } catch (Exception e) {

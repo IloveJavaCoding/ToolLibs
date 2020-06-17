@@ -21,7 +21,7 @@ public class HdiPlayer {
     **/
     public static int initPlay(){
         Log.d(TAG, "initPlay>>>to do ");
-        Class localClass = null;
+        Class localClass;
         try {
             localClass = Class.forName("android.os.ServiceManager");
             Method getService = localClass.getMethod("getService", new Class[] {String.class});

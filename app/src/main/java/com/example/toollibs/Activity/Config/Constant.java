@@ -24,6 +24,20 @@ public class Constant {
     public static final LiveSource DEFAULT_LIVE_SOURCE =
             new LiveSource("厦门","666000.6875.64",4115,4114,1,2);
 
+    public static final LiveSource[] LIVE_SOURCES = {
+            new LiveSource("XiaMen","666000.6875.64",4115,4114,1,2),
+            new LiveSource("FuZhou","530000.6875.64",170,171,1,2),
+            new LiveSource("SuZhou","490000.6875.64",773,772,9,2),
+            new LiveSource("QingDao","722000.6875.64",62,63,5,0),
+            new LiveSource("ChangSha","570000.6875.64",1237,1236,3,0),
+            new LiveSource("YanCheng","610000.6875.64",59,58,1,0),
+            new LiveSource("YangZhou","754000.6875.64",81,73,9,2),
+            new LiveSource("ChangZhou1","554000.6875.64",514,513,9,2),
+            new LiveSource("ChangZhou2","554000.6875.64",611,610,9,2),
+            new LiveSource("HeFei","754000.6875.64",261,255,1,2),
+            new LiveSource("WuHu","706000.6875.64",36,33,9,2)
+    };
+
     //int
     public static final int LANGUAGE_CHINA = 0;
     public static final int LANGUAGE_ENGLISH = 1;
