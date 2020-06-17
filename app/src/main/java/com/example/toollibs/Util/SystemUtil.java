@@ -91,7 +91,7 @@ public class SystemUtil {
         RuntimeExec.takeScreenShot(path);
     }
 
-    //=======================reboot========================================
+    //===============================reboot========================================
     public static void reBoot(Context context){
         PowerManager pManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         pManager.reboot("recovery");
@@ -124,7 +124,7 @@ public class SystemUtil {
         }
     }
 
-    //===================network type==============================
+    //=========================network type==============================
     public static String getNetWorkTypeString(Context context){
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager!=null){
@@ -312,6 +312,38 @@ public class SystemUtil {
 
         //5. send notification
         manager.notify(id,notification);
+    }
+
+    //============================volume setting==========================================
+    public static void bootResetVolume(Context context) {
+        AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        if (manager != null) {
+            int volume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (volume != manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)) {
+                manager.adjustStreamVolume(
+                        AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_RAISE,
+                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                manager.adjustStreamVolume(
+                        AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_LOWER,
+                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+            } else {
+                manager.adjustStreamVolume(
+                        AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_LOWER,
+                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                manager.adjustStreamVolume(
+                        AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_RAISE,
+                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+            }
+        }
     }
 
 

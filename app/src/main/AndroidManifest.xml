@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.UI.Activity_Service"></activity>
+        <activity android:name=".Activity.Demo.Demo_Live_Activity"></activity>
+        <activity android:name=".Activity.UI.Activity_Service" />
         <activity android:name=".Activity.UI.Activity_Intent" />
         <activity android:name=".Activity.UI.Activity_Demos" />
         <activity android:name=".Activity.UI.Activity_DataBase" />
@@ -71,7 +72,7 @@
         <service
             android:name=".Activity.Service.PlayerService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
     </application>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -80,8 +81,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.PERMISSIONS_STORAGE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开机启动 -->
+    <uses-permission android:name="android.permission.PERMISSIONS_STORAGE" /> <!-- 用于开机启动 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />

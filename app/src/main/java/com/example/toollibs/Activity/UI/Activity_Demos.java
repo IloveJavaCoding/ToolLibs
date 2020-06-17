@@ -12,7 +12,7 @@ import com.example.toollibs.Activity.Demo.Demo_TimerSelector_Activity;
 import com.example.toollibs.R;
 
 public class Activity_Demos extends AppCompatActivity implements View.OnClickListener {
-    private Button bAlarm, bPoster, bTimeSelector;
+    private Button bAlarm, bPoster, bTimeSelector, bLive;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +26,14 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bAlarm = findViewById(R.id.bAlarm);
         bPoster = findViewById(R.id.bPoster);
         bTimeSelector = findViewById(R.id.bTimeSelectors);
-
+        bLive = findViewById(R.id.bLive);
     }
 
     private void setListener() {
         bAlarm.setOnClickListener(this);
         bPoster.setOnClickListener(this);
         bTimeSelector.setOnClickListener(this);
+        bLive.setOnClickListener(this);
     }
 
     @Override
@@ -46,6 +47,9 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
                 intent = new Intent(this, Demo_TimerSelector_Activity.class);
                 break;
             case R.id.bAlarm:
+                intent = new Intent(this, Demo_Time_Activity.class);
+                break;
+            case R.id.bLive:
                 intent = new Intent(this, Demo_Time_Activity.class);
                 break;
         }

@@ -1,5 +1,7 @@
 package com.example.toollibs.Activity.Config;
 
+import com.example.toollibs.Activity.Demo.LiveSource;
+
 public class Constant {
     //string
     public static final String CONFIG_FILE = "config";
@@ -10,6 +12,17 @@ public class Constant {
     public static final String TYPE_USED = "used";
 
     public static final String[] LANGUAGE = {"简体中文", "English"};
+
+    //live
+    public static final String CITY = "city";
+    public static final String FREQUENCY = "frequency";
+    public static final String AUD_PID = "audPid";
+    public static final String VID_PID = "vidPid";
+    public static final String VID_TYPE = "vidType";
+    public static final String AUD_TYPE = "audType";
+
+    public static final LiveSource DEFAULT_LIVE_SOURCE =
+            new LiveSource("厦门","666000.6875.64",4115,4114,1,2);
 
     //int
     public static final int LANGUAGE_CHINA = 0;
