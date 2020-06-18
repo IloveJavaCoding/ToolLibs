@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.toollibs.Activity.Demo.Demo_Live_Activity;
 import com.example.toollibs.Activity.Demo.Demo_PosterView_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Time_Activity;
 import com.example.toollibs.Activity.Demo.Demo_TimerSelector_Activity;
@@ -50,7 +51,7 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
                 intent = new Intent(this, Demo_Time_Activity.class);
                 break;
             case R.id.bLive:
-                intent = new Intent(this, Demo_Time_Activity.class);
+                intent = new Intent(this, Demo_Live_Activity.class);
                 break;
         }
         startActivity(intent);
