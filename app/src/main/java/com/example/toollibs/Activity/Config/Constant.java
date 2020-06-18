@@ -22,7 +22,7 @@ public class Constant {
     public static final String AUD_TYPE = "audType";
 
     public static final LiveSource DEFAULT_LIVE_SOURCE =
-            new LiveSource("厦门","666000.6875.64",4115,4114,1,2);
+            new LiveSource("XiaMen","666000.6875.64",4115,4114,1,2);
 
     public static final LiveSource[] LIVE_SOURCES = {
             new LiveSource("XiaMen","666000.6875.64",4115,4114,1,2),

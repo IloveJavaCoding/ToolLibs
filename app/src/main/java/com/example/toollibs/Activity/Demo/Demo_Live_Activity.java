@@ -7,20 +7,28 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.SystemUtil;
 
-public class Demo_Live_Activity extends AppCompatActivity {
-    private SurfaceView surfaceView;
-    private Button bStart, bStop;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+public class Demo_Live_Activity extends AppCompatActivity {
+    private Button bStart, bStop, bNext;
+    private TextView tvCity;
+
+    private List<LiveSource> list;
+    private int curIndex;
     private int wight, high;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo__live);
+
 
         init();
         setData();
@@ -28,22 +36,39 @@ public class Demo_Live_Activity extends AppCompatActivity {
     }
 
     private void init() {
-        surfaceView = findViewById(R.id.surfaceView);
         bStart = findViewById(R.id.bStart);
         bStop = findViewById(R.id.bStop);
+        bNext = findViewById(R.id.bNext);
+        tvCity = findViewById(R.id.tvCity);
     }
 
     private void setData() {
         DisplayMetrics dm = SystemUtil.GetScreenDM(getApplicationContext());
         wight = dm.widthPixels;
         high = dm.heightPixels;
+
+        list = new ArrayList<>(Arrays.asList(Constant.LIVE_SOURCES));
+        curIndex = 0;
     }
 
     private void setListener() {
         bStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startPlayDTMB();
+                startPlayDTMB(list.get(curIndex));
+            }
+        });
+
+        bNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopPlayDTMB();
+                if(curIndex>=list.size()){
+                    curIndex=0;
+                }else{
+                    curIndex++;
+                }
+                startPlayDTMB(list.get(curIndex));
             }
         });
 
@@ -55,10 +80,9 @@ public class Demo_Live_Activity extends AppCompatActivity {
         });
     }
 
-    private void startPlayDTMB(){
+    private void startPlayDTMB(LiveSource source){
+        tvCity.setText(source.getCity());
         HdiPlayer.initPlay();
-        LiveSource source = null;
-        //new LiveSource("扬州","754000.6875.64",81,73,9,2);
         if (source==null){
             source = Constant.DEFAULT_LIVE_SOURCE;
         }
@@ -75,6 +99,7 @@ public class Demo_Live_Activity extends AppCompatActivity {
     }
 
     private void stopPlayDTMB(){
+        tvCity.setText("");
         HdiPlayer.stopPlay(0);
         HdiPlayer.termPlay();
     }
