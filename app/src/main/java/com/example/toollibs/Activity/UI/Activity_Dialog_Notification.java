@@ -94,7 +94,7 @@ public class Activity_Dialog_Notification extends AppCompatActivity implements V
                     e.printStackTrace();
                 }
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.baidu.com"));
-                SystemUtil.sendNotification(getApplicationContext(), "channel1", intent, "Title", msg, 1);
+                SystemUtil.sendNotification(getApplicationContext(), "channel0", intent, "Title", msg, 0);
                 super.run();
             }
         }.start();

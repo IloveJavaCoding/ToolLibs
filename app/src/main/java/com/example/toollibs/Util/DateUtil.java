@@ -104,7 +104,7 @@ public class DateUtil {
     }
 
     public static int[] getYMDHMS_Date(Date time) {
-        int[] arr = new int[6];
+        int[] arr = new int[7];
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(time);
 
@@ -115,6 +115,8 @@ public class DateUtil {
         arr[3] = calendar.get(Calendar.HOUR_OF_DAY);
         arr[4] = calendar.get(Calendar.MINUTE);
         arr[5] = calendar.get(Calendar.SECOND);
+
+        arr[6] = calendar.get(Calendar.DAY_OF_WEEK);
 
         return arr;
     }

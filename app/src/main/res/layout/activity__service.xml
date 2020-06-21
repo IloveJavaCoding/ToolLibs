@@ -88,6 +88,29 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_10"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_3"
+                android:layout_weight="1"
+                android:hint="url"/>
+
+            <Button
+                android:id="@+id/bLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="load"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/selector_button_grey"/>
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/imgPlay3"
             android:layout_width="35dp"

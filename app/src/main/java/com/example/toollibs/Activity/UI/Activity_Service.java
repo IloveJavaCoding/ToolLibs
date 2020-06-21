@@ -11,7 +11,9 @@ import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -26,7 +28,9 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
     private static final String TAG = "service_activity";
     private ToggleButton tbStatue;
     private ImageView player1, player2, player3;
+    private EditText etUrl;
     private TextView tvLog;
+    private Button bLink;
 
     private MediaPlayer mediaPlayer;
 
@@ -34,7 +38,6 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
     private PlayerService service;
     private ServiceConnection connection;
 
-    private final String url = "https://eu-sycdn.kuwo.cn/15e64f54ac4c761a7297abe6457c1345/5ee9d276/resource/n3/41/2/3787506072.mp3";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,9 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
         player1 = findViewById(R.id.imgPlay);
         player2 = findViewById(R.id.imgPlay2);
         player3 = findViewById(R.id.imgPlay3);
+        etUrl = findViewById(R.id.etUrl);
         tvLog = findViewById(R.id.tvLog);
+        bLink = findViewById(R.id.bLink);
     }
 
     private void setData() {
@@ -71,7 +76,7 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
             }
         };
 
-        initPlayer(url);
+        mediaPlayer = new MediaPlayer();
     }
 
     private void setListener() {
@@ -95,6 +100,9 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
 
         player1.setOnClickListener(this);
         player2.setOnClickListener(this);
+        player3.setOnClickListener(this);
+
+        bLink.setOnClickListener(this);
     }
 
     private void showLog(String str){
@@ -116,24 +124,43 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
                 stopService(intent1);
                 break;
             case R.id.imgPlay3:
-                if(mediaPlayer.isPlaying()){
-                    //pause
-                    mediaPlayer.pause();
-                    player3.setImageResource(R.drawable.img_video_pause);
+                if(mediaPlayer!=null){
+                    if(mediaPlayer.isPlaying()){
+                        //pause
+                        mediaPlayer.pause();
+                        player3.setImageResource(R.drawable.img_video_pause);
+                    }else{
+                        //play
+                        player3.setImageResource(R.drawable.img_video_play);
+                        mediaPlayer.start();
+                    }
                 }else{
-                    //play
-                    player3.setImageResource(R.drawable.img_video_play);
-                    mediaPlayer.start();
+                    showLog("empty url link!");
                 }
+
                 break;
+            case R.id.bLink:
+                if(mediaPlayer!=null){
+                    mediaPlayer.reset();
+                }
+                playOnline();
+                break;
+
+        }
+    }
+
+    private void playOnline(){
+        String url = etUrl.getText().toString().trim();
+        if(url!=null){
+            initPlayer(url);
         }
     }
 
     private void initPlayer(String url) {
-        mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(url);
             mediaPlayer.prepare();
+            showLog("set link " + url);
         } catch (IOException e) {
             e.printStackTrace();
         }

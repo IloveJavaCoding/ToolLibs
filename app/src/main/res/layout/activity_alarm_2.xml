@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/gradient"
+    tools:context=".Activity.Demo.Alarm_Activity">
+
+    <TextView
+        android:id="@+id/tvCurTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_30"
+        android:text="00:00"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_size_55"/>
+
+    <TextView
+        android:id="@+id/tvCurDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tvCurTime"
+        android:text="Mon, 21 June"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_size_20"/>
+
+    <TextView
+        android:id="@+id/tvTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Alarm"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_size_35"/>
+
+    <Button
+        android:id="@+id/bSnooze"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTag"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/padding_10"
+        android:layout_margin="@dimen/margin_10"
+        android:text="SNOOZE (5 minutes)"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/selector_button_transparent2" />
+
+    <Button
+        android:id="@+id/bStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/text_size_20"
+        android:text="STOP"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_size_25"
+        android:background="@drawable/selector_button_transparent" />
+
+
+
+</RelativeLayout>

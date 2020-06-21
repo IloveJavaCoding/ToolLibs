@@ -141,13 +141,13 @@ public class PlayerService extends Service {
         super.onCreate();
         Log.d(TAG, "on create...");
         //mediaPlayer = new MediaPlayer();
-        //mediaPlayer = MediaPlayer.create(this, R.raw.bloom_of_youth);
+        mediaPlayer = MediaPlayer.create(this, R.raw.bloom_of_youth);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "on start command...");
-        //mediaPlayer.start();
+        mediaPlayer.start();
         return super.onStartCommand(intent, flags, startId);
     }
 

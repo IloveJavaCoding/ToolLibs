@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.UI.Time_Activity">
+    tools:context=".Activity.Demo.Demo_Time_Activity">
 
     <TextView
         android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="00:00 00"
+        android:textAlignment="textEnd"
         android:background="@color/colorBlack"
-        android:textColor="@color/colorYellow"
-        android:layout_gravity="right"/>
+        android:textColor="@color/colorYellow" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,14 +26,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alarm: "/>
+            android:text="Alarm: "
+            android:textSize="@dimen/text_size_20"
+            android:textColor="@color/colorBlack"/>
 
         <TextView
-            android:id="@+id/tvClock"
+            android:id="@+id/tvAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10"
             android:text=""
+            android:hint="click to pick time"
             android:textColor="@color/colorPrimary"/>
 
         <View

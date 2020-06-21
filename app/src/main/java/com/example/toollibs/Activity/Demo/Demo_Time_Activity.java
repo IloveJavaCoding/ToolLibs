@@ -29,15 +29,17 @@ import java.util.Date;
 import java.util.zip.Inflater;
 
 public class Demo_Time_Activity extends AppCompatActivity {
-    private TextView tvTime, tvClock;
-    private RadioButton rbStart;
-    private Thread thread;
+    private TextView tvTime, tvAlarm;
+    private RadioButton rbStart;//control the statue of alarm
+    private Thread thread;//update time
 
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
+    private Date date;
+
     private final String action = "com.example.ToolLibs.alarm";;
     private final String maxTime = "2020-12-30 23:59";
-    private boolean isSet = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,23 +52,17 @@ public class Demo_Time_Activity extends AppCompatActivity {
 
     private void init() {
         tvTime = findViewById(R.id.tvTime);
-        tvClock = findViewById(R.id.tvClock);
+        tvAlarm = findViewById(R.id.tvAlarm);
 
         rbStart = findViewById(R.id.rbConfirm);
-
-        initAlarm();
-    }
-
-    private void initAlarm() {
-        pendingIntent=PendingIntent.getBroadcast(this,0,getMsgIntent(),0);
         alarmManager= (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
-    private Intent getMsgIntent() {
+    private Intent getMsgIntent(String time) {
         Intent intent=new Intent(this, AlarmReceiver.class);
         intent.setAction(action);
         intent.putExtra("tag","闹钟开启");//tag
-        intent.putExtra("time", tvTime.getText().toString());
+        intent.putExtra("time", time);
         return intent;
     }
 
@@ -76,14 +72,27 @@ public class Demo_Time_Activity extends AppCompatActivity {
     }
 
     private void setListener() {
+        tvAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timeSelector();
+            }
+        });
+
         rbStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    timeSelector();
+                    if(tvAlarm.getText().toString()!=null){
+                        int[] temp = DateUtil.getYMDHMS_Date(date);
+                        activeAlarm(temp[2],temp[3],temp[4]);
+                        SystemUtil.ShowToast(getApplicationContext(),"Start alarm.");
+                    }else{
+                        SystemUtil.ShowToast(getApplicationContext(),"Please pick time first.");
+                    }
                 }else{
                     alarmManager.cancel(pendingIntent);
-                    tvClock.setText(" ");
+                    tvAlarm.setText(" ");
                 }
             }
         });
@@ -93,12 +102,10 @@ public class Demo_Time_Activity extends AppCompatActivity {
         TimeSelector timeSelector = new TimeSelector(this, new TimeSelector.ResultHandler() {
             @Override
             public void handle(Date time) {
-                tvClock.setText(DateUtil.Date2String(time, "yyyy-MM-dd HH:mm"));
-
-                int[] temp = DateUtil.getYMDHMS_Date(time);
-                SystemUtil.ShowToast(getApplicationContext(),"Start alarm.");
-                activeAlarm(temp[2],temp[3],temp[4]);
-                isSet = true;
+                date = time;
+                String t = DateUtil.Date2String(time, "yyyy-MM-dd HH:mm");
+                tvAlarm.setText(t);
+                pendingIntent=PendingIntent.getBroadcast(getApplicationContext(),0,getMsgIntent(t),0);
             }
         },DateUtil.getCurTime(), maxTime);
         timeSelector.setMode(TimeSelector.MODE.YMDHM);
