@@ -55,6 +55,7 @@ public class Demo_Time_Activity extends AppCompatActivity {
         tvAlarm = findViewById(R.id.tvAlarm);
 
         rbStart = findViewById(R.id.rbConfirm);
+        rbStart.setEnabled(false);
         alarmManager= (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
@@ -83,13 +84,10 @@ public class Demo_Time_Activity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    if(tvAlarm.getText().toString()!=null){
-                        int[] temp = DateUtil.getYMDHMS_Date(date);
-                        activeAlarm(temp[2],temp[3],temp[4]);
-                        SystemUtil.ShowToast(getApplicationContext(),"Start alarm.");
-                    }else{
-                        SystemUtil.ShowToast(getApplicationContext(),"Please pick time first.");
-                    }
+                    int[] temp = DateUtil.getYMDHMS_Date(date);
+                    activeAlarm(temp[2],temp[3],temp[4]);
+                    SystemUtil.ShowToast(getApplicationContext(),"Start alarm.");
+
                 }else{
                     alarmManager.cancel(pendingIntent);
                     tvAlarm.setText(" ");
@@ -106,6 +104,7 @@ public class Demo_Time_Activity extends AppCompatActivity {
                 String t = DateUtil.Date2String(time, "yyyy-MM-dd HH:mm");
                 tvAlarm.setText(t);
                 pendingIntent=PendingIntent.getBroadcast(getApplicationContext(),0,getMsgIntent(t),0);
+                rbStart.setEnabled(true);
             }
         },DateUtil.getCurTime(), maxTime);
         timeSelector.setMode(TimeSelector.MODE.YMDHM);

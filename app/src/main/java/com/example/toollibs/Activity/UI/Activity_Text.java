@@ -20,17 +20,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.OverWriteClass.SelfPasswordTransformationMethod;
 import com.example.toollibs.R;
 import com.example.toollibs.SelfClass.MarqueeHorizontalText;
+import com.example.toollibs.Util.DateUtil;
 import com.example.toollibs.Util.SystemUtil;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Activity_Text extends AppCompatActivity {
-    private TextView tvLamp;
+    private TextView tvLamp, tvTest;
     private EditText etPassword, etEnter, etDel;
     private Button bEnter;
     private ToggleButton tbControl;
@@ -66,6 +70,8 @@ public class Activity_Text extends AppCompatActivity {
 
         spinner1 = findViewById(R.id.spinner1);
         spinner2 = findViewById(R.id.spinner2);
+
+        tvTest = findViewById(R.id.tvTest);
     }
 
     private void setData() {
@@ -97,6 +103,7 @@ public class Activity_Text extends AppCompatActivity {
         spinner2.setAdapter(intAdapter);
 
         setMarquee(view);
+
     }
 
     private void setMarquee(MarqueeHorizontalText view){

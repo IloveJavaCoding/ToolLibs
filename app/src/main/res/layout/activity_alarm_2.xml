@@ -2,12 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/gradient"
-    tools:context=".Activity.Demo.Alarm_Activity">
+    android:orientation="vertical"
+    android:background="@drawable/gradient">
 
     <TextView
-        android:id="@+id/tvCurTime"
+        android:id="@+id/tvCurTimeAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,17 +16,17 @@
         android:textSize="@dimen/text_size_55"/>
 
     <TextView
-        android:id="@+id/tvCurDate"
+        android:id="@+id/tvCurDateAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tvCurTime"
+        android:layout_below="@+id/tvCurTimeAlarm"
         android:text="Mon, 21 June"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/text_size_20"/>
 
     <TextView
-        android:id="@+id/tvTag"
+        android:id="@+id/tvTagAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -36,10 +35,10 @@
         android:textSize="@dimen/text_size_35"/>
 
     <Button
-        android:id="@+id/bSnooze"
+        android:id="@+id/bSnoozeAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTag"
+        android:layout_below="@+id/tvTagAlarm"
         android:layout_centerHorizontal="true"
         android:padding="@dimen/padding_10"
         android:layout_margin="@dimen/margin_10"
@@ -48,7 +47,7 @@
         android:background="@drawable/selector_button_transparent2" />
 
     <Button
-        android:id="@+id/bStop"
+        android:id="@+id/bStopAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -58,7 +57,5 @@
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/text_size_25"
         android:background="@drawable/selector_button_transparent" />
-
-
 
 </RelativeLayout>

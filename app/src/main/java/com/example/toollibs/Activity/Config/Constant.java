@@ -12,7 +12,7 @@ public class Constant {
     public static final String TYPE_USED = "used";
 
     public static final String[] LANGUAGE = {"简体中文", "English"};
-    public static final String[] WEEK = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    public static final String[] WEEK = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     public static final String[] MONTH = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
     //live

@@ -109,7 +109,7 @@ public class DateUtil {
         calendar.setTime(time);
 
         arr[0] = calendar.get(Calendar.YEAR);
-        arr[1] = calendar.get(Calendar.MONTH+1);
+        arr[1] = calendar.get(Calendar.MONTH)+1;
         arr[2] = calendar.get(Calendar.DAY_OF_MONTH);
 
         arr[3] = calendar.get(Calendar.HOUR_OF_DAY);
