@@ -33,7 +33,7 @@ public class Alarm_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_2);
-        layout_Setting();
+        //layout_Setting();
 
         getData();
         init();

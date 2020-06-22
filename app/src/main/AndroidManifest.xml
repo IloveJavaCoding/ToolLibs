@@ -30,9 +30,7 @@
         <activity android:name=".Activity.UI.Activity_View" />
         <activity android:name=".Activity.UI.Activity_Button" />
         <activity android:name=".Activity.UI.Activity_Text" />
-        <activity
-            android:name=".Activity.Demo.Alarm_Activity"
-            android:theme="@style/TransparentBG" />
+        <activity android:name=".Activity.Demo.Alarm_Activity" />
         <activity android:name=".Activity.Demo.Demo_Time_Activity" />
         <activity android:name=".Activity.Urat5168_Activity">
             <intent-filter>
