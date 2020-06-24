@@ -54,6 +54,9 @@ public class Constant {
 
     //key value
     public static final String AUTO_START_KEY = "auto_start";
-    public static final String URL_KEY = "auto_start";
-    public static final String LANGUAGE_KEY = "auto_start";
+    public static final String URL_KEY = "url_history";
+    public static final String LANGUAGE_KEY = "language";
+
+    //action
+    public static final String ACTION_RESET_SOUND = "com.example.ToolLibs.reset_sound";
 }

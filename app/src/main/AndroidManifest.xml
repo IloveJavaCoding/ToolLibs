@@ -71,6 +71,10 @@
             android:name=".Activity.Service.PlayerService"
             android:enabled="true"
             android:exported="false" />
+
+        <service android:name=".Activity.Service.AlarmService"
+            android:enabled="true"
+            android:exported="false"/>
     </application>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />

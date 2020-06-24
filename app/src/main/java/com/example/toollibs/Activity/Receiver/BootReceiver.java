@@ -31,12 +31,4 @@ public class BootReceiver extends BroadcastReceiver {
             super.handleMessage(msg);
         }
     };
-
-    private void startApp(Context context){
-        Intent thisIntent = new Intent(context, MainActivity.class);
-        thisIntent.setAction("android.intent.action.MAIN");
-        thisIntent.addCategory("android.intent.category.LAUNCHER");
-        thisIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(thisIntent);
-    }
 }

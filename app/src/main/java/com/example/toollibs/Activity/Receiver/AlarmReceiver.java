@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.Activity.Demo.Alarm_Activity;
+import com.example.toollibs.Activity.Service.AlarmService;
 import com.example.toollibs.Activity.Service.PlayerService;
 import com.example.toollibs.Util.SystemUtil;
 
@@ -18,18 +20,9 @@ public class AlarmReceiver extends BroadcastReceiver {
     private final int AUTO_CLOSE_CODE = 0x003;
     @Override
     public void onReceive(Context context, Intent intent) {
-        //SystemUtil.ShowToast(context, "Alarming");
         this.context = context;
         showNotification(context, intent);
         handler.sendEmptyMessage(AUTO_CLOSE_CODE);
-    }
-
-    private void showDialog(Context context, Intent intent){
-        Bundle bundle = intent.getExtras();
-        intent = new Intent(context, Alarm_Activity.class);
-        intent.putExtras(bundle);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
     }
 
     private void showNotification(Context context, Intent intent){
@@ -45,12 +38,11 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     private void startServices(Context context){
-        Intent intent = new Intent(context, PlayerService.class);
-        context.startService(intent);
+        context.startService(AlarmService.getIntent(context, Constant.ACTION_RESET_SOUND, "filePath"));
     }
 
     private void stopServices(Context context){
-        Intent intent = new Intent(context, PlayerService.class);
+        Intent intent = new Intent(context, AlarmService.class);
         context.stopService(intent);
     }
 
@@ -66,7 +58,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     stopServices(context);
                     break;
                 case AUTO_CLOSE_CODE:
-                    autoClose(3);
+                    autoClose(2);
                     break;
             }
         }
@@ -82,7 +74,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                stopServices(context);
+                handler.sendEmptyMessage(STOP_SERVICE_CODE);
             }
         }.start();
     }
