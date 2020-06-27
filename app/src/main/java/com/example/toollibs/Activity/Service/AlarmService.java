@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.toollibs.Activity.Config.Constant;
+import com.example.toollibs.R;
 
 import java.io.IOException;
 
@@ -19,7 +20,7 @@ public class AlarmService extends Service {
     private MediaPlayer mediaPlayer;
 
     private static final String ACTION_KEY = "extra_action";
-    private static final String DATA_KEY = "extra_action";
+    private static final String DATA_KEY = "extra_date";
 
     public static Intent getIntent(Context context, String action, String extras) {
         Intent intent = new Intent();
@@ -39,7 +40,7 @@ public class AlarmService extends Service {
         Log.d(TAG, "start service...");
         super.onCreate();
         //init the media player
-        mediaPlayer = new MediaPlayer();
+        //mediaPlayer = new MediaPlayer();
     }
 
     @Override
@@ -55,11 +56,16 @@ public class AlarmService extends Service {
         if (TextUtils.isEmpty(action)) return;
         if (action.equals(Constant.ACTION_RESET_SOUND)){
             Log.d(TAG, "reset sound path...");
-            try {
-                mediaPlayer.setDataSource(data);
-                mediaPlayer.prepare();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(data.equals(Constant.ALARM_SOUND_DEFAULT)){
+                mediaPlayer = MediaPlayer.create(this, R.raw.bloom_of_youth);
+            }else{
+                mediaPlayer = new MediaPlayer();
+                try {
+                    mediaPlayer.setDataSource(data);
+                    mediaPlayer.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             mediaPlayer.start();
         }

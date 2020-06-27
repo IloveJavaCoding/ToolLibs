@@ -30,7 +30,11 @@
         <activity android:name=".Activity.UI.Activity_View" />
         <activity android:name=".Activity.UI.Activity_Button" />
         <activity android:name=".Activity.UI.Activity_Text" />
-        <activity android:name=".Activity.Demo.Alarm_Activity" />
+        <activity android:name=".Activity.Demo.Alarm_Activity"
+            android:theme="@style/FullScreenTheme"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"/>
         <activity android:name=".Activity.Demo.Demo_Time_Activity" />
         <activity android:name=".Activity.Urat5168_Activity">
             <intent-filter>
@@ -41,7 +45,8 @@
         <activity android:name=".Activity.Demo.Demo_TimerSelector_Activity" />
         <activity android:name=".Activity.UI.Activity_Dialog_Notification" />
         <activity android:name=".Activity.Demo.Demo_PosterView_Activity" />
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity"
+            android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

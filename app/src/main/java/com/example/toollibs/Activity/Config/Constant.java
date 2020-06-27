@@ -51,11 +51,17 @@ public class Constant {
     //default value
     public static final boolean AUTO_START_DEFAULT = true;
     public static final int LANGUAGE_DEFAULT = 0;
+    public static final String ALARM_TIME_DEFAULT = "click to pick time";
+    public static final boolean ALARM_STATE_DEFAULT = false;
+    public static final String ALARM_SOUND_DEFAULT = "Default";
 
     //key value
     public static final String AUTO_START_KEY = "auto_start";
     public static final String URL_KEY = "url_history";
     public static final String LANGUAGE_KEY = "language";
+    public static final String ALARM_TIME_KEY = "alarm_time";
+    public static final String ALARM_STATE_KEY = "alarm_state";
+    public static final String ALARM_SOUND_KEY = "alarm_sound";
 
     //action
     public static final String ACTION_RESET_SOUND = "com.example.ToolLibs.reset_sound";

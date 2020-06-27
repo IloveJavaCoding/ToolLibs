@@ -22,6 +22,7 @@ import android.os.Environment;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.support.transition.Visibility;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
@@ -279,10 +280,16 @@ public class SystemUtil {
         //1. get notification service
         NotificationManager manager=(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        //2. create notification  channel version>26
+        //2. create notification channel version>26   android 8.0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             String channelName = "Default Name";
-            manager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH));
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+            //channel.setSound();
+            channel.enableLights(true);
+            channel.enableVibration(true);
+            channel.setLockscreenVisibility(1);
+
+            manager.createNotificationChannel(channel);
         }
 
         //3. set intent(active when click the notification)
@@ -295,10 +302,16 @@ public class SystemUtil {
                 .setContentText(msg) //message
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher))
                 .setContentIntent(pendingIntent)//intent
                 .setAutoCancel(true)//cancel the notification when click head
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setFullScreenIntent(pendingIntent, true)  //hang the notification
+                //set a picture
+                .setStyle(new NotificationCompat.BigPictureStyle()
+                        .bigPicture(BitmapUtil.getBitmapFromRes(context,R.drawable.img_bg))
+                .bigLargeIcon(null))
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.img_bg))
+
                 .build();
 
         //.setCategory(Notification.CATEGORY_MESSAGE) //version>21
@@ -309,6 +322,42 @@ public class SystemUtil {
          * 2.VISIBILITY_PUBLIC : 显示通知的全部内容；
          * 3.VISIBILITY_SECRET : 不显示任何内容，包括图标。
          */
+
+        //5. send notification
+        manager.notify(id,notification);
+    }
+
+    public static void sendPictureNotification(Context context, String channelId, Intent intent, String title, String msg, int id, int resId){
+        //1. get notification service
+        NotificationManager manager=(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //2. create notification channel version>26   android 8.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            String channelName = "Default Name";
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+
+            manager.createNotificationChannel(channel);
+        }
+
+        //3. set intent(active when click the notification)
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //4. init notification, get instance
+        Notification notification = new NotificationCompat.Builder(context,channelId)
+                .setContentTitle(title) //title
+                .setContentText(msg) //message
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pendingIntent)//intent
+                .setAutoCancel(true)//cancel the notification when click head
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setFullScreenIntent(pendingIntent, true)  //hang the notification
+                //set a picture
+                .setStyle(new NotificationCompat.BigPictureStyle()
+                        .bigPicture(BitmapUtil.getBitmapFromRes(context,resId))
+                        .bigLargeIcon(null))
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), resId))
+                .build();
 
         //5. send notification
         manager.notify(id,notification);

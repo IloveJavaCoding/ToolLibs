@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.toollibs.Activity.Config.Constant;
+import com.example.toollibs.Activity.Service.AlarmService;
 import com.example.toollibs.Activity.Service.PlayerService;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.DateUtil;
@@ -33,12 +34,14 @@ public class Alarm_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_2);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         //layout_Setting();
 
         getData();
         init();
         setDate();
         setListener();
+        autoClose(2);
     }
 
     private void getData() {
@@ -78,22 +81,10 @@ public class Alarm_Activity extends AppCompatActivity {
         tvTag.setText(tag+"...");
     }
 
-    private void layout_Setting(){
-        Display display = getWindowManager().getDefaultDisplay();
-        Window window = getWindow();
-        WindowManager.LayoutParams layoutParams = window.getAttributes();
-        Point size = new Point();
-        display.getSize(size);
-        layoutParams.gravity = Gravity.TOP;
-        layoutParams.width =size.x;
-        layoutParams.height = size.y;
-    }
-
     private void setListener() {
         bStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopServices(getApplicationContext());
                 exitActivity();
             }
         });
@@ -107,12 +98,28 @@ public class Alarm_Activity extends AppCompatActivity {
     }
 
     private void stopServices(Context context){
-        Intent intent = new Intent(context, PlayerService.class);
+        Intent intent = new Intent(context, AlarmService.class);
         context.stopService(intent);
     }
 
     private void exitActivity(){
         //this.finish();
+        stopServices(getApplicationContext());
         System.exit(0);
+    }
+
+    private void autoClose(final int minute){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Thread.sleep(minute*1000*60);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                exitActivity();
+            }
+        }.start();
     }
 }

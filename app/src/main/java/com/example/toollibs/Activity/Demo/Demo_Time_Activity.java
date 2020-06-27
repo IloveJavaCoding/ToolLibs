@@ -2,14 +2,18 @@ package com.example.toollibs.Activity.Demo;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -17,11 +21,14 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.example.toollibs.Activity.Config.Constant;
+import com.example.toollibs.Activity.Config.SettingData;
 import com.example.toollibs.Activity.Receiver.AlarmReceiver;
 import com.example.toollibs.OverWriteClass.PosterView;
 import com.example.toollibs.R;
 import com.example.toollibs.SelfClass.TimeSelector;
 import com.example.toollibs.Util.DateUtil;
+import com.example.toollibs.Util.IntentUtil;
 import com.example.toollibs.Util.SystemUtil;
 
 import java.util.Calendar;
@@ -29,7 +36,7 @@ import java.util.Date;
 import java.util.zip.Inflater;
 
 public class Demo_Time_Activity extends AppCompatActivity {
-    private TextView tvTime, tvAlarm;
+    private TextView tvTime, tvAlarm, tvSound;
     private RadioButton rbStart;//control the statue of alarm
     private Thread thread;//update time
 
@@ -37,8 +44,12 @@ public class Demo_Time_Activity extends AppCompatActivity {
     private PendingIntent pendingIntent;
     private Date date;
 
+    private String soundName;
+    private String alarmTime;
+
     private final String action = "com.example.ToolLibs.alarm";;
     private final String maxTime = "2020-12-30 23:59";
+    private final int OPEN_AUDIO_CODE = 0x001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,23 +64,32 @@ public class Demo_Time_Activity extends AppCompatActivity {
     private void init() {
         tvTime = findViewById(R.id.tvTime);
         tvAlarm = findViewById(R.id.tvAlarm);
+        tvSound = findViewById(R.id.tvSound);
 
         rbStart = findViewById(R.id.rbConfirm);
-        rbStart.setEnabled(false);
         alarmManager= (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
-    private Intent getMsgIntent(String time) {
+    private Intent getMsgIntent() {
         Intent intent=new Intent(this, AlarmReceiver.class);
         intent.setAction(action);
         intent.putExtra("tag","闹钟开启");//tag
-        intent.putExtra("time", time);
+        intent.putExtra("time", alarmTime);
+        intent.putExtra("sound", soundName);
         return intent;
     }
 
     private void setData() {
         thread = new Thread(new TimeThread());
         thread.start();
+
+        //read history setting
+        tvAlarm.setText(SettingData.getString(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_TIME_KEY, Constant.ALARM_TIME_DEFAULT));
+        boolean state = SettingData.getBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_STATE_KEY, Constant.ALARM_STATE_DEFAULT);
+        rbStart.setEnabled(state);
+        rbStart.setChecked(state);
+        soundName = SettingData.getString(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_SOUND_KEY, Constant.ALARM_SOUND_DEFAULT);
+        tvSound.setText(getSoundName(soundName));
     }
 
     private void setListener() {
@@ -84,14 +104,23 @@ public class Demo_Time_Activity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
+                    pendingIntent=PendingIntent.getBroadcast(getApplicationContext(),0,getMsgIntent(),0);
                     int[] temp = DateUtil.getYMDHMS_Date(date);
                     activeAlarm(temp[2],temp[3],temp[4]);
-                    SystemUtil.ShowToast(getApplicationContext(),"Start alarm.");
-
+                    Log.d("tag", "Start alarm...");
+                    SettingData.setBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_STATE_KEY, true);
                 }else{
                     alarmManager.cancel(pendingIntent);
-                    tvAlarm.setText(" ");
+                    SettingData.setBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_STATE_KEY, false);
                 }
+            }
+        });
+
+        tvSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //judge to pick music
+                IntentUtil.readAudioFile(Demo_Time_Activity.this, OPEN_AUDIO_CODE);
             }
         });
     }
@@ -101,9 +130,10 @@ public class Demo_Time_Activity extends AppCompatActivity {
             @Override
             public void handle(Date time) {
                 date = time;
-                String t = DateUtil.Date2String(time, "yyyy-MM-dd HH:mm");
-                tvAlarm.setText(t);
-                pendingIntent=PendingIntent.getBroadcast(getApplicationContext(),0,getMsgIntent(t),0);
+                alarmTime = DateUtil.Date2String(time, "yyyy-MM-dd HH:mm");
+                tvAlarm.setText(alarmTime);
+                Log.d("tag", "save time......");
+                SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_TIME_KEY, alarmTime);
                 rbStart.setEnabled(true);
             }
         },DateUtil.getCurTime(), maxTime);
@@ -158,5 +188,24 @@ public class Demo_Time_Activity extends AppCompatActivity {
                 handler.sendMessage(message);
             }
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Uri uri = data.getData();
+        ContentResolver contentResolver = this.getContentResolver();
+
+        if(requestCode==OPEN_AUDIO_CODE && resultCode==RESULT_OK){
+            soundName = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
+            Log.d("tag", "choose sound " + soundName);
+            tvSound.setText(getSoundName(soundName));
+            SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_SOUND_KEY, soundName);
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private String getSoundName(String path) {
+        return path.substring(path.lastIndexOf("/")+1, path.lastIndexOf("."));
     }
 }
