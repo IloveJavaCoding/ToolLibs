@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.TextureView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -31,12 +32,18 @@ public class Activity_View_DualScreen extends AppCompatActivity implements Textu
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_view_dual_screen);
+        fullScreen();
 
         init();
         setDate();
         setListener();
+    }
+
+    private void fullScreen() {
+        View decorView = getWindow().getDecorView();
+        int option = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(option);
     }
 
     private void init() {

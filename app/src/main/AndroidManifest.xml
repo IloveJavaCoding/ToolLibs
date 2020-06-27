@@ -25,6 +25,7 @@
         <activity android:name=".Activity.UI.Activity_View_WebView" />
         <activity android:name=".Activity.UI.Activity_View_ImageView" />
         <activity android:name=".Activity.UI.Activity_View_DualScreen"
+            android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
         <activity android:name=".Activity.UI.Activity_Bar" />
         <activity android:name=".Activity.UI.Activity_Show_Data" />
