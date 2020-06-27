@@ -24,6 +24,8 @@
         <activity android:name=".Activity.UI.Activity_View_VideoView" />
         <activity android:name=".Activity.UI.Activity_View_WebView" />
         <activity android:name=".Activity.UI.Activity_View_ImageView" />
+        <activity android:name=".Activity.UI.Activity_View_DualScreen"
+            android:theme="@style/FullScreenTheme"/>
         <activity android:name=".Activity.UI.Activity_Bar" />
         <activity android:name=".Activity.UI.Activity_Show_Data" />
         <activity android:name=".Activity.UI.Activity_Selector" />
