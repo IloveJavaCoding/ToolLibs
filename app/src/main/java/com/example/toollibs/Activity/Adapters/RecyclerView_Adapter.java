@@ -31,24 +31,21 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Adap
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        myViewHolder.tvData.setText(data.get(i));
         if(i%2==0){
-            myViewHolder.image.setImageResource(R.drawable.img_ad);
+            myViewHolder.image.setImageResource(R.drawable.img_bg);
         }else{
-            myViewHolder.image.setImageResource(R.drawable.img_ad1);
+            myViewHolder.image.setImageResource(R.drawable.img_bg2);
         }
     }
 
     //self define holder
     class MyViewHolder extends RecyclerView.ViewHolder{
         //according to the layout layout_recycler_view
-        private TextView tvData;
         private ImageView image;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             //init
-            tvData = itemView.findViewById(R.id.tvText);
             image = itemView.findViewById(R.id.image);
         }
     }

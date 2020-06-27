@@ -2,7 +2,6 @@ package com.example.toollibs.Activity.UI;
 
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.IntentUtil;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Activity_Intent extends AppCompatActivity implements View.OnClickListener {
@@ -165,10 +163,10 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
                 if(mediaPlayer.isPlaying()){
                     //pause
                     mediaPlayer.pause();
-                    imgPlay.setImageResource(R.drawable.img_video_pause);
+                    imgPlay.setImageResource(R.drawable.icon_video_pause);
                 }else{
                     //play
-                    imgPlay.setImageResource(R.drawable.img_video_play);
+                    imgPlay.setImageResource(R.drawable.icon_video_play);
                     mediaPlayer.start();
                 }
                 break;

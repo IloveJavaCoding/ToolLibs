@@ -94,18 +94,6 @@
                 android:background="@drawable/selector_button"/>
 
             <Button
-                android:id="@+id/bDemo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Demos"
-                android:textColor="@color/colorWhite"
-                android:padding="@dimen/padding_5"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_15"
-                android:background="@drawable/selector_button"/>
-
-            <Button
                 android:id="@+id/bDialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,10 +130,10 @@
                 android:background="@drawable/selector_button"/>
 
             <Button
-                android:id="@+id/b5168"
+                android:id="@+id/bDatabase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5168"
+                android:text="Database"
                 android:textColor="@color/colorWhite"
                 android:padding="@dimen/padding_5"
                 android:textAllCaps="false"
@@ -154,10 +142,10 @@
                 android:background="@drawable/selector_button"/>
 
             <Button
-                android:id="@+id/bDatabase"
+                android:id="@+id/bDemo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Database"
+                android:text="Demos"
                 android:textColor="@color/colorWhite"
                 android:padding="@dimen/padding_5"
                 android:textAllCaps="false"

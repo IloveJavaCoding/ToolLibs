@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import android.widget.ToggleButton;
 
 import com.example.toollibs.Activity.Service.PlayerService;
 import com.example.toollibs.R;
-import com.example.toollibs.Util.FileUtil;
 
 import java.io.IOException;
 
@@ -114,7 +112,7 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.imgPlay:
-                player1.setImageResource(R.drawable.img_video_play);
+                player1.setImageResource(R.drawable.icon_video_play);
                 service.play();
 //                Intent intent = new Intent(getApplicationContext(), PlayerService.class);
 //                startService(intent);
@@ -128,10 +126,10 @@ public class Activity_Service extends AppCompatActivity implements View.OnClickL
                     if(mediaPlayer.isPlaying()){
                         //pause
                         mediaPlayer.pause();
-                        player3.setImageResource(R.drawable.img_video_pause);
+                        player3.setImageResource(R.drawable.icon_video_pause);
                     }else{
                         //play
-                        player3.setImageResource(R.drawable.img_video_play);
+                        player3.setImageResource(R.drawable.icon_video_play);
                         mediaPlayer.start();
                     }
                 }else{

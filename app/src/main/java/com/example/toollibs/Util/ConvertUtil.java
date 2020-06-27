@@ -1,8 +1,10 @@
 package com.example.toollibs.Util;
 
+import java.lang.reflect.Array;
+
 public class ConvertUtil {
     //
-    public static String String2Hex(String str){
+    public static String string2Hex(String str){
         String out = "";
         for(int i=0;i<str.length();i++){
             int ch = str.charAt(i);

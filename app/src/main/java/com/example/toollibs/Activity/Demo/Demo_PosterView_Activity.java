@@ -1,91 +1,73 @@
 package com.example.toollibs.Activity.Demo;
 
-import android.app.Dialog;
-import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.example.toollibs.OverWriteClass.PosterView;
+import com.example.toollibs.OverWriteClass.GlideImageLoader;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.SystemUtil;
+import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Demo_PosterView_Activity extends AppCompatActivity {
-    private Button bChange, bDialog;
+    private Banner banner1, banner2;
 
-    private boolean isChanged = false;
+    private List<String> imageUrl;
+    private List<Bitmap> imageBitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poster_view_);
 
         init();
+        setDate();
         setListener();
     }
 
     private void init() {
-        bChange = findViewById(R.id.bChange);
-        bDialog = findViewById(R.id.bDialog);
+        banner1 = findViewById(R.id.bannerWeb);
+        banner2 = findViewById(R.id.bannerLocal);
+    }
+
+    private void setDate() {
+        imageUrl = new ArrayList<>();
+        imageUrl.add("https://images4.alphacoders.com/651/651952.jpg");
+        imageUrl.add("https://images7.alphacoders.com/973/973119.jpg");
+        imageUrl.add("https://images6.alphacoders.com/947/947849.jpg");
+
+        imageBitmap = new ArrayList<>();
+        imageBitmap.add(BitmapUtil.getBitmapFromRes(this, R.drawable.img_bg));
+        imageBitmap.add(BitmapUtil.getBitmapFromRes(this, R.drawable.img_bg2));
+        imageBitmap.add(BitmapUtil.getBitmapFromRes(this, R.drawable.img_bg3));
+
+        banner1.setImageLoader(new GlideImageLoader(1));
+        banner1.setImages(imageUrl);
+        banner1.setDelayTime(5000);//default 5seconds
+        banner1.start();
+
+        banner2.setImageLoader(new GlideImageLoader(2));
+        banner2.setImages(imageBitmap);
+        banner2.setDelayTime(3000);//default 5seconds
+        banner2.start();
     }
 
     private void setListener() {
-        bChange.setOnClickListener(new View.OnClickListener() {
+        banner1.setOnBannerListener(new OnBannerListener() {
             @Override
-            public void onClick(View view) {
-                if(!isChanged){
-                    isChanged = true;
-                    //posterView.setIMAGES(BitmapUtil.getBitmapsFromRes(getApplicationContext(), new int[]{R.drawable.img_bg, R.drawable.img_bg2}));
-                }
+            public void OnBannerClick(int position) {
+                SystemUtil.ShowToast(getApplicationContext(), "click " + position);
             }
         });
 
-        bDialog.setOnClickListener(new View.OnClickListener() {
+        banner2.setOnBannerListener(new OnBannerListener() {
             @Override
-            public void onClick(View view) {
-                showDialog();
-            }
-        });
-    }
-
-    private void showDialog() {
-        final Dialog dialog = new Dialog(this, R.style.time_dialog);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.poster_view);//layout of the dialog
-
-        //set the width of dialog be same as window and at the bottom
-        Window window = dialog.getWindow();
-        window.setGravity(Gravity.BOTTOM);//location -- bottom
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.width = SystemUtil.GetScreenDM(this).widthPixels;
-        window.setAttributes(lp);
-
-        //operations
-        Button bCancel = dialog.findViewById(R.id.bCancel);
-        Button bConfirm = dialog.findViewById(R.id.bConfirm);
-        PosterView posterView = dialog.findViewById(R.id.posterView);
-        posterView.setIMAGES(BitmapUtil.getBitmapsFromRes(getApplicationContext(), new int[]{R.drawable.img_bg, R.drawable.img_bg2}));
-
-        dialog.show();
-
-        bCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        bConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
+            public void OnBannerClick(int position) {
+                SystemUtil.ShowToast(getApplicationContext(), "click " + position);
             }
         });
     }

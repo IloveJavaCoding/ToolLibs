@@ -7,7 +7,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.EditText;
 
 import com.example.toollibs.R;
 
@@ -23,7 +22,7 @@ public class EditTextDelIcon extends android.support.v7.widget.AppCompatEditText
 
     private void Init() {
         //set delete icon;
-        icon = context.getResources().getDrawable(R.drawable.img_del);
+        icon = context.getResources().getDrawable(R.drawable.icon_del);
         //set text change listener;
         addTextChangedListener(new TextWatcher() {
             @Override

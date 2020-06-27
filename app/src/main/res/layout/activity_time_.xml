@@ -75,7 +75,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/img_arrow"
+                android:src="@drawable/icon_arrow_right"
                 android:layout_marginLeft="@dimen/margin_10"/>
         </LinearLayout>
     </LinearLayout>

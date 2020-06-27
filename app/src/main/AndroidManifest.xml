@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Demo.Demo_Live_Activity"></activity>
+        <activity android:name=".Activity.Demo.Demo_Live_Activity"/>
         <activity android:name=".Activity.UI.Activity_Service" />
         <activity android:name=".Activity.UI.Activity_Intent" />
         <activity android:name=".Activity.UI.Activity_Demos" />
@@ -36,11 +36,6 @@
             android:taskAffinity=""
             android:excludeFromRecents="true"/>
         <activity android:name=".Activity.Demo.Demo_Time_Activity" />
-        <activity android:name=".Activity.Urat5168_Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.DIAL" />
-            </intent-filter>
-        </activity>
         <activity android:name=".Activity.UI.Activity_Bar_SeekBar" />
         <activity android:name=".Activity.Demo.Demo_TimerSelector_Activity" />
         <activity android:name=".Activity.UI.Activity_Dialog_Notification" />

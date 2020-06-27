@@ -44,7 +44,7 @@ public class GridView_Adapter<T> extends BaseAdapter {
         ImageView image = view.findViewById(R.id.image);
 
         tvData.setText(data.get(i).toString());
-        image.setImageResource(R.drawable.img_del);
+        image.setImageResource(R.drawable.icon_del);
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override

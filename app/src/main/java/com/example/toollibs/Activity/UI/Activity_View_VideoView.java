@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.LongDef;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -99,7 +98,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
 
     private void setBackground(Bitmap bitmap){
         if(bitmap==null){
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.yy_video_default);
+            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.img_video_default);
         }
         videoView.setBackground(new BitmapDrawable(getResources(), bitmap));
     }
@@ -146,7 +145,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                imgControl.setImageResource(R.drawable.img_video_triangle);
+                imgControl.setImageResource(R.drawable.icon_video_triangle);
                 showControl();
                 Log.d("Tag", "finish play");
             }
@@ -243,7 +242,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
     };
 
     private void playVideo(){
-        imgControl.setImageResource(R.drawable.img_video_equal);
+        imgControl.setImageResource(R.drawable.icon_video_equal);
         videoView.setBackground(null);
         videoView.start();
         layoutControl.setVisibility(View.VISIBLE);
@@ -252,7 +251,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
     }
 
     private void pauseVideo(){
-        imgControl.setImageResource(R.drawable.img_video_triangle);
+        imgControl.setImageResource(R.drawable.icon_video_triangle);
         videoView.pause();
     }
 

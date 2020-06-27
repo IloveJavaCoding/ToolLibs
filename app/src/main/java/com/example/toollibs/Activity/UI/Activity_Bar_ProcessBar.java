@@ -49,7 +49,7 @@ public class Activity_Bar_ProcessBar extends AppCompatActivity {
     }
 
     private void setData() {
-        Drawable drawable = getResources().getDrawable(R.drawable.img_back);
+        Drawable drawable = getResources().getDrawable(R.drawable.icon_back_white);
         drawable.setBounds(0,0,30,30);
         toolBar.setNavigationIcon(drawable);
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);

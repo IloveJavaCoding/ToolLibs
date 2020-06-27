@@ -23,7 +23,7 @@
             android:id="@+id/ivControl"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/img_video_triangle"
+            android:src="@drawable/icon_video_triangle"
             android:layout_centerInParent="true" />
 
         <RelativeLayout
@@ -76,7 +76,7 @@
                 android:layout_toRightOf="@+id/layout1"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/selector_button_player"
-                android:src="@drawable/img_video_voice"
+                android:src="@drawable/icon_video_voice"
                 android:scaleType="fitCenter" />
 
             <com.example.toollibs.OverWriteClass.VerticalSeekBar
@@ -96,7 +96,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/selector_button_player"
-                android:src="@drawable/img_video_full"
+                android:src="@drawable/icon_video_full"
                 android:scaleType="fitCenter" />
         </RelativeLayout>
 

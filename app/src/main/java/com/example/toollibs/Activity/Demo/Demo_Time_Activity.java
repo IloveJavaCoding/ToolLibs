@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,25 +14,20 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.Activity.Config.SettingData;
 import com.example.toollibs.Activity.Receiver.AlarmReceiver;
-import com.example.toollibs.OverWriteClass.PosterView;
 import com.example.toollibs.R;
 import com.example.toollibs.SelfClass.TimeSelector;
 import com.example.toollibs.Util.DateUtil;
 import com.example.toollibs.Util.IntentUtil;
-import com.example.toollibs.Util.SystemUtil;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.zip.Inflater;
 
 public class Demo_Time_Activity extends AppCompatActivity {
     private TextView tvTime, tvAlarm, tvSound;

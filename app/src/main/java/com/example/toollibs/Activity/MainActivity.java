@@ -30,7 +30,7 @@ import com.example.toollibs.Activity.Interface.NetworkType;
 import com.example.toollibs.Util.SystemUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NetStateChangeObserver {
-    private Button bDialog, b5168;
+    private Button bDialog;
 
     private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bIntent, bService, bDatabase, bSetting;
 
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bSetting = findViewById(R.id.bSetting);
 
         bDialog = findViewById(R.id.bDialog);
-        b5168 = findViewById(R.id.b5168);
 
         if(!SystemUtil.CheckPermission(this, NEEDED_PERMISSIONS)){
             ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
@@ -92,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bSetting.setOnClickListener(this);
 
         bDialog.setOnClickListener(this);
-        b5168.setOnClickListener(this);
     }
 
     @Override
@@ -135,9 +133,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.bDialog:
                 intent = new Intent(this, Activity_Dialog_Notification.class);
-                break;
-            case R.id.b5168:
-                intent = new Intent(this, Urat5168_Activity.class);
                 break;
         }
         startActivity(intent);

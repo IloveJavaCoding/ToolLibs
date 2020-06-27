@@ -73,7 +73,7 @@ public class ListView_Adapter<T> extends BaseAdapter implements View.OnClickList
         }
 
         holder.tvData.setText(data.get(position).toString());
-        holder.image.setImageResource(R.drawable.img_del);
+        holder.image.setImageResource(R.drawable.icon_del);
 
         //make component be able click from outside
         holder.image.setOnClickListener(this);
