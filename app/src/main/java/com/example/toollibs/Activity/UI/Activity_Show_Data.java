@@ -1,7 +1,10 @@
 package com.example.toollibs.Activity.UI;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -11,9 +14,13 @@ import com.example.toollibs.Activity.Fragment.Fragment_ListView;
 import com.example.toollibs.Activity.Fragment.Fragment_Recycle_View;
 import com.example.toollibs.R;
 
-public class Activity_Show_Data extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Activity_Show_Data extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     private RadioGroup radioGroup;
-    private RadioButton radioButton;
+    private ViewPager viewPager;
+    private List<Fragment> views;
 
     private FragmentTransaction transaction;
     private Fragment_ListView fragmentListView;
@@ -31,51 +38,54 @@ public class Activity_Show_Data extends AppCompatActivity {
 
     private void init() {
         radioGroup = findViewById(R.id.radioGroup);
-        radioButton = findViewById(R.id.radio_listView);
+
+        fragmentListView = new Fragment_ListView();
+        fragmentGridView = new Fragment_GridView();
+        fragmentRecycleView = new Fragment_Recycle_View();
+        views = new ArrayList<>();
+        views.add(fragmentListView);
+        views.add(fragmentGridView);
+        views.add(fragmentRecycleView);
     }
 
     private void setData(){
-
-    }
-
-    private void setListener() {
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                transaction = getSupportFragmentManager().beginTransaction();
-                hideAllFragment(transaction);
+            public Fragment getItem(int i) {
+                return views.get(i);
+            }
 
-                switch (i){
-                    case R.id.radio_listView:
-                        if(fragmentListView==null){
-                            fragmentListView = new Fragment_ListView();
-                            transaction.add(R.id.fragment_container, fragmentListView);
-                        }else{
-                            transaction.show(fragmentListView);
-                        }
-                        break;
-                    case R.id.radio_GridView:
-                        if(fragmentGridView==null){
-                            fragmentGridView = new Fragment_GridView();
-                            transaction.add(R.id.fragment_container, fragmentGridView);
-                        }else{
-                            transaction.show(fragmentGridView);
-                        }
-                        break;
-                    case R.id.radio_recycleView:
-                        if(fragmentRecycleView==null){
-                            fragmentRecycleView = new Fragment_Recycle_View();
-                            transaction.add(R.id.fragment_container, fragmentRecycleView);
-                        }else{
-                            transaction.show(fragmentRecycleView);
-                        }
-                        break;
-                }
-                transaction.commit();
+            @Override
+            public int getCount() {
+                return views.size();
             }
         });
 
-        radioButton.setChecked(true);
+        viewPager.setCurrentItem(0);
+    }
+
+    private void setListener() {
+        viewPager.addOnPageChangeListener(this);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                transaction = getSupportFragmentManager().beginTransaction();
+//                hideAllFragment(transaction);
+                switch (i){
+                    case R.id.radio_listView:
+                        viewPager.setCurrentItem(0);
+                        break;
+                    case R.id.radio_GridView:
+                        viewPager.setCurrentItem(1);
+                        break;
+                    case R.id.radio_recycleView:
+                        viewPager.setCurrentItem(2);
+                        break;
+                }
+                //transaction.commit();
+            }
+        });
     }
 
     private void hideAllFragment(FragmentTransaction transaction) {
@@ -89,5 +99,57 @@ public class Activity_Show_Data extends AppCompatActivity {
         if(fragmentRecycleView!=null){
             transaction.hide(fragmentRecycleView);
         }
+    }
+
+    private void showListFragment(){
+        if(fragmentListView==null){
+            fragmentListView = new Fragment_ListView();
+            transaction.add(R.id.fragment_container, fragmentListView);
+        }else{
+            transaction.show(fragmentListView);
+        }
+    }
+
+    private void showGridFragment(){
+        if(fragmentGridView==null){
+            fragmentGridView = new Fragment_GridView();
+            transaction.add(R.id.fragment_container, fragmentGridView);
+        }else{
+            transaction.show(fragmentGridView);
+        }
+    }
+
+    private void showRecyclerFragment(){
+        if(fragmentRecycleView==null){
+            fragmentRecycleView = new Fragment_Recycle_View();
+            transaction.add(R.id.fragment_container, fragmentRecycleView);
+        }else{
+            transaction.show(fragmentRecycleView);
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        switch (i){
+            case 0:
+                radioGroup.check(R.id.radio_listView);
+                break;
+            case 1:
+                radioGroup.check(R.id.radio_GridView);
+                break;
+            case 2:
+                radioGroup.check(R.id.radio_recycleView);
+                break;
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 }
