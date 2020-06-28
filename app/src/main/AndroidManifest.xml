@@ -41,6 +41,7 @@
         <activity android:name=".Activity.Demo.Demo_TimerSelector_Activity" />
         <activity android:name=".Activity.UI.Activity_Dialog_Notification" />
         <activity android:name=".Activity.Demo.Demo_PosterView_Activity" />
+        <activity android:name=".Activity.Demo.Demo_Simple_Player_Activity"/>
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -75,6 +76,14 @@
         <service android:name=".Activity.Service.AlarmService"
             android:enabled="true"
             android:exported="false"/>
+        <service android:name=".Activity.Service.PlayBackService">
+            <intent-filter>
+                <action android:name="com.example.toollibs.Activity.Service.ACTION.PLAY"/>
+                <action android:name="com.example.toollibs.Activity.Service.ACTION.PLAY_LAST"/>
+                <action android:name="com.example.toollibs.Activity.Service.ACTION.PLAY_NEXT"/>
+                <action android:name="com.example.toollibs.Activity.Service.ACTION.STOP_SERVICE"/>
+            </intent-filter>
+        </service>
     </application>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />

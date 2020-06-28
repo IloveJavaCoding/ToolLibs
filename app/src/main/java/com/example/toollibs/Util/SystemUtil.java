@@ -31,6 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.example.toollibs.Activity.Config.Constant;
@@ -362,6 +363,57 @@ public class SystemUtil {
         //5. send notification
         manager.notify(id,notification);
     }
+
+
+    public static void sendSelfViewNotification(Context context, String channelId, Intent intent, int id, RemoteViews small, RemoteViews big){
+        //1. get notification service
+        NotificationManager manager=(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //2. create notification channel version>26   android 8.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            String channelName = "Default Name";
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+
+            manager.createNotificationChannel(channel);
+        }
+
+        //3. set intent(active when click the notification)
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //4. init notification, get instance
+        Notification notification = new NotificationCompat.Builder(context,channelId)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pendingIntent)//intent
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCustomContentView(small)
+                .setCustomBigContentView(big)
+                .build();
+
+        //5. send notification
+        manager.notify(id,notification);
+    }
+
+    public static void showMusicNotification(Context context, String channelId, Intent intent, int id, RemoteViews small, RemoteViews big) {
+        // The PendingIntent to launch our activity if the user selects this notification
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+        // Set the info for the views that show in the notification panel.
+        Notification notification = new NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(R.mipmap.ic_launcher)  // the status icon
+                .setWhen(System.currentTimeMillis())  // the time stamp
+                .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
+                .setCustomContentView(small)
+                .setCustomBigContentView(big)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setOngoing(true)
+                .build();
+
+        // Send the notification.
+        //startForeground(id, notification);
+    }
+
+
 
     //============================volume setting==========================================
     public static void bootResetVolume(Context context) {

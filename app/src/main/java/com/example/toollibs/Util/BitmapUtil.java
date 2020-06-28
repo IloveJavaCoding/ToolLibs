@@ -1,6 +1,7 @@
 package com.example.toollibs.Util;
 
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -275,14 +276,35 @@ public class BitmapUtil {
     }
 
     //rotate ImageView
-    @SuppressLint("WrongConstant")
     public static ObjectAnimator rotateIV(ImageView imgView, int dur){
         ObjectAnimator animator = ObjectAnimator.ofFloat(imgView, "rotation", 0f,360f);
         animator.setDuration(dur);
         animator.setInterpolator(new LinearInterpolator());
-        animator.setRepeatCount(-1);
-        animator.setRepeatMode(ObjectAnimator.INFINITE);//infinity
+        animator.setRepeatMode(ValueAnimator.RESTART);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
 
         return animator;
     }
+
+    /**
+     * public void startRotateAnimation() {
+     *         mRotateAnimator.cancel();
+     *         mRotateAnimator.start();
+     *     }
+     *
+     *     public void cancelRotateAnimation() {
+     *         mLastAnimationValue = 0;
+     *         mRotateAnimator.cancel();
+     *     }
+     *
+     *     public void pauseRotateAnimation() {
+     *         mLastAnimationValue = mRotateAnimator.getCurrentPlayTime();
+     *         mRotateAnimator.cancel();
+     *     }
+     *
+     *     public void resumeRotateAnimation() {
+     *         mRotateAnimator.start();
+     *         mRotateAnimator.setCurrentPlayTime(mLastAnimationValue);
+     *     }
+     */
 }

@@ -5,13 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.toollibs.R;
 import com.example.toollibs.SelfClass.AudioFile;
+import com.example.toollibs.SelfClass.Song;
 import com.example.toollibs.SelfClass.VideoFile;
 
 import org.jaudiotagger.audio.AudioFileIO;
@@ -93,6 +97,61 @@ public class MediaUtil {
             songsInfo.setsSize(file.length());
         }
         return songsInfo;
+    }
+
+    //=================================
+    public static Song getMusic4File(File file) {
+        if (file.length() == 0) return null;
+
+        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
+        metadataRetriever.setDataSource(file.getAbsolutePath());
+
+        final int duration;
+
+        String keyDuration = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        // ensure the duration is a digit, otherwise return null song
+        if (keyDuration == null || !keyDuration.matches("\\d+")) return null;
+        duration = Integer.parseInt(keyDuration);
+
+        final String title = extractMetadata(metadataRetriever, MediaMetadataRetriever.METADATA_KEY_TITLE, file.getName());
+        final String displayName = extractMetadata(metadataRetriever, MediaMetadataRetriever.METADATA_KEY_TITLE, file.getName());
+        final String artist = extractMetadata(metadataRetriever, MediaMetadataRetriever.METADATA_KEY_ARTIST, "unknown");
+        final String album = extractMetadata(metadataRetriever, MediaMetadataRetriever.METADATA_KEY_ALBUM, "unknown");
+
+        final Song song = new Song();
+        song.setTitle(title);
+        song.setDisplayName(displayName);
+        song.setArtist(artist);
+        song.setPath(file.getAbsolutePath());
+        song.setAlbum(album);
+        song.setDuration(duration);
+        return song;
+    }
+
+    public static Bitmap parseAlbum(Song song) {
+        return parseAlbum(new File(song.getPath()));
+    }
+
+    public static Bitmap parseAlbum(File file) {
+        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
+        try {
+            metadataRetriever.setDataSource(file.getAbsolutePath());
+        } catch (IllegalArgumentException e) {
+            Log.e("tag", "parseAlbum: ", e);
+        }
+        byte[] albumData = metadataRetriever.getEmbeddedPicture();
+        if (albumData != null) {
+            return BitmapFactory.decodeByteArray(albumData, 0, albumData.length);
+        }
+        return null;
+    }
+
+    private static String extractMetadata(MediaMetadataRetriever retriever, int key, String defaultValue) {
+        String value = retriever.extractMetadata(key);
+        if (TextUtils.isEmpty(value)) {
+            value = defaultValue;
+        }
+        return value;
     }
 
     //get cover of audio file
