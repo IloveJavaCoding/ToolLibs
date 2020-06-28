@@ -25,8 +25,7 @@
         <activity android:name=".Activity.UI.Activity_View_WebView" />
         <activity android:name=".Activity.UI.Activity_View_ImageView" />
         <activity android:name=".Activity.UI.Activity_View_DualScreen"
-            android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme"/>
+            android:screenOrientation="landscape" />
         <activity android:name=".Activity.UI.Activity_Bar" />
         <activity android:name=".Activity.UI.Activity_Show_Data" />
         <activity android:name=".Activity.UI.Activity_Selector" />
@@ -34,7 +33,6 @@
         <activity android:name=".Activity.UI.Activity_Button" />
         <activity android:name=".Activity.UI.Activity_Text" />
         <activity android:name=".Activity.Demo.Alarm_Activity"
-            android:theme="@style/FullScreenTheme"
             android:launchMode="singleTask"
             android:taskAffinity=""
             android:excludeFromRecents="true"/>
@@ -43,8 +41,7 @@
         <activity android:name=".Activity.Demo.Demo_TimerSelector_Activity" />
         <activity android:name=".Activity.UI.Activity_Dialog_Notification" />
         <activity android:name=".Activity.Demo.Demo_PosterView_Activity" />
-        <activity android:name=".Activity.MainActivity"
-            android:theme="@style/FullScreenTheme">
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
