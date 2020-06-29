@@ -19,8 +19,8 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener{
     private List<Callback> mCallbacks = new ArrayList<>(2);
 
     // Player status
-    private boolean isPaused;
-    private int currentIndex=0;
+    private boolean isPaused = false;
+    private int currentIndex = 0;
 
     private Player() {
         mediaPlayer = new MediaPlayer();
@@ -79,6 +79,13 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean play(int index) {
+        isPaused = false;
+        currentIndex = index;
+        return play();
     }
 
     @Override

@@ -102,6 +102,11 @@ public class PlayBackService extends Service implements IPlayback, IPlayback.Cal
     }
 
     @Override
+    public boolean play(int index) {
+        return mPlayer.play(index);
+    }
+
+    @Override
     public boolean play(List<Song> songs, int startIndex) {
         return mPlayer.play(songs, startIndex);
     }

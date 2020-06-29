@@ -54,6 +54,7 @@ public class Constant {
     public static final String ALARM_TIME_DEFAULT = "click to pick time";
     public static final boolean ALARM_STATE_DEFAULT = false;
     public static final String ALARM_SOUND_DEFAULT = "Default";
+    public static final String AUDIO_DIR_DEFAULT = "/storage/emulated/0/music";
 
     //key value
     public static final String AUTO_START_KEY = "auto_start";
@@ -62,6 +63,7 @@ public class Constant {
     public static final String ALARM_TIME_KEY = "alarm_time";
     public static final String ALARM_STATE_KEY = "alarm_state";
     public static final String ALARM_SOUND_KEY = "alarm_sound";
+    public static final String AUDIO_DIR_KEY = "audio_dir";
 
     //action
     public static final String ACTION_RESET_SOUND = "com.example.ToolLibs.reset_sound";
