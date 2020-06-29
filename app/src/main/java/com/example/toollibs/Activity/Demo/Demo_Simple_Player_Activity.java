@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -22,8 +23,6 @@ import com.example.toollibs.Activity.Service.PlayBackService;
 import com.example.toollibs.R;
 import com.example.toollibs.SelfClass.Song;
 import com.example.toollibs.Util.MediaUtil;
-import com.zlylib.fileselectorlib.FileSelector;
-import com.zlylib.fileselectorlib.utils.Const;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -140,7 +139,7 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
                 this.finish();
                 break;
             case R.id.image_check:
-                selectDir();
+                //selectDir();
                 readSongs();
                 adapter.notifyDataSetChanged();
                 break;
@@ -170,12 +169,12 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
         imgAlbum.setImageBitmap(MediaUtil.parseAlbum(this, song));
     }
 
-    private void selectDir() {
-        FileSelector.from(this)
-                .onlySelectFolder()
-                .requestCode(SELECTOR_DIR_CODE)
-                .start();
-    }
+//    private void selectDir() {
+//        FileSelector.from(this)
+//                .onlySelectFolder()
+//                .requestCode(SELECTOR_DIR_CODE)
+//                .start();
+//    }
 
     @Override
     protected void onDestroy() {
@@ -188,14 +187,14 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECTOR_DIR_CODE) {
-                ArrayList<String> essFileList = data.getStringArrayListExtra(Const.EXTRA_RESULT_SELECTION);
-                StringBuilder builder = new StringBuilder();
-                for (String file :
-                        essFileList) {
-                    builder.append(file).append("\n");
-                }
-                Log.d(TAG, "selector dir: " + builder.toString());
-                dir = builder.toString();
+//                ArrayList<String> essFileList = data.getStringArrayListExtra(Const.EXTRA_RESULT_SELECTION);
+//                StringBuilder builder = new StringBuilder();
+//                for (String file :
+//                        essFileList) {
+//                    builder.append(file).append("\n");
+//                }
+//                Log.d(TAG, "selector dir: " + builder.toString());
+//                dir = builder.toString();
                 SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUDIO_DIR_KEY, dir);
             }
         }
@@ -210,5 +209,15 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
     private void unBindPlayBackService(){
         Log.d(TAG, "unbind service...");
         unbindService(connection);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            moveTaskToBack(true);
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }

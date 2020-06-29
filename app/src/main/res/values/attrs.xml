@@ -3,4 +3,16 @@
     <declare-styleable name="PickerView">
         <attr name="isLoop" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="Indicator">
+        <attr name="color" format="color|reference" />
+        <attr name="height" format="dimension|reference" />
+    </declare-styleable>
+    <declare-styleable name="Lrc">
+        <attr name="android:textSize" />
+        <attr name="normalTextColor" format="reference|color" />
+        <attr name="currentTextColor" format="reference|color" />
+        <attr name="dividerHeight" format="dimension|reference" />
+        <attr name="rows" format="integer" />
+    </declare-styleable>
 </resources>

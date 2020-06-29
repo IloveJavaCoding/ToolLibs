@@ -42,6 +42,7 @@
         <activity android:name=".Activity.UI.Activity_Dialog_Notification" />
         <activity android:name=".Activity.Demo.Demo_PosterView_Activity" />
         <activity android:name=".Activity.Demo.Demo_Simple_Player_Activity"/>
+        <activity android:name=".Activity.Demo.Demo_Scroll_Lrc_Activity"/>
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

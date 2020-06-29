@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
@@ -181,6 +182,29 @@ public class FileUtil {
             e.printStackTrace();
         }
 
+        InputStreamReader inputStreamReader = null;
+        try {
+            inputStreamReader = new InputStreamReader(inputStream, format);//'utf-8' 'GBK'
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+        StringBuilder builder = new StringBuilder("");
+        String line;
+        try {
+            while((line=reader.readLine())!=null){
+                builder.append(line);
+                builder.append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return builder.toString();
+    }
+
+    public static String readResource(Context context, int id, String format){
+        InputStream inputStream = context.getResources().openRawResource(id);
         InputStreamReader inputStreamReader = null;
         try {
             inputStreamReader = new InputStreamReader(inputStream, format);//'utf-8' 'GBK'

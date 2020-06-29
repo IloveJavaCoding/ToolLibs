@@ -62,7 +62,8 @@
                 android:layout_margin="@dimen/margin_10"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@drawable/ic_remote_view_close" />
+                app:srcCompat="@drawable/ic_remote_view_close"
+                tools:ignore="VectorDrawableCompat" />
         </LinearLayout>
 
         <LinearLayout
@@ -79,7 +80,8 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/padding_3"
                 android:scaleType="center"
-                android:src="@drawable/ic_remote_view_play_last" />
+                app:srcCompat="@drawable/ic_remote_view_play_last"
+                tools:ignore="VectorDrawableCompat" />
 
             <ImageView
                 android:id="@+id/image_view_play"
@@ -88,7 +90,8 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/padding_3"
                 android:scaleType="center"
-                android:src="@drawable/ic_remote_view_play" />
+                app:srcCompat="@drawable/ic_remote_view_play"
+                tools:ignore="VectorDrawableCompat" />
 
             <ImageView
                 android:id="@+id/image_view_play_next"
@@ -97,7 +100,8 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/padding_3"
                 android:scaleType="center"
-                android:src="@drawable/ic_remote_view_play_next" />
+                app:srcCompat="@drawable/ic_remote_view_play_next"
+                tools:ignore="VectorDrawableCompat" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

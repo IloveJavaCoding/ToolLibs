@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -27,7 +29,8 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_player_view_check"/>
+            app:srcCompat="@drawable/ic_player_view_check"
+            tools:ignore="VectorDrawableCompat" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -107,7 +110,8 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/padding_3"
                 android:scaleType="center"
-                android:src="@drawable/ic_remote_view_play_last" />
+                app:srcCompat="@drawable/ic_remote_view_play_last"
+                tools:ignore="VectorDrawableCompat" />
 
             <ImageView
                 android:id="@+id/image_play"
@@ -116,7 +120,8 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/padding_3"
                 android:scaleType="center"
-                android:src="@drawable/ic_remote_view_play" />
+                app:srcCompat="@drawable/ic_remote_view_play"
+                tools:ignore="VectorDrawableCompat" />
 
             <ImageView
                 android:id="@+id/image_play_next"
@@ -125,7 +130,8 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/padding_3"
                 android:scaleType="center"
-                android:src="@drawable/ic_remote_view_play_next" />
+                app:srcCompat="@drawable/ic_remote_view_play_next"
+                tools:ignore="VectorDrawableCompat" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
