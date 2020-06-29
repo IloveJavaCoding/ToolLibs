@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="100dp"
+    android:width="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- draw a path -->
+    <path
+        android:fillColor="#fbbc05"
+        android:pathData="M 50,50 m -48 ,0
+        a 48,48 0 1,0 96,0
+        a 48,48 0 1,0 -96,0"/>
+
+    <path
+        android:name="eye_left"
+        android:pathData="M 25 40 C 38 34 45 36 50 40"
+        android:strokeColor="#000000"
+        android:strokeLineCap="round"
+        android:strokeWidth="4"/>
+
+
+
+</vector>
+
+<!--
+M = moveto (M X,Y)                                        相当于 android Path 里的moveTo(),用于移动起始点
+L = lineto (L X,Y)                                        相当于 android Path 里的lineTo()，用于画线
+H = horizontal lineto (H X)                               用于画水平线
+V = vertical lineto (V Y)                                 用于画竖直线
+C = curveto (C X1,Y1,X2,Y2,ENDX,ENDY)                     相当于cubicTo(),三次贝塞尔曲线
+S = smooth curveto (S X2,Y2,ENDX,ENDY)                    同样三次贝塞尔曲线，更平滑
+Q = quadratic Belzier curve(Q X,Y,ENDX,ENDY)              quadTo()，二次贝塞尔曲线
+T = smooth quadratic Belzier curveto (T ENDX,ENDY)        同样二次贝塞尔曲线，更平滑
+A = elliptical Arc (A RX,RY,XPRTATION,FLAG1,FLAG2,X,Y)    相当于arcTo()，用于画弧
+Z = closepath()                                           相当于closeTo(),关闭path
+1.RX,RY 椭圆的半径大小
+2.椭圆的X轴与水平方向顺时针方向夹角
+3.1：大角度弧线 0：小角度弧线
+4.1：顺时针方向 0：逆时针方向
+5.X,Y 终点坐标
+
+android:pathData="M20.5,9.5
+                        c-1.955,0,-3.83,1.268,-4.5,3
+                        c-0.67,-1.732,-2.547,-3,-4.5,-3
+                        C8.957,9.5,7,11.432,7,14
+                        c0,3.53,3.793,6.257,9,11.5
+                        c5.207,-5.242,9,-7.97,9,-11.5
+                        C25,11.432,23.043,9.5,20.5,9.5z" />
+
+//直线图形
+<path
+        android:name="right"
+        android:fillColor="#ff0000"
+        android:pathData="M 2.5 5.5 L 5.0 7.0 L 10.0 2.0 L 5.3 9.0 L 1.8 6.4 Z" />
+
+<path
+        android:name="dot dot dot"
+        android:fillColor="#000000"
+        android:pathData="M 11.5 5.5 L 13.5 5.5 L 13.5 7.5 L 11.5 7.5 Z
+                          M 11.5 10.5 L 13.5 10.5 L 13.5 12.5 L 11.5 12.5 Z
+                          M 11.5 15.5 L 13.5 15.5 L 13.5 17.5 L 11.5 17.5 Z" />
+<path
+        android:name="arc"
+        android:strokeWidth="1"
+        android:strokeColor="@color/colorBlack"
+        android:pathData="A 5 4 15 0 0 12 12" />
+
+<path
+        android:name="circle"
+        android:fillColor="#ff0000"
+        android:pathData="M 25 25
+        m -20 0 a 20 20 0 1 0 40 0
+        m -40 0 a 20 20 0 0 1 40 0"/>
+
+<group
+        android:name="face">
+        <path
+            android:name="circle"
+            android:fillColor="#ff0000"
+            android:pathData="M 25 25
+        m -20 0 a 20 20 0 1 0 40 0
+        m -40 0 a 20 20 0 0 1 40 0"/>
+
+        <path
+            android:name="eye_left"
+            android:pathData="M 12,20 Q 16,15 20,20"
+            android:strokeColor="#00ff00"
+            android:strokeLineCap="round"
+            android:strokeWidth="2"/>
+
+        <path
+            android:name="eye_right"
+            android:pathData="M 30 20 Q 34 15 38 20"
+            android:strokeColor="#00ff00"
+            android:strokeLineCap="round"
+            android:strokeWidth="2"/>
+
+        <path
+            android:name="nose"
+            android:fillColor="#0000ff"
+            android:pathData="M 22 29 L 28 29 L 25 24 Z" />
+
+        <path
+            android:name="mouth"
+            android:pathData="M 18 33 Q 25 38 32 33"
+            android:strokeColor="#00ff00"
+            android:strokeLineCap="round"
+            android:strokeWidth="2"/>
+</group>
+
+<path
+        android:name="C"
+        android:pathData="M 25 40 C 38 34 45 36 50 40"
+        android:strokeColor="#000000"
+        android:strokeLineCap="round"
+        android:strokeWidth="4"/>
+
+-->

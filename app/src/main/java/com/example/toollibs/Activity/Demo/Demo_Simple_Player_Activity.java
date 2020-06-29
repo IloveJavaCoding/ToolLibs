@@ -33,7 +33,7 @@ import java.util.List;
 public class Demo_Simple_Player_Activity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "SIMPLE PLAYER";
     private ImageView imgBack, imgCheck, imgAlbum, imgPlay, imgPlayLast, imgPlayNext;
-    private TextView tvName, tvArtist;
+    private TextView tvName, tvArtist, tvNotice;
     private ListView listView;
     private ListView_Player_Adapter adapter;
 
@@ -76,6 +76,7 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
 
         tvName = findViewById(R.id.text_name);
         tvArtist = findViewById(R.id.text_artist);
+        tvNotice = findViewById(R.id.tv_notices);
 
         listView = findViewById(R.id.listView_player);
 
@@ -105,7 +106,13 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
                 songs.add(MediaUtil.getMusic4File(files[i]));
             }
         }
-
+        if(songs.size()<1){
+            listView.setVisibility(View.INVISIBLE);
+            tvNotice.setVisibility(View.VISIBLE);
+        }else{
+            listView.setVisibility(View.VISIBLE);
+            tvNotice.setVisibility(View.INVISIBLE);
+        }
         playBackService.setPlayList(songs);
     }
 
@@ -121,6 +128,7 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 playBackService.play(position);
+                setSongInfo();
             }
         });
     }
@@ -141,15 +149,25 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
                     playBackService.pause();
                 }else{
                     playBackService.play();
+                    setSongInfo();
                 }
                 break;
             case R.id.image_play_last:
                 playBackService.playLast();
+                setSongInfo();
                 break;
             case R.id.image_play_next:
                 playBackService.playNext();
+                setSongInfo();
                 break;
         }
+    }
+
+    private void setSongInfo(){
+        Song song = playBackService.getPlayingSong();
+        tvName.setText(song.getTitle());
+        tvArtist.setText(song.getArtist());
+        imgAlbum.setImageBitmap(MediaUtil.parseAlbum(this, song));
     }
 
     private void selectDir() {

@@ -280,7 +280,7 @@ public class PlayBackService extends Service implements IPlayback, IPlayback.Cal
         remoteView.setImageViewResource(R.id.image_view_play, isPlaying()
                 ? R.drawable.ic_remote_view_pause : R.drawable.ic_remote_view_play);
 
-        Bitmap album = MediaUtil.parseAlbum(getPlayingSong());
+        Bitmap album = MediaUtil.parseAlbum(this, getPlayingSong());
         if (album == null) {
             remoteView.setImageViewResource(R.id.image_view_album, R.mipmap.ic_launcher);
         } else {

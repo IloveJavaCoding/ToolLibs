@@ -128,11 +128,11 @@ public class MediaUtil {
         return song;
     }
 
-    public static Bitmap parseAlbum(Song song) {
-        return parseAlbum(new File(song.getPath()));
+    public static Bitmap parseAlbum(Context context, Song song) {
+        return parseAlbum(context, new File(song.getPath()));
     }
 
-    public static Bitmap parseAlbum(File file) {
+    public static Bitmap parseAlbum(Context context, File file) {
         MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
         try {
             metadataRetriever.setDataSource(file.getAbsolutePath());
@@ -143,7 +143,7 @@ public class MediaUtil {
         if (albumData != null) {
             return BitmapFactory.decodeByteArray(albumData, 0, albumData.length);
         }
-        return null;
+        return BitmapFactory.decodeResource(context.getResources(), R.drawable.img_cover_default);
     }
 
     private static String extractMetadata(MediaMetadataRetriever retriever, int key, String defaultValue) {
