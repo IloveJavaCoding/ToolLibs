@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -24,6 +26,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     private TextView tvCurTime, tvTotalTime;
     private MediaPlayer mediaPlayer;
     private Thread thread;
+    private boolean isOver = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,12 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isOver = true;
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 finish();
             }
         });
@@ -106,15 +115,22 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     public class MusicThread implements Runnable{
         @Override
         public void run() {
-            while(mediaPlayer !=null){
+            while(!isOver){
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                Log.d("lrc", "send ... ");
                 handler.sendEmptyMessage(mediaPlayer.getCurrentPosition());
             }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isOver = true;
     }
 
     @Override
