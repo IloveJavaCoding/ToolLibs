@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -214,7 +215,7 @@ public class SystemUtil {
         }
     }
 
-    //==========================set screen brightness===================================
+    //=============================================set screen brightness================================================
     public static int getSystemScreenBrightness(Activity activity) {
         try {
             return Settings.System.getInt(activity.getContentResolver(),
@@ -275,7 +276,7 @@ public class SystemUtil {
                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
     }
 
-    //==================================notification====================================
+    //=================================================notification=================================================
     public static void sendNotification(Context context, String channelId, Intent intent, String title, String msg, int id){
         //1. get notification service
         NotificationManager manager=(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -414,7 +415,7 @@ public class SystemUtil {
 
 
 
-    //============================volume setting==========================================
+    //===========================================volume setting==========================================
     public static void bootResetVolume(Context context) {
         AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         if (manager != null) {
@@ -446,6 +447,34 @@ public class SystemUtil {
         }
     }
 
+    //=================================get apk code and name===============================
+    private static PackageInfo getPackageInfo(Context context){
+        // 获取package管理者  需要上下文
+        PackageManager packageManager = context.getPackageManager();
+        //获取包名的方法
+        String packageName = context.getPackageName();
+        PackageInfo packageInfo = null;
+        try {
+            //参数一是获取哪一个包名的package的信息 (application包括了activity所以也会包括activity的信息)
+            //参数二的信息就是设置是不是之后去
+            packageInfo = packageManager.getPackageInfo(packageName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return packageInfo;
+    }
+
+    public static String getVersionName(Context context){
+        return  getPackageInfo(context).versionName;
+    }
+
+    //api > 21
+    public static long  getVersionCode(Context context){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            return getPackageInfo(context).getLongVersionCode();
+        }
+        return -1;
+    }
 
     //=====================================================================================
     /**

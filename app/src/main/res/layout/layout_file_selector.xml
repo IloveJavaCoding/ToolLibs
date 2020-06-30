@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="36dp"
+    android:padding="@dimen/padding_3"
+    android:id="@+id/layout_all"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imgFileDir"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="@dimen/padding_3" />
+
+    <TextView
+        android:id="@+id/tvFilePath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:text="***"
+        android:textSize="@dimen/text_size_16"
+        android:textColor="@color/colorBlack"
+        android:singleLine="true"
+        android:ellipsize="middle"/>
+
+    <CheckBox
+        android:id="@+id/cbChoose"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:focusable="false"/>
+</LinearLayout>
