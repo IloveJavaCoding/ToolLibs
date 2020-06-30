@@ -33,13 +33,12 @@ repositories {
     google()
 }
 //E:\ZSLWORK\java\jdk.8\bin
-//implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-//implementation 'com.github.ZLYang110:FileSelector:1.0'
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

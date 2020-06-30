@@ -49,6 +49,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
 
     private void setData() {
         tvTotalTime.setText(DateUtil.FormatTime(mediaPlayer.getDuration()));
+        seekBar.setMax(mediaPlayer.getDuration());
         thread = new Thread(new MusicThread());
         thread.start();
     }
@@ -105,9 +106,9 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     public class MusicThread implements Runnable{
         @Override
         public void run() {
-            while(mediaPlayer !=null && mediaPlayer.isPlaying()){
+            while(mediaPlayer !=null){
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -116,4 +117,10 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        mediaPlayer.reset();
+        mediaPlayer.release();
+        super.onDestroy();
+    }
 }

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:lrc="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:lrc="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradient"
     android:orientation="vertical">
 
@@ -41,19 +42,21 @@
         <com.example.toollibs.OverWriteClass.LrcView
             android:id="@+id/lrcView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="@dimen/padding_5"
             lrc:textSize="@dimen/text_size_18"
             lrc:normalTextColor="@color/colorGery"
             lrc:currentTextColor="@color/colorPrimary"
             lrc:dividerHeight="20dp"
-            lrc:rows="9"/>
+            lrc:rows="15"/>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_10"
+        android:paddingTop="@dimen/padding_10"
+        android:paddingLeft="@dimen/padding_10"
+        android:paddingRight="@dimen/padding_10"
         android:orientation="horizontal">
 
         <TextView
@@ -96,7 +99,7 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_remote_view_play_last"
             android:scaleType="fitCenter"
-            lrc:ignore="VectorDrawableCompat" />
+            tools:ignore="VectorDrawableCompat" />
 
         <ImageView
             android:id="@+id/img_play"
@@ -105,7 +108,7 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_remote_view_play"
             android:scaleType="fitCenter"
-            lrc:ignore="VectorDrawableCompat" />
+            tools:ignore="VectorDrawableCompat" />
 
         <ImageView
             android:id="@+id/img_next"
@@ -117,7 +120,7 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_remote_view_play_next"
             android:scaleType="fitCenter"
-            lrc:ignore="VectorDrawableCompat" />
+            tools:ignore="VectorDrawableCompat" />
     </LinearLayout>
 
 </LinearLayout>

@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.toollibs.Activity.Fragment.Fragment_GridView;
@@ -38,6 +37,7 @@ public class Activity_Show_Data extends AppCompatActivity implements ViewPager.O
 
     private void init() {
         radioGroup = findViewById(R.id.radioGroup);
+        viewPager = findViewById(R.id.vp_container);
 
         fragmentListView = new Fragment_ListView();
         fragmentGridView = new Fragment_GridView();

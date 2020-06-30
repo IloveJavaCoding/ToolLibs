@@ -77,12 +77,12 @@ public class LrcView extends View {
         // <begin>
         // 解析自定义属性
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.Lrc);
-        float textSize = ta.getDimension(R.styleable.Lrc_android_textSize, 10.0f);
-        mRows = ta.getInteger(R.styleable.Lrc_rows, 0);
+        float textSize = ta.getDimension(R.styleable.Lrc_textSize, 18.0f);
+        mRows = ta.getInteger(R.styleable.Lrc_rows, 10);
         mDividerHeight = ta.getDimension(R.styleable.Lrc_dividerHeight, 0.0f);
 
         int normalTextColor = ta.getColor(R.styleable.Lrc_normalTextColor, 0xffffffff);
-        int currentTextColor = ta.getColor(R.styleable.Lrc_currentTextColor, 0xff00ffde);
+        int currentTextColor = ta.getColor(R.styleable.Lrc_currentTextColor, 0xff66ccff);
         ta.recycle();
         // </end>
 

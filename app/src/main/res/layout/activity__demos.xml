@@ -63,6 +63,30 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_15"
             android:background="@drawable/selector_button"/>
+
+        <Button
+            android:id="@+id/bSimplePlayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Simple Player"
+            android:textColor="@color/colorWhite"
+            android:padding="@dimen/padding_5"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_15"
+            android:background="@drawable/selector_button"/>
+
+        <Button
+            android:id="@+id/bLrc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lrc"
+            android:textColor="@color/colorWhite"
+            android:padding="@dimen/padding_5"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_15"
+            android:background="@drawable/selector_button"/>
     </LinearLayout>
 
 </LinearLayout>

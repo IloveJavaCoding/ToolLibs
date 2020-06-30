@@ -8,12 +8,14 @@ import android.widget.Button;
 
 import com.example.toollibs.Activity.Demo.Demo_Live_Activity;
 import com.example.toollibs.Activity.Demo.Demo_PosterView_Activity;
+import com.example.toollibs.Activity.Demo.Demo_Scroll_Lrc_Activity;
+import com.example.toollibs.Activity.Demo.Demo_Simple_Player_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Time_Activity;
 import com.example.toollibs.Activity.Demo.Demo_TimerSelector_Activity;
 import com.example.toollibs.R;
 
 public class Activity_Demos extends AppCompatActivity implements View.OnClickListener {
-    private Button bAlarm, bPoster, bTimeSelector, bLive;
+    private Button bAlarm, bPoster, bTimeSelector, bLive, bPlayer, bLrc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,8 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bPoster = findViewById(R.id.bPoster);
         bTimeSelector = findViewById(R.id.bTimeSelectors);
         bLive = findViewById(R.id.bLive);
+        bPlayer = findViewById(R.id.bSimplePlayer);
+        bLrc = findViewById(R.id.bLrc);
     }
 
     private void setListener() {
@@ -35,6 +39,8 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bPoster.setOnClickListener(this);
         bTimeSelector.setOnClickListener(this);
         bLive.setOnClickListener(this);
+        bPlayer.setOnClickListener(this);
+        bLrc.setOnClickListener(this);
     }
 
     @Override
@@ -52,6 +58,12 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.bLive:
                 intent = new Intent(this, Demo_Live_Activity.class);
+                break;
+            case R.id.bSimplePlayer:
+                intent = new Intent(this, Demo_Simple_Player_Activity.class);
+                break;
+            case R.id.bLrc:
+                intent = new Intent(this, Demo_Scroll_Lrc_Activity.class);
                 break;
         }
         startActivity(intent);

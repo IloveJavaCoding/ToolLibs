@@ -23,21 +23,22 @@ import java.io.IOException;
 
 public class Activity_Intent extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView, imgShare, imgPlay;
-    private Button bImage, bAudio, bVideo, bText;
-    private TextView tvImage, tvAudio, tvVideo, tvText;
+    private Button bImage, bAudio, bVideo, bText, bDir;
+    private TextView tvImage, tvAudio, tvVideo, tvText, tvDir;
 
     private EditTextDelIcon etInput;
     private Button bSearch;
 
     private Button bDial1, bEmail, bRecord, bContract;
 
-    private RelativeLayout laoutPlay;
+    private RelativeLayout layoutPlay;
     private MediaPlayer mediaPlayer;
 
     private static final int OPEN_IMAGE_CODE = 0x001;
     private static final int OPEN_AUDIO_CODE = 0x002;
     private static final int OPEN_VIDEO_CODE = 0x003;
     private static final int OPEN_TEXT_CODE = 0x004;
+    private static final int OPEN_DIR_CODE = 0x005;
 
     private static final String E_MAIL = "547125836@qq.com";
 
@@ -59,11 +60,13 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
         bAudio = findViewById(R.id.bOpenAudio);
         bVideo = findViewById(R.id.bOpenVideo);
         bText = findViewById(R.id.bOpenText);
+        bDir = findViewById(R.id.bOpenDir);
 
         tvImage = findViewById(R.id.tvImgPath);
         tvAudio = findViewById(R.id.tvAudioPath);
         tvVideo = findViewById(R.id.tvVideoPath);
         tvText = findViewById(R.id.tvTextPath);
+        tvDir = findViewById(R.id.tvDirPath);
 
         bDial1 = findViewById(R.id.bOpenDial);
         bEmail = findViewById(R.id.bOpenEmail);
@@ -74,7 +77,7 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
         bSearch = findViewById(R.id.bSearch);
 
         imgPlay = findViewById(R.id.imgPlay);
-        laoutPlay = findViewById(R.id.layoutPlay);
+        layoutPlay = findViewById(R.id.layoutPlay);
         mediaPlayer = new MediaPlayer();
     }
 
@@ -86,6 +89,7 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
         bAudio.setOnClickListener(this);
         bVideo.setOnClickListener(this);
         bText.setOnClickListener(this);
+        bDir.setOnClickListener(this);
 
         tvImage.setOnClickListener(this);
         tvAudio.setOnClickListener(this);
@@ -116,6 +120,9 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.bOpenText:
                 IntentUtil.readTextFile(this, OPEN_TEXT_CODE);
+                break;
+            case R.id.bOpenDir:
+                IntentUtil.readFile(this, OPEN_DIR_CODE);
                 break;
 
             case R.id.tvImgPath:
@@ -207,40 +214,39 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Uri uri = data.getData();
-        ContentResolver contentResolver = this.getContentResolver();
+        if(resultCode==RESULT_OK){
+            Uri uri = data.getData();
+            ContentResolver contentResolver = this.getContentResolver();
 
-        String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
-        Log.d("tag", "uri: " + path);
-        switch (requestCode){
-            case OPEN_IMAGE_CODE:
-                if(resultCode==RESULT_OK){
+            String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
+            Log.d("tag", "uri: " + path);
+
+            switch (requestCode) {
+                case OPEN_IMAGE_CODE:
                     tvImage.setText(path);
 
                     imageView.setImageBitmap(BitmapUtil.GetBitmapFromFile(path));
                     //imageView.setImageBitmap(BitmapFactory.decodeStream(contentResolver.openInputStream(uri)));
-                }
-                break;
-            case OPEN_AUDIO_CODE:
-                if(resultCode==RESULT_OK){
+                    break;
+                case OPEN_AUDIO_CODE:
                     tvAudio.setText(path);
 
                     //init mediaPlayer
                     initPlayer(path);
-                    laoutPlay.setVisibility(View.VISIBLE);
-                }
-                break;
-            case OPEN_VIDEO_CODE:
-                if(resultCode==RESULT_OK){
+                    layoutPlay.setVisibility(View.VISIBLE);
+                    break;
+                case OPEN_VIDEO_CODE:
                     tvVideo.setText(path);
-                }
-                break;
-            case OPEN_TEXT_CODE:
-                if(resultCode==RESULT_OK){
+                    break;
+                case OPEN_TEXT_CODE:
                     tvText.setText(path);
-                }
-                break;
+                    break;
+                case OPEN_DIR_CODE:
+                    tvDir.setText(path.substring(0,path.lastIndexOf("/")));
+                    break;
+            }
         }
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

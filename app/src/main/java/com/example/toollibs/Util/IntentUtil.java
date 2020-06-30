@@ -151,6 +151,10 @@ public class IntentUtil {
         activity.startActivityForResult(getIntent("text/plain"),requestCode);
     }
 
+    public static void readFile(Activity activity, int requestCode){
+        activity.startActivityForResult(getIntent("*/*"),requestCode);
+    }
+
     //open camera for take photo
     //Bundle bundle = data.getExtras();
     //bitmap = (Bitmap)bundle.get("data");

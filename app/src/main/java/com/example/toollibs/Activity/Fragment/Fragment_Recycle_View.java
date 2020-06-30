@@ -4,19 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.toollibs.Activity.Adapters.RecyclerView_Adapter;
 import com.example.toollibs.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Fragment_Recycle_View extends Fragment {
     private View view;
-    //private RecyclerView recyclerView;
-    private List<String> list;
+    private RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -30,21 +29,12 @@ public class Fragment_Recycle_View extends Fragment {
     }
 
     private void init() {
-        //recyclerView = view.findViewById(R.id.recycleView);
+        recyclerView = view.findViewById(R.id.recycleView);
     }
 
     private void setData() {
-        list = new ArrayList<>();
-        list.add("Monday");
-        list.add("Tuesday");
-        list.add("Wednesday");
-        list.add("Thursday");
-        list.add("Friday");
-        list.add("Saturday");
-        list.add("Sunday");
-
-//        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));//VERTICAL
-//        recyclerView.setAdapter(new RecyclerView_Adapter(getContext(), list));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));//VERTICAL
+        recyclerView.setAdapter(new RecyclerView_Adapter(getContext()));
     }
 
     private void setListener() {

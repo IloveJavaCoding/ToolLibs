@@ -2,8 +2,10 @@ package com.example.toollibs.Activity.Demo;
 
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -22,6 +24,7 @@ import com.example.toollibs.Activity.Config.SettingData;
 import com.example.toollibs.Activity.Service.PlayBackService;
 import com.example.toollibs.R;
 import com.example.toollibs.SelfClass.Song;
+import com.example.toollibs.Util.IntentUtil;
 import com.example.toollibs.Util.MediaUtil;
 
 import java.io.File;
@@ -139,7 +142,7 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
                 this.finish();
                 break;
             case R.id.image_check:
-                //selectDir();
+                selectDir();
                 readSongs();
                 adapter.notifyDataSetChanged();
                 break;
@@ -169,12 +172,9 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
         imgAlbum.setImageBitmap(MediaUtil.parseAlbum(this, song));
     }
 
-//    private void selectDir() {
-//        FileSelector.from(this)
-//                .onlySelectFolder()
-//                .requestCode(SELECTOR_DIR_CODE)
-//                .start();
-//    }
+    private void selectDir() {
+        IntentUtil.readFile(this, SELECTOR_DIR_CODE);
+    }
 
     @Override
     protected void onDestroy() {
@@ -187,14 +187,12 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECTOR_DIR_CODE) {
-//                ArrayList<String> essFileList = data.getStringArrayListExtra(Const.EXTRA_RESULT_SELECTION);
-//                StringBuilder builder = new StringBuilder();
-//                for (String file :
-//                        essFileList) {
-//                    builder.append(file).append("\n");
-//                }
-//                Log.d(TAG, "selector dir: " + builder.toString());
-//                dir = builder.toString();
+                Uri uri = data.getData();
+                ContentResolver contentResolver = this.getContentResolver();
+                String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
+
+                Log.d(TAG, "selector dir: " + path.substring(0,path.lastIndexOf("/")));
+                dir = path.substring(0,path.lastIndexOf("/"));
                 SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUDIO_DIR_KEY, dir);
             }
         }
