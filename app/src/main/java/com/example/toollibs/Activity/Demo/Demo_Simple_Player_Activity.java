@@ -114,8 +114,8 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
         }else{
             listView.setVisibility(View.VISIBLE);
             tvNotice.setVisibility(View.INVISIBLE);
+            playBackService.setPlayList(songs);
         }
-        playBackService.setPlayList(songs);
     }
 
     private void setListener() {
@@ -147,20 +147,26 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.image_play:
-                if(playBackService.isPlaying()){
-                    playBackService.pause();
-                }else{
-                    playBackService.play();
-                    setSongInfo();
+                if(songs.size()>0){
+                    if(playBackService.isPlaying()){
+                        playBackService.pause();
+                    }else{
+                        playBackService.play();
+                        setSongInfo();
+                    }
                 }
                 break;
             case R.id.image_play_last:
-                playBackService.playLast();
-                setSongInfo();
+                if(songs.size()>0){
+                    playBackService.playLast();
+                    setSongInfo();
+                }
                 break;
             case R.id.image_play_next:
-                playBackService.playNext();
-                setSongInfo();
+                if(songs.size()>0){
+                    playBackService.playNext();
+                    setSongInfo();
+                }
                 break;
         }
     }

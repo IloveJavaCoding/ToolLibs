@@ -4,23 +4,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/img_arrow"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/av_move_arrow" />
+    <com.example.toollibs.OverWriteClass.MyCanvasView
+        android:id="@+id/myCanvas"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"/>
 
-    <ImageView
-        android:id="@+id/img_arrow3"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:src="@drawable/av_shrink_arrow" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/img_arrow"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/av_move_arrow" />
 
-    <ImageView
-        android:id="@+id/img_smile"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/av_change_face" />
+        <ImageView
+            android:id="@+id/img_arrow3"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:src="@drawable/av_shrink_arrow" />
+
+        <ImageView
+            android:id="@+id/img_smile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/av_change_face" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/img_ripple"

@@ -80,7 +80,12 @@ public class Demo_File_Selector_Activity  extends AppCompatActivity implements L
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("click", String.valueOf(position+1));
-                resetData(files.get(position).getPath());
+                //judge file/dir
+                if(files.get(position).isFile()){
+                    //
+                }else{
+                    resetData(files.get(position).getPath());
+                }
             }
         });
 

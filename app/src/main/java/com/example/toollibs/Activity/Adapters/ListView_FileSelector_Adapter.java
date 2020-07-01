@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.toollibs.R;
+import com.example.toollibs.Util.MediaUtil;
 
 import java.io.File;
 import java.util.List;
@@ -74,12 +75,27 @@ public class ListView_FileSelector_Adapter extends BaseAdapter implements Compou
         }
         holder.layout.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
 
-        holder.tvData.setText(data.get(position).getPath().substring(data.get(position).getPath().lastIndexOf("/")+1));//show the last layer
+        String path = data.get(position).getPath();
+        holder.tvData.setText(path.substring(path.lastIndexOf("/")+1));//show the last layer
         if(data.get(position).isDirectory()){
             holder.imageView.setImageResource(R.drawable.icon_dir);
         }else{
             //file
-            holder.imageView.setImageResource(R.drawable.icon_file);
+            String tail = path.substring(path.lastIndexOf(".")+1);
+            switch(tail.toLowerCase()){
+                case "mp3":
+                case "wav":
+                case "mp4":
+                    holder.imageView.setImageBitmap(MediaUtil.parseAlbum(context, data.get(position)));
+                    break;
+                case "jpg":
+                case "png":
+                    holder.imageView.setImageBitmap(MediaUtil.getImageThumbnail(context, path));
+                    break;
+                default:
+                    holder.imageView.setImageResource(R.drawable.icon_file);
+                    break;
+            }
         }
 
         //make component be able click from outside

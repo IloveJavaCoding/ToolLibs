@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.toollibs.OverWriteClass.MyCanvasView;
 import com.example.toollibs.R;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class Activity_Animator extends AppCompatActivity implements View.OnClick
         imgArrow3 = findViewById(R.id.img_arrow3);
         imgFace = findViewById(R.id.img_smile);
         imgRipple = findViewById(R.id.img_ripple);
-        
+
         bStop = findViewById(R.id.bStopAll);
     }
 
