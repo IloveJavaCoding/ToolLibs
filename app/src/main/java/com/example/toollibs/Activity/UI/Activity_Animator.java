@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Activity_Animator extends AppCompatActivity implements View.OnClickListener {
-    private ImageView imgArrow;
+    private ImageView imgArrow, imgArrow3, imgFace, imgRipple;
     private Button bStop;
 
     private List<Drawable> drawables;
@@ -30,6 +30,9 @@ public class Activity_Animator extends AppCompatActivity implements View.OnClick
 
     private void init() {
         imgArrow = findViewById(R.id.img_arrow);
+        imgArrow3 = findViewById(R.id.img_arrow3);
+        imgFace = findViewById(R.id.img_smile);
+        imgRipple = findViewById(R.id.img_ripple);
         
         bStop = findViewById(R.id.bStopAll);
     }
@@ -40,6 +43,9 @@ public class Activity_Animator extends AppCompatActivity implements View.OnClick
 
     private void setListener() {
         imgArrow.setOnClickListener(this);
+        imgArrow3.setOnClickListener(this);
+        imgFace.setOnClickListener(this);
+        imgRipple.setOnClickListener(this);
         
         bStop.setOnClickListener(this);
     }
@@ -50,7 +56,16 @@ public class Activity_Animator extends AppCompatActivity implements View.OnClick
             case R.id.img_arrow:
                 playGroupAnim(imgArrow);
                 break;
-                
+            case R.id.img_arrow3:
+                playGroupAnim(imgArrow3);
+                break;
+            case R.id.img_smile:
+                playGroupAnim(imgFace);
+                break;
+            case R.id.img_ripple:
+                playGroupAnim(imgRipple);
+                break;
+
             case R.id.bStopAll:
                 stopAll();
                 break;

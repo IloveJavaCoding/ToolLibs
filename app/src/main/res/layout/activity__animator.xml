@@ -6,9 +6,27 @@
 
     <ImageView
         android:id="@+id/img_arrow"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/av_move_arrow" />
+
+    <ImageView
+        android:id="@+id/img_arrow3"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:src="@drawable/av_shrink_arrow" />
+
+    <ImageView
+        android:id="@+id/img_smile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/av_change_face" />
+
+    <ImageView
+        android:id="@+id/img_ripple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/av_ripple" />
 
     <Button
         android:id="@+id/bStopAll"

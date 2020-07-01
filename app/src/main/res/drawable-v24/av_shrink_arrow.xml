@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_arrow_right_3">
+
+    <target
+        android:animation="@animator/anim_shrink_arrow"
+        android:name="ic_arrow_1"/>
+
+    <target
+        android:animation="@animator/anim_shrink_arrow"
+        android:name="ic_arrow_2"/>
+
+    <target
+        android:animation="@animator/anim_shrink_arrow"
+        android:name="ic_arrow_3"/>
+</animated-vector>

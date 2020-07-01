@@ -5,5 +5,4 @@
     <target
         android:animation="@animator/anim_move_arrow"
         android:name="ic_right_arrow"/>
-
 </animated-vector>
