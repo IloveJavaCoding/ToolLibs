@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 
 import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.Activity.Config.SettingData;
@@ -18,6 +21,9 @@ import com.example.toollibs.Util.SystemUtil;
 public class Activity_App_Setting extends AppCompatActivity implements View.OnClickListener {
     private RadioButton rbAutoStart;
     private LinearLayout layoutReboot;
+    private Spinner spLanguage;
+
+    private String[] language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +38,17 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
     private void init() {
         rbAutoStart = findViewById(R.id.rbAutoStart);
         layoutReboot = findViewById(R.id.layoutReboot);
+        spLanguage = findViewById(R.id.spLanguage);
     }
 
     private void setData() {
-            rbAutoStart.setChecked(SettingData.getBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUTO_START_KEY, Constant.AUTO_START_DEFAULT));
+        rbAutoStart.setChecked(SettingData.getBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUTO_START_KEY, Constant.AUTO_START_DEFAULT));
+
+        language = Constant.LANGUAGE;
+        ArrayAdapter<String> strAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, language);
+        strAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spLanguage.setAdapter(strAdapter);
+        spLanguage.setSelection(SettingData.getInt(this, Constant.CONFIG_FILE, Constant.LANGUAGE_KEY, Constant.LANGUAGE_DEFAULT), true);
     }
 
     private void setListener() {
@@ -47,6 +60,19 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
         });
 
         layoutReboot.setOnClickListener(this);
+
+        spLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SettingData.setInt(getApplicationContext(), Constant.CONFIG_FILE, Constant.LANGUAGE_KEY, position);
+                //update app language
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override

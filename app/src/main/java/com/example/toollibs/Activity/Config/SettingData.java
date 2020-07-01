@@ -37,10 +37,10 @@ public class SettingData {
         return getShared(context, fileName).getInt(key, defValue);
     }
 
-    public static void setInt(Context context, String fileName, String key, String value) {
+    public static void setInt(Context context, String fileName, String key, int value) {
         SharedPreferences sp = getShared(context, fileName);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString(key, value);
+        editor.putInt(key, value);
         editor.commit();
     }
 }
