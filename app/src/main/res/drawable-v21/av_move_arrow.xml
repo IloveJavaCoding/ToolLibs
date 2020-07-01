@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_arrow_right_black">
+
+    <target
+        android:animation="@animator/anim_move_arrow"
+        android:name="ic_right_arrow"/>
+
+</animated-vector>

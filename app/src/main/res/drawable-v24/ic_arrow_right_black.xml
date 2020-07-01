@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="50dp"
+    android:height="50dp"
+    android:viewportWidth="50.0"
+    android:viewportHeight="50.0">
+
+    <group
+        android:name="ic_right_arrow">
+
+        <path
+            android:strokeColor="@color/colorPrimaryDark"
+            android:strokeWidth="5"
+            android:pathData="M20,10 L35,27 M20,40 L35,24"/>
+    </group>
+</vector>

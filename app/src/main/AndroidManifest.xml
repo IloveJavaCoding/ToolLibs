@@ -15,6 +15,7 @@
         <activity android:name=".Activity.Demo.Demo_Live_Activity"/>
         <activity android:name=".Activity.UI.Activity_Service" />
         <activity android:name=".Activity.UI.Activity_Intent" />
+        <activity android:name=".Activity.UI.Activity_Animator"/>
         <activity android:name=".Activity.UI.Activity_Demos" />
         <activity android:name=".Activity.UI.Activity_DataBase" />
         <activity android:name=".Activity.UI.Activity_Bar_ProcessBar" />

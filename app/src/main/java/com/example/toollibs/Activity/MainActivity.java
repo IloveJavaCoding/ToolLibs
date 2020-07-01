@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.example.toollibs.Activity.Interface.NetStateChangeObserver;
 import com.example.toollibs.Activity.Receiver.NetStateChangeReceiver;
+import com.example.toollibs.Activity.UI.Activity_Animator;
 import com.example.toollibs.Activity.UI.Activity_App_Setting;
 import com.example.toollibs.Activity.UI.Activity_Bar;
 import com.example.toollibs.Activity.UI.Activity_Button;
@@ -34,7 +35,8 @@ import com.example.toollibs.Util.SystemUtil;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NetStateChangeObserver {
     private Button bDialog;
 
-    private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bIntent, bService, bDatabase, bSetting;
+    private Button bText, bButton, bView, bSelector, bShow, bBar, bDemo, bIntent, bAnimator,
+            bService, bDatabase, bSetting;
 
     private static final String[] NEEDED_PERMISSIONS = new String[]{
             Manifest.permission.CAMERA,
@@ -76,10 +78,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bSelector = findViewById(R.id.bSelector);
         bShow = findViewById(R.id.bShow);
         bBar = findViewById(R.id.bBar);
-        bDemo = findViewById(R.id.bDemo);
+
         bIntent = findViewById(R.id.bIntent);
+        bAnimator = findViewById(R.id.bAnimators);
         bService = findViewById(R.id.bService);
         bDatabase = findViewById(R.id.bDatabase);
+        bDemo = findViewById(R.id.bDemo);
         bSetting = findViewById(R.id.bSetting);
 
         bDialog = findViewById(R.id.bDialog);
@@ -99,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bBar.setOnClickListener(this);
         bDemo.setOnClickListener(this);
         bIntent.setOnClickListener(this);
+        bAnimator.setOnClickListener(this);
         bService.setOnClickListener(this);
         bDatabase.setOnClickListener(this);
         bSetting.setOnClickListener(this);
@@ -133,6 +138,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bIntent:
                 intent = new Intent(this, Activity_Intent.class);
+                break;
+            case R.id.bAnimators:
+                intent = new Intent(this, Activity_Animator.class);
                 break;
             case R.id.bService:
                 intent = new Intent(this, Activity_Service.class);
