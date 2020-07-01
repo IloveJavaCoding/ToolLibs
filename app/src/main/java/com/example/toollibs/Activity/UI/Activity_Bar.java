@@ -9,7 +9,7 @@ import android.widget.Button;
 import com.example.toollibs.R;
 
 public class Activity_Bar extends AppCompatActivity implements View.OnClickListener {
-    private Button bSeekBar, bProcessBar, bRatingBar;
+    private Button bSeekBar, bProcessBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,13 +22,12 @@ public class Activity_Bar extends AppCompatActivity implements View.OnClickListe
     private void init() {
         bSeekBar = findViewById(R.id.bSeekBar);
         bProcessBar = findViewById(R.id.bProcessBar);
-        bRatingBar = findViewById(R.id.bRatingBar);
+
     }
 
     private void setListener() {
         bSeekBar.setOnClickListener(this);
         bProcessBar.setOnClickListener(this);
-        bRatingBar.setOnClickListener(this);
     }
 
     @Override
@@ -38,7 +37,6 @@ public class Activity_Bar extends AppCompatActivity implements View.OnClickListe
             case R.id.bSeekBar:
                 intent = new Intent(this, Activity_Bar_SeekBar.class);
                 break;
-            case R.id.bRatingBar:
             case R.id.bProcessBar:
                 intent = new Intent(this, Activity_Bar_ProcessBar.class);
                 break;

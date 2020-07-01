@@ -24,7 +24,7 @@
 
         <View
             android:id="@+id/color"
-            android:layout_margin="@dimen/margin_30"
+            android:layout_margin="@dimen/margin_15"
             android:layout_gravity="center"
             android:background="@drawable/shape_circle"
             android:layout_width="150dp"
@@ -35,12 +35,12 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_18"/>
+            android:textSize="@dimen/text_size_16"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_10"
+            android:padding="@dimen/padding_5"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,8 +140,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="@dimen/margin_15">
+        android:layout_height="120dp"
+        android:layout_margin="@dimen/margin_10">
 
         <com.example.toollibs.OverWriteClass.VerticalSeekBar
             android:id="@+id/vSeekBar"
@@ -154,7 +154,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_5"
-            android:text="123"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/vSeekBar" />
     </RelativeLayout>

@@ -20,22 +20,10 @@
         android:background="@drawable/selector_button"/>
 
     <Button
-        android:id="@+id/bRatingBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="RatingBar"
-        android:textColor="@color/colorWhite"
-        android:padding="@dimen/padding_5"
-        android:textAllCaps="false"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/margin_15"
-        android:background="@drawable/selector_button"/>
-
-    <Button
         android:id="@+id/bProcessBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ProcessBar"
+        android:text="Rating-ProcessBar"
         android:textColor="@color/colorWhite"
         android:padding="@dimen/padding_5"
         android:textAllCaps="false"
