@@ -2,11 +2,24 @@ package com.example.toollibs.Activity.UI;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.LinkMovementMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StrikethroughSpan;
+import android.text.style.StyleSpan;
+import android.text.style.TypefaceSpan;
+import android.text.style.URLSpan;
+import android.text.style.UnderlineSpan;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -35,6 +48,7 @@ import java.util.stream.Collectors;
 
 public class Activity_Text extends AppCompatActivity {
     private TextView tvLamp, tvTest;
+    private TextView tvTest1, tvTest2, tvTest3, tvTest4, tvTest5, tvTest6, tvTest7, tvTest8;
     private EditText etPassword, etEnter, etDel;
     private Button bEnter;
     private ToggleButton tbControl;
@@ -72,6 +86,17 @@ public class Activity_Text extends AppCompatActivity {
         spinner2 = findViewById(R.id.spinner2);
 
         tvTest = findViewById(R.id.tvTest);
+
+        tvTest1 = findViewById(R.id.tvTest1);
+        tvTest2 = findViewById(R.id.tvTest2);
+        tvTest3 = findViewById(R.id.tvTest3);
+        tvTest4 = findViewById(R.id.tvTest4);
+        tvTest5 = findViewById(R.id.tvTest5);
+        tvTest6 = findViewById(R.id.tvTest6);
+        tvTest7 = findViewById(R.id.tvTest7);
+        tvTest8 = findViewById(R.id.tvTest8);
+
+        testTextStyle();
     }
 
     private void setData() {
@@ -182,5 +207,55 @@ public class Activity_Text extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void testTextStyle(){
+        //============0,1,23456 7 8 9101112131415
+        String text = "我是text,请尽情地调试我吧!";
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/xingkai.ttf");
+
+        //set font
+        tvTest1.setText(text);
+        tvTest1.setTypeface(typeface, Typeface.BOLD);
+
+        //set text size
+        tvTest1.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimension(R.dimen.text_size_18));
+
+        //delete line
+        tvTest2.setText(text);
+        tvTest2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
+        //under line
+        tvTest3.setText(text);
+        tvTest3.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+
+        //italic and bold
+        tvTest4.setText(text);
+        //tvTest4.getPaint().setFlags(Paint.FAKE_BOLD_TEXT_FLAG);
+        //tvTest4.getPaint().setFakeBoldText(true);
+        tvTest4.setTypeface(null, Typeface.BOLD_ITALIC);
+
+        //text color
+        tvTest5.setText(text);
+        tvTest5.setTextColor(Color.RED);
+        //tvTest5.setTextColor(Color.argb(255,255,0,0));
+        //tvTest5.setTextColor(Color.parseColor("#ff0000"));
+        //tvTest5.setTextColor(getResources().getColor(R.color.colorRed));
+
+        //use html
+        String content = "<font color=\"#ffff00\">" + text +"</font>";
+        tvTest6.setText(Html.fromHtml(content));
+
+        //set part style
+        //control by the index
+        SpannableString msp = new SpannableString(text);
+        msp.setSpan(new TypefaceSpan("serif"),0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 2, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); //粗斜体
+        msp.setSpan(new UnderlineSpan(), 8, 11, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        msp.setSpan(new StrikethroughSpan(), 11, 13, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        msp.setSpan(new ForegroundColorSpan(Color.MAGENTA), 13, 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //设置前景色为洋红色
+        msp.setSpan(new URLSpan("http://www.baidu.com"), 13, 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); //网络
+        tvTest7.setText(msp);
+        tvTest7.setMovementMethod(LinkMovementMethod.getInstance());//required when add some superLinks
     }
 }
