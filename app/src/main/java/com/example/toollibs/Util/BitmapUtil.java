@@ -14,6 +14,10 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -27,6 +31,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class BitmapUtil {
     //get bitmap read from file
@@ -275,10 +284,77 @@ public class BitmapUtil {
         return aimBm;
     }
 
+    //blur bitmap
+    private static final float BITMAP_SCALE = 0.4f;
+    public static Bitmap blurBitmap(Context context, Bitmap bitmap, float degree){//25f是最大模糊度
+        // 计算图片缩小后的长宽
+        int width = Math.round(bitmap.getWidth() * BITMAP_SCALE);
+        int height = Math.round(bitmap.getHeight() * BITMAP_SCALE);
+
+        // 将缩小后的图片做为预渲染的图片
+        Bitmap inputBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
+        // 创建一张渲染后的输出图片
+        Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);
+
+        // 创建RenderScript内核对象
+        RenderScript rs = RenderScript.create(context);
+        // 创建一个模糊效果的RenderScript的工具对象
+        ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+
+        // 由于RenderScript并没有使用VM来分配内存,所以需要使用Allocation类来创建和分配内存空间
+        // 创建Allocation对象的时候其实内存是空的,需要使用copyTo()将数据填充进去
+        Allocation tmpIn = Allocation.createFromBitmap(rs, inputBitmap);
+        Allocation tmpOut = Allocation.createFromBitmap(rs, outputBitmap);
+
+        // 设置渲染的模糊程度, 25f是最大模糊度
+        blurScript.setRadius(degree);
+        // 设置blurScript对象的输入内存
+        blurScript.setInput(tmpIn);
+        // 将输出数据保存到输出内存中
+        blurScript.forEach(tmpOut);
+
+        // 将数据填充到Allocation中
+        tmpOut.copyTo(outputBitmap);
+
+        return outputBitmap;
+    }
+
+    //get color in the bitmap
+    public static List<Integer> colorCapture4Bitmap(Bitmap bitmap){
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        int[] pixels = new int[w * h];
+        HashMap<Integer, Integer> colors = new HashMap<>();
+        TreeMap<Integer, Integer> sortedColors = new TreeMap<>();
+        List<Integer> result = new ArrayList<>();
+        bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, w, h);
+        for (int pixel : pixels) {
+            Integer num = colors.get(pixel);
+            if (num == null) {
+                colors.put(pixel, 1);
+            } else {
+                num += 1;
+                colors.put(pixel, num);
+            }
+        }
+        for (Map.Entry<Integer, Integer> entry : colors.entrySet()) {
+            sortedColors.put(entry.getValue(), entry.getKey());
+        }
+        for (Map.Entry<Integer, Integer> entry : sortedColors.entrySet()) {
+            result.add(entry.getValue());
+            Log.d("bitmapUtil", "run: color:"+entry.getValue()+",count:"+entry.getKey());
+        }
+
+        return result;
+    }
+
+
+
+
     //rotate ImageView
-    public static ObjectAnimator rotateIV(ImageView imgView, int dur){
+    public static ObjectAnimator rotateIV(ImageView imgView, int mm){
         ObjectAnimator animator = ObjectAnimator.ofFloat(imgView, "rotation", 0f,360f);
-        animator.setDuration(dur);
+        animator.setDuration(mm);
         animator.setInterpolator(new LinearInterpolator());
         animator.setRepeatMode(ValueAnimator.RESTART);
         animator.setRepeatCount(ValueAnimator.INFINITE);
