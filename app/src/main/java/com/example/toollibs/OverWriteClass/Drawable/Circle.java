@@ -11,7 +11,6 @@ import com.example.toollibs.Util.ConvertUtil;
 import java.util.Random;
 
 public class Circle {
-    private Path path;
     private float cx;
     private float cy;
     private int r;
@@ -38,7 +37,6 @@ public class Circle {
 
         pointR = ConvertUtil.dip2px(mContext, random.nextFloat() * 5 + 1);
         degrees = random.nextFloat() * 360;
-
     }
 
     public void draw(Canvas canvas, Paint paint) {

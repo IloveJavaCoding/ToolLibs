@@ -92,7 +92,7 @@ public class BitmapUtil {
     }
 
     //string <--> bitmap
-    public static String Bitmap2String(Bitmap bitmap){
+    public static String bitmap2String(Bitmap bitmap){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bytes = stream.toByteArray();
@@ -107,7 +107,7 @@ public class BitmapUtil {
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
-    public static Bitmap String2Bitmap(String data){
+    public static Bitmap string2Bitmap(String data){
         byte[] bits = Base64.decode(data, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bits,0, bits.length);
     }
@@ -159,34 +159,6 @@ public class BitmapUtil {
         canvas.drawBitmap(bm, m, paint);
 
         return bm1;
-    }
-
-    //get circle shape
-    public static Bitmap GetCircleBitmap(Bitmap bitmap){
-        int w = bitmap.getWidth();
-        int h = bitmap.getHeight();
-        Bitmap aimBm = Bitmap.createBitmap(w,h, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(aimBm);
-
-        final Paint paint = new Paint();
-        int length = w>h? h:w;
-        int left = w>h? (int)(w - length)/2: (int)(h - length)/2;
-        Log.d("tag", "w,h...."+w +"..."+h);
-        final Rect rect = new Rect(left,0, length, length);//w,h
-        final RectF rectF = new RectF(rect);
-
-        //float roundP = w>h ? h/2.0f : w/2.0f;
-        float roundP = length/2.0f;
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0,0,0,0);
-        paint.setColor(Color.WHITE);
-        canvas.drawRoundRect(rectF,roundP,roundP,paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-
-        final Rect src = new Rect(0,0,length,length);//w,h
-        canvas.drawBitmap(bitmap, src, rect, paint);
-
-        return aimBm;
     }
 
     public static Bitmap getCircleBitmap(Bitmap bitmap){
@@ -271,7 +243,7 @@ public class BitmapUtil {
     }
 
     //scale
-    public static Bitmap ScaleBitmap(Bitmap bitmap, int aimW, int aimH, boolean isRecycle){
+    public static Bitmap scaleBitmap(Bitmap bitmap, int aimW, int aimH, boolean isRecycle){
         if(bitmap.getWidth()==aimW && bitmap.getHeight()==aimH){
             return bitmap;
         }
@@ -319,6 +291,205 @@ public class BitmapUtil {
         return outputBitmap;
     }
 
+    //使用时，将图片缩小后再使用，避免oom
+    public static Bitmap fastBlurBitmap(Context context, Bitmap sentBitmap, int radius) {//200
+        Bitmap bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
+        if (radius < 1) {
+            return (null);
+        }
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+
+        int[] pix = new int[w * h];
+        bitmap.getPixels(pix, 0, w, 0, 0, w, h);
+
+        int wm = w - 1;
+        int hm = h - 1;
+        int wh = w * h;
+        int div = radius + radius + 1;
+
+        int r[] = new int[wh];
+        int g[] = new int[wh];
+        int b[] = new int[wh];
+        int rsum, gsum, bsum, x, y, i, p, yp, yi, yw;
+        int vmin[] = new int[Math.max(w, h)];
+
+        int divsum = (div + 1) >> 1;
+        divsum *= divsum;
+        int dv[] = new int[256 * divsum];
+        for (i = 0; i < 256 * divsum; i++) {
+            dv[i] = (i / divsum);
+        }
+
+        yw = yi = 0;
+
+        int[][] stack = new int[div][3];
+        int stackpointer;
+        int stackstart;
+        int[] sir;
+        int rbs;
+        int r1 = radius + 1;
+        int routsum, goutsum, boutsum;
+        int rinsum, ginsum, binsum;
+
+        for (y = 0; y < h; y++) {
+            rinsum = ginsum = binsum = routsum = goutsum = boutsum = rsum = gsum = bsum = 0;
+            for (i = -radius; i <= radius; i++) {
+                p = pix[yi + Math.min(wm, Math.max(i, 0))];
+                sir = stack[i + radius];
+                sir[0] = (p & 0xff0000) >> 16;
+                sir[1] = (p & 0x00ff00) >> 8;
+                sir[2] = (p & 0x0000ff);
+                rbs = r1 - Math.abs(i);
+                rsum += sir[0] * rbs;
+                gsum += sir[1] * rbs;
+                bsum += sir[2] * rbs;
+                if (i > 0) {
+                    rinsum += sir[0];
+                    ginsum += sir[1];
+                    binsum += sir[2];
+                } else {
+                    routsum += sir[0];
+                    goutsum += sir[1];
+                    boutsum += sir[2];
+                }
+            }
+            stackpointer = radius;
+
+            for (x = 0; x < w; x++) {
+
+                r[yi] = dv[rsum];
+                g[yi] = dv[gsum];
+                b[yi] = dv[bsum];
+
+                rsum -= routsum;
+                gsum -= goutsum;
+                bsum -= boutsum;
+
+                stackstart = stackpointer - radius + div;
+                sir = stack[stackstart % div];
+
+                routsum -= sir[0];
+                goutsum -= sir[1];
+                boutsum -= sir[2];
+
+                if (y == 0) {
+                    vmin[x] = Math.min(x + radius + 1, wm);
+                }
+                p = pix[yw + vmin[x]];
+
+                sir[0] = (p & 0xff0000) >> 16;
+                sir[1] = (p & 0x00ff00) >> 8;
+                sir[2] = (p & 0x0000ff);
+
+                rinsum += sir[0];
+                ginsum += sir[1];
+                binsum += sir[2];
+
+                rsum += rinsum;
+                gsum += ginsum;
+                bsum += binsum;
+
+                stackpointer = (stackpointer + 1) % div;
+                sir = stack[(stackpointer) % div];
+
+                routsum += sir[0];
+                goutsum += sir[1];
+                boutsum += sir[2];
+
+                rinsum -= sir[0];
+                ginsum -= sir[1];
+                binsum -= sir[2];
+
+                yi++;
+            }
+            yw += w;
+        }
+        for (x = 0; x < w; x++) {
+            rinsum = ginsum = binsum = routsum = goutsum = boutsum = rsum = gsum = bsum = 0;
+            yp = -radius * w;
+            for (i = -radius; i <= radius; i++) {
+                yi = Math.max(0, yp) + x;
+
+                sir = stack[i + radius];
+
+                sir[0] = r[yi];
+                sir[1] = g[yi];
+                sir[2] = b[yi];
+
+                rbs = r1 - Math.abs(i);
+
+                rsum += r[yi] * rbs;
+                gsum += g[yi] * rbs;
+                bsum += b[yi] * rbs;
+
+                if (i > 0) {
+                    rinsum += sir[0];
+                    ginsum += sir[1];
+                    binsum += sir[2];
+                } else {
+                    routsum += sir[0];
+                    goutsum += sir[1];
+                    boutsum += sir[2];
+                }
+
+                if (i < hm) {
+                    yp += w;
+                }
+            }
+            yi = x;
+            stackpointer = radius;
+            for (y = 0; y < h; y++) {
+                // Preserve alpha channel: ( 0xff000000 & pix[yi] )
+                pix[yi] = (0xff000000 & pix[yi]) | (dv[rsum] << 16) | (dv[gsum] << 8) | dv[bsum];
+
+                rsum -= routsum;
+                gsum -= goutsum;
+                bsum -= boutsum;
+
+                stackstart = stackpointer - radius + div;
+                sir = stack[stackstart % div];
+
+                routsum -= sir[0];
+                goutsum -= sir[1];
+                boutsum -= sir[2];
+
+                if (x == 0) {
+                    vmin[y] = Math.min(y + r1, hm) * w;
+                }
+                p = x + vmin[y];
+
+                sir[0] = r[p];
+                sir[1] = g[p];
+                sir[2] = b[p];
+
+                rinsum += sir[0];
+                ginsum += sir[1];
+                binsum += sir[2];
+
+                rsum += rinsum;
+                gsum += ginsum;
+                bsum += binsum;
+
+                stackpointer = (stackpointer + 1) % div;
+                sir = stack[stackpointer];
+
+                routsum += sir[0];
+                goutsum += sir[1];
+                boutsum += sir[2];
+
+                rinsum -= sir[0];
+                ginsum -= sir[1];
+                binsum -= sir[2];
+
+                yi += w;
+            }
+        }
+
+        bitmap.setPixels(pix, 0, w, 0, 0, w, h);
+        return (bitmap);
+    }
+
     //get color in the bitmap
     public static List<Integer> colorCapture4Bitmap(Bitmap bitmap){
         int w = bitmap.getWidth();
@@ -347,9 +518,6 @@ public class BitmapUtil {
 
         return result;
     }
-
-
-
 
     //rotate ImageView
     public static ObjectAnimator rotateIV(ImageView imgView, int mm){

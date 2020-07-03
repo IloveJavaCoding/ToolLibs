@@ -21,14 +21,22 @@ import com.example.toollibs.Util.DateUtil;
 import com.example.toollibs.Util.FileUtil;
 import com.example.toollibs.Util.MediaUtil;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     private ImageView imgPlay, imgBack;
     private SeekBar seekBar;
     private LrcView lrcView;
     private TextView tvCurTime, tvTotalTime;
     private MediaPlayer mediaPlayer;
-    private Thread thread;
-    private boolean isOver = false;
+    //private Thread thread;
+    //private boolean isOver = false;
+
+    //use timer to replace thread
+    private Timer timer;
+    private TimerTask timerTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +47,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
         setData();
         setListener();
     }
+
     private void setLayout() {
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -50,7 +59,6 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
             getWindow().setNavigationBarColor(Color.TRANSPARENT);
         }
     }
-
 
     private void init() {
         imgBack = findViewById(R.id.img_back);
@@ -68,20 +76,47 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     private void setData() {
         tvTotalTime.setText(DateUtil.FormatTime(mediaPlayer.getDuration()));
         seekBar.setMax(mediaPlayer.getDuration());
-        thread = new Thread(new MusicThread());
-        thread.start();
+//        thread = new Thread(new MusicThread());
+//        thread.start();
+    }
+
+    private void startTimer(){
+        if(timer==null){
+            timer = new Timer();
+        }
+
+        if(timerTask==null){
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    if(mediaPlayer!=null){
+                        handler.sendEmptyMessage(mediaPlayer.getCurrentPosition());
+                    }
+                }
+            };
+        }
+
+        timer.schedule(timerTask, 0, 250);
+    }
+
+    private void stopTimer(){
+        timer.cancel();
+        timer = null;
+        timerTask.cancel();
+        timerTask = null;
     }
 
     private void setListener() {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isOver = true;
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                isOver = true;
+//                try {
+//                    Thread.sleep(500);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                stopTimer();
                 finish();
             }
         });
@@ -90,11 +125,13 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(mediaPlayer.isPlaying()){
+                    stopTimer();
                     mediaPlayer.pause();
                     imgPlay.setImageResource(R.drawable.ic_remote_view_play);
                 }else{
                     mediaPlayer.start();
                     imgPlay.setImageResource(R.drawable.ic_remote_view_pause);
+                    startTimer();
                 }
             }
         });
@@ -127,31 +164,32 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
         }
     };
 
-    public class MusicThread implements Runnable{
-        @Override
-        public void run() {
-            while(!isOver){
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Log.d("lrc", "send ... ");
-                handler.sendEmptyMessage(mediaPlayer.getCurrentPosition());
-            }
-        }
-    }
+//    public class MusicThread implements Runnable{
+//        @Override
+//        public void run() {
+//            while(!isOver){
+//                try {
+//                    Thread.sleep(500);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                Log.d("lrc", "send ... ");
+//                handler.sendEmptyMessage(mediaPlayer.getCurrentPosition());
+//            }
+//        }
+//    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        isOver = true;
+//        isOver = true;
     }
 
     @Override
     protected void onDestroy() {
         mediaPlayer.reset();
         mediaPlayer.release();
+        stopTimer();
         super.onDestroy();
     }
 }

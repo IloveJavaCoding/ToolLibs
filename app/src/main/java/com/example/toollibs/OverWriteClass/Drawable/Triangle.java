@@ -12,7 +12,6 @@ import com.example.toollibs.Util.ConvertUtil;
 import java.util.Random;
 
 public class Triangle {
-
     private Path path;
     private float cx;
     private float cy;
@@ -20,11 +19,10 @@ public class Triangle {
     //平移
     private float tx;
     private float ty;
-    private float txDirection;
 
     //缩放
-    private float sx = 1;
-    private float sy = 1;
+    private float sx;
+    private float sy;
 
     //旋转
     private float degrees;

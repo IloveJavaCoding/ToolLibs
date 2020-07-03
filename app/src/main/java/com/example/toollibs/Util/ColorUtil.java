@@ -48,8 +48,8 @@ public class ColorUtil {
 
     public static int setAlpha(int color, int alpha) {
 //        int a = (color >> 24) & 0xff;
-        int r = (color >> 16) & 0xff;
-        int g = (color >> 8) & 0xff;
+        int r = (color >> 16) & 0xff; //>>右移位16位
+        int g = (color >> 8) & 0xff; //& 与
         int b = (color) & 0xff;
         return createColor(alpha, r, g, b);
     }
