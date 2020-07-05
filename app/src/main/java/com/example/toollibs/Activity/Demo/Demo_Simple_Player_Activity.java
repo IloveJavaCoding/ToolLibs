@@ -195,11 +195,13 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
             if (requestCode == SELECTOR_DIR_CODE) {
                 Uri uri = data.getData();
                 ContentResolver contentResolver = this.getContentResolver();
-                String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
+                //String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
+                Log.d(TAG, "selector : " + uri.getPath());
+                Log.d(TAG, "selector : " + uri.toString());
 
-                Log.d(TAG, "selector dir: " + path.substring(0,path.lastIndexOf("/")));
-                dir = path.substring(0,path.lastIndexOf("/"));
-                SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUDIO_DIR_KEY, dir);
+                //Log.d(TAG, "selector dir: " + path.substring(0,path.lastIndexOf("/")));
+                //dir = path.substring(0,path.lastIndexOf("/"));
+                //SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUDIO_DIR_KEY, dir);
             }
         }
     }

@@ -1,6 +1,8 @@
 package com.example.toollibs.Activity.UI;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,15 +12,18 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.Activity.Config.SettingData;
 import com.example.toollibs.R;
+import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.DialogUtil;
 import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_App_Setting extends AppCompatActivity implements View.OnClickListener {
+    private ScrollView view;
     private RadioButton rbAutoStart;
     private LinearLayout layoutReboot;
     private Spinner spLanguage;
@@ -36,12 +41,18 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
     }
 
     private void init() {
+        view = findViewById(R.id.scrollView);
         rbAutoStart = findViewById(R.id.rbAutoStart);
         layoutReboot = findViewById(R.id.layoutReboot);
         spLanguage = findViewById(R.id.spLanguage);
     }
 
     private void setData() {
+        //use bitmap set background;
+        Bitmap bitmap = BitmapUtil.getBitmapFromRes(this, R.drawable.img_bg_app3);
+        bitmap = BitmapUtil.blurBitmap(this, bitmap, 24);
+        view.setBackground(new BitmapDrawable(getResources(), bitmap));
+
         rbAutoStart.setChecked(SettingData.getBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUTO_START_KEY, Constant.AUTO_START_DEFAULT));
 
         language = Constant.LANGUAGE;

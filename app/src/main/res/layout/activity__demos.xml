@@ -7,98 +7,114 @@
     android:orientation="vertical"
     tools:context=".Activity.UI.Activity_Demos">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_20"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bAlarm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Alarm"
-            android:textColor="@color/colorWhite"
-            android:padding="@dimen/padding_5"
-            android:textAllCaps="false"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_15"
-            android:background="@drawable/selector_button"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_20"/>
 
-        <Button
-            android:id="@+id/bPoster"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Poster"
-            android:textColor="@color/colorWhite"
-            android:padding="@dimen/padding_5"
-            android:textAllCaps="false"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_15"
-            android:background="@drawable/selector_button"/>
+            <Button
+                android:id="@+id/bAlarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alarm"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
 
-        <Button
-            android:id="@+id/bTimeSelectors"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Time Selector"
-            android:textColor="@color/colorWhite"
-            android:padding="@dimen/padding_5"
-            android:textAllCaps="false"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_15"
-            android:background="@drawable/selector_button"/>
+            <Button
+                android:id="@+id/bPoster"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Poster"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
 
-        <Button
-            android:id="@+id/bLive"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Live"
-            android:textColor="@color/colorWhite"
-            android:padding="@dimen/padding_5"
-            android:textAllCaps="false"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_15"
-            android:background="@drawable/selector_button"/>
+            <Button
+                android:id="@+id/bTimeSelectors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time Selector"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
 
-        <Button
-            android:id="@+id/bSimplePlayer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Simple Player"
-            android:textColor="@color/colorWhite"
-            android:padding="@dimen/padding_5"
-            android:textAllCaps="false"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_15"
-            android:background="@drawable/selector_button"/>
+            <Button
+                android:id="@+id/bLive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Live"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
 
-        <Button
-            android:id="@+id/bLrc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lrc"
-            android:textColor="@color/colorWhite"
-            android:padding="@dimen/padding_5"
-            android:textAllCaps="false"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_15"
-            android:background="@drawable/selector_button"/>
+            <Button
+                android:id="@+id/bSimplePlayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Simple Player"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
 
-        <Button
-            android:id="@+id/bFileSelector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="File Selector"
-            android:textColor="@color/colorWhite"
-            android:padding="@dimen/padding_5"
-            android:textAllCaps="false"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_15"
-            android:background="@drawable/selector_button"/>
-    </LinearLayout>
+            <Button
+                android:id="@+id/bLrc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lrc"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
 
+            <Button
+                android:id="@+id/bEffectView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Effect View"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+
+            <Button
+                android:id="@+id/bFileSelector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="File Selector"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/padding_5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@drawable/selector_button"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

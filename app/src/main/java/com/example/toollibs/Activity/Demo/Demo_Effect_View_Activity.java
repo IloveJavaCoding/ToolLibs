@@ -10,12 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.toollibs.OverWriteClass.CircleImageView;
 import com.example.toollibs.OverWriteClass.EffectView;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 
 public class Demo_Effect_View_Activity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView imgBg, imgAlbum;
+    private ImageView imgBg;
+    private CircleImageView imgAlbum;
     private EffectView effectView;
     private Button bPlay, bColor, bAncient, bElectronic, bSurround, bLonely;
 
@@ -56,7 +58,8 @@ public class Demo_Effect_View_Activity extends AppCompatActivity implements View
         //set bg -- blur
         imgBg.setImageBitmap(BitmapUtil.blurBitmap(this, bitmap, 20));
         //set album and get circle
-        imgAlbum.setImageBitmap(BitmapUtil.getCircleBitmap(bitmap));
+        //imgAlbum.setImageBitmap(BitmapUtil.getCircleBitmap(bitmap));
+        imgAlbum.setImageBitmap(bitmap);
         animator = BitmapUtil.rotateIV(imgAlbum, 5000);
 
         //default effect
@@ -74,6 +77,7 @@ public class Demo_Effect_View_Activity extends AppCompatActivity implements View
                 int mutedLight = palette.getLightMutedColor(0x000000);
                 int mutedDark = palette.getDarkMutedColor(0x000000);
                 effectView.setColor(mutedLight);
+
             }
         };
         Palette.from(bitmap).generate(listener);

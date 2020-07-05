@@ -1,24 +1,24 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="70dp"
-    android:height="50dp"
-    android:viewportWidth="70.0"
-    android:viewportHeight="50.0">
+    android:width="60dp"
+    android:height="40dp"
+    android:viewportWidth="60.0"
+    android:viewportHeight="40.0">
 
     <path
         android:name="ic_arrow_1"
-        android:strokeColor="#1A66CCFF"
+        android:strokeColor="#1a66CCFF"
         android:strokeWidth="0.5"
-        android:pathData="M18.5,18 L25,25 L18.5,32 L22,25 Z"/>
+        android:pathData="M8.5,18 L15,25 L8.5,32 L12,25 Z"/>
 
     <path
         android:name="ic_arrow_2"
-        android:strokeColor="#1A66CCFF"
+        android:strokeColor="#1a66CCFF"
         android:strokeWidth="0.5"
-        android:pathData="M36,18 L42.5,25 L36,32 L39.5,25 Z"/>
+        android:pathData="M21,18 L27.5,25 L21,32 L24.5,25 Z"/>
 
     <path
          android:name="ic_arrow_3"
-        android:strokeColor="#1A66CCFF"
+        android:strokeColor="#1a66CCFF"
         android:strokeWidth="0.5"
-        android:pathData="M53.5,18 L60.5,25 L53.5,32 L57.5,25 Z"/>
+        android:pathData="M33.5,18 L40.5,25 L33.5,32 L37.5,25 Z"/>
 </vector>
