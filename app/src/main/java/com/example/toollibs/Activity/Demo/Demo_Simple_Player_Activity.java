@@ -104,6 +104,7 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
                     return !pathname.isDirectory() && pathname.toString().toLowerCase().endsWith(".mp3");
                 }
             });
+            Log.d(TAG, "read audio file...");
             for (int i=0; i<files.length; i++){
                 songs.add(MediaUtil.getMusic4File(files[i]));
             }
@@ -114,6 +115,7 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
         }else{
             listView.setVisibility(View.VISIBLE);
             tvNotice.setVisibility(View.INVISIBLE);
+            Log.d(TAG, "set playlist...");
             playBackService.setPlayList(songs);
         }
     }
@@ -143,8 +145,6 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
                 break;
             case R.id.image_check:
                 selectDir();
-                readSongs();
-                adapter.notifyDataSetChanged();
                 break;
             case R.id.image_play:
                 if(songs.size()>0){
@@ -179,7 +179,9 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
     }
 
     private void selectDir() {
-        IntentUtil.readFile(this, SELECTOR_DIR_CODE);
+        Intent intent = new Intent(this, Demo_File_Selector_Activity.class);
+        intent.putExtra("flag", 1);
+        startActivityForResult(intent, SELECTOR_DIR_CODE);
     }
 
     @Override
@@ -191,17 +193,19 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if (resultCode == 1) {
             if (requestCode == SELECTOR_DIR_CODE) {
-                Uri uri = data.getData();
-                ContentResolver contentResolver = this.getContentResolver();
-                //String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
-                Log.d(TAG, "selector : " + uri.getPath());
-                Log.d(TAG, "selector : " + uri.toString());
+                ArrayList<String> temp = data.getStringArrayListExtra("dirs");
+                Log.d(TAG, "selector : " + temp.get(0));
 
                 //Log.d(TAG, "selector dir: " + path.substring(0,path.lastIndexOf("/")));
-                //dir = path.substring(0,path.lastIndexOf("/"));
-                //SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUDIO_DIR_KEY, dir);
+                //only choose the first one
+                dir = temp.get(0);
+                SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUDIO_DIR_KEY, dir);
+
+                //
+                readSongs();
+                adapter.notifyDataSetChanged();
             }
         }
     }

@@ -113,4 +113,10 @@ public class BaseEffectDrawable extends Drawable {
     public int getOpacity() {
         return PixelFormat.UNKNOWN;
     }
+
+    public void setColors(int[] colors) {
+//        mPaintColors = colors;
+//        mPaint.setColor(getColor(0));
+//        invalidateSelf();
+    }
 }

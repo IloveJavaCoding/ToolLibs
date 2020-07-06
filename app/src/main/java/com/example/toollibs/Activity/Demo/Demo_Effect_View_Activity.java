@@ -11,19 +11,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.toollibs.OverWriteClass.CircleImageView;
+import com.example.toollibs.OverWriteClass.Drawable.VisualizerHelper;
 import com.example.toollibs.OverWriteClass.EffectView;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 
 public class Demo_Effect_View_Activity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView imgBg;
-    private CircleImageView imgAlbum;
+    private ImageView imgBg, imgAlbum;
     private EffectView effectView;
     private Button bPlay, bColor, bAncient, bElectronic, bSurround, bLonely;
 
-    private ObjectAnimator animator;
     private Bitmap bitmap;
-    private MediaPlayer mediaPlayer;
+   // private MediaPlayer mediaPlayer;
+    private VisualizerHelper visualizerHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +52,17 @@ public class Demo_Effect_View_Activity extends AppCompatActivity implements View
 
     private void setData() {
         //init player
-        mediaPlayer = MediaPlayer.create(this, R.raw.youth_meng);
-        mediaPlayer.setLooping(true);
+//        mediaPlayer = MediaPlayer.create(this, R.raw.youth_meng);
+//        mediaPlayer.setLooping(true);
 
         bitmap = BitmapUtil.getBitmapFromRes(this, R.mipmap.music_album);
         //set bg -- blur
         imgBg.setImageBitmap(BitmapUtil.blurBitmap(this, bitmap, 20));
         //set album and get circle
-        //imgAlbum.setImageBitmap(BitmapUtil.getCircleBitmap(bitmap));
-        imgAlbum.setImageBitmap(bitmap);
-        animator = BitmapUtil.rotateIV(imgAlbum, 5000);
+        imgAlbum.setImageBitmap(BitmapUtil.getCircleBitmap(bitmap));
+        //imgAlbum.setImageBitmap(bitmap);
+        ObjectAnimator animator = BitmapUtil.rotateIV(imgAlbum, 5000);
+        animator.start();
 
         //default effect
         effectView.setAncientEffectDrawable();
@@ -77,6 +79,7 @@ public class Demo_Effect_View_Activity extends AppCompatActivity implements View
                 int mutedLight = palette.getLightMutedColor(0x000000);
                 int mutedDark = palette.getDarkMutedColor(0x000000);
                 effectView.setColor(mutedLight);
+                effectView.setColors(new int[]{mutedLight, muted, vibrantLight, vibrant});
 
             }
         };
@@ -118,12 +121,27 @@ public class Demo_Effect_View_Activity extends AppCompatActivity implements View
     }
 
     private void play() {
-        if(mediaPlayer.isPlaying()){
-            mediaPlayer.pause();
-            animator.pause();
-        }else{
-            mediaPlayer.start();
-            animator.start();
+//        if(mediaPlayer.isPlaying()){
+//            mediaPlayer.pause();
+//            animator.pause();
+//        }else{
+//            mediaPlayer.start();
+//            animator.start();
+//        }
+
+        if (visualizerHelper == null) {
+            visualizerHelper = new VisualizerHelper();
         }
+        visualizerHelper.init(this, new VisualizerHelper.DataCallback() {
+            @Override
+            public void onCall(byte[] data) {
+                effectView.onCall(data);
+            }
+
+            @Override
+            public void onWaveCall(byte[] data) {
+                effectView.onWaveCall(data);
+            }
+        });
     }
 }

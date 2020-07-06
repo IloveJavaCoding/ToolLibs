@@ -1,5 +1,6 @@
 package com.example.toollibs.Activity.Demo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -29,14 +30,22 @@ public class Demo_File_Selector_Activity  extends AppCompatActivity implements L
     private String curPath;
     private List<File> files;
     private List<Integer> index;
+
+    private int flag;//0:test; 1:dir; 2:file;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo_file_selector);
 
+        getDate();
         init();
         setData();
         setListener();
+    }
+
+    private void getDate() {
+        flag = getIntent().getExtras().getInt("flag");
+        Log.d("tag", "flag: "+ flag);
     }
 
     private void init() {
@@ -92,14 +101,50 @@ public class Demo_File_Selector_Activity  extends AppCompatActivity implements L
         tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(index.size()>0){
-                    StringBuilder builder = new StringBuilder();
-                    for(int i=0; i<index.size(); i++){
-                        builder.append(files.get(index.get(i)).getPath()+"\n");
-                    }
-                    tvResult.setText(builder.toString());
-                }else{
-                    tvResult.setText("未选择任何目标！");
+                switch (flag){
+                    case 0://test
+                        if(index.size()>0){
+                            StringBuilder builder = new StringBuilder();
+                            for(int i=0; i<index.size(); i++){
+                                builder.append(files.get(index.get(i)).getPath()+"\n");
+                            }
+                            tvResult.setText(builder.toString());
+                        }else{
+                            tvResult.setText("未选择任何目标！");
+                        }
+                        break;
+                    case 1://return dirs
+                        List<String> temp = new ArrayList<>();
+                        if(index.size()>0){
+                            for(int i=0; i<index.size(); i++){
+                                if(files.get(index.get(i)).isDirectory()){
+                                    temp.add(files.get(index.get(i)).getPath());
+                                }
+                            }
+                        }else{
+                            //
+                        }
+                        Intent intent = new Intent();
+                        intent.putStringArrayListExtra("dirs", (ArrayList<String>) temp);
+                        setResult(1, intent);
+                        finish();
+                        break;
+                    case 2://return files
+                        List<String> temp2 = new ArrayList<>();
+                        if(index.size()>0){
+                            for(int i=0; i<index.size(); i++){
+                                if(files.get(index.get(i)).isFile()){
+                                    temp2.add(files.get(index.get(i)).getPath());
+                                }
+                            }
+                        }else{
+                            //
+                        }
+                        Intent intent2 = new Intent();
+                        intent2.putStringArrayListExtra("dirs", (ArrayList<String>) temp2);
+                        setResult(2, intent2);
+                        finish();
+                        break;
                 }
             }
         });

@@ -73,6 +73,7 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.bFileSelector:
                 intent = new Intent(this, Demo_File_Selector_Activity.class);
+                intent.putExtra("flag", 0);
                 break;
             case R.id.bEffectView:
                 intent = new Intent(this, Demo_Effect_View_Activity.class);

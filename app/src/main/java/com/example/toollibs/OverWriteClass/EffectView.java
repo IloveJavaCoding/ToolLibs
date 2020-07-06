@@ -13,6 +13,7 @@ import com.example.toollibs.OverWriteClass.Drawable.SurroundEffectDrawable;
 
 public class EffectView extends android.support.v7.widget.AppCompatImageView {
     private int mPaintColor = Color.parseColor("#CABFA3");
+    private int[] mPaintColors;
 
     public EffectView(Context context) {
         super(context);
@@ -70,6 +71,12 @@ public class EffectView extends android.support.v7.widget.AppCompatImageView {
         mPaintColor = color;
         if (mDrawable != null) {
             mDrawable.setColor(color);
+        }
+    }
+    public void setColors(int[] colors) {
+        mPaintColors = colors;
+        if (mDrawable != null) {
+            mDrawable.setColors(colors);
         }
     }
 
