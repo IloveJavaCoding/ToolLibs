@@ -2,6 +2,7 @@ package com.example.toollibs.Activity.DataBase;
 
 import android.content.Context;
 
+import com.example.toollibs.Activity.Bean.Books;
 import com.example.toollibs.Activity.Bean.Students;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -20,6 +21,7 @@ public class DBHelper {
 
     //each dao 1
     private StudentsDao studentsDao;
+    private BooksDao booksDao;
 
     private DBHelper(Context context) {
         this.context = context;
@@ -27,6 +29,7 @@ public class DBHelper {
         DaoSession session = getDaoSession(context);
         //init each dao 2
         studentsDao = session.getStudentsDao();
+        booksDao = session.getBooksDao();
     }
 
     private DaoSession getDaoSession(Context context) {
@@ -66,6 +69,14 @@ public class DBHelper {
         return false;
     }
 
+    public boolean addBook(Books books){
+        if(books.getName()!=null){
+            booksDao.insert(books);
+            return true;
+        }
+        return false;
+    }
+
     //delete/move
     public boolean deleteStudent(Students students){
         if(students.getId()!=null){
@@ -80,6 +91,19 @@ public class DBHelper {
         return true;
     }
 
+    public boolean deleteBook(Books books){
+        if(books.getId()!=null){
+            booksDao.delete(books);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteBookByKey(Long id){
+        booksDao.deleteByKey(id);
+        return true;
+    }
+
     //update base primary key
     public void updateStudent1(Long id, String gender, int age){
         Students students = getStudentByKey(id);
@@ -91,6 +115,17 @@ public class DBHelper {
 
     public void updateStudent2(Students students){
         studentsDao.update(students);
+    }
+
+    public void updateBook(Books books){
+        booksDao.update(books);
+    }
+
+    public void updateBook(Long id, String album){
+        Books books = getBookByKey(id);
+        books.setAlbum(album);
+
+        booksDao.update(books);
     }
 
     //list/query
@@ -109,9 +144,17 @@ public class DBHelper {
         return qb.build().list();
     }
 
+    public List<Books> getAllBook(){
+        return booksDao.loadAll();
+    }
+
     //get by key
     private Students getStudentByKey(Long id) {
         return studentsDao.load(id);
+    }
+
+    private Books getBookByKey(Long id) {
+        return booksDao.load(id);
     }
 
     //judge exists or not by key

@@ -2,7 +2,6 @@ package com.example.toollibs.Activity.Demo;
 
 import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.toollibs.OverWriteClass.CircleImageView;
 import com.example.toollibs.OverWriteClass.Drawable.VisualizerHelper;
 import com.example.toollibs.OverWriteClass.EffectView;
 import com.example.toollibs.R;
