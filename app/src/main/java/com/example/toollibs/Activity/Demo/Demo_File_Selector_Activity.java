@@ -141,7 +141,7 @@ public class Demo_File_Selector_Activity  extends AppCompatActivity implements L
                             //
                         }
                         Intent intent2 = new Intent();
-                        intent2.putStringArrayListExtra("dirs", (ArrayList<String>) temp2);
+                        intent2.putStringArrayListExtra("files", (ArrayList<String>) temp2);
                         setResult(2, intent2);
                         finish();
                         break;
