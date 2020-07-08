@@ -37,5 +37,8 @@
         android:id="@+id/gridViewBook"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="3"/>
+        android:padding="@dimen/padding_5"
+        android:numColumns="3"
+        android:horizontalSpacing="@dimen/margin_5"
+        android:verticalSpacing="@dimen/margin_5"/>
 </LinearLayout>

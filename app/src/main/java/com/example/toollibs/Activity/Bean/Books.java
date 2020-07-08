@@ -22,7 +22,7 @@ public class Books implements Serializable {
     public Books() {
     }
 
-    @Generated(hash = 1661446549)
+    @Generated(hash = 696536510)
     public Books(Long id, String name, String author, String path, String album, int tag) {
         this.id = id;
         this.name = name;

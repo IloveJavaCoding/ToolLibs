@@ -82,6 +82,7 @@ public class Demo_Simple_Reader extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ReaderActivity.class);
                 intent.putExtra("book", list.get(position));
                 startActivity(intent);
+                Log.d(TAG, "open book "+ list.get(position).getName());
             }
         });
 
@@ -90,6 +91,7 @@ public class Demo_Simple_Reader extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 //change cover page
                 curIndex = position;
+                Log.d(TAG, "change cover: "+ curIndex);
                 IntentUtil.readImageFile(Demo_Simple_Reader.this, CHANGE_COVER_CODE);
                 return true;
             }
@@ -122,16 +124,25 @@ public class Demo_Simple_Reader extends AppCompatActivity {
                 }
             }
             list.clear();
-            list = dbHelper.getAllBook();
+            List<Books> temp = dbHelper.getAllBook();
+            for(Books b: temp){
+                list.add(b);
+            }
             adapter.notifyDataSetChanged();
         }
-        if (requestCode==RESULT_OK && requestCode==CHANGE_COVER_CODE){
+        if (resultCode==RESULT_OK && requestCode==CHANGE_COVER_CODE){
             Uri uri = data.getData();
             ContentResolver contentResolver = this.getContentResolver();
             String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
+            Log.d(TAG, "new cover path " + path);
             //change album path
-            list.get(curIndex).setAlbum(path);
             dbHelper.updateBook(list.get(curIndex).getId(), path);
+
+            Books temp = list.get(curIndex);
+            temp.setAlbum(path);
+            list.remove(curIndex);
+            list.add(curIndex, temp);
+
             adapter.notifyDataSetChanged();
         }
     }

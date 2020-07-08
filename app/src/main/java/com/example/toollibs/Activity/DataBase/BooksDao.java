@@ -2,7 +2,6 @@ package com.example.toollibs.Activity.DataBase;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
-import android.renderscript.Sampler;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
@@ -30,7 +29,7 @@ public class BooksDao extends AbstractDao<Books, Long> {
         public final static Property Author = new Property(2, String.class, "author", false, "AUTHOR");
         public final static Property Path = new Property(3, String.class, "path", false, "PATH");
         public final static Property Album = new Property(4, String.class, "album", false, "ALBUM");
-        public final static Property Tag = new Property(5, String.class, "tag", false, "TAG");
+        public final static Property Tag = new Property(5, int.class, "tag", false, "TAG");
     }
 
 
@@ -51,7 +50,7 @@ public class BooksDao extends AbstractDao<Books, Long> {
                 "\"AUTHOR\" TEXT," + // 2: author
                 "\"PATH\" TEXT," + // 3: path
                 "\"ALBUM\" TEXT," + // 4: album
-                "\"TAG\" INTEGER );"); //5: tag
+                "\"TAG\" INTEGER NOT NULL );"); // 5: tag
     }
 
     /** Drops the underlying database table. */
@@ -61,7 +60,7 @@ public class BooksDao extends AbstractDao<Books, Long> {
     }
 
     @Override
-    protected void bindValues(SQLiteStatement stmt, Books entity) {
+    protected final void bindValues(DatabaseStatement stmt, Books entity) {
         stmt.clearBindings();
  
         Long id = entity.getId();
@@ -88,11 +87,38 @@ public class BooksDao extends AbstractDao<Books, Long> {
         if (album != null) {
             stmt.bindString(5, album);
         }
+        stmt.bindLong(6, entity.getTag());
+    }
 
-        int tag = entity.getTag();
-        if(String.valueOf(tag) != null){
-            stmt.bindLong(6, tag);
+    @Override
+    protected final void bindValues(SQLiteStatement stmt, Books entity) {
+        stmt.clearBindings();
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
         }
+ 
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(2, name);
+        }
+ 
+        String author = entity.getAuthor();
+        if (author != null) {
+            stmt.bindString(3, author);
+        }
+ 
+        String path = entity.getPath();
+        if (path != null) {
+            stmt.bindString(4, path);
+        }
+ 
+        String album = entity.getAlbum();
+        if (album != null) {
+            stmt.bindString(5, album);
+        }
+        stmt.bindLong(6, entity.getTag());
     }
 
     @Override
@@ -102,13 +128,13 @@ public class BooksDao extends AbstractDao<Books, Long> {
 
     @Override
     public Books readEntity(Cursor cursor, int offset) {
-        Books entity = new Books(
+        Books entity = new Books( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // author
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // path
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // album
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5) // tag
+            cursor.getInt(offset + 5) // tag
         );
         return entity;
     }
@@ -120,44 +146,9 @@ public class BooksDao extends AbstractDao<Books, Long> {
         entity.setAuthor(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setPath(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setAlbum(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setTag(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setTag(cursor.getInt(offset + 5));
      }
-
-    @Override
-    protected void bindValues(DatabaseStatement stmt, Books entity) {
-        stmt.clearBindings();
-
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
-
-        String name = entity.getName();
-        if (name != null) {
-            stmt.bindString(2, name);
-        }
-
-        String author = entity.getAuthor();
-        if (author != null) {
-            stmt.bindString(3, author);
-        }
-
-        String path = entity.getPath();
-        if (path != null) {
-            stmt.bindString(4, path);
-        }
-
-        String album = entity.getAlbum();
-        if (album != null) {
-            stmt.bindString(5, album);
-        }
-
-        int tag = entity.getTag();
-        if(String.valueOf(tag) != null){
-            stmt.bindLong(6, tag);
-        }
-    }
-
+    
     @Override
     protected final Long updateKeyAfterInsert(Books entity, long rowId) {
         entity.setId(rowId);

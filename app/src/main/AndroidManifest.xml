@@ -41,6 +41,8 @@
         <activity android:name=".Activity.Demo.Demo_Effect_View_Activity"/>
         <activity android:name=".Activity.UI.Activity_Bar_SeekBar" />
         <activity android:name=".Activity.Demo.Demo_TimerSelector_Activity" />
+        <activity android:name=".Activity.Demo.ReaderActivity"/>
+        <activity android:name=".Activity.Demo.Demo_Simple_Reader"/>
         <activity android:name=".Activity.UI.Activity_Dialog_Notification" />
         <activity android:name=".Activity.Demo.Demo_PosterView_Activity" />
         <activity android:name=".Activity.Demo.Demo_Simple_Player_Activity"/>

@@ -12,12 +12,13 @@ import com.example.toollibs.Activity.Demo.Demo_Live_Activity;
 import com.example.toollibs.Activity.Demo.Demo_PosterView_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Scroll_Lrc_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Simple_Player_Activity;
+import com.example.toollibs.Activity.Demo.Demo_Simple_Reader;
 import com.example.toollibs.Activity.Demo.Demo_Time_Activity;
 import com.example.toollibs.Activity.Demo.Demo_TimerSelector_Activity;
 import com.example.toollibs.R;
 
 public class Activity_Demos extends AppCompatActivity implements View.OnClickListener {
-    private Button bAlarm, bPoster, bTimeSelector, bLive, bPlayer, bLrc, bEffect, bFileSelector;
+    private Button bAlarm, bPoster, bTimeSelector, bLive, bPlayer, bLrc, bEffect, bReader, bFileSelector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,7 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bPlayer = findViewById(R.id.bSimplePlayer);
         bLrc = findViewById(R.id.bLrc);
         bEffect = findViewById(R.id.bEffectView);
+        bReader = findViewById(R.id.bReader);
         bFileSelector = findViewById(R.id.bFileSelector);
     }
 
@@ -46,6 +48,7 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bPlayer.setOnClickListener(this);
         bLrc.setOnClickListener(this);
         bEffect.setOnClickListener(this);
+        bReader.setOnClickListener(this);
         bFileSelector.setOnClickListener(this);
     }
 
@@ -77,6 +80,9 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.bEffectView:
                 intent = new Intent(this, Demo_Effect_View_Activity.class);
+                break;
+            case R.id.bReader:
+                intent = new Intent(this, Demo_Simple_Reader.class);
                 break;
 
         }

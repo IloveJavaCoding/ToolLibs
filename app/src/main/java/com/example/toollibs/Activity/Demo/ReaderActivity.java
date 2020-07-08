@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import com.example.toollibs.R;
 import org.greenrobot.eventbus.EventBus;
 
 public class ReaderActivity extends AppCompatActivity {
+    private final String TAG = "READER";
     private LinearLayout layout;
     private ImageView imgBack;
     private TextView tvName;
@@ -33,9 +35,9 @@ public class ReaderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
 
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }
+//        if (!EventBus.getDefault().isRegistered(this)) {
+//            EventBus.getDefault().register(this);
+//        }
         getData();
         init();
         setData();
@@ -43,8 +45,8 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        Intent intent = getIntent();
-        book = (Books) intent.getSerializableExtra("book");
+        book = (Books) getIntent().getExtras().getSerializable("book");
+        Log.d(TAG, "get book "+ book.getName());
     }
 
     private void init() {
@@ -58,7 +60,7 @@ public class ReaderActivity extends AppCompatActivity {
     private void setData() {
         tvName.setText(book.getName());
         bookView.setFilePath(book.getPath());
-        bookView.seekTo(book.getTag());
+        //bookView.seekTo(book.getTag());
     }
 
     private void setListener() {

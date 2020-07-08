@@ -18,10 +18,10 @@
     </declare-styleable>
 
     <declare-styleable name="Book">
-        <attr name="textSize" format="dimension" />
-        <attr name="textColor" format="color|reference" />
+        <attr name="bookTextSize" format="dimension" />
+        <attr name="bookTextColor" format="color|reference" />
         <attr name="bgColor" format="color|reference" />
-        <attr name="dividerHeight" format="dimension|reference" />
+        <attr name="bookDividerHeight" format="dimension|reference" />
         <attr name="padValue" format="dimension|reference" />
     </declare-styleable>
 </resources>

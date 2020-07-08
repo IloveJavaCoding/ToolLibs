@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.annotation.LongDef;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -22,9 +24,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookView extends View {
+    private final String TAG = "BOOK_VIEW";
     private Paint paint;
     private int viewHeight;
     private int viewWidth;
@@ -40,8 +44,7 @@ public class BookView extends View {
     private int numInRow;
     private int firstIndex;//the first line to draw
 
-    private String filePath;//the path of book
-    private List<String> lines;
+    private List<String> lines = new ArrayList<>();
 
     public BookView(Context context) {
         this(context, null);
@@ -60,10 +63,10 @@ public class BookView extends View {
     private void init(AttributeSet attrs) {
         // 解析自定义属性
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.Book);
-        textSize = ta.getDimension(R.styleable.Book_textSize, 18.0f);
-        textColor = ta.getColor(R.styleable.Book_textColor, 0xff000000);
+        textSize = ta.getDimension(R.styleable.Book_bookTextSize, 18.0f);
+        textColor = ta.getColor(R.styleable.Book_bookTextColor, 0xff000000);
         bgColor = ta.getColor(R.styleable.Book_bgColor, 0xffe3edcd);
-        dividerHeight = ta.getDimension(R.styleable.Book_dividerHeight, 3.0f);
+        dividerHeight = ta.getDimension(R.styleable.Book_bookDividerHeight, 3.0f);
         padValue = ta.getDimension(R.styleable.Book_padValue, 5.0f);
         ta.recycle();
         // </end>
@@ -74,23 +77,48 @@ public class BookView extends View {
         paint.setColor(textColor);
         paint.setAntiAlias(true);
 
-        //获取view的宽高
-        viewWidth = getWidth();
-        viewHeight = getHeight();
-
-        //计算行数
-        rows = (int) ((viewHeight - padValue*2) / (textSize + dividerHeight));
-        numInRow = (int) ((viewWidth - padValue*2) / textSize);
-
         firstIndex = 0;
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int width = getPaddingLeft() + getPaddingRight();
+        int height = getPaddingTop() + getPaddingBottom();
+        width = Math.max(width, getSuggestedMinimumWidth());
+        height = Math.max(height, getSuggestedMinimumHeight());
+
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+        setMeasuredDimension(resolveSizeAndState(width, widthMeasureSpec, 0),
+                resolveSizeAndState(height, heightMeasureSpec, 0));
+
+        viewHeight = getMeasuredHeight();
+        viewWidth = getMeasuredWidth();
+
+        calculateRows();
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    private void calculateRows(){
+        //计算行数
+        Log.d(TAG, viewWidth + " " + viewHeight);
+        rows = (int) ((viewHeight - padValue*2) / (textSize + dividerHeight));
+        numInRow = (int) ((viewWidth - padValue*2) / textSize);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+        //super.onDraw(canvas);
+        Log.d(TAG, "draw...");
         //背景
         canvas.drawColor(bgColor);
 
+        Log.d(TAG, "lines size: " + lines.size());
+        if(lines==null){
+            canvas.drawText("No contents!", 0,viewHeight/2, paint);
+            return;
+        }
+
+        Log.d(TAG, "rows :" + rows);
         for(int i=0; i<rows; i++){
             if(i+firstIndex<lines.size()){
                 canvas.drawText(lines.get(i+firstIndex), padValue, padValue+i*(textSize+dividerHeight), paint);
@@ -135,7 +163,7 @@ public class BookView extends View {
                 //这个方法里往往需要重绘界面，使用这个方法可以自动调用onDraw（）方法。（主线程）
                 invalidate();
                 //save tag
-                EventBus.getDefault().post(new RefershBookTagEvent(firstIndex));
+                //EventBus.getDefault().post(new RefershBookTagEvent(firstIndex));
                 break;
         }
 
@@ -154,13 +182,15 @@ public class BookView extends View {
 
     public void setFilePath(String path){
         if (TextUtils.isEmpty(path)) { return;}
-        filePath = path;
         lines.clear();
-        parseBook(filePath);
+        //postInvalidate();
+
+        parseBook(path);
     }
 
     private void parseBook(String path){
         File file = new File(path);
+        Log.d(TAG, "parsePath "+ path);
         if(file.exists()){
             FileInputStream inputStream = null;
             try {
@@ -181,6 +211,7 @@ public class BookView extends View {
             try {
                 while((line=reader.readLine())!=null){
                     lines.add(line);
+                    Log.d(TAG, line);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
