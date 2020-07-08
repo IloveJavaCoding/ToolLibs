@@ -128,6 +128,13 @@ public class DBHelper {
         booksDao.update(books);
     }
 
+    public void updateBook(Long id, int tag){
+        Books books = getBookByKey(id);
+        books.setTag(tag);
+
+        booksDao.update(books);
+    }
+
     //list/query
     public List<Students> getAllStudents(){
         QueryBuilder<Students> qb = studentsDao.queryBuilder();

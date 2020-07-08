@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -80,6 +79,9 @@ public class Demo_Simple_Reader extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //open book
+                Intent intent = new Intent(getApplicationContext(), ReaderActivity.class);
+                intent.putExtra("book", list.get(position));
+                startActivity(intent);
             }
         });
 
@@ -103,6 +105,7 @@ public class Demo_Simple_Reader extends AppCompatActivity {
             books.setAuthor(name);
             books.setPath(path);
             books.setAlbum("null");
+            books.setTag(0);
         }
         return books;
     }

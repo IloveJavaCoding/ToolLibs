@@ -70,7 +70,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.youth_meng);
         lrcView.setLrc(FileUtil.readResource(this, R.raw.shaonian, "utf-8"));
-        lrcView.setBackground(BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran));
+        lrcView.setBackground(BitmapUtil.blurBitmap(this, BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran),20));
     }
 
     private void setData() {

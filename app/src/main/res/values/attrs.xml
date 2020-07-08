@@ -16,4 +16,12 @@
         <attr name="dividerHeight" format="dimension|reference" />
         <attr name="rows" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="Book">
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color|reference" />
+        <attr name="bgColor" format="color|reference" />
+        <attr name="dividerHeight" format="dimension|reference" />
+        <attr name="padValue" format="dimension|reference" />
+    </declare-styleable>
 </resources>
