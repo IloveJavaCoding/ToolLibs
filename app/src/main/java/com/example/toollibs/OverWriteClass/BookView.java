@@ -45,6 +45,7 @@ public class BookView extends View {
     private int firstIndex;//the first line to draw
 
     private List<String> lines = new ArrayList<>();
+    private String contents;
 
     public BookView(Context context) {
         this(context, null);
@@ -66,8 +67,8 @@ public class BookView extends View {
         textSize = ta.getDimension(R.styleable.Book_bookTextSize, 18.0f);
         textColor = ta.getColor(R.styleable.Book_bookTextColor, 0xff000000);
         bgColor = ta.getColor(R.styleable.Book_bgColor, 0xffe3edcd);
-        dividerHeight = ta.getDimension(R.styleable.Book_bookDividerHeight, 3.0f);
-        padValue = ta.getDimension(R.styleable.Book_padValue, 5.0f);
+        dividerHeight = ta.getDimension(R.styleable.Book_bookDividerHeight, 5.0f);
+        padValue = ta.getDimension(R.styleable.Book_padValue, 10.0f);
         ta.recycle();
         // </end>
 
@@ -80,6 +81,30 @@ public class BookView extends View {
         firstIndex = 0;
     }
 
+    public void getWindowWH(int w, int h){
+        viewHeight = h;
+        viewWidth = w;;
+    }
+
+    /**
+     * case MeasureSpec.AT_MOST:  // 子容器可以是声明大小内的任意大小
+     * 			Log.e(Tag, "子容器可以是声明大小内的任意大小");
+     * 			Log.e(Tag, "大小为:"+specSize);
+     * 			result=specSize;
+     * 			break;
+     * 		case MeasureSpec.EXACTLY: //父容器已经为子容器设置了尺寸,子容器应当服从这些边界,不论子容器想要多大的空间.  比如EditTextView中的DrawLeft
+     * 			Log.e(Tag, "父容器已经为子容器设置了尺寸,子容器应当服从这些边界,不论子容器想要多大的空间");
+     * 			Log.e(Tag, "大小为:"+specSize);
+     * 			result=specSize;
+     * 			break;
+     * 		case MeasureSpec.UNSPECIFIED:  //父容器对于子容器没有任何限制,子容器想要多大就多大. 所以完全取决于子view的大小
+     * 			Log.e(Tag, "父容器对于子容器没有任何限制,子容器想要多大就多大");
+     * 			Log.e(Tag, "大小为:"+specSize);
+     * 			result=1500;
+     * 			break;
+     * 		default:
+     * 			break;
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = getPaddingLeft() + getPaddingRight();
@@ -87,22 +112,27 @@ public class BookView extends View {
         width = Math.max(width, getSuggestedMinimumWidth());
         height = Math.max(height, getSuggestedMinimumHeight());
 
-        widthMeasureSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(1080, MeasureSpec.AT_MOST);
         setMeasuredDimension(resolveSizeAndState(width, widthMeasureSpec, 0),
                 resolveSizeAndState(height, heightMeasureSpec, 0));
 
-        viewHeight = getMeasuredHeight();
-        viewWidth = getMeasuredWidth();
+
+//        viewHeight = getMeasuredHeight();//992
+//        viewWidth =(int) ((1080f/1920f)*viewHeight);
+        Log.d(TAG, viewWidth + " " + viewHeight);
 
         calculateRows();
+        parseLines(contents);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     private void calculateRows(){
         //计算行数
-        Log.d(TAG, viewWidth + " " + viewHeight);
         rows = (int) ((viewHeight - padValue*2) / (textSize + dividerHeight));
         numInRow = (int) ((viewWidth - padValue*2) / textSize);
+
+        Log.d(TAG, "rows :" + rows);
+        Log.d(TAG, "numInRows :" + numInRow);
     }
 
     @Override
@@ -112,13 +142,13 @@ public class BookView extends View {
         //背景
         canvas.drawColor(bgColor);
 
-        Log.d(TAG, "lines size: " + lines.size());
+
         if(lines==null){
             canvas.drawText("No contents!", 0,viewHeight/2, paint);
             return;
         }
 
-        Log.d(TAG, "rows :" + rows);
+        Log.d(TAG, "first line: " + firstIndex);
         for(int i=0; i<rows; i++){
             if(i+firstIndex<lines.size()){
                 canvas.drawText(lines.get(i+firstIndex), padValue, padValue+i*(textSize+dividerHeight), paint);
@@ -163,7 +193,7 @@ public class BookView extends View {
                 //这个方法里往往需要重绘界面，使用这个方法可以自动调用onDraw（）方法。（主线程）
                 invalidate();
                 //save tag
-                //EventBus.getDefault().post(new RefershBookTagEvent(firstIndex));
+                EventBus.getDefault().post(new RefershBookTagEvent(firstIndex));
                 break;
         }
 
@@ -183,8 +213,6 @@ public class BookView extends View {
     public void setFilePath(String path){
         if (TextUtils.isEmpty(path)) { return;}
         lines.clear();
-        //postInvalidate();
-
         parseBook(path);
     }
 
@@ -208,14 +236,26 @@ public class BookView extends View {
 
             BufferedReader reader = new BufferedReader(inputStreamReader);
             String line;
+            StringBuilder builder = new StringBuilder();
             try {
                 while((line=reader.readLine())!=null){
-                    lines.add(line);
-                    Log.d(TAG, line);
+                    builder.append(line);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            contents = builder.toString();
         }
+    }
+
+    private void parseLines(String contents) {
+        int totalRows = contents.length()%numInRow==0? contents.length() / numInRow: contents.length() / numInRow +1;
+        for(int i=0; i<totalRows; i++){
+            lines.add(contents.substring(numInRow*i, numInRow*(i+1)>contents.length()? contents.length(): numInRow*(i+1)));
+            Log.d("TAG", "lines: " + i + " " +lines.get(i));
+        }
+
+        Log.d(TAG, "lines size: " + lines.size());
     }
 }

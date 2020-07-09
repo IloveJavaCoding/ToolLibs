@@ -24,3 +24,10 @@
 public static java.lang.String TABLENAME;
 }
 -keep class **$Properties
+
+#event bus
+#-keepattributes *Annotation*
+#-keepclassmembers class ** {
+#    @org.greenrobot.eventbus.Subscribe <methods>;
+#}
+#-keep enum org.greenrobot.eventbus.ThreadMode { *; }
