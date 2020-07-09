@@ -18,6 +18,7 @@
     <color name="colorYellow">#ffff00</color>
     <color name="colorCyan">#00ffff</color>
     <color name="colorPurple">#9C27B0</color>
-
+    <color name="colorEye">#e3edcd</color>
+    <color name="colorEyeHalf">#CCE3EDCD</color>
     <color name="colorTY_Half">#8066CCFF</color>
 </resources>

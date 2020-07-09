@@ -100,6 +100,12 @@ public class FileUtil {
         file.delete();
     }
 
+    //=========================copy/move file===========================
+    public static void copyFile(String oldPath, String newPath){
+        byte[] bytes = readBytes(oldPath);
+        getFileFromBytes(bytes, newPath);
+    }
+
     //========================get file/dir info============================
     public static int getFilesNumber(String dir){
         File file = new File(dir);
@@ -114,7 +120,7 @@ public class FileUtil {
     }
 
     //===========================change file/dir name=======================
-    public static void whangeFile_DirName(String path, String oldName, String newName){
+    public static void changeFile_DirName(String path, String oldName, String newName){
         File oldFile = new File(path+"/"+oldName);
         File newFile = new File(path+"/"+newName);
 
@@ -164,12 +170,12 @@ public class FileUtil {
         return file;
     }
 
-    public static String readContents(String path, String fileName, String format){
+    public static String readContents(String path, String format){
         if(format==null){
             format="utf-8";
         }
 
-        File file = new File(path+fileName);
+        File file = new File(path);
         if(!file.exists()){
             //
             return null;
@@ -224,6 +230,33 @@ public class FileUtil {
             e.printStackTrace();
         }
         return builder.toString();
+    }
+
+    public static byte[] readBytes(String path){
+        File file = new File(path);
+        if(!file.exists()){
+            return null;
+        }
+
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file);
+            long size = inputStream.getChannel().size();
+            if(size<=0){
+                return null;
+            }
+
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes);
+
+            return bytes;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     //===========================zip/unzip file/dir==============================

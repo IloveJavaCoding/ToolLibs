@@ -4,38 +4,52 @@
     android:layout_height="match_parent"
     xmlns:Book="http://schemas.android.com/apk/res-auto">
 
-    <com.example.toollibs.OverWriteClass.BookView
-        android:id="@+id/bookView"
+    <View
+        android:id="@+id/top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        Book:bookTextSize="20sp"/>
+        android:layout_height="20dp"
+        android:background="@color/colorEye"/>
 
-    <LinearLayout
-        android:id="@+id/layoutTitle"
+    <RelativeLayout
+        android:layout_below="@+id/top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding_10"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgBack2"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
-            android:padding="2dp"
-            android:background="@drawable/selector_button_transparent"
-            android:layout_gravity="center"
-            android:src="@drawable/icon_back_white"/>
+        <com.example.toollibs.OverWriteClass.BookView
+            android:id="@+id/bookView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            Book:bookTextSize="@dimen/text_size_20"
+            Book:bookDividerHeight="@dimen/margin_5"
+            Book:padValue="@dimen/padding_10"/>
 
-        <TextView
-            android:id="@+id/tvBookName2"
+        <LinearLayout
+            android:id="@+id/layoutTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textSize="23sp"
-            android:textAlignment="center"
-            android:text="book"
-            android:textColor="@color/colorWhite"/>
-    </LinearLayout>
+            android:padding="@dimen/padding_10"
+            android:background="@color/colorEyeHalf"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/imgBack2"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:padding="2dp"
+                android:background="@drawable/selector_button_transparent"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_back_white"/>
+
+            <TextView
+                android:id="@+id/tvBookName2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textSize="23sp"
+                android:textAlignment="center"
+                android:text="book"
+                android:textColor="@color/colorWhite"/>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

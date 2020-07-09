@@ -1,5 +1,7 @@
 package com.example.toollibs.Activity.Demo;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,7 +34,6 @@ public class ReaderActivity extends AppCompatActivity {
     private DBHelper helper;
     private Books book;
     private final int HIDE_CODE = 0x001;
-    private int w,h;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,19 +42,29 @@ public class ReaderActivity extends AppCompatActivity {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+
         getData();
+        setLayout();
         init();
         setData();
         setListener();
     }
 
+    private void setLayout() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorEye));
+            getWindow().setNavigationBarColor(Color.TRANSPARENT);
+        }
+    }
+
     private void getData() {
         book = (Books) getIntent().getExtras().getSerializable("book");
         Log.d(TAG, "get book "+ book.getName());
-
-        DisplayMetrics dm = SystemUtil.GetScreenDM(this);
-        w = dm.widthPixels;
-        h = dm.heightPixels;
     }
 
     private void init() {
@@ -68,7 +79,8 @@ public class ReaderActivity extends AppCompatActivity {
         tvName.setText(book.getName());
         bookView.setFilePath(book.getPath());
         bookView.seekTo(book.getTag());
-        bookView.getWindowWH(w, h);
+
+        hideLayout();
     }
 
     private void setListener() {

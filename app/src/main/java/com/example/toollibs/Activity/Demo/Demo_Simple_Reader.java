@@ -16,8 +16,11 @@ import com.example.toollibs.Activity.Adapters.GridView_BookAdapter;
 import com.example.toollibs.Activity.Bean.Books;
 import com.example.toollibs.Activity.DataBase.DBHelper;
 import com.example.toollibs.R;
+import com.example.toollibs.Util.ConvertUtil;
+import com.example.toollibs.Util.FileUtil;
 import com.example.toollibs.Util.IntentUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,14 +36,23 @@ public class Demo_Simple_Reader extends AppCompatActivity {
     private int curIndex=0;
     private final int IMPORT_BOOK_CODE = 0x001;
     private final int CHANGE_COVER_CODE = 0x002;
+
+    private String prePath;
+    private final String coverPath = "Reader/cover";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo_simple_reader);
 
+        createDir();
         init();
         setData();
         setListener();
+    }
+
+    private void createDir() {
+        prePath = FileUtil.GetAppRootPth(this)+ File.separator+coverPath;
+        FileUtil.createDirs(prePath);
     }
 
     private void init() {
@@ -135,11 +147,15 @@ public class Demo_Simple_Reader extends AppCompatActivity {
             ContentResolver contentResolver = this.getContentResolver();
             String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
             Log.d(TAG, "new cover path " + path);
+
+            String post = path.substring(path.lastIndexOf("."));
+            String newPath = prePath + File.separator + ConvertUtil.string2Hex(list.get(curIndex).getName())+ File.separator + post;
+            FileUtil.copyFile(path, newPath);
             //change album path
-            dbHelper.updateBook(list.get(curIndex).getId(), path);
+            dbHelper.updateBook(list.get(curIndex).getId(), newPath);
 
             Books temp = list.get(curIndex);
-            temp.setAlbum(path);
+            temp.setAlbum(newPath);
             list.remove(curIndex);
             list.add(curIndex, temp);
 

@@ -77,7 +77,9 @@ public class Demo_File_Selector_Activity  extends AppCompatActivity implements L
         tvCurPath.setText(curPath);
         files.clear();
         index.clear();
-        List<File> temp = Arrays.asList(new File(curPath).listFiles());
+        File[] fs = new File(curPath).listFiles();
+        Arrays.sort(fs);
+        List<File> temp = Arrays.asList(fs);
         for(File f : temp){
             files.add(f);
         }

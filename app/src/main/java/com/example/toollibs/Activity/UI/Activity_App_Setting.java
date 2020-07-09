@@ -50,7 +50,7 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
     private void setData() {
         //use bitmap set background;
         Bitmap bitmap = BitmapUtil.getBitmapFromRes(this, R.drawable.img_bg_app3);
-        bitmap = BitmapUtil.blurBitmap(this, bitmap, 24);
+        //bitmap = BitmapUtil.blurBitmap(this, bitmap, 24);
         view.setBackground(new BitmapDrawable(getResources(), bitmap));
 
         rbAutoStart.setChecked(SettingData.getBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUTO_START_KEY, Constant.AUTO_START_DEFAULT));

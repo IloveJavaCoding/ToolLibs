@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_10"
-        android:background="@color/colorGery">
+        android:background="@color/colorGery_Half">
 
         <ImageView
             android:id="@+id/imgBack"
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/padding_5"
-        android:numColumns="3"
+        android:numColumns="4"
         android:horizontalSpacing="@dimen/margin_5"
         android:verticalSpacing="@dimen/margin_5"/>
 </LinearLayout>

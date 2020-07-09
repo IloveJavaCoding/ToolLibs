@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.example.toollibs.Activity.Events.RefershBookTagEvent;
 import com.example.toollibs.R;
+import com.example.toollibs.Util.FileUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,12 +34,13 @@ public class BookView extends View {
     private int viewHeight;
     private int viewWidth;
 
-    //attrs of text
+    //attrs of text px
     private float textSize;
     private int textColor;
     private float dividerHeight;//行间距
     private float padValue;//padding
     private int bgColor;//背景颜色
+    private int textDivider;//文字间隔
 
     private int rows;
     private int numInRow;
@@ -67,8 +69,8 @@ public class BookView extends View {
         textSize = ta.getDimension(R.styleable.Book_bookTextSize, 18.0f);
         textColor = ta.getColor(R.styleable.Book_bookTextColor, 0xff000000);
         bgColor = ta.getColor(R.styleable.Book_bgColor, 0xffe3edcd);
-        dividerHeight = ta.getDimension(R.styleable.Book_bookDividerHeight, 5.0f);
-        padValue = ta.getDimension(R.styleable.Book_padValue, 10.0f);
+        dividerHeight = ta.getDimension(R.styleable.Book_bookDividerHeight, 10.0f);
+        padValue = ta.getDimension(R.styleable.Book_padValue, 15.0f);
         ta.recycle();
         // </end>
 
@@ -78,12 +80,7 @@ public class BookView extends View {
         paint.setColor(textColor);
         paint.setAntiAlias(true);
 
-        firstIndex = 0;
-    }
-
-    public void getWindowWH(int w, int h){
-        viewHeight = h;
-        viewWidth = w;;
+        textDivider = 5;
     }
 
     /**
@@ -116,21 +113,29 @@ public class BookView extends View {
         setMeasuredDimension(resolveSizeAndState(width, widthMeasureSpec, 0),
                 resolveSizeAndState(height, heightMeasureSpec, 0));
 
+//        viewHeight = getMeasuredHeight();
+//        viewWidth = getMeasuredWidth();
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
 
-//        viewHeight = getMeasuredHeight();//992
-//        viewWidth =(int) ((1080f/1920f)*viewHeight);
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        viewWidth = getWidth();
+        viewHeight = getHeight();
         Log.d(TAG, viewWidth + " " + viewHeight);
 
         calculateRows();
         parseLines(contents);
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        super.onLayout(changed, left, top, right, bottom);
     }
 
     private void calculateRows(){
         //计算行数
         rows = (int) ((viewHeight - padValue*2) / (textSize + dividerHeight));
-        numInRow = (int) ((viewWidth - padValue*2) / textSize);
+        numInRow = (int) ((viewWidth - padValue*2) / (textSize+textDivider));
 
+        Log.d(TAG, "padValue :" + padValue);
+        Log.d(TAG, "textSize :" + textSize);
         Log.d(TAG, "rows :" + rows);
         Log.d(TAG, "numInRows :" + numInRow);
     }
@@ -151,7 +156,12 @@ public class BookView extends View {
         Log.d(TAG, "first line: " + firstIndex);
         for(int i=0; i<rows; i++){
             if(i+firstIndex<lines.size()){
-                canvas.drawText(lines.get(i+firstIndex), padValue, padValue+i*(textSize+dividerHeight), paint);
+                //canvas.drawText(lines.get(i+firstIndex), padValue, 25 + padValue+i*(textSize+dividerHeight), paint);
+                //一个字一个字画
+                String line = lines.get(i+firstIndex);
+                for(int j=0; j<line.length(); j++){
+                    canvas.drawText(line.substring(j, j+1), padValue + j*(textSize+textDivider), 25 + padValue+i*(textSize+dividerHeight), paint);
+                }
             }
         }
     }
@@ -172,19 +182,17 @@ public class BookView extends View {
                 break;
             case MotionEvent.ACTION_MOVE:
                 //=======================
-                break;
-            case MotionEvent.ACTION_UP:
                 x = event.getX();
                 y = event.getY();
 
                 if(y-oldY>0){//下滑
-                    firstIndex -= 5;
+                    firstIndex -= 3;
                     if(firstIndex<=0){
                         firstIndex = 0;
                     }
                 }else if(y-oldY<0){//上滑
                     if(firstIndex+rows<=lines.size()){
-                        firstIndex += 5;
+                        firstIndex += 3;
                     }
                 }else{
                     //click
@@ -194,6 +202,9 @@ public class BookView extends View {
                 invalidate();
                 //save tag
                 EventBus.getDefault().post(new RefershBookTagEvent(firstIndex));
+                break;
+            case MotionEvent.ACTION_UP:
+
                 break;
         }
 
@@ -213,40 +224,40 @@ public class BookView extends View {
     public void setFilePath(String path){
         if (TextUtils.isEmpty(path)) { return;}
         lines.clear();
-        parseBook(path);
+//        parseBook(path);
+        contents = FileUtil.readContents(path, "utf-8");
     }
 
     private void parseBook(String path){
-        File file = new File(path);
-        Log.d(TAG, "parsePath "+ path);
-        if(file.exists()){
-            FileInputStream inputStream = null;
-            try {
-                inputStream = new FileInputStream(file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+//        File file = new File(path);
+//        Log.d(TAG, "parsePath "+ path);
+//        if(file.exists()){
+//            FileInputStream inputStream = null;
+//            try {
+//                inputStream = new FileInputStream(file);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//
+//            InputStreamReader inputStreamReader = null;
+//            try {
+//                inputStreamReader = new InputStreamReader(inputStream, "utf-8");//'utf-8' 'GBK'
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+//
+//            BufferedReader reader = new BufferedReader(inputStreamReader);
+//            String line;
+//            StringBuilder builder = new StringBuilder();
+//            try {
+//                while((line=reader.readLine())!=null){
+//                    builder.append(line);
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
-            InputStreamReader inputStreamReader = null;
-            try {
-                inputStreamReader = new InputStreamReader(inputStream, "utf-8");//'utf-8' 'GBK'
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String line;
-            StringBuilder builder = new StringBuilder();
-            try {
-                while((line=reader.readLine())!=null){
-                    builder.append(line);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            contents = builder.toString();
-        }
+//        }
     }
 
     private void parseLines(String contents) {

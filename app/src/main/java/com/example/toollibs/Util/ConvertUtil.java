@@ -1,6 +1,7 @@
 package com.example.toollibs.Util;
 
 import android.content.Context;
+import android.util.TypedValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,17 @@ public class ConvertUtil {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
+
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    //sp to px
+    public static int sp2px(Context context, float spValue) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.getResources().getDisplayMetrics());
+    }
+
 
     //温度： 华氏 ~ 摄氏度 Fahrenheit, Centigrade
     //C=（5/9）（F-32）

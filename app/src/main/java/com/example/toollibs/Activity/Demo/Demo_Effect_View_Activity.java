@@ -2,9 +2,11 @@ package com.example.toollibs.Activity.Demo;
 
 import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,9 +22,8 @@ public class Demo_Effect_View_Activity extends AppCompatActivity implements View
     private Button bPlay, bColor, bAncient, bElectronic, bSurround, bLonely;
 
     private Bitmap bitmap;
-   // private MediaPlayer mediaPlayer;
-    private VisualizerHelper visualizerHelper;
-
+    private MediaPlayer mediaPlayer;
+    private ObjectAnimator animator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +51,16 @@ public class Demo_Effect_View_Activity extends AppCompatActivity implements View
 
     private void setData() {
         //init player
-//        mediaPlayer = MediaPlayer.create(this, R.raw.youth_meng);
-//        mediaPlayer.setLooping(true);
-
-        bitmap = BitmapUtil.getBitmapFromRes(this, R.mipmap.music_album);
+        mediaPlayer = MediaPlayer.create(this, R.raw.youth_meng);
+        mediaPlayer.setLooping(true);
+        bitmap = BitmapUtil.getBitmapFromRes(this, R.drawable.img_portrait);
+        Log.d("tag", "bitmap: "+ bitmap.getWidth());
         //set bg -- blur
         imgBg.setImageBitmap(BitmapUtil.blurBitmap(this, bitmap, 20));
         //set album and get circle
         imgAlbum.setImageBitmap(BitmapUtil.getCircleBitmap(bitmap));
         //imgAlbum.setImageBitmap(bitmap);
-        ObjectAnimator animator = BitmapUtil.rotateIV(imgAlbum, 5000);
-        animator.start();
+        animator = BitmapUtil.rotateIV(imgAlbum, 5000);
 
         //default effect
         effectView.setAncientEffectDrawable();
@@ -119,27 +119,12 @@ public class Demo_Effect_View_Activity extends AppCompatActivity implements View
     }
 
     private void play() {
-//        if(mediaPlayer.isPlaying()){
-//            mediaPlayer.pause();
-//            animator.pause();
-//        }else{
-//            mediaPlayer.start();
-//            animator.start();
-//        }
-
-        if (visualizerHelper == null) {
-            visualizerHelper = new VisualizerHelper();
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+            animator.pause();
+        }else{
+            mediaPlayer.start();
+            animator.start();
         }
-        visualizerHelper.init(this, new VisualizerHelper.DataCallback() {
-            @Override
-            public void onCall(byte[] data) {
-                effectView.onCall(data);
-            }
-
-            @Override
-            public void onWaveCall(byte[] data) {
-                effectView.onWaveCall(data);
-            }
-        });
     }
 }
