@@ -27,6 +27,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BookView extends View {
     private final String TAG = "BOOK_VIEW";
@@ -80,7 +82,7 @@ public class BookView extends View {
         paint.setColor(textColor);
         paint.setAntiAlias(true);
 
-        textDivider = 5;
+        textDivider = 3;
     }
 
     /**
@@ -156,12 +158,12 @@ public class BookView extends View {
         Log.d(TAG, "first line: " + firstIndex);
         for(int i=0; i<rows; i++){
             if(i+firstIndex<lines.size()){
-                //canvas.drawText(lines.get(i+firstIndex), padValue, 25 + padValue+i*(textSize+dividerHeight), paint);
+                canvas.drawText(lines.get(i+firstIndex), padValue, 35 + padValue+i*(textSize+dividerHeight), paint);
                 //一个字一个字画
-                String line = lines.get(i+firstIndex);
-                for(int j=0; j<line.length(); j++){
-                    canvas.drawText(line.substring(j, j+1), padValue + j*(textSize+textDivider), 25 + padValue+i*(textSize+dividerHeight), paint);
-                }
+//                String line = lines.get(i+firstIndex);
+//                for(int j=0; j<line.length(); j++){
+//                    canvas.drawText(line.substring(j, j+1), padValue + j*(textSize+textDivider), 35 + padValue+i*(textSize+dividerHeight), paint);
+//                }
             }
         }
     }
@@ -185,30 +187,35 @@ public class BookView extends View {
                 x = event.getX();
                 y = event.getY();
 
-                if(y-oldY>0){//下滑
-                    firstIndex -= 3;
-                    if(firstIndex<=0){
-                        firstIndex = 0;
-                    }
-                }else if(y-oldY<0){//上滑
-                    if(firstIndex+rows<=lines.size()){
-                        firstIndex += 3;
-                    }
-                }else{
-                    //click
-                }
-
-                //这个方法里往往需要重绘界面，使用这个方法可以自动调用onDraw（）方法。（主线程）
-                invalidate();
-                //save tag
-                EventBus.getDefault().post(new RefershBookTagEvent(firstIndex));
                 break;
             case MotionEvent.ACTION_UP:
-
+                x = event.getX();
+                y = event.getY();
+                move(x,y);
                 break;
         }
 
         return true;
+    }
+
+    private void move(float x, float y){
+        if(y-oldY>0){//下滑
+            firstIndex -= 3;
+            if(firstIndex<=0){
+                firstIndex = 0;
+            }
+        }else if(y-oldY<0){//上滑
+            if(firstIndex+rows<=lines.size()){
+                firstIndex += 3;
+            }
+        }else{
+            //click
+        }
+
+        //这个方法里往往需要重绘界面，使用这个方法可以自动调用onDraw（）方法。（主线程）
+        invalidate();
+        //save tag
+        EventBus.getDefault().post(new RefershBookTagEvent(firstIndex));
     }
 
     public void seekTo(int position){
@@ -224,40 +231,57 @@ public class BookView extends View {
     public void setFilePath(String path){
         if (TextUtils.isEmpty(path)) { return;}
         lines.clear();
-//        parseBook(path);
-        contents = FileUtil.readContents(path, "utf-8");
+        parseBook(path);
+        //contents = FileUtil.readContents(path, "utf-8");
     }
 
     private void parseBook(String path){
-//        File file = new File(path);
-//        Log.d(TAG, "parsePath "+ path);
-//        if(file.exists()){
-//            FileInputStream inputStream = null;
-//            try {
-//                inputStream = new FileInputStream(file);
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//
-//            InputStreamReader inputStreamReader = null;
-//            try {
-//                inputStreamReader = new InputStreamReader(inputStream, "utf-8");//'utf-8' 'GBK'
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();
-//            }
-//
-//            BufferedReader reader = new BufferedReader(inputStreamReader);
-//            String line;
-//            StringBuilder builder = new StringBuilder();
-//            try {
-//                while((line=reader.readLine())!=null){
-//                    builder.append(line);
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+        File file = new File(path);
+        Log.d(TAG, "parsePath "+ path);
+        if(file.exists()){
+            FileInputStream inputStream = null;
+            try {
+                inputStream = new FileInputStream(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
-//        }
+            InputStreamReader inputStreamReader = null;
+            try {
+                inputStreamReader = new InputStreamReader(inputStream, "utf-8");//'utf-8' 'GBK'
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            String line;
+            StringBuilder builder = new StringBuilder();
+            try {
+                while((line=reader.readLine())!=null){
+                    //deal with line
+                    line = replaceSpecialStr(line);
+                    builder.append(line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            contents = builder.toString();
+        }
+    }
+
+    /**
+     * 去除字符串中的空格、回车、换行符、制表符等
+     * @param str
+     * @return
+     */
+    public static String replaceSpecialStr(String str) {
+        String temp = "";
+        if (str!=null) {
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(str);
+            temp = m.replaceAll("");
+        }
+        return temp;
     }
 
     private void parseLines(String contents) {
