@@ -1,16 +1,17 @@
 package com.example.toollibs.Activity.Demo;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.toollibs.Activity.Bean.Books;
@@ -19,17 +20,17 @@ import com.example.toollibs.Activity.Events.RefershBookTagEvent;
 import com.example.toollibs.OverWriteClass.BookView;
 import com.example.toollibs.OverWriteClass.OnDoubleClickListener;
 import com.example.toollibs.R;
-import com.example.toollibs.Util.SystemUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public class ReaderActivity extends AppCompatActivity {
     private final String TAG = "READER";
-    private LinearLayout layout;
+    private LinearLayout layout, layoutControl;
     private ImageView imgBack;
-    private TextView tvName;
+    private TextView tvName, tvProcess;
     private BookView bookView;
+    private SeekBar seekBar;
 
     private DBHelper helper;
     private Books book;
@@ -54,8 +55,7 @@ public class ReaderActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorEye));
             getWindow().setNavigationBarColor(Color.TRANSPARENT);
@@ -69,16 +69,28 @@ public class ReaderActivity extends AppCompatActivity {
 
     private void init() {
         layout = findViewById(R.id.layoutTitle);
+        layoutControl = findViewById(R.id.layoutControl);
         imgBack = findViewById(R.id.imgBack2);
         tvName = findViewById(R.id.tvBookName2);
         bookView = findViewById(R.id.bookView);
         helper = DBHelper.getInstance(this);
+
+        tvProcess = findViewById(R.id.tvProcess);
+        seekBar = findViewById(R.id.sbBook);
     }
 
     private void setData() {
         tvName.setText(book.getName());
         bookView.setFilePath(book.getPath());
-        bookView.seekTo(book.getTag());
+        bookView.setReadMode(BookView.MODE_SLIP);
+        bookView.setTag(book.getTag());
+        Log.d(TAG, "Last time read: " + book.getTag());
+
+        tvProcess.setText(book.getTag()/bookView.getTotalRows()*1f + "%");
+        seekBar.setMax(100);
+
+        seekBar.getThumb().setColorFilter(getResources().getColor(R.color.colorEye), PorterDuff.Mode.SRC_ATOP);//滑块
+        seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.colorEyeHalf), PorterDuff.Mode.SRC_ATOP);//进度条
 
         hideLayout();
     }
@@ -95,9 +107,27 @@ public class ReaderActivity extends AppCompatActivity {
             @Override
             public void onDoubleClick() {
                 layout.setVisibility(View.VISIBLE);
+                layoutControl.setVisibility(View.VISIBLE);
                 hideLayout();
             }
         }));
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                bookView.seekTo(seekBar.getProgress()*bookView.getTotalRows());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     private void hideLayout(){
@@ -122,6 +152,7 @@ public class ReaderActivity extends AppCompatActivity {
             switch (msg.what){
                 case HIDE_CODE:
                     layout.setVisibility(View.INVISIBLE);
+                    layoutControl.setVisibility(View.INVISIBLE);
                     break;
             }
         }
@@ -137,7 +168,6 @@ public class ReaderActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         //如果你使用postSticky发送事件，那么可以不需要先注册，也能接受到事件，也就是一个延迟注册的过程。
         //EventBus.getDefault().removeAllStickyEvents();
         if (EventBus.getDefault().isRegistered(this)) {

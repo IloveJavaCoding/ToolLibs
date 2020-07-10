@@ -258,7 +258,8 @@ public class BitmapUtil {
 
     //blur bitmap
     private static final float BITMAP_SCALE = 0.4f;
-    public static Bitmap blurBitmap(Context context, Bitmap bitmap, float degree){//25f是最大模糊度
+    //25f是最大模糊度
+    public static Bitmap blurBitmap(Context context, Bitmap bitmap, float degree){
         // 计算图片缩小后的长宽
         int width = Math.round(bitmap.getWidth() * BITMAP_SCALE);
         int height = Math.round(bitmap.getHeight() * BITMAP_SCALE);
@@ -498,7 +499,7 @@ public class BitmapUtil {
         HashMap<Integer, Integer> colors = new HashMap<>();
         TreeMap<Integer, Integer> sortedColors = new TreeMap<>();
         List<Integer> result = new ArrayList<>();
-        bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, w, h);
+        bitmap.getPixels(pixels, 0, w, 0, 0, w, h);
         for (int pixel : pixels) {
             Integer num = colors.get(pixel);
             if (num == null) {
@@ -517,6 +518,28 @@ public class BitmapUtil {
         }
 
         return result;
+    }
+
+    /**
+     * set alpha of image
+     * @param bitmap
+     * @param alpha 0-100
+     * @return
+     */
+    public static Bitmap setAlpha(Bitmap bitmap, int alpha){
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        int[] pixels = new int[w * h];
+        bitmap.getPixels(pixels, 0, w, 0, 0, w, h);
+
+        alpha = alpha / 100 * 255;
+        for(int i=0; i<pixels.length; i++){
+            pixels[i] = (alpha<<24) | (pixels[i] & 0x00ffffff);
+        }
+
+        bitmap = Bitmap.createBitmap(pixels, w, h, Bitmap.Config.ARGB_8888);
+
+        return bitmap;
     }
 
     //rotate ImageView
