@@ -17,7 +17,7 @@
         <attr name="rows" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="Book">
+    <declare-styleable name="BookView">
         <attr name="bookTextSize" format="dimension" />
         <attr name="bookTextColor" format="color|reference" />
         <attr name="bgColor" format="color|reference" />

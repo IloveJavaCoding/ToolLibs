@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -78,12 +79,12 @@ public class BookView extends View {
 
     private void init(AttributeSet attrs) {
         // 解析自定义属性
-        TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.Book);
-        textSize = ta.getDimension(R.styleable.Book_bookTextSize, 18.0f);
-        textColor = ta.getColor(R.styleable.Book_bookTextColor, 0xff000000);
-        bgColor = ta.getColor(R.styleable.Book_bgColor, 0xffe3edcd);
-        dividerHeight = ta.getDimension(R.styleable.Book_bookDividerHeight, 10.0f);
-        padValue = ta.getDimension(R.styleable.Book_padValue, 15.0f);
+        TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.BookView);
+        textSize = ta.getDimension(R.styleable.BookView_bookTextSize, 18.0f);
+        textColor = ta.getColor(R.styleable.BookView_bookTextColor, 0xff000000);
+        bgColor = ta.getColor(R.styleable.BookView_bgColor, 0xffe3edcd);
+        dividerHeight = ta.getDimension(R.styleable.BookView_bookDividerHeight, 10.0f);
+        padValue = ta.getDimension(R.styleable.BookView_padValue, 15.0f);
         ta.recycle();
         // </end>
 
@@ -164,7 +165,7 @@ public class BookView extends View {
         canvas.drawColor(bgColor);
 
         if(lines==null){
-            canvas.drawText("No contents!", 0,viewHeight/2, paint);
+            canvas.drawText("No contents!", 0, viewHeight/2, paint);
             return;
         }
 
@@ -266,8 +267,6 @@ public class BookView extends View {
             if(firstIndex+rows<=lines.size()){
                 firstIndex += (rows-3);//repeat 3 lines
             }
-        }else{
-            //click
         }
         invalidate();
         //save tag
@@ -284,8 +283,6 @@ public class BookView extends View {
             if(firstIndex+rows<=lines.size()){
                 firstIndex += 3;
             }
-        }else{
-            //click
         }
         //这个方法里往往需要重绘界面，使用这个方法可以自动调用onDraw（）方法。（主线程）
         invalidate();
@@ -354,14 +351,9 @@ public class BookView extends View {
                 e.printStackTrace();
             }
 
-            InputStreamReader inputStreamReader = null;
-            try {
-                inputStreamReader = new InputStreamReader(inputStream, "utf-8");//'utf-8' 'GBK'
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);//'utf-8' 'GBK'
             BufferedReader reader = new BufferedReader(inputStreamReader);
+
             String line;
             StringBuilder builder = new StringBuilder();
             try {
@@ -378,14 +370,12 @@ public class BookView extends View {
     }
 
     /**
-     * 去除字符串中的空格、回车、换行符、制表符等
-     * @param str
-     * @return
+     * 去除字符串中的空格、换行符、制表符等
      */
     public static String replaceSpecialStr(String str) {
         String temp = "";
         if (str!=null) {
-            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Pattern p = Pattern.compile("\\s*|\t|\r");
             Matcher m = p.matcher(str);
             temp = m.replaceAll("");
         }
@@ -395,8 +385,13 @@ public class BookView extends View {
     private void parseLines(String contents) {
         totalRows = contents.length()%numInRow==0? contents.length() / numInRow: contents.length() / numInRow +1;
         for(int i=0; i<totalRows; i++){
-            lines.add(contents.substring(numInRow*i, numInRow*(i+1)>contents.length()? contents.length(): numInRow*(i+1)));
-            Log.d("TAG", "lines: " + i + " " +lines.get(i));
+            String temp = contents.substring(numInRow*i, Math.min(numInRow*(i+1), contents.length()));
+            if(temp.contains("\n")){
+                Log.d("TAG", "find: "+ i);
+                lines.add(temp.substring(0, temp.lastIndexOf("\n")));
+                lines.add(temp.substring(temp.lastIndexOf("\n")+1));
+                totalRows++;
+            }
         }
 
         Log.d(TAG, "lines size: " + lines.size());
