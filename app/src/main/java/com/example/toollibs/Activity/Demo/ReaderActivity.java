@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.toollibs.Activity.Bean.Books;
 import com.example.toollibs.Activity.DataBase.DBHelper;
 import com.example.toollibs.Activity.Events.RefershBookTagEvent;
+import com.example.toollibs.Activity.Events.SentTotalLineEvent;
 import com.example.toollibs.OverWriteClass.BookView;
 import com.example.toollibs.OverWriteClass.OnDoubleClickListener;
 import com.example.toollibs.R;
@@ -34,7 +35,10 @@ public class ReaderActivity extends AppCompatActivity {
 
     private DBHelper helper;
     private Books book;
+
+    private int totalLines;
     private final int HIDE_CODE = 0x001;
+    private final int UPDATE_CODE = 0x002;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +59,8 @@ public class ReaderActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorEye));
             getWindow().setNavigationBarColor(Color.TRANSPARENT);
@@ -82,15 +87,14 @@ public class ReaderActivity extends AppCompatActivity {
     private void setData() {
         tvName.setText(book.getName());
         bookView.setFilePath(book.getPath());
-        bookView.setReadMode(BookView.MODE_SLIP);
+        bookView.setReadMode(BookView.MODE_PAGE);
         bookView.setTag(book.getTag());
         Log.d(TAG, "Last time read: " + book.getTag());
 
-        tvProcess.setText(book.getTag()/bookView.getTotalRows()*1f + "%");
         seekBar.setMax(100);
 
-        seekBar.getThumb().setColorFilter(getResources().getColor(R.color.colorEye), PorterDuff.Mode.SRC_ATOP);//滑块
-        seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.colorEyeHalf), PorterDuff.Mode.SRC_ATOP);//进度条
+        //seekBar.getThumb().setColorFilter(getResources().getColor(R.color.colorEye), PorterDuff.Mode.SRC_ATOP);//滑块
+        //seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.colorEyeHalf), PorterDuff.Mode.SRC_ATOP);//进度条
 
         hideLayout();
     }
@@ -115,7 +119,8 @@ public class ReaderActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                bookView.seekTo(seekBar.getProgress()*bookView.getTotalRows());
+                tvProcess.setText(seekBar.getProgress() + "%");
+                bookView.seekTo(seekBar.getProgress()*bookView.getTotalRows()/100);
             }
 
             @Override
@@ -154,6 +159,9 @@ public class ReaderActivity extends AppCompatActivity {
                     layout.setVisibility(View.INVISIBLE);
                     layoutControl.setVisibility(View.INVISIBLE);
                     break;
+                case UPDATE_CODE:
+                    updateProcess((int) msg.obj);
+                    break;
             }
         }
     };
@@ -161,8 +169,29 @@ public class ReaderActivity extends AppCompatActivity {
     //处理事件
     @Subscribe//(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEventMainThread(RefershBookTagEvent event){
+        Message message = new Message();
+        message.what = UPDATE_CODE;
+        message.obj = event.getTag()*100/totalLines;
+        handler.sendMessage(message);
+
         helper.updateBook(book.getId(), event.getTag());
         Log.d(TAG, "change tag: " + event.getTag());
+    }
+
+    @Subscribe
+    public void onEventMainThread(SentTotalLineEvent event){
+        totalLines = event.getTotalLines();
+        Log.d(TAG, "total lines: " + totalLines);
+
+        Message message = new Message();
+        message.what = UPDATE_CODE;
+        message.obj = book.getTag()*100/totalLines;
+        handler.sendMessage(message);
+    }
+
+    private void updateProcess(int rate){
+        tvProcess.setText(rate*1f + "%");
+        seekBar.setProgress(rate);
     }
 
     @Override

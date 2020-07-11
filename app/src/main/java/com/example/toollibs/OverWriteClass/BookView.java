@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.toollibs.Activity.Events.RefershBookTagEvent;
+import com.example.toollibs.Activity.Events.SentTotalLineEvent;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.FileUtil;
 
@@ -59,7 +60,7 @@ public class BookView extends View {
     private float offset=0;//滑动距离
 
     private final int textDivider = 3;//文字间隔
-    private final int padTop = 15;//顶部缩进
+    private final int padTop = 35;//顶部缩进
     public static final int MODE_SLIP = 0x01;//滑动模式； 默认
     public static final int MODE_PAGE = 0x02;//翻页模式
 
@@ -125,7 +126,7 @@ public class BookView extends View {
         height = Math.max(height, getSuggestedMinimumHeight());
 
         widthMeasureSpec = MeasureSpec.makeMeasureSpec(1080, MeasureSpec.AT_MOST);
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.UNSPECIFIED);
+        //heightMeasureSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
         setMeasuredDimension(resolveSizeAndState(width, widthMeasureSpec, 0),
                 resolveSizeAndState(height, heightMeasureSpec, 0));
 
@@ -254,13 +255,13 @@ public class BookView extends View {
         }
         invalidate();
         //save tag
-        EventBus.getDefault().post(new RefershBookTagEvent(getCurHeight()));
+        EventBus.getDefault().post(new RefershBookTagEvent(getCurLines()));
     }
 
     private void flashPage(float x){
         if(x-oldX>0){//右滑： 上一页
             firstIndex -= (rows+3);
-            if(firstIndex<=0){
+            if(firstIndex<0){
                 firstIndex = 0;
             }
         }else if(x-oldX<0){//左滑：下一页
@@ -291,16 +292,23 @@ public class BookView extends View {
     }
 
     public void setTag(int tag){
-        if(tag>0 && tag<lines.size()){
+        if(tag>0){
             if(readMode==MODE_PAGE){
                 firstIndex = tag;
             }else{
                 curHeight = tag*(textSize + dividerHeight) + padTop + padValue;
             }
+        }else{
+            if(readMode==MODE_PAGE){
+                firstIndex = 0;
+            }else{
+                curHeight = 0;
+            }
         }
     }
 
     public void seekTo(int position){
+        Log.d(TAG, "seek to: "+ position);
         setTag(position);
         invalidate();
     }
@@ -309,12 +317,8 @@ public class BookView extends View {
         return totalRows;
     }
 
-    public int getCurHeight() {
+    public int getCurLines() {
         return (int) ((curHeight-padValue-padTop) / (textSize + dividerHeight));
-    }
-
-    public int getFirstIndex(){
-        return firstIndex;
     }
 
     public void setFilePath(String path){
@@ -322,10 +326,6 @@ public class BookView extends View {
         lines.clear();
         parseBook(path);
         //contents = FileUtil.readContents(path, "utf-8");
-    }
-
-    public int getReadMode() {
-        return readMode;
     }
 
     public void setReadMode(int readMode) {
@@ -384,6 +384,7 @@ public class BookView extends View {
 
     private void parseLines(String contents) {
         totalRows = contents.length()%numInRow==0? contents.length() / numInRow: contents.length() / numInRow +1;
+
         for(int i=0; i<totalRows; i++){
             String temp = contents.substring(numInRow*i, Math.min(numInRow*(i+1), contents.length()));
             if(temp.contains("\n")){
@@ -391,9 +392,12 @@ public class BookView extends View {
                 lines.add(temp.substring(0, temp.lastIndexOf("\n")));
                 lines.add(temp.substring(temp.lastIndexOf("\n")+1));
                 totalRows++;
+            }else{
+                lines.add(temp);
             }
         }
 
         Log.d(TAG, "lines size: " + lines.size());
+        EventBus.getDefault().post(new SentTotalLineEvent(lines.size()));
     }
 }
