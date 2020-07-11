@@ -375,7 +375,7 @@ public class BookView extends View {
     public static String replaceSpecialStr(String str) {
         String temp = "";
         if (str!=null) {
-            Pattern p = Pattern.compile("\\s*|\t|\r");
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
             Matcher m = p.matcher(str);
             temp = m.replaceAll("");
         }
@@ -383,21 +383,23 @@ public class BookView extends View {
     }
 
     private void parseLines(String contents) {
-        totalRows = contents.length()%numInRow==0? contents.length() / numInRow: contents.length() / numInRow +1;
+        //totalRows = contents.length()%numInRow==0? contents.length() / numInRow: contents.length() / numInRow +1;
+        String[] sections = contents.split("。");
 
-        for(int i=0; i<totalRows; i++){
-            String temp = contents.substring(numInRow*i, Math.min(numInRow*(i+1), contents.length()));
-            if(temp.contains("\n")){
-                Log.d("TAG", "find: "+ i);
-                lines.add(temp.substring(0, temp.lastIndexOf("\n")));
-                lines.add(temp.substring(temp.lastIndexOf("\n")+1));
-                totalRows++;
-            }else{
+        //"\u300" 中文缩进一个字；
+        for(int i=0; i<sections.length; i++){
+            String section = "\u3000\u3000" + sections[i] + "。";
+            Log.d(TAG, section);
+            int tempRows = section.length() % numInRow==0? section.length() / numInRow: section.length() / numInRow +1;
+
+            for(int j=0; j<tempRows; j++){
+                String temp = section.substring(numInRow*j, Math.min(numInRow*(j+1), section.length()));
                 lines.add(temp);
             }
         }
 
         Log.d(TAG, "lines size: " + lines.size());
-        EventBus.getDefault().post(new SentTotalLineEvent(lines.size()));
+        totalRows = lines.size();
+        EventBus.getDefault().post(new SentTotalLineEvent(totalRows));
     }
 }
