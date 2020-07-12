@@ -259,6 +259,10 @@ public class BookView extends View {
     }
 
     private void flashPage(float x){
+        Log.d(TAG, "offset: " + (x-oldX));
+        if(Math.abs(x-oldX)<10){
+            return;
+        }
         if(x-oldX>0){//右滑： 上一页
             firstIndex -= (rows+3);
             if(firstIndex<0){
@@ -386,7 +390,7 @@ public class BookView extends View {
         //totalRows = contents.length()%numInRow==0? contents.length() / numInRow: contents.length() / numInRow +1;
         String[] sections = contents.split("。");
 
-        //"\u300" 中文缩进一个字；
+        //"\\u300" 中文缩进一个字；
         for(int i=0; i<sections.length; i++){
             String section = "\u3000\u3000" + sections[i] + "。";
             Log.d(TAG, section);

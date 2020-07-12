@@ -78,6 +78,22 @@ public class BitmapUtil {
         }
     }
 
+    public static void Bitmap2Local(Bitmap bitmap, String path){
+        File file = new File(path);
+        if(file.exists()){
+            file.delete();
+        }
+        try {
+            file.createNewFile();
+            FileOutputStream outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //get bitmap from res file
     public static Bitmap getBitmapFromRes(Context context, int id){
         return BitmapFactory.decodeResource(context.getResources(), id);
@@ -186,7 +202,7 @@ public class BitmapUtil {
         return aimBm;
     }
 
-    //cut bitmap
+    //cut bitmap w = h
     public static Bitmap cutBitmap(Bitmap bitmap){
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();

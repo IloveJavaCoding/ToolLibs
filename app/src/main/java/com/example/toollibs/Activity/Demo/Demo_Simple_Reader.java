@@ -2,6 +2,7 @@ package com.example.toollibs.Activity.Demo;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.example.toollibs.Activity.Adapters.GridView_BookAdapter;
 import com.example.toollibs.Activity.Bean.Books;
 import com.example.toollibs.Activity.DataBase.DBHelper;
 import com.example.toollibs.R;
+import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.ConvertUtil;
 import com.example.toollibs.Util.FileUtil;
 import com.example.toollibs.Util.IntentUtil;
@@ -66,7 +68,7 @@ public class Demo_Simple_Reader extends AppCompatActivity {
 
     private void setData() {
         list = dbHelper.getAllBook();
-        adapter = new GridView_BookAdapter(this, list);
+        adapter = new GridView_BookAdapter(this, list, dbHelper);
         gridView.setAdapter(adapter);
     }
 
@@ -148,9 +150,15 @@ public class Demo_Simple_Reader extends AppCompatActivity {
             String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
             Log.d(TAG, "new cover path " + path);
 
+
             String post = path.substring(path.lastIndexOf("."));
             String newPath = prePath + File.separator + ConvertUtil.string2Hex(list.get(curIndex).getName())+ File.separator + post;
-            FileUtil.copyFile(path, newPath);
+            Bitmap bitmap = BitmapUtil.zoomBitmap(BitmapUtil.GetBitmapFromFile(path), 100, 120);
+            BitmapUtil.Bitmap2Local(bitmap, newPath);
+
+//            String post = path.substring(path.lastIndexOf("."));
+//            String newPath = prePath + File.separator + ConvertUtil.string2Hex(list.get(curIndex).getName())+ File.separator + post;
+//            FileUtil.copyFile(path, newPath);
             //change album path
             dbHelper.updateBook(list.get(curIndex).getId(), newPath);
 

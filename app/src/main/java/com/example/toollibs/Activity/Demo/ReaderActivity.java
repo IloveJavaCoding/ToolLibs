@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class ReaderActivity extends AppCompatActivity {
     private final String TAG = "READER";
+    private View holder;
     private LinearLayout layout, layoutControl;
     private ImageView imgBack;
     private TextView tvName, tvProcess;
@@ -37,6 +39,8 @@ public class ReaderActivity extends AppCompatActivity {
     private Books book;
 
     private int totalLines;
+    private boolean isHide = false;
+
     private final int HIDE_CODE = 0x001;
     private final int UPDATE_CODE = 0x002;
     @Override
@@ -73,6 +77,7 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     private void init() {
+        holder = findViewById(R.id.viewHolder);
         layout = findViewById(R.id.layoutTitle);
         layoutControl = findViewById(R.id.layoutControl);
         imgBack = findViewById(R.id.imgBack2);
@@ -93,8 +98,8 @@ public class ReaderActivity extends AppCompatActivity {
 
         seekBar.setMax(100);
 
-        //seekBar.getThumb().setColorFilter(getResources().getColor(R.color.colorEye), PorterDuff.Mode.SRC_ATOP);//滑块
-        //seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.colorEyeHalf), PorterDuff.Mode.SRC_ATOP);//进度条
+        seekBar.getThumb().setColorFilter(getResources().getColor(R.color.colorEye), PorterDuff.Mode.SRC_ATOP);//滑块
+        seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.colorEyeHalf), PorterDuff.Mode.SRC_ATOP);//进度条
 
         hideLayout();
     }
@@ -107,14 +112,28 @@ public class ReaderActivity extends AppCompatActivity {
             }
         });
 
-        bookView.setOnTouchListener(new OnDoubleClickListener(new OnDoubleClickListener.DoubleClickCallback() {
+//        bookView.setOnTouchListener(new OnDoubleClickListener(new OnDoubleClickListener.DoubleClickCallback() {
+//            @Override
+//            public void onDoubleClick() {
+//                layout.setVisibility(View.VISIBLE);
+//                layoutControl.setVisibility(View.VISIBLE);
+//                hideLayout();
+//            }
+//        }));
+
+        holder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDoubleClick() {
-                layout.setVisibility(View.VISIBLE);
-                layoutControl.setVisibility(View.VISIBLE);
-                hideLayout();
+            public void onClick(View view) {
+                if(isHide){
+                    //show
+                    isHide = false;
+                    layout.setVisibility(View.VISIBLE);
+                    layoutControl.setVisibility(View.VISIBLE);
+                }else{
+                    handler.sendEmptyMessage(HIDE_CODE);
+                }
             }
-        }));
+        });
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -156,6 +175,7 @@ public class ReaderActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case HIDE_CODE:
+                    isHide = true;
                     layout.setVisibility(View.INVISIBLE);
                     layoutControl.setVisibility(View.INVISIBLE);
                     break;

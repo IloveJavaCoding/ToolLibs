@@ -21,4 +21,6 @@
     <color name="colorEye">#e3edcd</color>
     <color name="colorEyeHalf">#CCE3EDCD</color>
     <color name="colorTY_Half">#8066CCFF</color>
+
+    <color name="colorDark">#80600904</color>
 </resources>
