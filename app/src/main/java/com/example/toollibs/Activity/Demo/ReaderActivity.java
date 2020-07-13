@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.toollibs.Activity.Bean.Books;
 import com.example.toollibs.Activity.DataBase.DBHelper;
+import com.example.toollibs.Activity.Events.ClickEvent;
 import com.example.toollibs.Activity.Events.RefershBookTagEvent;
 import com.example.toollibs.Activity.Events.SentTotalLineEvent;
 import com.example.toollibs.OverWriteClass.BookView;
@@ -28,7 +29,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class ReaderActivity extends AppCompatActivity {
     private final String TAG = "READER";
-    private View holder;
     private LinearLayout layout, layoutControl;
     private ImageView imgBack;
     private TextView tvName, tvProcess;
@@ -37,12 +37,11 @@ public class ReaderActivity extends AppCompatActivity {
 
     private DBHelper helper;
     private Books book;
-
     private int totalLines;
-    private boolean isHide = false;
 
     private final int HIDE_CODE = 0x001;
     private final int UPDATE_CODE = 0x002;
+    private final int SHOW_CODE = 0x003;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +76,6 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     private void init() {
-        holder = findViewById(R.id.viewHolder);
         layout = findViewById(R.id.layoutTitle);
         layoutControl = findViewById(R.id.layoutControl);
         imgBack = findViewById(R.id.imgBack2);
@@ -92,7 +90,7 @@ public class ReaderActivity extends AppCompatActivity {
     private void setData() {
         tvName.setText(book.getName());
         bookView.setFilePath(book.getPath());
-        bookView.setReadMode(BookView.MODE_PAGE);
+        bookView.setReadMode(BookView.MODE_SLIP);
         bookView.setTag(book.getTag());
         Log.d(TAG, "Last time read: " + book.getTag());
 
@@ -109,29 +107,6 @@ public class ReaderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-            }
-        });
-
-//        bookView.setOnTouchListener(new OnDoubleClickListener(new OnDoubleClickListener.DoubleClickCallback() {
-//            @Override
-//            public void onDoubleClick() {
-//                layout.setVisibility(View.VISIBLE);
-//                layoutControl.setVisibility(View.VISIBLE);
-//                hideLayout();
-//            }
-//        }));
-
-        holder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isHide){
-                    //show
-                    isHide = false;
-                    layout.setVisibility(View.VISIBLE);
-                    layoutControl.setVisibility(View.VISIBLE);
-                }else{
-                    handler.sendEmptyMessage(HIDE_CODE);
-                }
             }
         });
 
@@ -175,12 +150,15 @@ public class ReaderActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case HIDE_CODE:
-                    isHide = true;
                     layout.setVisibility(View.INVISIBLE);
                     layoutControl.setVisibility(View.INVISIBLE);
                     break;
                 case UPDATE_CODE:
                     updateProcess((int) msg.obj);
+                    break;
+                case SHOW_CODE:
+                    layout.setVisibility(View.VISIBLE);
+                    layoutControl.setVisibility(View.VISIBLE);
                     break;
             }
         }
@@ -207,6 +185,16 @@ public class ReaderActivity extends AppCompatActivity {
         message.what = UPDATE_CODE;
         message.obj = book.getTag()*100/totalLines;
         handler.sendMessage(message);
+    }
+
+    @Subscribe
+    public void onEventMainThread(ClickEvent event){
+        if(event.isShow()){
+            //show
+            handler.sendEmptyMessage(SHOW_CODE);
+        }else{
+            handler.sendEmptyMessage(HIDE_CODE);
+        }
     }
 
     private void updateProcess(int rate){

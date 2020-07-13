@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.toollibs.Activity.Events.ClickEvent;
 import com.example.toollibs.Activity.Events.RefershBookTagEvent;
 import com.example.toollibs.Activity.Events.SentTotalLineEvent;
 import com.example.toollibs.R;
@@ -37,7 +38,8 @@ public class BookView extends View {
     private Paint paint;
     private int viewWidth;
     //viewHeight: the height of view displayed; viewHeightAll: the real height of bookView;
-    private int viewHeight, viewHeightAll;
+    private int viewHeight;
+    private float viewHeightAll;
     private int readMode;//1: scroll; 2: page
 
     //attrs of text px
@@ -55,10 +57,8 @@ public class BookView extends View {
     private List<String> lines = new ArrayList<>();
     private String contents;
 
-    private boolean isDraw = false;//监听是否已画完；
-    private boolean isSlip = false;//监听是否滑动
+    private boolean isShow = true;
     private float offset=0;//滑动距离
-
     private final int textDivider = 3;//文字间隔
     private final int padTop = 35;//顶部缩进
     public static final int MODE_SLIP = 0x01;//滑动模式； 默认
@@ -96,7 +96,7 @@ public class BookView extends View {
         paint.setAntiAlias(true);
 
         //default setting
-        readMode = MODE_SLIP;
+        readMode = MODE_PAGE;
     }
 
     /**
@@ -125,14 +125,14 @@ public class BookView extends View {
         width = Math.max(width, getSuggestedMinimumWidth());
         height = Math.max(height, getSuggestedMinimumHeight());
 
-        widthMeasureSpec = MeasureSpec.makeMeasureSpec(1080, MeasureSpec.AT_MOST);
+//        widthMeasureSpec = MeasureSpec.makeMeasureSpec(1080, MeasureSpec.AT_MOST);
         //heightMeasureSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
         setMeasuredDimension(resolveSizeAndState(width, widthMeasureSpec, 0),
                 resolveSizeAndState(height, heightMeasureSpec, 0));
 
 //        viewWidth = getMeasuredWidth();
-        viewHeightAll = getMeasuredHeight();
-        Log.d(TAG, "viewHeightAll: " +  viewHeightAll);
+//        viewHeightAll = getMeasuredHeight();
+//        Log.d(TAG, "viewHeightAll: " );
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
@@ -144,6 +144,8 @@ public class BookView extends View {
 
         calculateRows();
         parseLines(contents);
+
+        viewHeightAll = padValue*2 + (textSize + dividerHeight)*totalRows;
         super.onLayout(changed, left, top, right, bottom);
     }
 
@@ -172,11 +174,7 @@ public class BookView extends View {
 
         switch (readMode){
             case MODE_SLIP://slip
-                if(!isDraw){
-                    isDraw = true;
-                    drawMode1(canvas);//only draw once
-                }
-                translateCanvas(canvas);
+                drawMode3(canvas);//only draw once
                 break;
             case MODE_PAGE://page
                 drawMode2(canvas);
@@ -187,17 +185,17 @@ public class BookView extends View {
         }
     }
 
-    private void translateCanvas(Canvas canvas) {
-        if(isSlip){
-            isSlip = false;
-            canvas.translate(0, offset);
-        }
-    }
-
     //draw all lines
     private void drawMode1(Canvas canvas) {
         for(int i=0; i<totalRows; i++){
             canvas.drawText(lines.get(i), padValue, padTop + padValue+i*(textSize+dividerHeight), paint);
+        }
+    }
+
+    private void drawMode3(Canvas canvas) {
+        int offLine = (int) (offset/(textSize+dividerHeight));
+        for(int i=0; i<rows; i++){
+            canvas.drawText(lines.get(i+firstIndex+offLine), padValue, padTop + padValue - offset + (i+offLine)*(textSize+dividerHeight), paint);
         }
     }
 
@@ -206,7 +204,7 @@ public class BookView extends View {
         Log.d(TAG, "first line: " + firstIndex);
         for(int i=0; i<rows; i++){
             if(i+firstIndex<lines.size()){
-                canvas.drawText(lines.get(i+firstIndex), padValue, padTop + padValue+i*(textSize+dividerHeight), paint);
+                canvas.drawText(lines.get(i+firstIndex), padValue, padTop + padValue  + i*(textSize+dividerHeight), paint);
                 //一个字一个字画
 //                String line = lines.get(i+firstIndex);
 //                for(int j=0; j<line.length(); j++){
@@ -233,13 +231,24 @@ public class BookView extends View {
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if(readMode==MODE_PAGE){
-                    x = event.getX();
-                    flashPage(x);
+                x = event.getX();
+                y = event.getY();
+                if(Math.abs(x-oldX)<10 && Math.abs(y-oldY)<10){
+                    //click
+                    Log.d(TAG, "click......" + isShow);
+                    EventBus.getDefault().post(new ClickEvent(isShow));
+                    if(isShow){
+                        isShow = false;
+                    }else{
+                        isShow = true;
+                    }
+                }else{
+                    if(readMode==MODE_PAGE){
+                        flashPage(x);
+                    }
                 }
                 break;
         }
-
         return true;
     }
 
