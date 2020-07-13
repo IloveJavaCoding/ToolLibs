@@ -16,6 +16,7 @@ import com.example.toollibs.Activity.Events.ClickEvent;
 import com.example.toollibs.Activity.Events.RefershBookTagEvent;
 import com.example.toollibs.Activity.Events.SentTotalLineEvent;
 import com.example.toollibs.R;
+import com.example.toollibs.Util.ConvertUtil;
 import com.example.toollibs.Util.FileUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -357,6 +359,13 @@ public class BookView extends View {
         File file = new File(path);
         Log.d(TAG, "parsePath "+ path);
         if(file.exists()){
+            String format;
+            if(ConvertUtil.isGbk(file)){
+                format = "GBK";
+            }else{//utf_8
+                format = "UTF-8";
+            }
+
             FileInputStream inputStream = null;
             try {
                 inputStream = new FileInputStream(file);
@@ -364,7 +373,12 @@ public class BookView extends View {
                 e.printStackTrace();
             }
 
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);//'utf-8' 'GBK'
+            InputStreamReader inputStreamReader = null;//'utf-8' 'GBK'
+            try {
+                inputStreamReader = new InputStreamReader(inputStream, format);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             BufferedReader reader = new BufferedReader(inputStreamReader);
 
             String line;
