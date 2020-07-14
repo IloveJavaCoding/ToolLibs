@@ -114,7 +114,9 @@ public class ReaderActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 tvProcess.setText(seekBar.getProgress() + "%");
-                bookView.seekTo(seekBar.getProgress()*bookView.getTotalRows()/100);
+                int tag = seekBar.getProgress()*bookView.getTotalRows()/100;
+                bookView.seekTo(tag);
+                helper.updateBook(book.getId(), tag);
             }
 
             @Override

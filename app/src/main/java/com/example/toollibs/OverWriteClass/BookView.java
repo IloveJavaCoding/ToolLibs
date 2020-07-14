@@ -196,6 +196,7 @@ public class BookView extends View {
 
     private void drawMode3(Canvas canvas) {
         int offLine = (int) (offset/(textSize+dividerHeight));
+        firstIndex = (int) (curHeight/(textSize+dividerHeight));
         for(int i=0; i<rows; i++){
             canvas.drawText(lines.get(i+firstIndex+offLine), padValue, padTop + padValue - offset + (i+offLine)*(textSize+dividerHeight), paint);
         }
@@ -216,26 +217,35 @@ public class BookView extends View {
         }
     }
 
-    private float oldX, oldY;
+    private float startX, startY, oldX, oldY;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
         float x,y;
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
+                startX = event.getX();
+                startY = event.getY();
                 oldX = event.getX();
                 oldY = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 if(readMode==MODE_SLIP){
                     y = event.getY();
                     flashSlip(y);
                 }
+                oldX = event.getX();
+                oldY = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
                 x = event.getX();
                 y = event.getY();
-                if(Math.abs(x-oldX)<10 && Math.abs(y-oldY)<10){
+                if(Math.abs(x-startX)<10 && Math.abs(y-startY)<10){
                     //click
                     Log.d(TAG, "click......" + isShow);
                     EventBus.getDefault().post(new ClickEvent(isShow));
@@ -270,16 +280,16 @@ public class BookView extends View {
     }
 
     private void flashPage(float x){
-        Log.d(TAG, "offset: " + (x-oldX));
-        if(Math.abs(x-oldX)<10){
+        Log.d(TAG, "offset: " + (x-startX));
+        if(Math.abs(x-startX)<10){
             return;
         }
-        if(x-oldX>0){//右滑： 上一页
+        if(x-startX>0){//右滑： 上一页
             firstIndex -= (rows+3);
             if(firstIndex<0){
                 firstIndex = 0;
             }
-        }else if(x-oldX<0){//左滑：下一页
+        }else if(x-startX<0){//左滑：下一页
             if(firstIndex+rows<=lines.size()){
                 firstIndex += (rows-3);//repeat 3 lines
             }
