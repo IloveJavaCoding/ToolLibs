@@ -148,17 +148,17 @@ public class Demo_Simple_Reader extends AppCompatActivity {
             Uri uri = data.getData();
             ContentResolver contentResolver = this.getContentResolver();
             String path = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
-            Log.d(TAG, "new cover path " + path);
-
-
-            String post = path.substring(path.lastIndexOf("."));
-            String newPath = prePath + File.separator + ConvertUtil.string2Hex(list.get(curIndex).getName())+ File.separator + post;
-            Bitmap bitmap = BitmapUtil.zoomBitmap(BitmapUtil.GetBitmapFromFile(path), 100, 120);
-            BitmapUtil.Bitmap2Local(bitmap, newPath);
+            Log.d(TAG, "image path: " + path);
 
 //            String post = path.substring(path.lastIndexOf("."));
-//            String newPath = prePath + File.separator + ConvertUtil.string2Hex(list.get(curIndex).getName())+ File.separator + post;
-//            FileUtil.copyFile(path, newPath);
+//            String newPath = prePath + File.separator + ConvertUtil.string2Hex(list.get(curIndex).getName())+ post;
+//            Log.d(TAG, "new path: " + newPath);
+//            Bitmap bitmap = BitmapUtil.zoomBitmap(BitmapUtil.GetBitmapFromFile(path), 100, 120);
+//            BitmapUtil.Bitmap2Local(bitmap, newPath);
+
+            String post = path.substring(path.lastIndexOf("."));
+            String newPath = prePath + File.separator + ConvertUtil.string2Hex(list.get(curIndex).getName())+  post;
+            FileUtil.copyFile(path, newPath);
             //change album path
             dbHelper.updateBook(list.get(curIndex).getId(), newPath);
 

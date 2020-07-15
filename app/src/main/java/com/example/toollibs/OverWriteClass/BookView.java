@@ -370,10 +370,10 @@ public class BookView extends View {
         Log.d(TAG, "parsePath "+ path);
         if(file.exists()){
             String format;
-            if(ConvertUtil.isGbk(file)){
-                format = "GBK";
-            }else{//utf_8
+            if(ConvertUtil.isUtf8(file)){
                 format = "UTF-8";
+            }else{//utf_8
+                format = "GBK";
             }
 
             FileInputStream inputStream = null;
