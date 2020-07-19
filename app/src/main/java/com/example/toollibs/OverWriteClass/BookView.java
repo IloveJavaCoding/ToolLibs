@@ -10,7 +10,10 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
+import android.view.ViewConfiguration;
+import android.widget.OverScroller;
 
 import com.example.toollibs.Activity.Events.ClickEvent;
 import com.example.toollibs.Activity.Events.RefershBookTagEvent;
@@ -59,6 +62,10 @@ public class BookView extends View {
     private List<String> lines = new ArrayList<>();
     private String contents;
 
+    private OverScroller scroller;
+    private VelocityTracker tracker;
+    private int touchSlop, maxVelocity;
+
     private boolean isShow = true;
     private float offset=0;//滑动距离
     private final int textDivider = 3;//文字间隔
@@ -77,10 +84,10 @@ public class BookView extends View {
     public BookView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        init(attrs);
+        init(context, attrs);
     }
 
-    private void init(AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs) {
         // 解析自定义属性
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.BookView);
         textSize = ta.getDimension(R.styleable.BookView_bookTextSize, 18.0f);
@@ -98,7 +105,12 @@ public class BookView extends View {
         paint.setAntiAlias(true);
 
         //default setting
-        readMode = MODE_PAGE;
+        readMode = MODE_SLIP;
+
+        scroller = new OverScroller(context);
+        ViewConfiguration configuration = ViewConfiguration.get(context);
+        touchSlop = configuration.getScaledTouchSlop();
+        maxVelocity = configuration.getScaledMinimumFlingVelocity();
     }
 
     /**
@@ -189,14 +201,25 @@ public class BookView extends View {
 
     //draw all lines
     private void drawMode1(Canvas canvas) {
+        Log.i(TAG, "SLIP: drawing.....");
         for(int i=0; i<totalRows; i++){
             canvas.drawText(lines.get(i), padValue, padTop + padValue+i*(textSize+dividerHeight), paint);
         }
     }
 
     private void drawMode3(Canvas canvas) {
+        firstIndex = (int) (curHeight/(textSize+dividerHeight));
+        Log.i(TAG, "SLIP: drawing.....curHeight: " + curHeight + " offset: " + offset);
+        for(int i=0; i<rows+1; i++){//draw one more line
+            canvas.drawText(lines.get(i+firstIndex), padValue, padTop + padValue - offset + curHeight + (i)*(textSize+dividerHeight), paint);
+        }
+    }
+
+    private void drawMode4(Canvas canvas) {
         int offLine = (int) (offset/(textSize+dividerHeight));
         firstIndex = (int) (curHeight/(textSize+dividerHeight));
+
+        Log.i(TAG, "SLIP: drawing.....offline: "+ offLine + " firstIndex: " + firstIndex);
         for(int i=0; i<rows; i++){
             canvas.drawText(lines.get(i+firstIndex+offLine), padValue, padTop + padValue - offset + (i+offLine)*(textSize+dividerHeight), paint);
         }
@@ -204,7 +227,8 @@ public class BookView extends View {
 
     //only draw a page
     private void drawMode2(Canvas canvas){
-        Log.d(TAG, "first line: " + firstIndex);
+        Log.i(TAG, "PAGE: drawing.....");
+        Log.i(TAG, "first line: " + firstIndex);
         for(int i=0; i<rows; i++){
             if(i+firstIndex<lines.size()){
                 canvas.drawText(lines.get(i+firstIndex), padValue, padTop + padValue  + i*(textSize+dividerHeight), paint);
@@ -217,10 +241,25 @@ public class BookView extends View {
         }
     }
 
+    public void toSlipMode() {
+        readMode = MODE_SLIP;
+        curHeight = firstIndex*(textSize + dividerHeight) + padTop + padValue;
+    }
+
+    public void toPageMode() {
+        readMode = MODE_PAGE;
+        firstIndex = (int) ((curHeight - padTop - padValue) / (textSize + dividerHeight));
+    }
+
     private float startX, startY, oldX, oldY;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
+        if(readMode==MODE_SLIP){
+            initVelocityTracker();
+            tracker.addMovement(event);
+        }
+
         float x,y;
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
@@ -228,19 +267,19 @@ public class BookView extends View {
                 startY = event.getY();
                 oldX = event.getX();
                 oldY = event.getY();
+
+                if(!scroller.isFinished()){
+                    scroller.abortAnimation();
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 if(readMode==MODE_SLIP){
                     y = event.getY();
                     flashSlip(y);
+                    oldX = event.getX();
+                    oldY = event.getY();
                 }
-                oldX = event.getX();
-                oldY = event.getY();
+
                 break;
             case MotionEvent.ACTION_UP:
                 x = event.getX();
@@ -254,9 +293,31 @@ public class BookView extends View {
                     }else{
                         isShow = true;
                     }
-                }else{
+                }
+                else{
                     if(readMode==MODE_PAGE){
                         flashPage(x);
+                        //save tag
+                        EventBus.getDefault().post(new RefershBookTagEvent(firstIndex));
+                    }
+                    else{
+                        //slip mode
+                        final VelocityTracker tempTracker = tracker;
+                        tempTracker.computeCurrentVelocity(1000);
+                        int velocityY = (int) tempTracker.getYVelocity();
+
+                        if(velocityY<-maxVelocity){//向上快速滑动
+                            Log.i(TAG, "向上快速滑动 velocity: " + velocityY);
+
+                        }else if(velocityY>maxVelocity){//向下快速滑动
+                            Log.i(TAG, "向下快速滑动 velocity: " + velocityY);
+
+                        }else{//slow slip
+                            Log.i(TAG, "slow slip velocity: " + velocityY);
+
+                        }
+                        recycleVelocityTracker();
+                        EventBus.getDefault().post(new RefershBookTagEvent(getCurLines()));
                     }
                 }
                 break;
@@ -264,19 +325,47 @@ public class BookView extends View {
         return true;
     }
 
+    private void initVelocityTracker() {
+        if(tracker==null){
+            tracker = VelocityTracker.obtain();
+        }
+    }
+
+    private void recycleVelocityTracker(){
+        if(tracker!=null){
+            tracker.recycle();
+            tracker = null;
+        }
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if(readMode==MODE_SLIP  && scroller.computeScrollOffset()){
+            scrollTo(scroller.getCurrX(), scroller.getCurrY());
+            invalidate();
+        }
+    }
+
     private void flashSlip(float y){
         offset = oldY-y;
-        curHeight += offset;
-        if(curHeight<=0){
-            offset = offset-curHeight;
-            curHeight = 0;
-        }else if(curHeight+viewHeight>=viewHeightAll){
-            offset = curHeight+viewHeight-viewHeightAll;
-            curHeight = viewHeightAll - viewHeight;
+        if(Math.abs(offset)>10){
+            float oldScrollY = getScrollY();
+            curHeight = oldScrollY + offset;
+            if(curHeight>(viewHeightAll-viewHeight)){
+                curHeight = viewHeightAll-viewHeight;
+                offset = curHeight - oldScrollY;
+            }else if(curHeight<0){
+                curHeight = 0;
+                offset = curHeight - oldScrollY;
+            }
+
+            Log.i(TAG, "offset: " + offset + " curHeight: " + curHeight + " scrollY: " + oldScrollY);
+            //start animation
+            scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0,(int)offset);
+            //scrollBy(0, (int) offset);
+            invalidate();
         }
-        invalidate();
-        //save tag
-        EventBus.getDefault().post(new RefershBookTagEvent(getCurLines()));
     }
 
     private void flashPage(float x){
@@ -295,33 +384,16 @@ public class BookView extends View {
             }
         }
         invalidate();
-        //save tag
-        EventBus.getDefault().post(new RefershBookTagEvent(firstIndex));
-    }
-
-    private void move(float x, float y){
-        if(y-oldY>0){//下滑
-            firstIndex -= 3;
-            if(firstIndex<=0){
-                firstIndex = 0;
-            }
-        }else if(y-oldY<0){//上滑
-            if(firstIndex+rows<=lines.size()){
-                firstIndex += 3;
-            }
-        }
-        //这个方法里往往需要重绘界面，使用这个方法可以自动调用onDraw（）方法。（主线程）
-        invalidate();
-        //save tag
-        EventBus.getDefault().post(new RefershBookTagEvent(firstIndex));
     }
 
     public void setTag(int tag){
+        Log.i(TAG, "tag: " + tag);
         if(tag>0){
             if(readMode==MODE_PAGE){
                 firstIndex = tag;
             }else{
                 curHeight = tag*(textSize + dividerHeight) + padTop + padValue;
+                scrollTo(0, (int)curHeight);
             }
         }else{
             if(readMode==MODE_PAGE){
@@ -426,7 +498,6 @@ public class BookView extends View {
         //"\\u300" 中文缩进一个字；
         for(int i=0; i<sections.length; i++){
             String section = "\u3000\u3000" + sections[i] + "。";
-            Log.d(TAG, section);
             int tempRows = section.length() % numInRow==0? section.length() / numInRow: section.length() / numInRow +1;
 
             for(int j=0; j<tempRows; j++){

@@ -51,6 +51,7 @@ public class Constant {
     //default value
     public static final boolean AUTO_START_DEFAULT = true;
     public static final int LANGUAGE_DEFAULT = 0;
+    public static final int READ_MODE_DEFAULT = 1;
     public static final String ALARM_TIME_DEFAULT = "click to pick time";
     public static final boolean ALARM_STATE_DEFAULT = false;
     public static final String ALARM_SOUND_DEFAULT = "Default";
@@ -64,6 +65,8 @@ public class Constant {
     public static final String ALARM_STATE_KEY = "alarm_state";
     public static final String ALARM_SOUND_KEY = "alarm_sound";
     public static final String AUDIO_DIR_KEY = "audio_dir";
+    public static final String READ_MODE_KEY = "read_mode";
+
 
     //action
     public static final String ACTION_RESET_SOUND = "com.example.ToolLibs.reset_sound";

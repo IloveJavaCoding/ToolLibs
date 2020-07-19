@@ -103,13 +103,13 @@
                     <RadioButton
                         android:id="@+id/rButton3"
                         android:layout_width="50dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="6dp"
                         android:layout_margin="@dimen/margin_10"
-                        android:text="Male"
-                        android:gravity="center"
-                        android:button="@null"
                         android:background="@drawable/selector_check_bg"
-                        android:checked="true" />
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="Male" />
 
                     <RadioButton
                         android:id="@+id/rButton4"

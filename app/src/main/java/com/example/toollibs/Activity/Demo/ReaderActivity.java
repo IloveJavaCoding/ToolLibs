@@ -11,11 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.toollibs.Activity.Bean.Books;
+import com.example.toollibs.Activity.Config.Constant;
+import com.example.toollibs.Activity.Config.SettingData;
 import com.example.toollibs.Activity.DataBase.DBHelper;
 import com.example.toollibs.Activity.Events.ClickEvent;
 import com.example.toollibs.Activity.Events.RefershBookTagEvent;
@@ -27,6 +30,8 @@ import com.example.toollibs.R;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.Reader;
+
 public class ReaderActivity extends AppCompatActivity {
     private final String TAG = "READER";
     private LinearLayout layout, layoutControl;
@@ -34,6 +39,7 @@ public class ReaderActivity extends AppCompatActivity {
     private TextView tvName, tvProcess;
     private BookView bookView;
     private SeekBar seekBar;
+    private RadioGroup radioGroup;
 
     private DBHelper helper;
     private Books book;
@@ -82,6 +88,7 @@ public class ReaderActivity extends AppCompatActivity {
         tvName = findViewById(R.id.tvBookName2);
         bookView = findViewById(R.id.bookView);
         helper = DBHelper.getInstance(this);
+        radioGroup = findViewById(R.id.rgReadMode);
 
         tvProcess = findViewById(R.id.tvProcess);
         seekBar = findViewById(R.id.sbBook);
@@ -90,9 +97,16 @@ public class ReaderActivity extends AppCompatActivity {
     private void setData() {
         tvName.setText(book.getName());
         bookView.setFilePath(book.getPath());
-        bookView.setReadMode(BookView.MODE_SLIP);
+        int mode = SettingData.getInt(this, Constant.CONFIG_FILE, Constant.READ_MODE_KEY, Constant.READ_MODE_DEFAULT);
+        bookView.setReadMode(mode);
         bookView.setTag(book.getTag());
         Log.d(TAG, "Last time read: " + book.getTag());
+
+        if(mode==1){
+            radioGroup.check(R.id.rbSlip);
+        }else{
+            radioGroup.check(R.id.rbPage);
+        }
 
         seekBar.setMax(100);
 
@@ -127,6 +141,22 @@ public class ReaderActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.rbSlip:
+                        bookView.toSlipMode();
+                        SettingData.setInt(getApplicationContext(), Constant.CONFIG_FILE, Constant.READ_MODE_KEY, BookView.MODE_SLIP);
+                        break;
+                    case R.id.rbPage:
+                        bookView.toPageMode();
+                        SettingData.setInt(getApplicationContext(), Constant.CONFIG_FILE, Constant.READ_MODE_KEY, BookView.MODE_PAGE);
+                        break;
+                }
             }
         });
     }
