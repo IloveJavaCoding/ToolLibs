@@ -57,7 +57,7 @@ public class BookView extends View {
     private int rows, totalRows;//rows:每页所内显示行数；totalRows:文本总行数
     private int numInRow;//每行最多容纳字数
     private int firstIndex=0;//the first line to draw
-    private float curHeight=0;//画布顶端y轴坐标
+    private float curHeight=0;//用于画文字的起始y坐标
 
     private List<String> lines = new ArrayList<>();
     private String contents;
@@ -106,6 +106,7 @@ public class BookView extends View {
 
         //default setting
         readMode = MODE_SLIP;
+        curHeight = padTop + padValue;
 
         scroller = new OverScroller(context);
         ViewConfiguration configuration = ViewConfiguration.get(context);
@@ -143,10 +144,6 @@ public class BookView extends View {
         //heightMeasureSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
         setMeasuredDimension(resolveSizeAndState(width, widthMeasureSpec, 0),
                 resolveSizeAndState(height, heightMeasureSpec, 0));
-
-//        viewWidth = getMeasuredWidth();
-//        viewHeightAll = getMeasuredHeight();
-//        Log.d(TAG, "viewHeightAll: " );
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
@@ -188,7 +185,7 @@ public class BookView extends View {
 
         switch (readMode){
             case MODE_SLIP://slip
-                drawMode3(canvas);//only draw once
+                drawMode1(canvas);
                 break;
             case MODE_PAGE://page
                 drawMode2(canvas);
@@ -199,56 +196,36 @@ public class BookView extends View {
         }
     }
 
-    //draw all lines
     private void drawMode1(Canvas canvas) {
-        Log.i(TAG, "SLIP: drawing.....");
-        for(int i=0; i<totalRows; i++){
-            canvas.drawText(lines.get(i), padValue, padTop + padValue+i*(textSize+dividerHeight), paint);
-        }
-    }
-
-    private void drawMode3(Canvas canvas) {
-        firstIndex = (int) (curHeight/(textSize+dividerHeight));
+        firstIndex = (int) ((curHeight- padTop - padValue)/(textSize+dividerHeight)) + 1;
         Log.i(TAG, "SLIP: drawing.....curHeight: " + curHeight + " offset: " + offset);
-        for(int i=0; i<rows+1; i++){//draw one more line
-            canvas.drawText(lines.get(i+firstIndex), padValue, padTop + padValue - offset + curHeight + (i)*(textSize+dividerHeight), paint);
-        }
-    }
-
-    private void drawMode4(Canvas canvas) {
-        int offLine = (int) (offset/(textSize+dividerHeight));
-        firstIndex = (int) (curHeight/(textSize+dividerHeight));
-
-        Log.i(TAG, "SLIP: drawing.....offline: "+ offLine + " firstIndex: " + firstIndex);
         for(int i=0; i<rows; i++){
-            canvas.drawText(lines.get(i+firstIndex+offLine), padValue, padTop + padValue - offset + (i+offLine)*(textSize+dividerHeight), paint);
+            canvas.drawText(lines.get(i+firstIndex), padValue,  curHeight + (i)*(textSize+dividerHeight), paint);
         }
     }
 
     //only draw a page
     private void drawMode2(Canvas canvas){
-        Log.i(TAG, "PAGE: drawing.....");
-        Log.i(TAG, "first line: " + firstIndex);
+        Log.i(TAG, "PAGE: drawing.....first line: " + firstIndex);
         for(int i=0; i<rows; i++){
             if(i+firstIndex<lines.size()){
                 canvas.drawText(lines.get(i+firstIndex), padValue, padTop + padValue  + i*(textSize+dividerHeight), paint);
-                //一个字一个字画
-//                String line = lines.get(i+firstIndex);
-//                for(int j=0; j<line.length(); j++){
-//                    canvas.drawText(line.substring(j, j+1), padValue + j*(textSize+textDivider), 35 + padValue+i*(textSize+dividerHeight), paint);
-//                }
             }
         }
     }
 
     public void toSlipMode() {
         readMode = MODE_SLIP;
-        curHeight = firstIndex*(textSize + dividerHeight) + padTop + padValue;
+        if(firstIndex>1){
+            curHeight = (firstIndex-1)*(textSize + dividerHeight) + padTop + padValue;
+        }else{
+            curHeight = padTop + padValue;
+        }
     }
 
     public void toPageMode() {
         readMode = MODE_PAGE;
-        firstIndex = (int) ((curHeight - padTop - padValue) / (textSize + dividerHeight));
+        firstIndex = (int) ((curHeight - padTop - padValue) / (textSize + dividerHeight)) + 1;
     }
 
     private float startX, startY, oldX, oldY;
@@ -308,13 +285,10 @@ public class BookView extends View {
 
                         if(velocityY<-maxVelocity){//向上快速滑动
                             Log.i(TAG, "向上快速滑动 velocity: " + velocityY);
-
                         }else if(velocityY>maxVelocity){//向下快速滑动
                             Log.i(TAG, "向下快速滑动 velocity: " + velocityY);
-
                         }else{//slow slip
                             Log.i(TAG, "slow slip velocity: " + velocityY);
-
                         }
                         recycleVelocityTracker();
                         EventBus.getDefault().post(new RefershBookTagEvent(getCurLines()));
@@ -352,11 +326,11 @@ public class BookView extends View {
         if(Math.abs(offset)>10){
             float oldScrollY = getScrollY();
             curHeight = oldScrollY + offset;
-            if(curHeight>(viewHeightAll-viewHeight)){
+            if((curHeight-padTop)>(viewHeightAll-viewHeight)){
                 curHeight = viewHeightAll-viewHeight;
                 offset = curHeight - oldScrollY;
-            }else if(curHeight<0){
-                curHeight = 0;
+            }else if(curHeight < (padTop+padValue)){
+                curHeight = padTop + padValue;
                 offset = curHeight - oldScrollY;
             }
 
@@ -392,14 +366,14 @@ public class BookView extends View {
             if(readMode==MODE_PAGE){
                 firstIndex = tag;
             }else{
-                curHeight = tag*(textSize + dividerHeight) + padTop + padValue;
+                curHeight = (tag-1)*(textSize + dividerHeight) + padTop + padValue;
                 scrollTo(0, (int)curHeight);
             }
         }else{
             if(readMode==MODE_PAGE){
                 firstIndex = 0;
             }else{
-                curHeight = 0;
+                curHeight = padTop + padValue;
             }
         }
     }
@@ -415,7 +389,7 @@ public class BookView extends View {
     }
 
     public int getCurLines() {
-        return (int) ((curHeight-padValue-padTop) / (textSize + dividerHeight));
+        return (int) ((curHeight-padValue-padTop) / (textSize + dividerHeight)) + 1;
     }
 
     public void setFilePath(String path){
