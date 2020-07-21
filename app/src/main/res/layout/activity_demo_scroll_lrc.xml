@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:lrc="http://schemas.android.com/apk/res-auto"
+    xmlns:mylrcview="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradient"
+    android:id="@+id/layoutBgLrc"
     android:orientation="vertical">
 
     <View
@@ -58,7 +60,10 @@
         <com.example.toollibs.OverWriteClass.MyLrcView
             android:id="@+id/myLrcView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            mylrcview:lrcTextSizeMain="22sp"
+            mylrcview:lrcTextSizeSec="18sp"
+            mylrcview:lrcDividerHeight="20dp"/>
     </RelativeLayout>
 
     <LinearLayout

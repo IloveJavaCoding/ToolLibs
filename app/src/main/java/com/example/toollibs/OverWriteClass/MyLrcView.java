@@ -71,10 +71,10 @@ public class MyLrcView extends View {
     private void init(Context context, AttributeSet attrs) {
         // 解析自定义属性
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.MyLrcView);
-        textSizeMain = ta.getDimension(R.styleable.MyLrcView_lrcTextSizeMain, 20.0f);
-        textSizeSec = ta.getDimension(R.styleable.MyLrcView_lrcTextSizeSec, 16.0f);
-        textColorMain = ta.getColor(R.styleable.MyLrcView_lrcTextColorMain, 0xff8a8a8a);
-        textColorSec = ta.getColor(R.styleable.MyLrcView_lrcTextColorSec, 0xff66ccff);
+        textSizeMain = ta.getDimension(R.styleable.MyLrcView_lrcTextSizeMain, 25.0f);
+        textSizeSec = ta.getDimension(R.styleable.MyLrcView_lrcTextSizeSec, 10.0f);
+        textColorMain = ta.getColor(R.styleable.MyLrcView_lrcTextColorMain, 0xff66ccff);
+        textColorSec = ta.getColor(R.styleable.MyLrcView_lrcTextColorSec, 0xff8a8a8a);
 
         dividerHeight = ta.getDimension(R.styleable.MyLrcView_lrcDividerHeight, 15.0f);
         padValue = ta.getDimension(R.styleable.MyLrcView_lrcpadValue, 25.0f);
@@ -98,7 +98,7 @@ public class MyLrcView extends View {
         viewWidth = getWidth();
         viewHeight = getHeight();
         calculateRows();
-
+        scaleBackground();
         super.onLayout(changed, left, top, right, bottom);
     }
 
@@ -106,13 +106,19 @@ public class MyLrcView extends View {
         rows = (int) ((viewHeight - padValue*2) / (textSizeSec+dividerHeight));
     }
 
+    private void scaleBackground(){
+        if (background != null) {
+            background = Bitmap.createScaledBitmap(background, viewWidth, viewHeight, true);
+        }
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         //draw background
         if (background != null) {
-            canvas.drawBitmap(background, new Matrix(), null);
+            canvas.drawBitmap(background, 0, 0, null);
         }else{
-            canvas.drawColor(Color.BLACK);
+            canvas.drawColor(Color.TRANSPARENT);
         }
 
         float centerY = (viewHeight - textSizeMain) / 2.0f;
@@ -145,6 +151,11 @@ public class MyLrcView extends View {
         super.onDraw(canvas);
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
     private float getStartX(String str, Paint paint){
         return (viewWidth - paint.measureText(str)) / 2.0f;
     }
@@ -155,6 +166,11 @@ public class MyLrcView extends View {
 
     private void reset(){
         lineList.clear();
+        curLine = 0;
+        nextTime = 0;
+    }
+
+    public void loopMode(){
         curLine = 0;
         nextTime = 0;
     }
@@ -252,10 +268,9 @@ public class MyLrcView extends View {
             Log.d(TAG, con);
             if(con.matches("^\\d.+")){//time
                 time = parseTime(con);
-                str = "";
+                str = " ";
             }else{
-                time = Long.valueOf(-1);
-                str = con;
+                return;
             }
             lineList.add(new MyLrcLine(time, str));
             return;

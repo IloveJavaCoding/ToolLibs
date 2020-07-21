@@ -1,6 +1,7 @@
 package com.example.toollibs.Activity.Demo;
 
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -28,6 +31,7 @@ import java.util.TimerTask;
 public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     private ImageView imgPlay, imgBack;
     private SeekBar seekBar;
+    private LinearLayout layout;
 //    private LrcView lrcView;
     private MyLrcView lrcView;
     private TextView tvCurTime, tvTotalTime;
@@ -39,6 +43,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo_scroll_lrc);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setLayout();
         init();
@@ -59,6 +64,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     }
 
     private void init() {
+        layout = findViewById(R.id.layoutBgLrc);
         imgBack = findViewById(R.id.img_back);
         imgPlay = findViewById(R.id.img_play);
         seekBar = findViewById(R.id.seekBarPlayer);
@@ -68,11 +74,12 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.youth_meng);
         lrcView.setLrc(FileUtil.readResource(this, R.raw.shaonian, "utf-8"));
-        lrcView.setBackground(BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran));
+//        lrcView.setBackground(BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran));
         lrcView.seekTo(0);
     }
 
     private void setData() {
+        layout.setBackground(new BitmapDrawable(getResources(), BitmapUtil.fastBlurBitmap(this, BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran), 200)));
         tvTotalTime.setText(DateUtil.FormatTime(mediaPlayer.getDuration()));
         seekBar.setMax(mediaPlayer.getDuration());
     }
@@ -142,6 +149,15 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 mediaPlayer.seekTo(seekBar.getProgress());
                 lrcView.seekTo(seekBar.getProgress());
+            }
+        });
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.seekTo(0);
+                lrcView.loopMode();
+                mediaPlayer.start();
             }
         });
     }

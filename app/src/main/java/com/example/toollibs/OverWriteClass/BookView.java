@@ -69,7 +69,7 @@ public class BookView extends View {
     private boolean isShow = true;
     private float offset=0;//滑动距离
     private final int textDivider = 3;//文字间隔
-    private final int padTop = 35;//顶部缩进
+    private final int padTop = 40;//顶部缩进
     public static final int MODE_SLIP = 0x01;//滑动模式； 默认
     public static final int MODE_PAGE = 0x02;//翻页模式
 
@@ -197,10 +197,10 @@ public class BookView extends View {
     }
 
     private void drawMode1(Canvas canvas) {
-        firstIndex = (int) ((curHeight- padTop - padValue)/(textSize+dividerHeight)) + 1;
+        firstIndex = (int) ((curHeight- padTop - padValue)/(textSize+dividerHeight));
         Log.i(TAG, "SLIP: drawing.....curHeight: " + curHeight + " offset: " + offset);
         for(int i=0; i<rows; i++){
-            canvas.drawText(lines.get(i+firstIndex), padValue,  curHeight + (i)*(textSize+dividerHeight), paint);
+            canvas.drawText(lines.get(i+firstIndex), padValue,  curHeight + padTop + padValue + (i)*(textSize+dividerHeight), paint);
         }
     }
 
@@ -219,13 +219,16 @@ public class BookView extends View {
         if(firstIndex>1){
             curHeight = (firstIndex-1)*(textSize + dividerHeight) + padTop + padValue;
         }else{
-            curHeight = padTop + padValue;
+            curHeight = 0;
         }
+
     }
 
     public void toPageMode() {
         readMode = MODE_PAGE;
         firstIndex = (int) ((curHeight - padTop - padValue) / (textSize + dividerHeight)) + 1;
+        scrollTo(0, (int) (padTop + padValue));
+        Log.i(TAG, "change to page mode: firstIndex" + firstIndex);
     }
 
     private float startX, startY, oldX, oldY;
@@ -373,7 +376,7 @@ public class BookView extends View {
             if(readMode==MODE_PAGE){
                 firstIndex = 0;
             }else{
-                curHeight = padTop + padValue;
+                curHeight = 0;
             }
         }
     }
