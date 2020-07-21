@@ -128,16 +128,14 @@ public class Activity_Text extends AppCompatActivity {
         spinner2.setAdapter(intAdapter);
 
         setMarquee(view);
-
     }
 
     private void setMarquee(MarqueeHorizontalText view){
-        MarqueeHorizontalText marqueeText = view;
-        marqueeText.setTextSize(25);
-        marqueeText.setTextColor(Color.YELLOW);
-        marqueeText.setBackgroundColor(Color.BLACK);
-        marqueeText.setTextSpeed(8);
-        marqueeText.setContent(DEFAULT_TEXT);
+        view.setTextSize(25);
+        view.setTextColor(Color.YELLOW);
+        view.setBackgroundColor(Color.BLACK);
+        view.setTextSpeed(8);
+        view.setContent(DEFAULT_TEXT);
     }
 
     private void setListener() {
@@ -219,6 +217,7 @@ public class Activity_Text extends AppCompatActivity {
         tvTest1.setTypeface(typeface, Typeface.BOLD);
 
         //set text size
+//        tvTest1.setTextSize(18.0f);
         tvTest1.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimension(R.dimen.text_size_18));
 
         //delete line
@@ -234,13 +233,14 @@ public class Activity_Text extends AppCompatActivity {
         //tvTest4.getPaint().setFlags(Paint.FAKE_BOLD_TEXT_FLAG);
         //tvTest4.getPaint().setFakeBoldText(true);
         tvTest4.setTypeface(null, Typeface.BOLD_ITALIC);
+//        tvTest4.setTypeface(null, Typeface.ITALIC);
 
         //text color
         tvTest5.setText(text);
         tvTest5.setTextColor(Color.RED);
         //tvTest5.setTextColor(Color.argb(255,255,0,0));
         //tvTest5.setTextColor(Color.parseColor("#ff0000"));
-        //tvTest5.setTextColor(getResources().getColor(R.color.colorRed));
+//        tvTest5.setTextColor(getResources().getColor(R.color.colorRed));
 
         //use html
         String content = "<font color=\"#ffff00\">" + text +"</font>";
