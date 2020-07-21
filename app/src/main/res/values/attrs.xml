@@ -24,4 +24,13 @@
         <attr name="bookDividerHeight" format="dimension|reference" />
         <attr name="padValue" format="dimension|reference" />
     </declare-styleable>
+
+    <declare-styleable name="MyLrcView">
+        <attr name="lrcTextSizeMain" format="dimension" />
+        <attr name="lrcTextSizeSec" format="dimension" />
+        <attr name="lrcTextColorMain" format="color|reference" />
+        <attr name="lrcTextColorSec" format="color|reference" />
+        <attr name="lrcDividerHeight" format="dimension|reference" />
+        <attr name="lrcpadValue" format="dimension|reference" />
+    </declare-styleable>
 </resources>

@@ -45,6 +45,7 @@
 
         <com.example.toollibs.OverWriteClass.LrcView
             android:id="@+id/lrcView"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_5"
@@ -53,6 +54,11 @@
             lrc:currentTextColor="@color/colorPrimary"
             lrc:dividerHeight="20dp"
             lrc:rows="15"/>
+
+        <com.example.toollibs.OverWriteClass.MyLrcView
+            android:id="@+id/myLrcView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </RelativeLayout>
 
     <LinearLayout

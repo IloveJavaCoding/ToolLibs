@@ -15,6 +15,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.toollibs.OverWriteClass.LrcView;
+import com.example.toollibs.OverWriteClass.MyLrcView;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.DateUtil;
@@ -27,13 +28,10 @@ import java.util.TimerTask;
 public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     private ImageView imgPlay, imgBack;
     private SeekBar seekBar;
-    private LrcView lrcView;
+//    private LrcView lrcView;
+    private MyLrcView lrcView;
     private TextView tvCurTime, tvTotalTime;
     private MediaPlayer mediaPlayer;
-    //private Thread thread;
-    //private boolean isOver = false;
-
-    //use timer to replace thread
     private Timer timer;
     private TimerTask timerTask;
 
@@ -64,20 +62,19 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
         imgBack = findViewById(R.id.img_back);
         imgPlay = findViewById(R.id.img_play);
         seekBar = findViewById(R.id.seekBarPlayer);
-        lrcView = findViewById(R.id.lrcView);
+        lrcView = findViewById(R.id.myLrcView);
         tvCurTime = findViewById(R.id.tv_current_time);
         tvTotalTime = findViewById(R.id.tv_total_time);
 
         mediaPlayer = MediaPlayer.create(this, R.raw.youth_meng);
         lrcView.setLrc(FileUtil.readResource(this, R.raw.shaonian, "utf-8"));
-        lrcView.setBackground(BitmapUtil.blurBitmap(this, BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran),20));
+        lrcView.setBackground(BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran));
+        lrcView.seekTo(0);
     }
 
     private void setData() {
         tvTotalTime.setText(DateUtil.FormatTime(mediaPlayer.getDuration()));
         seekBar.setMax(mediaPlayer.getDuration());
-//        thread = new Thread(new MusicThread());
-//        thread.start();
     }
 
     private void startTimer(){
@@ -96,7 +93,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
             };
         }
 
-        timer.schedule(timerTask, 0, 250);
+        timer.schedule(timerTask, 0, 500);
     }
 
     private void stopTimer(){
@@ -110,12 +107,6 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                isOver = true;
-//                try {
-//                    Thread.sleep(500);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
                 stopTimer();
                 finish();
             }
@@ -150,6 +141,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 mediaPlayer.seekTo(seekBar.getProgress());
+                lrcView.seekTo(seekBar.getProgress());
             }
         });
     }
@@ -159,30 +151,15 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             seekBar.setProgress(msg.what);
-            lrcView.onProgress(msg.what);
+            //lrcView.onProgress(msg.what);
+            lrcView.seekTo(msg.what);
             tvCurTime.setText(DateUtil.FormatTime(msg.what));
         }
     };
 
-//    public class MusicThread implements Runnable{
-//        @Override
-//        public void run() {
-//            while(!isOver){
-//                try {
-//                    Thread.sleep(500);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                Log.d("lrc", "send ... ");
-//                handler.sendEmptyMessage(mediaPlayer.getCurrentPosition());
-//            }
-//        }
-//    }
-
     @Override
     protected void onPause() {
         super.onPause();
-//        isOver = true;
     }
 
     @Override
