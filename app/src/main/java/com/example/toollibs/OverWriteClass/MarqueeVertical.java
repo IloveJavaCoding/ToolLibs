@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.OverScroller;
 
 import com.example.toollibs.Util.ConvertUtil;
 
@@ -35,8 +36,12 @@ public class MarqueeVertical extends View implements Runnable{
     private int rows;
     private int numInRow;//每行最多容纳字数
     private float divideHeight;
+    private int padValue = 15;
+
+    private int offset=0;//
 
     private Thread thread;
+    private OverScroller scroller;
     
     public MarqueeVertical(Context context) {
         this(context, null);
@@ -59,6 +64,8 @@ public class MarqueeVertical extends View implements Runnable{
         paint.setAntiAlias(true);
         paint.setColor(textColor);
         paint.setTextSize(ConvertUtil.dip2px(context, textSize));
+
+        scroller = new OverScroller(context);
     }
 
     private void startRoll() {
@@ -70,8 +77,10 @@ public class MarqueeVertical extends View implements Runnable{
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         viewWidth = getWidth();
         viewHeight = getHeight();
+        Log.i(TAG, "w&h: " + viewWidth + ", " +viewHeight);
         
         divideHeight = viewHeight - textSize;
+        Log.i(TAG, "divide " + divideHeight + ",  textSize" + textSize);
         calculateRows();
         parseContent();
         startRoll();
@@ -79,7 +88,7 @@ public class MarqueeVertical extends View implements Runnable{
     }
 
     private void calculateRows() {
-        numInRow = (int) (viewWidth / textSize);
+        numInRow = (int) ((viewWidth-padValue*2) / textSize);
         rows = contents.length()%numInRow==0 ? contents.length()/numInRow : contents.length()/numInRow+1;
     }
 
@@ -87,26 +96,41 @@ public class MarqueeVertical extends View implements Runnable{
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(backgroundColor);
 
-        float centerY = (viewHeight - textSize) / 2.0f;
+        Paint.FontMetricsInt metricsInt = paint.getFontMetricsInt();
+        float centerY = (viewHeight - metricsInt.top - metricsInt.bottom) / 2.0f;
+
         for(int i=0; i<list.size(); i++){
-            Log.i(TAG, "draw: ");
-            canvas.drawText(list.get(i), 0, centerY + divideHeight*i, paint);
+            canvas.drawText(list.get(i), padValue, centerY + viewHeight*i, paint);
+        }
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if(scroller.computeScrollOffset()){
+            scrollTo(scroller.getCurrX(), scroller.getCurrY());
+            invalidate();
         }
     }
 
     @Override
     public void run() {
-        Log.i(TAG, "scrolled Y: " + getScrollY());
         if(list.size()>1){
-            if(getScrollY()>viewHeight*list.size()){
-                scrollTo(0,0);
-            }
-            try {
-                Thread.sleep(3000);
-                scrollBy(0, (int) divideHeight);
-                postInvalidate();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            for(;;){
+                Log.i(TAG, "offset: " + offset);
+                if(offset>=viewHeight*(list.size()-1)){
+                    scrollTo(0,0);
+                    offset = -viewHeight;
+                }
+                try {
+                    Thread.sleep(3000);
+//                    scrollBy(0, viewHeight);
+                    scroller.startScroll(0, offset, 0, viewHeight);
+                    offset += viewHeight;
+                    postInvalidate();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -121,7 +145,7 @@ public class MarqueeVertical extends View implements Runnable{
 
     public void setTextSize(float textSize) {
         this.textSize = ConvertUtil.dip2px(context, textSize);
-        paint.setTextSize(this.textSize);
+        paint.setTextSize(ConvertUtil.dip2px(context, textSize));
     }
 
     public void setTextColor(int textColor) {

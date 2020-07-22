@@ -60,7 +60,9 @@ public class Activity_Text extends AppCompatActivity {
     private List<Object> list;
 
     private SelfPasswordTransformationMethod transformationMethod;
-    private static final String DEFAULT_TEXT = "What is faith? If it does't endure when we are tested the most?";
+    private static final String DEFAULT_TEXT = "曾经沧海难为水，除却巫山不是云。取次花丛懒回顾，半缘修道半缘君。" +
+            "葡萄美酒夜光杯，欲饮琵琶马上催。醉卧沙场君莫笑。古来征战几人回。";
+    private static final String DEFAULT_TEXT2 = "What is faith? If it doesn't endure when we are tested the most?";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,7 +146,8 @@ public class Activity_Text extends AppCompatActivity {
         horizontal.setTextSize(20);
         horizontal.setTextColor(Color.YELLOW);
         horizontal.setBackgroundColor(Color.BLACK);
-        horizontal.setContents(DEFAULT_TEXT);
+        horizontal.setSpeed(5);
+        horizontal.setContents(DEFAULT_TEXT2);
     }
 
     private void setMarquee(MarqueeHorizontalText view){
@@ -152,7 +155,7 @@ public class Activity_Text extends AppCompatActivity {
         view.setTextColor(Color.YELLOW);
         view.setBackgroundColor(Color.BLACK);
         view.setTextSpeed(8);
-        view.setContent(DEFAULT_TEXT);
+        view.setContent(DEFAULT_TEXT2);
     }
 
     private void setListener() {

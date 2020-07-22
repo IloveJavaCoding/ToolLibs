@@ -8,7 +8,10 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+
+import com.example.toollibs.Util.ConvertUtil;
 
 public class MarqueeHorizontal extends View implements Runnable {
     private final String TAG = "MARQUEE_HORIZONTAL";
@@ -40,8 +43,8 @@ public class MarqueeHorizontal extends View implements Runnable {
 
     public MarqueeHorizontal(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
         init(attrs);
-        startRoll();
     }
 
     private void init(AttributeSet attrs) {
@@ -52,12 +55,12 @@ public class MarqueeHorizontal extends View implements Runnable {
         paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(textColor);
-        paint.setTextSize(textSize);
+        paint.setTextSize(ConvertUtil.sp2px(context,textSize));
     }
 
     private void startRoll() {
         thread = new Thread(this);
-        //thread.start();
+        thread.start();
     }
 
     @Override
@@ -65,7 +68,8 @@ public class MarqueeHorizontal extends View implements Runnable {
         viewWidth = getWidth();
         viewHeight = getHeight();
 
-        adjustText();
+//        adjustText();
+        startRoll();
         super.onLayout(changed, left, top, right, bottom);
     }
 
@@ -73,7 +77,9 @@ public class MarqueeHorizontal extends View implements Runnable {
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(backgroundColor);
 
-        float centerY = (viewHeight - textSize) / 2.0f;
+        Paint.FontMetricsInt metricsInt = paint.getFontMetricsInt();
+        float centerY = (viewHeight - metricsInt.top - metricsInt.bottom) / 2.0f;
+
         canvas.drawText(contents, viewWidth, centerY, paint);
     }
 
@@ -95,6 +101,7 @@ public class MarqueeHorizontal extends View implements Runnable {
             }
             contents = newCont;
         }
+        Log.i(TAG, "conts: " + contents);
     }
 
     private String getBlanks(int length) {
@@ -140,11 +147,13 @@ public class MarqueeHorizontal extends View implements Runnable {
     }
 
     public void setTextSize(float textSize) {
-        this.textSize = textSize;
+        this.textSize = ConvertUtil.sp2px(context,textSize);
+        paint.setTextSize(ConvertUtil.sp2px(context,textSize));
     }
 
     public void setTextColor(int textColor) {
         this.textColor = textColor;
+        paint.setColor(textColor);
     }
 
     public void setSpeed(int speed) {
