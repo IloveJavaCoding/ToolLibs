@@ -9,13 +9,11 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
-
-import com.example.toollibs.Util.ConvertUtil;
 
 public class MarqueeHorizontal extends View implements Runnable {
     private final String TAG = "MARQUEE_HORIZONTAL";
-    private Context context;
 
     private Paint paint;
     private int viewWidth;
@@ -43,19 +41,18 @@ public class MarqueeHorizontal extends View implements Runnable {
 
     public MarqueeHorizontal(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context = context;
         init(attrs);
     }
 
     private void init(AttributeSet attrs) {
-        //解析自定义属性
+        //解析自定义属性...未加
 
         rect = new Rect();
         //初始化画笔
         paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(textColor);
-        paint.setTextSize(ConvertUtil.sp2px(context,textSize));
+        paint.setTextSize(sp2px(textSize));
     }
 
     private void startRoll() {
@@ -68,7 +65,7 @@ public class MarqueeHorizontal extends View implements Runnable {
         viewWidth = getWidth();
         viewHeight = getHeight();
 
-//        adjustText();
+//        adjustText();//当文本过短，调整 但重绘时感觉有点穿帮
         startRoll();
         super.onLayout(changed, left, top, right, bottom);
     }
@@ -147,8 +144,8 @@ public class MarqueeHorizontal extends View implements Runnable {
     }
 
     public void setTextSize(float textSize) {
-        this.textSize = ConvertUtil.sp2px(context,textSize);
-        paint.setTextSize(ConvertUtil.sp2px(context,textSize));
+        this.textSize = sp2px(textSize);
+        paint.setTextSize(sp2px(textSize));
     }
 
     public void setTextColor(int textColor) {
@@ -163,5 +160,9 @@ public class MarqueeHorizontal extends View implements Runnable {
     @Override
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    private int sp2px(float spValue) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, getResources().getDisplayMetrics());
     }
 }

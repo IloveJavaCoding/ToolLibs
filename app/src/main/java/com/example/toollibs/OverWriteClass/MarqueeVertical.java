@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.OverScroller;
 
@@ -18,9 +19,7 @@ import java.util.List;
 
 public class MarqueeVertical extends View implements Runnable{
     private final String TAG = "MARQUEE_VERTICAL";
-    private Context context;
 
-    private Rect rect;
     private Paint paint;
     private int viewWidth;
     private int viewHeight;
@@ -32,16 +31,15 @@ public class MarqueeVertical extends View implements Runnable{
     private String contents;
     private List<String> list = new ArrayList<>();
 
-    private int backgroundColor = Color.BLACK;
-    private int rows;
+    private int backgroundColor = Color.BLACK;//默认背景色
+    private int rows;//文本分割后总行数
     private int numInRow;//每行最多容纳字数
-    private float divideHeight;
-    private int padValue = 15;
+    private int padValue = 15;//左右两边缩进距离 piex
+    private int offset=0;//记录画布滚动距离
 
-    private int offset=0;//
-
-    private Thread thread;
-    private OverScroller scroller;
+    private int delay = 3000;//滚动间隔
+    private Thread thread;//控制自动滚动
+    private OverScroller scroller;//使滚动效果跟平滑
     
     public MarqueeVertical(Context context) {
         this(context, null);
@@ -57,20 +55,15 @@ public class MarqueeVertical extends View implements Runnable{
     }
 
     private void init(Context context, AttributeSet attrs) {
-        this.context = context;
-        rect = new Rect();
+        //解析自定义属性...未加
+
         //初始化画笔
         paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(textColor);
-        paint.setTextSize(ConvertUtil.dip2px(context, textSize));
+        paint.setTextSize(sp2px(textSize));//
 
         scroller = new OverScroller(context);
-    }
-
-    private void startRoll() {
-        thread = new Thread(this);
-        thread.start();
     }
 
     @Override
@@ -78,9 +71,7 @@ public class MarqueeVertical extends View implements Runnable{
         viewWidth = getWidth();
         viewHeight = getHeight();
         Log.i(TAG, "w&h: " + viewWidth + ", " +viewHeight);
-        
-        divideHeight = viewHeight - textSize;
-        Log.i(TAG, "divide " + divideHeight + ",  textSize" + textSize);
+
         calculateRows();
         parseContent();
         startRoll();
@@ -92,15 +83,29 @@ public class MarqueeVertical extends View implements Runnable{
         rows = contents.length()%numInRow==0 ? contents.length()/numInRow : contents.length()/numInRow+1;
     }
 
+    private void parseContent(){
+        for(int i=0; i<rows; i++){
+            String temp = contents.substring(numInRow*i, Math.min(numInRow*(i+1), contents.length()));
+            list.add(temp);
+            Log.i(TAG, "line: " + temp);
+        }
+    }
+
+    private void startRoll() {
+        thread = new Thread(this);
+        thread.start();
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(backgroundColor);
 
+        //计算绘制文本中心，然后将其移至控件中心
         Paint.FontMetricsInt metricsInt = paint.getFontMetricsInt();
         float centerY = (viewHeight - metricsInt.top - metricsInt.bottom) / 2.0f;
 
         for(int i=0; i<list.size(); i++){
-            canvas.drawText(list.get(i), padValue, centerY + viewHeight*i, paint);
+            canvas.drawText(list.get(i), padValue, centerY + viewHeight*i, paint);//每行相隔距离为一个控件高度
         }
     }
 
@@ -123,8 +128,7 @@ public class MarqueeVertical extends View implements Runnable{
                     offset = -viewHeight;
                 }
                 try {
-                    Thread.sleep(3000);
-//                    scrollBy(0, viewHeight);
+                    Thread.sleep(delay);
                     scroller.startScroll(0, offset, 0, viewHeight);
                     offset += viewHeight;
                     postInvalidate();
@@ -135,17 +139,13 @@ public class MarqueeVertical extends View implements Runnable{
         }
     }
 
-    private void parseContent(){
-        for(int i=0; i<rows; i++){
-            String temp = contents.substring(numInRow*i, Math.min(numInRow*(i+1), contents.length()));
-            list.add(temp);
-            Log.i(TAG, "line: " + temp);
-        }
+    public void setDelay(int delay) {
+        this.delay = delay;
     }
 
     public void setTextSize(float textSize) {
-        this.textSize = ConvertUtil.dip2px(context, textSize);
-        paint.setTextSize(ConvertUtil.dip2px(context, textSize));
+        this.textSize = sp2px(textSize);
+        paint.setTextSize(sp2px(textSize));
     }
 
     public void setTextColor(int textColor) {
@@ -160,5 +160,9 @@ public class MarqueeVertical extends View implements Runnable{
     @Override
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    private int sp2px(float spValue) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, getResources().getDisplayMetrics());
     }
 }
