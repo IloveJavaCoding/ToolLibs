@@ -139,6 +139,7 @@ public class Activity_Text extends AppCompatActivity {
         vertical.setTextSize(20);
         vertical.setTextColor(Color.YELLOW);
         vertical.setBackgroundColor(Color.BLACK);
+        vertical.setDelay(5000);//5s
         vertical.setContents(DEFAULT_TEXT);
     }
 
