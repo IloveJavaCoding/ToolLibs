@@ -134,17 +134,17 @@ public class Activity_Text extends AppCompatActivity {
     }
 
     private void setVertical() {
-        vertical.setContents(DEFAULT_TEXT);
-        vertical.setTextSize(25);
+        vertical.setTextSize(20);
         vertical.setTextColor(Color.YELLOW);
         vertical.setBackgroundColor(Color.BLACK);
+        vertical.setContents(DEFAULT_TEXT);
     }
 
     private void setHorizontal() {
-        horizontal.setContents(DEFAULT_TEXT);
-        horizontal.setTextSize(25);
+        horizontal.setTextSize(20);
         horizontal.setTextColor(Color.YELLOW);
         horizontal.setBackgroundColor(Color.BLACK);
+        horizontal.setContents(DEFAULT_TEXT);
     }
 
     private void setMarquee(MarqueeHorizontalText view){

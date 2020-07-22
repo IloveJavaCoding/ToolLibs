@@ -20,9 +20,9 @@ public class MarqueeHorizontal extends View implements Runnable {
 
     private Rect rect;//用于获取文字宽度
     //字体属性
-    private float textSize;
-    private int textColor;
-    private int speed;
+    private float textSize = 20.0f;
+    private int textColor = Color.YELLOW;
+    private int speed = 1;
     private float textWidth;
 
     private String contents;
@@ -57,7 +57,7 @@ public class MarqueeHorizontal extends View implements Runnable {
 
     private void startRoll() {
         thread = new Thread(this);
-        thread.start();
+        //thread.start();
     }
 
     @Override
@@ -128,7 +128,7 @@ public class MarqueeHorizontal extends View implements Runnable {
             try {
                 Thread.sleep(20);
                 scrollBy(speed, 0);
-//                postInvalidate();
+                postInvalidate();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
