@@ -12,7 +12,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.LinkMovementMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
@@ -33,16 +32,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.example.toollibs.Activity.Config.Constant;
+import com.example.toollibs.OverWriteClass.MarqueeHorizontal;
+import com.example.toollibs.OverWriteClass.MarqueeVertical;
 import com.example.toollibs.OverWriteClass.SelfPasswordTransformationMethod;
 import com.example.toollibs.R;
-import com.example.toollibs.SelfClass.MarqueeHorizontalText;
-import com.example.toollibs.Util.DateUtil;
+import com.example.toollibs.OverWriteClass.MarqueeHorizontalText;
 import com.example.toollibs.Util.SystemUtil;
 
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,6 +50,8 @@ public class Activity_Text extends AppCompatActivity {
     private Button bEnter;
     private ToggleButton tbControl;
     private MarqueeHorizontalText view;
+    private MarqueeHorizontal horizontal;
+    private MarqueeVertical vertical;
     private Spinner spinner1, spinner2;
 
     private String data1;
@@ -81,6 +80,8 @@ public class Activity_Text extends AppCompatActivity {
         bEnter = findViewById(R.id.bEnter);
         tbControl = findViewById(R.id.tbControl);
         view = findViewById(R.id.view);
+        horizontal = findViewById(R.id.marqueeH);
+        vertical = findViewById(R.id.marqueeV);
 
         spinner1 = findViewById(R.id.spinner1);
         spinner2 = findViewById(R.id.spinner2);
@@ -128,6 +129,22 @@ public class Activity_Text extends AppCompatActivity {
         spinner2.setAdapter(intAdapter);
 
         setMarquee(view);
+        setHorizontal();
+        setVertical();
+    }
+
+    private void setVertical() {
+        vertical.setContents(DEFAULT_TEXT);
+        vertical.setTextSize(25);
+        vertical.setTextColor(Color.YELLOW);
+        vertical.setBackgroundColor(Color.BLACK);
+    }
+
+    private void setHorizontal() {
+        horizontal.setContents(DEFAULT_TEXT);
+        horizontal.setTextSize(25);
+        horizontal.setTextColor(Color.YELLOW);
+        horizontal.setBackgroundColor(Color.BLACK);
     }
 
     private void setMarquee(MarqueeHorizontalText view){
