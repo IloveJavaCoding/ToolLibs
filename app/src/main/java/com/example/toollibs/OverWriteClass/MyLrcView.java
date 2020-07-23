@@ -153,9 +153,9 @@ public class MyLrcView extends View {
 
         for(int i=0; i<lineList.size(); i++){
             if(curLine==i){
-                canvas.drawText(lineList.get(curLine-i).lrc, getStartX(lineList.get(curLine-i).lrc, mainPaint), centerY + i * (textSizeSec+dividerHeight), mainPaint);
+                canvas.drawText(lineList.get(i).lrc, getStartX(lineList.get(i).lrc, mainPaint), centerY + i * (textSizeSec+dividerHeight), mainPaint);
             }else{
-                canvas.drawText(lineList.get(curLine-i).lrc, getStartX(lineList.get(curLine-i).lrc, secPaint), centerY + i * (textSizeSec+dividerHeight), secPaint);
+                canvas.drawText(lineList.get(i).lrc, getStartX(lineList.get(i).lrc, secPaint), centerY + i * (textSizeSec+dividerHeight), secPaint);
             }
         }
 
