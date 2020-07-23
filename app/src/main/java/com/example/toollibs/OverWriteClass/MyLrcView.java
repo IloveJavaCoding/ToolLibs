@@ -10,7 +10,9 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.OverScroller;
 
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
@@ -50,6 +52,7 @@ public class MyLrcView extends View {
 
     private int rows;//
     private Bitmap background;
+    private OverScroller scroller;
     private static final String DEFAULT_TEXT = "暂无歌词，快去下载吧！";
 
     public MyLrcView(Context context) {
@@ -70,7 +73,7 @@ public class MyLrcView extends View {
         // 解析自定义属性
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.MyLrcView);
         textSizeMain = ta.getDimension(R.styleable.MyLrcView_lrcTextSizeMain, 25.0f);
-        textSizeSec = ta.getDimension(R.styleable.MyLrcView_lrcTextSizeSec, 10.0f);
+        textSizeSec = ta.getDimension(R.styleable.MyLrcView_lrcTextSizeSec, 15.0f);
         textColorMain = ta.getColor(R.styleable.MyLrcView_lrcTextColorMain, 0xff66ccff);
         textColorSec = ta.getColor(R.styleable.MyLrcView_lrcTextColorSec, 0xff8a8a8a);
 
@@ -89,6 +92,8 @@ public class MyLrcView extends View {
         secPaint.setTextSize(textSizeSec);
         secPaint.setColor(textColorSec);
         secPaint.setAntiAlias(true);
+
+        scroller = new OverScroller(context);
     }
 
     @Override
@@ -126,27 +131,59 @@ public class MyLrcView extends View {
             return;
         }
 
-        //draw lrc
-        canvas.drawText(lineList.get(curLine).lrc, getStartX(lineList.get(curLine).lrc, mainPaint), centerY, mainPaint);
+//        //draw lrc
+//        canvas.drawText(lineList.get(curLine).lrc, getStartX(lineList.get(curLine).lrc, mainPaint), centerY, mainPaint);
+//
+//        //draw above
+//        int aboveRows = (rows -1) / 2;
+//        for(int i=1; i<=aboveRows; i++){
+//            if(curLine-i<0){
+//                break;
+//            }
+//            canvas.drawText(lineList.get(curLine-i).lrc, getStartX(lineList.get(curLine-i).lrc, secPaint), centerY - i * (textSizeSec+dividerHeight), secPaint);
+//        }
+//
+//        //draw bottom
+//        for(int i=1; i<=aboveRows; i++){
+//            if(curLine+i>lineList.size()-1){
+//                break;
+//            }
+//            canvas.drawText(lineList.get(curLine+i).lrc, getStartX(lineList.get(curLine+i).lrc, secPaint), centerY + i * (textSizeSec+dividerHeight), secPaint);
+//        }
 
-        //draw above
-        int aboveRows = (rows -1) / 2;
-        for(int i=1; i<=aboveRows; i++){
-            if(curLine-i<0){
-                break;
+        for(int i=0; i<lineList.size(); i++){
+            if(curLine==i){
+                canvas.drawText(lineList.get(curLine-i).lrc, getStartX(lineList.get(curLine-i).lrc, mainPaint), centerY + i * (textSizeSec+dividerHeight), mainPaint);
+            }else{
+                canvas.drawText(lineList.get(curLine-i).lrc, getStartX(lineList.get(curLine-i).lrc, secPaint), centerY + i * (textSizeSec+dividerHeight), secPaint);
             }
-            canvas.drawText(lineList.get(curLine-i).lrc, getStartX(lineList.get(curLine-i).lrc, secPaint), centerY - i * (textSizeSec+dividerHeight), secPaint);
-        }
-
-        //draw bottom
-        for(int i=1; i<=aboveRows; i++){
-            if(curLine+i>lineList.size()-1){
-                break;
-            }
-            canvas.drawText(lineList.get(curLine+i).lrc, getStartX(lineList.get(curLine+i).lrc, secPaint), centerY + i * (textSizeSec+dividerHeight), secPaint);
         }
 
         super.onDraw(canvas);
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if(scroller.computeScrollOffset()){
+            scrollTo(scroller.getCurrX(), scroller.getCurrY());
+            invalidate();
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+
+        return true;
     }
 
     @Override
@@ -166,11 +203,18 @@ public class MyLrcView extends View {
         lineList.clear();
         curLine = 0;
         nextTime = 0;
+        if(scroller.isFinished()){
+            scroller.abortAnimation();
+        }
     }
 
     public void loopMode(){
         curLine = 0;
         nextTime = 0;
+        scrollTo(0,0);
+        scroller.abortAnimation();
+        scroller = null;
+        scroller = new OverScroller(context);
     }
 
     public void setLrc(String lrc) {
@@ -230,12 +274,16 @@ public class MyLrcView extends View {
                 if(time>=lineList.get(i).getTime() && time<lineList.get(i+1).getTime()){
                     curLine = i;
                     nextTime = lineList.get(i+1).getTime();
+//                    scrollBy(0, (int)(textSizeSec+dividerHeight));
+                    scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0,  (int)(textSizeSec+dividerHeight));
                     invalidate();
                     break;
                 }
             }else{
                 curLine = i;
                 nextTime = lineList.get(i).getTime() + 60000;
+//                scrollBy(0, (int)(textSizeSec+dividerHeight));
+                scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0,  (int)(textSizeSec+dividerHeight));
                 invalidate();
             }
         }
