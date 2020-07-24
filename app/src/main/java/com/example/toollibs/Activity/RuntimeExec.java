@@ -8,6 +8,11 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class RuntimeExec {
+    public static final String INSTALL = "pm install -rl ";
+    public static final String UNINSTALL = "pm uninstall ";
+    public static final String AM = "am start ";
+    public static final String CP = "cp ";
+
     private static volatile RuntimeExec instance;
     private Runtime runtime = Runtime.getRuntime();
 
@@ -52,6 +57,33 @@ public class RuntimeExec {
         }
     }
 
+    public void executeRootCommand(String command) {
+        Process process = null;
+        DataOutputStream os = null;
+
+        try {
+            process = Runtime.getRuntime().exec("su");
+            os = new DataOutputStream(process.getOutputStream());
+            os.writeBytes(command);
+            os.writeBytes("\n");
+            os.flush();
+            os.writeBytes("exit\n");
+            os.flush();
+            process.waitFor();
+            return;
+        } catch (Exception var14) {
+            var14.printStackTrace();
+        } finally {
+            try {
+                if (os != null) {
+                    os.close();
+                }
+                process.destroy();
+            } catch (Exception var13) {
+            }
+        }
+    }
+
     public static void takeScreenShot(String file) {
         Process process = null;
         DataOutputStream os = null;
@@ -70,13 +102,10 @@ public class RuntimeExec {
                 if (os != null) {
                     os.close();
                 }
-
                 process.destroy();
             } catch (Exception var13) {
             }
-
         }
-
     }
 
     private InputStream executeCommandGetInputStream(String... command) {
@@ -110,7 +139,6 @@ public class RuntimeExec {
             } catch (IOException var3) {
                 var3.printStackTrace();
             }
-
         }
     }
 }

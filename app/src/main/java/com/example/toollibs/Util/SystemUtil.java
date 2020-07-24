@@ -75,8 +75,7 @@ public class SystemUtil {
     }
 
     //======================screen cap===========================
-    public static void screenCap(Activity activity, String fileName)
-    {
+    public static void screenCap(Activity activity, String fileName){
         View dView = activity.getWindow().getDecorView();
         dView.setDrawingCacheEnabled(true);
         dView.buildDrawingCache();
@@ -413,40 +412,6 @@ public class SystemUtil {
         //startForeground(id, notification);
     }
 
-
-
-    //===========================================volume setting==========================================
-    public static void bootResetVolume(Context context) {
-        AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        if (manager != null) {
-            int volume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            try {
-                Thread.sleep(100);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (volume != manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)) {
-                manager.adjustStreamVolume(
-                        AudioManager.STREAM_MUSIC,
-                        AudioManager.ADJUST_RAISE,
-                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                manager.adjustStreamVolume(
-                        AudioManager.STREAM_MUSIC,
-                        AudioManager.ADJUST_LOWER,
-                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-            } else {
-                manager.adjustStreamVolume(
-                        AudioManager.STREAM_MUSIC,
-                        AudioManager.ADJUST_LOWER,
-                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                manager.adjustStreamVolume(
-                        AudioManager.STREAM_MUSIC,
-                        AudioManager.ADJUST_RAISE,
-                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-            }
-        }
-    }
-
     //=================================get apk code and name===============================
     private static PackageInfo getPackageInfo(Context context){
         // 获取package管理者  需要上下文
@@ -474,6 +439,16 @@ public class SystemUtil {
             return getPackageInfo(context).getLongVersionCode();
         }
         return -1;
+    }
+
+    //==========================静默安装apk============================================
+    public static void installApkSilence(final String filePath){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RuntimeExec.getInstance().executeRootCommand(RuntimeExec.INSTALL + filePath);
+            }
+        }).start();
     }
 
     //=====================================================================================

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.SystemUtil;
+import com.example.toollibs.Util.VolumeUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,7 +94,7 @@ public class Demo_Live_Activity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                SystemUtil.bootResetVolume(getApplicationContext());
+                VolumeUtil.bootResetVolume(getApplicationContext());
             }
         }).start();
     }
