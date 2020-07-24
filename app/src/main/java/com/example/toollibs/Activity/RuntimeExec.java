@@ -21,7 +21,6 @@ public class RuntimeExec {
 
     public static RuntimeExec getInstance() {
         if (instance == null) {
-            Class var0 = RuntimeExec.class;
             synchronized(RuntimeExec.class) {
                 if (instance == null) {
                     instance = new RuntimeExec();

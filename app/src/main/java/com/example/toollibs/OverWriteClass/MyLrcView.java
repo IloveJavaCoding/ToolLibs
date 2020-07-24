@@ -171,13 +171,23 @@ public class MyLrcView extends View {
         }
     }
 
+    private float startX, startY;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
+                startX = event.getX();
+                startY = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
+                float y = getY();
+                if(Math.abs(y-startY) > 10){//下拉
+                    scrollBy(0, (int)(startY-y));
+                }
+
+                startX = event.getX();
+                startY = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
                 break;

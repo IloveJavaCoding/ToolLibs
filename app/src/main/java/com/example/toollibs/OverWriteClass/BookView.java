@@ -199,7 +199,7 @@ public class BookView extends View {
     private void drawMode1(Canvas canvas) {
         firstIndex = (int) ((curHeight- padTop - padValue)/(textSize+dividerHeight));
         Log.i(TAG, "SLIP: drawing.....curHeight: " + curHeight + " offset: " + offset);
-        for(int i=0; i<rows; i++){
+        for(int i=0; i<rows+3; i++){
             canvas.drawText(lines.get(i+firstIndex), padValue,  curHeight + padTop + padValue + (i)*(textSize+dividerHeight), paint);
         }
     }
