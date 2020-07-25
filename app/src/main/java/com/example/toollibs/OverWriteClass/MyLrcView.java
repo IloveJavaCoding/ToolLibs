@@ -59,6 +59,7 @@ public class MyLrcView extends View {
     private float padValue;//padding
 
     private boolean isPlaying = false;
+    private boolean isDown = false;
     private Bitmap background;
     private OverScroller scroller;
     private static final String DEFAULT_TEXT = "暂无歌词，快去下载吧！";
@@ -139,6 +140,12 @@ public class MyLrcView extends View {
             return;
         }
 
+        //画选择线
+        if(isPlaying && isDown){
+            float baseLine = centerY+getScrollY();
+            canvas.drawLine(padValue, baseLine, viewWidth-padValue, baseLine, mainPaint);
+        }
+
         for(int i=0; i<lineList.size(); i++){
             if(curLine==i){
                 canvas.drawText(lineList.get(i).lrc, getStartX(lineList.get(i).lrc, mainPaint), centerY + i * (textSizeSec+dividerHeight), mainPaint);
@@ -166,9 +173,9 @@ public class MyLrcView extends View {
         float y;
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
+                isDown = true;
                 oldY = event.getY();
                 startY = event.getY();
-                Log.i(TAG, "startY: " + startY);
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.i(TAG, "scrollY: " + getScrollY());
@@ -185,6 +192,7 @@ public class MyLrcView extends View {
                 startY = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
+                isDown = false;
                 if(isPlaying){
                     y = event.getY();
                     calculateCurLine(oldY-y);
@@ -196,12 +204,12 @@ public class MyLrcView extends View {
     }
 
     private void calculateCurLine(float y) {
-        Log.i(TAG, "cur y: " + y);
-        int offLine = (int)(Math.abs(y) / (textSizeSec + dividerHeight));
+        float offLine = ((Math.abs(y)-textSizeSec) / (textSizeSec + dividerHeight)) * 1.0f;
+        Log.i(TAG, "off line: " + offLine);
         if(y>0){
-            curLine = curLine + offLine + 1;
+            curLine = (int) (curLine + offLine + 1);
         }else{
-            curLine = curLine - offLine - 1;
+            curLine = (int) (curLine - offLine - 1);
         }
 
         if(curLine>lineList.size()-1){
@@ -209,10 +217,33 @@ public class MyLrcView extends View {
         }else if(curLine<0){
             curLine = 0;
         }
-        Log.i(TAG, "curLine: " + curLine);
+        //跳到前面时需要
+        if(y<0){
+            nextTime = lineList.get(curLine+1).getTime();
+        }
+
         if(curLine<lineList.size()-1){
             long time = lineList.get(curLine).getTime();
             EventBus.getDefault().post(new RefershLrcLine(time));
+        }
+    }
+
+    private int fourOutFiveIn(float a, boolean convert){
+        int temp = (int) (a*10);
+        int m = temp % 10;
+        int out = temp/10;
+        if(convert){
+            if(m<5){
+                return out+1;
+            }else {
+                return out;
+            }
+        }else{
+            if(m>5){
+                return out+1;
+            }else {
+                return out;
+            }
         }
     }
 
@@ -315,27 +346,27 @@ public class MyLrcView extends View {
     }
 
     public void seekTo(long time){
-        if(time<nextTime){
+        if(time<lineList.get(curLine).getTime()){//往回跳
+            //
+        }else if(time<nextTime){
             return;
         }
-
-//        if(getScrollY()> (curLine*(textSizeSec+dividerHeight)) || getScrollY()<((curLine-1)*(textSizeSec+dividerHeight))){
-//            handler.sendEmptyMessage(0);
-//        }
 
         for(int i=0; i<lineList.size(); i++){
             if(i<lineList.size()-1){
                 if(time>=lineList.get(i).getTime() && time<lineList.get(i+1).getTime()){
+                    int temp = i - curLine;
                     curLine = i;
                     nextTime = lineList.get(i+1).getTime();
-                    scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0,  (int)(textSizeSec+dividerHeight));
+                    scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0,  (int)(textSizeSec+dividerHeight)*temp);
                     invalidate();
                     break;
                 }
-            }else{
+            }else{//last line
+                int temp = i - curLine;
                 curLine = i;
                 nextTime = lineList.get(i).getTime() + 60000;
-                scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0,  (int)(textSizeSec+dividerHeight));
+                scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0,  (int)(textSizeSec+dividerHeight)*temp);
                 invalidate();
             }
         }
