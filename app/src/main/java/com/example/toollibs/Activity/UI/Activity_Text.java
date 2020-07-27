@@ -147,7 +147,7 @@ public class Activity_Text extends AppCompatActivity {
         horizontal.setTextSize(20);
         horizontal.setTextColor(Color.YELLOW);
         horizontal.setBackgroundColor(Color.BLACK);
-        horizontal.setSpeed(5);
+        horizontal.setSpeed(3);
         horizontal.setContents(DEFAULT_TEXT2);
     }
 
