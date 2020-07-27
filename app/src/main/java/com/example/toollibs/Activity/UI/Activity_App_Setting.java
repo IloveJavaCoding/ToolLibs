@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.Activity.Config.SettingData;
@@ -27,6 +28,7 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
     private RadioButton rbAutoStart;
     private LinearLayout layoutReboot;
     private Spinner spLanguage;
+    private TextView tvVersion;
 
     private String[] language;
 
@@ -41,18 +43,13 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
     }
 
     private void init() {
-        view = findViewById(R.id.scrollView);
         rbAutoStart = findViewById(R.id.rbAutoStart);
         layoutReboot = findViewById(R.id.layoutReboot);
         spLanguage = findViewById(R.id.spLanguage);
+        tvVersion = findViewById(R.id.tvVersionCode);
     }
 
     private void setData() {
-        //use bitmap set background;
-        Bitmap bitmap = BitmapUtil.getBitmapFromRes(this, R.drawable.img_bg_app3);
-        //bitmap = BitmapUtil.blurBitmap(this, bitmap, 24);
-        view.setBackground(new BitmapDrawable(getResources(), bitmap));
-
         rbAutoStart.setChecked(SettingData.getBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUTO_START_KEY, Constant.AUTO_START_DEFAULT));
 
         language = Constant.LANGUAGE;
@@ -60,6 +57,8 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
         strAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spLanguage.setAdapter(strAdapter);
         spLanguage.setSelection(SettingData.getInt(this, Constant.CONFIG_FILE, Constant.LANGUAGE_KEY, Constant.LANGUAGE_DEFAULT), true);
+
+        tvVersion.setText(SystemUtil.getVersionName(this));
     }
 
     private void setListener() {
@@ -110,23 +109,5 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
                 }
             }
         });
-
-//        new AlertDialog.Builder(this)
-//                .setTitle("提示")
-//                .setMessage("确认重启么？")
-//                .setPositiveButton("重启", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Log.d("tag", "reboot...");
-//                        SystemUtil.reBoot(getApplicationContext());
-//                    }
-//                })
-//                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        // 取消当前对话框
-//                        dialog.cancel();
-//                    }
-//                }).show();
     }
 }

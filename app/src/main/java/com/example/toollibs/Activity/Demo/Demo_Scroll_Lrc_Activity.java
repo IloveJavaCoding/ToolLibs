@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.toollibs.Activity.Events.RefershLrcLine;
+import com.example.toollibs.Activity.Events.SentTotalLineEvent;
 import com.example.toollibs.OverWriteClass.LrcView;
 import com.example.toollibs.OverWriteClass.MyLrcView;
 import com.example.toollibs.R;
@@ -24,6 +26,9 @@ import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.DateUtil;
 import com.example.toollibs.Util.FileUtil;
 import com.example.toollibs.Util.MediaUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,6 +50,9 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_demo_scroll_lrc);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         setLayout();
         init();
         setData();
@@ -74,7 +82,6 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.youth_meng);
         lrcView.setLrc(FileUtil.readResource(this, R.raw.shaonian, "utf-8"));
-//        lrcView.setBackground(BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran));
         lrcView.seekTo(0);
     }
 
@@ -126,10 +133,12 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
                     stopTimer();
                     mediaPlayer.pause();
                     imgPlay.setImageResource(R.drawable.ic_remote_view_play);
+                    lrcView.setPlaying(false);
                 }else{
                     mediaPlayer.start();
                     imgPlay.setImageResource(R.drawable.ic_remote_view_pause);
                     startTimer();
+                    lrcView.setPlaying(true);
                 }
             }
         });
@@ -156,8 +165,9 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 mediaPlayer.seekTo(0);
-                lrcView.loopMode();
                 mediaPlayer.start();
+                lrcView.loopMode();
+                lrcView.setPlaying(true);
             }
         });
     }
@@ -167,11 +177,15 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             seekBar.setProgress(msg.what);
-            //lrcView.onProgress(msg.what);
             lrcView.seekTo(msg.what);
             tvCurTime.setText(DateUtil.FormatTime(msg.what));
         }
     };
+
+    @Subscribe
+    public void onEventMainThread(RefershLrcLine event){
+        mediaPlayer.seekTo((int)event.getTime());
+    }
 
     @Override
     protected void onPause() {
@@ -183,6 +197,9 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
         mediaPlayer.reset();
         mediaPlayer.release();
         stopTimer();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
         super.onDestroy();
     }
 }
