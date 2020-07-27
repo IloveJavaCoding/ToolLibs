@@ -88,7 +88,6 @@
                     android:paddingBottom="@dimen/padding_3"
                     android:hint="enter"
                     android:singleLine="true"
-                    android:ellipsize="middle"
                     android:textCursorDrawable="@drawable/edit_text_cursor"
                     android:background="@drawable/edit_text_frame"/>
             </LinearLayout>

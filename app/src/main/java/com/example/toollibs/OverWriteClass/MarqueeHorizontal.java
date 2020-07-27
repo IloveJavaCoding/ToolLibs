@@ -130,7 +130,7 @@ public class MarqueeHorizontal extends View implements Runnable {
                 scrollTo(0,0);
             }
             try {
-                Thread.sleep(20);
+                Thread.sleep(50);
                 scrollBy(speed, 0);
                 postInvalidate();
             } catch (InterruptedException e) {
