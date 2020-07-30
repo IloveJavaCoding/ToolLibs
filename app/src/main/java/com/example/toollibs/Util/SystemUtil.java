@@ -18,6 +18,7 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.TrafficStats;
 import android.os.Build;
 import android.os.Environment;
 import android.os.PowerManager;
@@ -25,6 +26,7 @@ import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
@@ -37,8 +39,10 @@ import android.widget.Toast;
 import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.Activity.RuntimeExec;
 import com.example.toollibs.R;
+import com.example.toollibs.SelfClass.FlowInfo;
 
 import java.io.File;
+import java.util.List;
 import java.util.Locale;
 
 public class SystemUtil {
@@ -439,6 +443,34 @@ public class SystemUtil {
             return getPackageInfo(context).getLongVersionCode();
         }
         return -1;
+    }
+
+    //==========================获取APP当月流量消耗情况================================
+    public static FlowInfo getAppFlowInfo(String pakageName, Context context) {
+        PackageManager pms = context.getPackageManager();
+        List<PackageInfo> packinfos = pms.getInstalledPackages(PackageManager.GET_PERMISSIONS);
+
+        FlowInfo flowInfo = new FlowInfo();
+        for (PackageInfo packinfo : packinfos) {
+            String packageName = packinfo.packageName;
+            if (!TextUtils.isEmpty(packageName)) {
+                if (packageName.equals(pakageName)) {
+                    //用于封装具有Internet权限的应用程序信息
+                    //封装应用信息
+                    flowInfo.setPackageName(packinfo.packageName);
+                    flowInfo.setAppNAme(packinfo.applicationInfo.loadLabel(pms).toString());
+                    //获取到应用的uid（user id）
+                    int uid = packinfo.applicationInfo.uid;
+                    //TrafficStats对象通过应用的uid来获取应用的下载、上传流量信息
+                    //发送的 上传的流量byte
+                    flowInfo.setUpKb(TrafficStats.getUidRxBytes(uid));
+                    //下载的流量 byte
+                    flowInfo.setDownKb(TrafficStats.getUidTxBytes(uid));
+                    break;
+                }
+            }
+        }
+        return flowInfo;
     }
 
     //==========================静默安装apk============================================
