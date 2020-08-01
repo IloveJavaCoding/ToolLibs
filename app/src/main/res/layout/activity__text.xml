@@ -103,6 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:ellipsize="middle"
                     android:singleLine="true"
                     android:paddingLeft="@dimen/padding_5"
@@ -113,7 +114,8 @@
                 <Button
                     android:id="@+id/bEnter"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/margin_5"
                     android:text="Enter"
                     android:textColor="@color/colorWhite"

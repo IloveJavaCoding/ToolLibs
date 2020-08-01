@@ -32,6 +32,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.example.toollibs.OverWriteClass.EditTextDelIcon;
 import com.example.toollibs.OverWriteClass.MarqueeHorizontal;
 import com.example.toollibs.OverWriteClass.MarqueeVertical;
 import com.example.toollibs.OverWriteClass.SelfPasswordTransformationMethod;
@@ -46,7 +47,8 @@ import java.util.stream.Collectors;
 public class Activity_Text extends AppCompatActivity {
     private TextView tvLamp, tvTest;
     private TextView tvTest1, tvTest2, tvTest3, tvTest4, tvTest5, tvTest6, tvTest7, tvTest8;
-    private EditText etPassword, etEnter, etDel;
+    private EditText etPassword, etEnter;
+    private EditTextDelIcon etDel;
     private Button bEnter;
     private ToggleButton tbControl;
     private MarqueeHorizontalText view;

@@ -22,7 +22,7 @@ public class EditTextDelIcon extends android.support.v7.widget.AppCompatEditText
 
     private void Init() {
         //set delete icon;
-        icon = context.getResources().getDrawable(R.drawable.icon_del);
+        icon = context.getResources().getDrawable(R.drawable.ic_del_icon);
         //set text change listener;
         addTextChangedListener(new TextWatcher() {
             @Override
@@ -58,7 +58,7 @@ public class EditTextDelIcon extends android.support.v7.widget.AppCompatEditText
             int eventY = (int) event.getRawY();
             Rect rect = new Rect();
             getGlobalVisibleRect(rect);
-            rect.left = rect.right - 30;//size
+            rect.left = rect.right - 24;//图标宽度
             if (rect.contains(eventX, eventY)) {
                 setText("");//clear contents
             }
