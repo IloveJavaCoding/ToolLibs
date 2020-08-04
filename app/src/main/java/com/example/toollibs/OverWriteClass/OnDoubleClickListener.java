@@ -4,19 +4,19 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class OnDoubleClickListener implements View.OnTouchListener{
-    private int count = 0;
-    private long firstClick = 0;
-    private long secondClick = 0;
-    private final int duration = 500;
+    private int count = 0;//点击次数
+    private long firstClick = 0;//第一次点击时间
+    private long secondClick = 0;//第二次点击时间
+    private final int duration = 500;//预设两次点击最多间隔时间
 
-    private DoubleClickCallback mDoubleClickCallback;
+    private Callback callback;
 
-    public interface DoubleClickCallback{
+    public interface Callback{
         void onDoubleClick();
     }
 
-    public OnDoubleClickListener(DoubleClickCallback doubleClickCallback) {
-        mDoubleClickCallback = doubleClickCallback;
+    public OnDoubleClickListener(Callback callback) {
+        this.callback = callback;
     }
 
     @Override
@@ -27,21 +27,22 @@ public class OnDoubleClickListener implements View.OnTouchListener{
                 firstClick = System.currentTimeMillis();
             }else if (count == 2){
                 secondClick = System.currentTimeMillis();
-                if (secondClick - firstClick<duration){
-                    if (mDoubleClickCallback!=null){
-                        mDoubleClickCallback.onDoubleClick();
+                if (secondClick - firstClick<=duration){
+                    if (callback!=null){
+                        callback.onDoubleClick();//调用重写方法
                     }
                     count = 0;
                     firstClick = 0;
                     return true;
                 }else {
+                    //间隔时间超过设定值，重新计算
                     firstClick = secondClick;
                     count = 1;
                 }
                 secondClick = 0;
             }
         }
-        //最后要返回false 不然单击事件会被屏蔽掉
+        //最后要返回false 否则单击事件会被屏蔽掉
         return false;
     }
 }

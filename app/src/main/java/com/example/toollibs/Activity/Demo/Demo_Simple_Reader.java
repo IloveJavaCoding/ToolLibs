@@ -2,7 +2,6 @@ package com.example.toollibs.Activity.Demo;
 
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,13 +11,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 
 import com.example.toollibs.Activity.Adapters.GridView_BookAdapter;
 import com.example.toollibs.Activity.Bean.Books;
 import com.example.toollibs.Activity.DataBase.DBHelper;
 import com.example.toollibs.R;
-import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.ConvertUtil;
 import com.example.toollibs.Util.FileUtil;
 import com.example.toollibs.Util.IntentUtil;
