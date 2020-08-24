@@ -20,6 +20,49 @@ public class SettingData {
     public static final String AUDIO_DIR_KEY = "audio_dir";
     public static final String READ_MODE_KEY = "read_mode";
 
+    //url
+    public static String getUrl(Context context) {
+        return getString(context, URL_FILE, URL_KEY, Constant.URL_DEFAULT);
+    }
+
+    public static void saveUrl(Context context, String value) {
+        setString(context, URL_FILE, URL_KEY, value);
+    }
+
+    //read mode
+    public static int getReadMode(Context context) {
+        return getInt(context, CONFIG_FILE, READ_MODE_KEY, Constant.READ_MODE_DEFAULT);
+    }
+
+    public static void saveReadMode(Context context, int value) {
+        setInt(context, CONFIG_FILE, READ_MODE_KEY, value);
+    }
+
+    //alarm
+    public static String getAlarmTime(Context context) {
+        return getString(context, CONFIG_FILE, ALARM_TIME_KEY, Constant.ALARM_TIME_DEFAULT);
+    }
+
+    public static void saveAlarmTime(Context context, String value) {
+        setString(context, CONFIG_FILE, ALARM_TIME_KEY, value);
+    }
+
+    public static String getAlarmSound(Context context) {
+        return getString(context, CONFIG_FILE, ALARM_SOUND_KEY, Constant.ALARM_SOUND_DEFAULT);
+    }
+
+    public static void saveAlarmSound(Context context, String value) {
+        setString(context, CONFIG_FILE, ALARM_SOUND_KEY, value);
+    }
+
+    public static boolean getAlarmState(Context context) {
+        return getBoolean(context, CONFIG_FILE, ALARM_STATE_KEY, Constant.ALARM_STATE_DEFAULT);
+    }
+
+    public static void saveAlarmState(Context context, boolean value) {
+        setBoolean(context, CONFIG_FILE, ALARM_STATE_KEY, value);
+    }
+
     //setting language index
     public static int getLanguageIndex(Context context) {
         return getInt(context, CONFIG_FILE, LANGUAGE_KEY, Constant.LANGUAGE_DEFAULT);
@@ -27,6 +70,15 @@ public class SettingData {
 
     public static void saveLanguageIndex(Context context, int value) {
         setInt(context, CONFIG_FILE, LANGUAGE_KEY, value);
+    }
+
+    //audio dir
+    public static String getAudioDir(Context context) {
+        return getString(context, CONFIG_FILE, AUDIO_DIR_KEY, Constant.AUDIO_DIR_DEFAULT);
+    }
+
+    public static void saveAudioDir(Context context, String value) {
+        setString(context, CONFIG_FILE, AUDIO_DIR_KEY, value);
     }
 
     //setting auto start
@@ -37,8 +89,6 @@ public class SettingData {
     public static void saveAutoStart(Context context, boolean value) {
         setBoolean(context, CONFIG_FILE, AUTO_START_KEY, value);
     }
-
-    //
 
     private static SharedPreferences getShared(Context context, String fileName){
         return context.getSharedPreferences(fileName, Constant.MODE_PRIVATE);

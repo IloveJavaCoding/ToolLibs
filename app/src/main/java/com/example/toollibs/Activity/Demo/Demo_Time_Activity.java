@@ -78,11 +78,11 @@ public class Demo_Time_Activity extends AppCompatActivity {
         thread.start();
 
         //read history setting
-        tvAlarm.setText(SettingData.getString(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_TIME_KEY, Constant.ALARM_TIME_DEFAULT));
-        boolean state = SettingData.getBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_STATE_KEY, Constant.ALARM_STATE_DEFAULT);
+        tvAlarm.setText(SettingData.getAlarmTime(this));
+        boolean state = SettingData.getAlarmState(this);
         rbStart.setEnabled(state);
         rbStart.setChecked(state);
-        soundName = SettingData.getString(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_SOUND_KEY, Constant.ALARM_SOUND_DEFAULT);
+        soundName = SettingData.getAlarmSound(this);
         tvSound.setText(getSoundName(soundName));
     }
 
@@ -102,10 +102,10 @@ public class Demo_Time_Activity extends AppCompatActivity {
                     int[] temp = DateUtil.getYMDHMS_Date(date);
                     activeAlarm(temp[2],temp[3],temp[4]);
                     Log.d("tag", "Start alarm...");
-                    SettingData.setBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_STATE_KEY, true);
+                    SettingData.saveAlarmState(getApplicationContext(), true);
                 }else{
                     alarmManager.cancel(pendingIntent);
-                    SettingData.setBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_STATE_KEY, false);
+                    SettingData.saveAlarmState(getApplicationContext(), false);
                 }
             }
         });
@@ -127,7 +127,7 @@ public class Demo_Time_Activity extends AppCompatActivity {
                 alarmTime = DateUtil.Date2String(time, "yyyy-MM-dd HH:mm");
                 tvAlarm.setText(alarmTime);
                 Log.d("tag", "save time......");
-                SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_TIME_KEY, alarmTime);
+                SettingData.saveAlarmTime(getApplicationContext(), alarmTime);
                 rbStart.setEnabled(true);
             }
         },DateUtil.getCurTime(), maxTime);
@@ -193,7 +193,7 @@ public class Demo_Time_Activity extends AppCompatActivity {
             soundName = IntentUtil.getRealPath4Uri(this, uri, contentResolver);
             Log.d("tag", "choose sound " + soundName);
             tvSound.setText(getSoundName(soundName));
-            SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.ALARM_SOUND_KEY, soundName);
+            SettingData.saveAlarmSound(getApplicationContext(), soundName);
         }
 
         super.onActivityResult(requestCode, resultCode, data);

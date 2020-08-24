@@ -53,6 +53,7 @@ public class Constant {
     public static final boolean ALARM_STATE_DEFAULT = false;
     public static final String ALARM_SOUND_DEFAULT = "Default";
     public static final String AUDIO_DIR_DEFAULT = "/storage/emulated/0/music";
+    public static final String URL_DEFAULT = "https://www.sohu.com";
 
 
     //action

@@ -15,7 +15,7 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(TextUtils.isEmpty(intent.getAction())) return;
-        if(SettingData.getBoolean(context, Constant.CONFIG_FILE, Constant.AUTO_START_KEY, Constant.AUTO_START_DEFAULT)){
+        if(SettingData.isAutoStart(context)){
             //延迟启动activity
             Message obMessage = handler.obtainMessage();
             obMessage.obj = context;

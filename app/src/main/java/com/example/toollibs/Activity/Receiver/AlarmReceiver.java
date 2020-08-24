@@ -24,7 +24,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         this.context = context;
         showNotification(context, intent);
-        SettingData.setBoolean(context, Constant.CONFIG_FILE, Constant.ALARM_STATE_KEY, false);
+        SettingData.saveAlarmState(context, false);
         //handler.sendEmptyMessage(AUTO_CLOSE_CODE);
     }
 

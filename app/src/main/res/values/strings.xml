@@ -4,6 +4,28 @@
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
 
+    <!-- 主界面 -->
+    <string name="main_text">文本</string>
+    <string name="main_button">按钮</string>
+    <string name="main_view">视图</string>
+    <string name="main_selector">选择器</string>
+    <string name="main_data_show">数据显示</string>
+    <string name="main_bar">进度条</string>
+
+    <string name="main_dialog">对话框</string>
+    <string name="main_intent">跳转</string>
+    <string name="main_animator">动画</string>
+    <string name="main_service">服务</string>
+    <string name="main_database">数据库</string>
+    <string name="main_demo">案例</string>
+    <string name="main_setting">设置</string>
+
+    <!-- 设置页 -->
+    <string name="setting_auto_launch">开机自启</string>
+    <string name="setting_reboot">应用重启</string>
+    <string name="setting_language">显示语言</string>
+    <string name="setting_version">版本号码</string>
+
     <string-array name="Date">
         <item>Monday</item>
         <item>Tuesday</item>

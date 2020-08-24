@@ -97,7 +97,7 @@ public class ReaderActivity extends AppCompatActivity {
     private void setData() {
         tvName.setText(book.getName());
         bookView.setFilePath(book.getPath());
-        int mode = SettingData.getInt(this, Constant.CONFIG_FILE, Constant.READ_MODE_KEY, Constant.READ_MODE_DEFAULT);
+        int mode = SettingData.getReadMode(this);
         bookView.setReadMode(mode);
         bookView.setTag(book.getTag());
         Log.d(TAG, "Last time read: " + book.getTag());
@@ -150,11 +150,11 @@ public class ReaderActivity extends AppCompatActivity {
                 switch (i){
                     case R.id.rbSlip:
                         bookView.toSlipMode();
-                        SettingData.setInt(getApplicationContext(), Constant.CONFIG_FILE, Constant.READ_MODE_KEY, BookView.MODE_SLIP);
+                        SettingData.saveReadMode(getApplicationContext(), BookView.MODE_SLIP);
                         break;
                     case R.id.rbPage:
                         bookView.toPageMode();
-                        SettingData.setInt(getApplicationContext(), Constant.CONFIG_FILE, Constant.READ_MODE_KEY, BookView.MODE_PAGE);
+                        SettingData.saveReadMode(getApplicationContext(), BookView.MODE_PAGE);
                         break;
                 }
             }

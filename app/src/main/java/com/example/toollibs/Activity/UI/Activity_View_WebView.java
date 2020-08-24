@@ -35,7 +35,7 @@ public class Activity_View_WebView extends AppCompatActivity {
     private Button bSearch;
     private List<String> list;
 
-    private static final String DEFAULT_URL = "https://www.sohu.com";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,7 @@ public class Activity_View_WebView extends AppCompatActivity {
 
     private void getData() {
         list = new ArrayList<>();
-        String cache = SettingData.getString(getApplicationContext(), Constant.URL_FILE, Constant.URL_KEY, DEFAULT_URL);
+        String cache = SettingData.getUrl(this);
         if(!cache.equals("")){
             list.add(cache);
         }
@@ -73,14 +73,14 @@ public class Activity_View_WebView extends AppCompatActivity {
                 String url = input.getText().toString();
                 url = url.toLowerCase();
                 if(url.equals("")){
-                    url=DEFAULT_URL;
+                    url=Constant.URL_DEFAULT;
                 }
 
                 webView.getSettings().setJavaScriptEnabled(true);
                 webView.setWebChromeClient(new MyChromeClient());
                 webView.setWebViewClient(new MyViewClient());
                 webView.loadUrl(url);
-                SettingData.setString(getApplicationContext(), Constant.URL_FILE, Constant.URL_KEY, url);
+                SettingData.saveUrl(getApplicationContext(), url);
             }
         });
     }

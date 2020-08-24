@@ -87,7 +87,7 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
 
     private void setData() {
         songs = new ArrayList<>();
-        dir =  SettingData.getString(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUDIO_DIR_KEY, Constant.AUDIO_DIR_DEFAULT);
+        dir =  SettingData.getAudioDir(this);
         readSongs();
 
         adapter = new ListView_Player_Adapter(this, songs);
@@ -201,7 +201,7 @@ public class Demo_Simple_Player_Activity extends AppCompatActivity implements Vi
                 //Log.d(TAG, "selector dir: " + path.substring(0,path.lastIndexOf("/")));
                 //only choose the first one
                 dir = temp.get(0);
-                SettingData.setString(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUDIO_DIR_KEY, dir);
+                SettingData.saveAudioDir(getApplicationContext(), dir);
 
                 //
                 readSongs();
