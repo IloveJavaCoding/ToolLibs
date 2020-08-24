@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主界面 -->
+    <string name="main_text">Text</string>
+    <string name="main_button">Button</string>
+    <string name="main_view">View</string>
+    <string name="main_selector">Selector</string>
+    <string name="main_data_show">Data Show</string>
+    <string name="main_bar">Bar</string>
+
+    <string name="main_dialog">Dialog</string>
+    <string name="main_intent">Intent</string>
+    <string name="main_animator">Animator</string>
+    <string name="main_service">Service</string>
+    <string name="main_database">Database</string>
+    <string name="main_demo">Demo</string>
+    <string name="main_setting">Setting</string>
+
+    <!-- 设置页 -->
+    <string name="setting_auto_launch">Auto Launch</string>
+    <string name="setting_reboot">Reboot</string>
+    <string name="setting_language">Display Language</string>
+    <string name="setting_version">Version Code</string>
+</resources>

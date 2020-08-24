@@ -7,6 +7,39 @@ import android.content.SharedPreferences;
  * use sharedPreference
  */
 public class SettingData {
+    public static final String CONFIG_FILE = "config";
+    public static final String URL_FILE = "url";
+
+    //key value
+    public static final String AUTO_START_KEY = "auto_start";
+    public static final String URL_KEY = "url_history";
+    public static final String LANGUAGE_KEY = "language";
+    public static final String ALARM_TIME_KEY = "alarm_time";
+    public static final String ALARM_STATE_KEY = "alarm_state";
+    public static final String ALARM_SOUND_KEY = "alarm_sound";
+    public static final String AUDIO_DIR_KEY = "audio_dir";
+    public static final String READ_MODE_KEY = "read_mode";
+
+    //setting language index
+    public static int getLanguageIndex(Context context) {
+        return getInt(context, CONFIG_FILE, LANGUAGE_KEY, Constant.LANGUAGE_DEFAULT);
+    }
+
+    public static void saveLanguageIndex(Context context, int value) {
+        setInt(context, CONFIG_FILE, LANGUAGE_KEY, value);
+    }
+
+    //setting auto start
+    public static boolean isAutoStart(Context context) {
+        return getBoolean(context, CONFIG_FILE, AUTO_START_KEY, Constant.AUTO_START_DEFAULT);
+    }
+
+    public static void saveAutoStart(Context context, boolean value) {
+        setBoolean(context, CONFIG_FILE, AUTO_START_KEY, value);
+    }
+
+    //
+
     private static SharedPreferences getShared(Context context, String fileName){
         return context.getSharedPreferences(fileName, Constant.MODE_PRIVATE);
     }

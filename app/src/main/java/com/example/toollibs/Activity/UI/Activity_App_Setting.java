@@ -1,6 +1,10 @@
 package com.example.toollibs.Activity.UI;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -9,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -21,16 +26,15 @@ import com.example.toollibs.Activity.Config.SettingData;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.DialogUtil;
+import com.example.toollibs.Util.LanguageHelper;
 import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_App_Setting extends AppCompatActivity implements View.OnClickListener {
-    private ScrollView view;
-    private RadioButton rbAutoStart;
+    private CheckBox cbAutoStart;
     private LinearLayout layoutReboot;
-    private Spinner spLanguage;
+    private TextView tvLanguage;
     private TextView tvVersion;
-
-    private String[] language;
+    private boolean isRegister = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,56 +44,69 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
         init();
         setData();
         setListener();
+        registerReceiver();
     }
 
     private void init() {
-        rbAutoStart = findViewById(R.id.rbAutoStart);
+        cbAutoStart = findViewById(R.id.cbAutoStart);
         layoutReboot = findViewById(R.id.layoutReboot);
-        spLanguage = findViewById(R.id.spLanguage);
+        tvLanguage = findViewById(R.id.tvLanguage);
         tvVersion = findViewById(R.id.tvVersionCode);
     }
 
     private void setData() {
-        rbAutoStart.setChecked(SettingData.getBoolean(getApplicationContext(), Constant.CONFIG_FILE, Constant.AUTO_START_KEY, Constant.AUTO_START_DEFAULT));
-
-        language = Constant.LANGUAGE;
-        ArrayAdapter<String> strAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, language);
-        strAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spLanguage.setAdapter(strAdapter);
-        spLanguage.setSelection(SettingData.getInt(this, Constant.CONFIG_FILE, Constant.LANGUAGE_KEY, Constant.LANGUAGE_DEFAULT), true);
-
+        cbAutoStart.setChecked(SettingData.isAutoStart(this));
+        tvLanguage.setText(Constant.LANGUAGE[SettingData.getLanguageIndex(this)]);
         tvVersion.setText(SystemUtil.getVersionName(this));
     }
 
     private void setListener() {
-        rbAutoStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        cbAutoStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SettingData.setBoolean(getApplicationContext(),Constant.CONFIG_FILE, Constant.AUTO_START_KEY, isChecked? true:false);
+                SettingData.saveAutoStart(getApplicationContext(), isChecked? true:false);
             }
         });
 
         layoutReboot.setOnClickListener(this);
-
-        spLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                SettingData.setInt(getApplicationContext(), Constant.CONFIG_FILE, Constant.LANGUAGE_KEY, position);
-                //update app language
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        tvLanguage.setOnClickListener(this);
     }
+
+    private void registerReceiver(){
+        if (!isRegister){
+            isRegister = true;
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(Constant.ACTION_RESET_SETTING_PAGE);
+            registerReceiver(mReceiver,filter);
+        }
+    }
+
+    private void unRegisterReceiver(){
+        if (isRegister){
+            isRegister = false;
+            unregisterReceiver(mReceiver);
+        }
+    }
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(Constant.ACTION_RESET_SETTING_PAGE.equals(action)){
+                LanguageHelper.changeLanguage(SettingData.getLanguageIndex(context));
+                //重启设置页
+                onCreate(null);
+            }
+        }
+    };
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.layoutReboot:
                 reBootDialog();
+                break;
+            case R.id.tvLanguage:
+                showLanguageDialog();
                 break;
         }
     }
@@ -109,5 +126,26 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
                 }
             }
         });
+    }
+
+    private void showLanguageDialog() {
+        DialogUtil.showListDialog(this, Constant.LANGUAGE, getString(R.string.setting_language),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(SettingData.getLanguageIndex(getApplicationContext())!=which){
+                            //change language
+                            SettingData.saveLanguageIndex(getApplicationContext(), which);
+                            sendBroadcast(new Intent(Constant.ACTION_RESET_SETTING_PAGE));
+                        }
+                        dialog.dismiss();
+                    }
+                });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unRegisterReceiver();
     }
 }

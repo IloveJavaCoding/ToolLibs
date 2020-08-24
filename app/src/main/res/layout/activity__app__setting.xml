@@ -31,11 +31,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="开机自启"
+                        android:text="@string/setting_auto_launch"
                         android:textSize="@dimen/text_size_20"/>
 
-                    <RadioButton
-                        android:id="@+id/rbAutoStart"
+                    <CheckBox
+                        android:id="@+id/cbAutoStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"/>
@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="重启应用"
+                        android:text="@string/setting_reboot"
                         android:textSize="@dimen/text_size_20"/>
 
                     <ImageView
@@ -108,14 +108,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="应用语言"
+                        android:text="@string/setting_language"
                         android:textSize="@dimen/text_size_20"/>
 
-                    <Spinner
-                        android:id="@+id/spLanguage"
+                    <TextView
+                        android:id="@+id/tvLanguage"
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"/>
-
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
                 </LinearLayout>
 
                 <View
@@ -139,7 +139,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="版本号码"
+                        android:text="@string/setting_version"
                         android:textSize="@dimen/text_size_20"/>
 
                     <TextView
