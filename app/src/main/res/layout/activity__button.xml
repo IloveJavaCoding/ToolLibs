@@ -43,7 +43,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_15"
                     android:src="@drawable/icon_image_button"/>
-
             </LinearLayout>
 
             <LinearLayout
@@ -167,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="貂蝉"
-                        android:textColor="@drawable/selector_text"/>
+                        android:textColor="@drawable/selector_text" />
 
                     <CheckBox
                         android:id="@+id/checkbox2"
