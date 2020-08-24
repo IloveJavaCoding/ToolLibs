@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 对话框 -->
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+
     <!-- 主界面 -->
     <string name="main_text">文本</string>
     <string name="main_button">按钮</string>

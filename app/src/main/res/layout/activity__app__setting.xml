@@ -115,7 +115,9 @@
                         android:id="@+id/tvLanguage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:paddingRight="@dimen/padding_5"
+                        android:textAlignment="textEnd"/>
                 </LinearLayout>
 
                 <View

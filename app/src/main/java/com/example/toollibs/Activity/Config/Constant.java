@@ -46,15 +46,14 @@ public class Constant {
     public static final int ORIENTATION_PORTRAIT = 1;
 
     //default value
-    public static final boolean AUTO_START_DEFAULT = true;
     public static final int LANGUAGE_DEFAULT = 0;
     public static final int READ_MODE_DEFAULT = 1;
-    public static final String ALARM_TIME_DEFAULT = "click to pick time";
+    public static final boolean AUTO_START_DEFAULT = true;
     public static final boolean ALARM_STATE_DEFAULT = false;
+    public static final String ALARM_TIME_DEFAULT = "click to pick time";
     public static final String ALARM_SOUND_DEFAULT = "Default";
     public static final String AUDIO_DIR_DEFAULT = "/storage/emulated/0/music";
     public static final String URL_DEFAULT = "https://www.sohu.com";
-
 
     //action
     public static final String ACTION_RESET_SOUND = "com.example.ToolLibs.reset_sound";

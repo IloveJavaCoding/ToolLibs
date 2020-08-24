@@ -103,7 +103,7 @@
                     <RadioButton
                         android:id="@+id/rButton3"
                         android:layout_width="50dp"
-                        android:layout_height="6dp"
+                        android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_10"
                         android:background="@drawable/selector_check_bg"
                         android:button="@null"
