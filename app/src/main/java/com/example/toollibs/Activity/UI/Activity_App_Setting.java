@@ -44,7 +44,7 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
         init();
         setData();
         setListener();
-        registerReceiver();
+//        registerReceiver();
     }
 
     private void init() {
@@ -87,6 +87,7 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
             unregisterReceiver(mReceiver);
         }
     }
+
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -145,7 +146,10 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
                         if(SettingData.getLanguageIndex(getApplicationContext())!=which){
                             //change language
                             SettingData.saveLanguageIndex(getApplicationContext(), which);
-                            sendBroadcast(new Intent(Constant.ACTION_RESET_SETTING_PAGE));
+//                            sendBroadcast(new Intent(Constant.ACTION_RESET_SETTING_PAGE));
+                            LanguageHelper.changeLanguage(SettingData.getLanguageIndex(getApplicationContext()));
+                            //重启应用
+                            SystemUtil.restartApp(getApplicationContext());
                         }
                         dialog.dismiss();
                     }
@@ -155,6 +159,6 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unRegisterReceiver();
+//        unRegisterReceiver();
     }
 }
