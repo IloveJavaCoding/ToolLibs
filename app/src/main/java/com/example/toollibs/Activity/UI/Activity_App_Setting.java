@@ -92,12 +92,22 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if(Constant.ACTION_RESET_SETTING_PAGE.equals(action)){
+                Log.i("TAG", "change language...");
                 LanguageHelper.changeLanguage(SettingData.getLanguageIndex(context));
-                //重启设置页
-                onCreate(null);
+
+                //重启应用
+                SystemUtil.restartApp(getApplicationContext());
+                //重启设置页：无法改变其他activities的显示语言
+//                flush();
             }
         }
     };
+
+    private void flush(){
+        finish();
+        Intent intent = new Intent(this, Activity_App_Setting.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onClick(View view) {
@@ -120,8 +130,7 @@ public class Activity_App_Setting extends AppCompatActivity implements View.OnCl
                         dialogInterface.dismiss();
                         break;
                     case DialogInterface.BUTTON_POSITIVE:
-                        Log.d("tag", "reboot...");
-                        SystemUtil.reBoot(getApplicationContext());
+                        SystemUtil.restartApp(getApplicationContext());
                         break;
                 }
             }

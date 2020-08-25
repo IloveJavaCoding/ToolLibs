@@ -97,11 +97,20 @@ public class SystemUtil {
     }
 
     //===============================reboot========================================
+    //重启应用
     public static void reBoot(Context context){
         PowerManager pManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         pManager.reboot("recovery");
     }
 
+    //重启应用
+    public static void restartApp(Context context) {
+        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }
+
+    //重启系统
     public static void reBoot(){
         String cmd = "reboot";
         RuntimeExec.getInstance().executeCommand(cmd);
@@ -366,7 +375,6 @@ public class SystemUtil {
         //5. send notification
         manager.notify(id,notification);
     }
-
 
     public static void sendSelfViewNotification(Context context, String channelId, Intent intent, int id, RemoteViews small, RemoteViews big){
         //1. get notification service
