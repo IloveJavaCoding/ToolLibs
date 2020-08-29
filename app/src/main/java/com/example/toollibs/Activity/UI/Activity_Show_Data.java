@@ -83,7 +83,7 @@ public class Activity_Show_Data extends AppCompatActivity implements ViewPager.O
                         viewPager.setCurrentItem(2);
                         break;
                 }
-                //transaction.commit();
+//                transaction.commit();
             }
         });
     }
