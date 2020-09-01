@@ -146,7 +146,7 @@ public class Activity_View_MapView extends AppCompatActivity implements AMapLoca
                             + aMapLocation.getDistrict() + ""
                             + aMapLocation.getStreet() + ""
                             + aMapLocation.getStreetNum());
-                    SystemUtil.ShowToast(getApplicationContext(), buffer.toString());
+                    SystemUtil.showToast(getApplicationContext(), buffer.toString());
                     isFirstLoc = false;
                 }
 

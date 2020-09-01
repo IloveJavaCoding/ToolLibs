@@ -38,7 +38,7 @@ public class InternetUtil {
 
     public static void DownloadImgFromUrl(String imgUrl, String path, String fileName) {
         Bitmap bitmap = GetBitmapFromUrl((imgUrl));
-        BitmapUtil.Bitmap2Local(bitmap, path, fileName);
+        BitmapUtil.bitmap2Local(bitmap, path, fileName);
     }
 
     //download file from url

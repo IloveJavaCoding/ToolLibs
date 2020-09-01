@@ -2,14 +2,17 @@ package com.example.toollibs.Util;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.TypedValue;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ConvertUtil {
-    //
+    //字符串转换为16进制字符串
     public static String string2Hex(String str){
         String out = "";
         for(int i=0;i<str.length();i++){
@@ -19,6 +22,35 @@ public class ConvertUtil {
         }
 
         return out;
+    }
+
+    //转换十六进制编码为字符串
+    public static String toStringHex(String str) {
+        if ("0x".equals(str.substring(0, 2)))
+        {
+            str = str.substring(2);
+        }
+        byte[] baKeyword = new byte[str.length() / 2];
+        for (int i = 0; i < baKeyword.length; i++)
+        {
+            try
+            {
+                baKeyword[i] = (byte) (0xff & Integer.parseInt(str.substring(
+                        i * 2, i * 2 + 2), 16));
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        try
+        {
+            str = new String(baKeyword, "utf-8");//UTF-16le:Not
+        } catch (Exception e1)
+        {
+            e1.printStackTrace();
+        }
+        return str;
     }
 
     //dp to px
@@ -37,7 +69,6 @@ public class ConvertUtil {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.getResources().getDisplayMetrics());
     }
 
-
     //温度： 华氏 ~ 摄氏度 Fahrenheit, Centigrade
     //C=（5/9）（F-32）
     public static float fahrenheit2Centigrade(float f){
@@ -52,7 +83,7 @@ public class ConvertUtil {
     //16 <--> 10
     public static int hex2Decimal(String hex){
         int d = 0;
-        //1.
+        //1.系统方法
         //d = Integer.valueOf(hex,16);
 
         //2. ff -> 255
@@ -94,7 +125,7 @@ public class ConvertUtil {
     public static String decimal2Hex(int d){
         String hex = "";
         List<Integer> m = new ArrayList<>();
-        //1.
+        //1.系统方法
         //hex = Integer.toHexString(d);
 
         //2. a -> 商; m -> 余;
@@ -131,6 +162,19 @@ public class ConvertUtil {
             default:
                 return a.toString();
         }
+    }
+
+    //=======================array & list==================================
+    // int[] 转 List<Integer>
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static List<Object> int2List(int[] data) {
+        List<Object> list = Arrays.stream(data).boxed().collect(Collectors.toList());
+        return list;
+    }
+
+    // String[] 转 List<String>
+    public static List<String> string2List(String[] strs){
+        return Arrays.asList(strs);
     }
 
     //==================================gbk ? utf-8=========================

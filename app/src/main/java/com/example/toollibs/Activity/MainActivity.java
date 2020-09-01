@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         bDialog = findViewById(R.id.bDialog);
 
-        if(!SystemUtil.CheckPermission(this, NEEDED_PERMISSIONS)){
+        if(!SystemUtil.checkPermission(this, NEEDED_PERMISSIONS)){
             ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
             return;
         }
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //get all requested permissions
 
             } else {
-                SystemUtil.ShowToast(getApplicationContext(),"Permission denied!");
+                SystemUtil.showToast(getApplicationContext(),"Permission denied!");
                 finish();
             }
         }
@@ -190,12 +190,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onNetDisconnected() {
-        SystemUtil.ShowToast(getApplicationContext(),"Connected");
+        SystemUtil.showToast(getApplicationContext(),"Connected");
     }
 
     @Override
     public void onNetConnected(NetworkType networkType) {
-        SystemUtil.ShowToast(getApplicationContext(),"DisConnected");
+        SystemUtil.showToast(getApplicationContext(),"DisConnected");
     }
 
     @Override

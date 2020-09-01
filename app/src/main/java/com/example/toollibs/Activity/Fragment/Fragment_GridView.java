@@ -56,7 +56,7 @@ public class Fragment_GridView extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                SystemUtil.ShowToast(getContext(), list.get(i));
+                SystemUtil.showToast(getContext(), list.get(i));
             }
         });
     }

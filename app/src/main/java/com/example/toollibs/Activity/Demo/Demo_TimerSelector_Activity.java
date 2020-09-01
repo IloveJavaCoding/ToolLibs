@@ -61,9 +61,9 @@ public class Demo_TimerSelector_Activity extends AppCompatActivity {
             @Override
             public void handle(Date time) {
                 if(mode==1){
-                    tvBirthday.setText(DateUtil.Date2String(time, "yyyy-MM-dd HH:mm"));
+                    tvBirthday.setText(DateUtil.date2String(time, "yyyy-MM-dd HH:mm"));
                 }else{
-                    tvBirthday.setText(DateUtil.Date2String(time, "yyyy-MM-dd"));
+                    tvBirthday.setText(DateUtil.date2String(time, "yyyy-MM-dd"));
                 }
             }
         }, minTime, maxTime);

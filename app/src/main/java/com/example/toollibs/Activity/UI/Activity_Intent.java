@@ -225,7 +225,7 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
                 case OPEN_IMAGE_CODE:
                     tvImage.setText(path);
 
-                    imageView.setImageBitmap(BitmapUtil.GetBitmapFromFile(path));
+                    imageView.setImageBitmap(BitmapUtil.getBitmapFromFile(path));
                     //imageView.setImageBitmap(BitmapFactory.decodeStream(contentResolver.openInputStream(uri)));
                     break;
                 case OPEN_AUDIO_CODE:

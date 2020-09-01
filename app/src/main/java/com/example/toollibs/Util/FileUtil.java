@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.example.toollibs.Activity.RuntimeExec;
+
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
@@ -18,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ public class FileUtil {
         return Environment.getExternalStorageDirectory().getAbsolutePath();
     }
 
-    public static String GetAppRootPth(Context context){
+    public static String getAppRootPth(Context context){
         ///storage/emulated/0/Android/data/pack_name/files
         return context.getExternalFilesDir("").getAbsolutePath();
     }
@@ -49,7 +52,7 @@ public class FileUtil {
     }
 
     //====================create file/dir================================
-    public static boolean CreateFile(String path, String fileName){
+    public static boolean createFile(String path, String fileName){
         File file = new File(path+"/"+fileName);
 
         if(!file.exists()){
@@ -79,11 +82,11 @@ public class FileUtil {
     public static void deleteDir(String dir){
         File file = new File(dir);
         if(file.exists()){
-            DeleteDirWithFile(file);
+            deleteDirWithFile(file);
         }
     }
 
-    private static void DeleteDirWithFile(File file) {
+    private static void deleteDirWithFile(File file) {
         if(!file.isDirectory() || !file.exists()) {
             return;
         }
@@ -92,7 +95,7 @@ public class FileUtil {
                 if(f.isFile()){
                     f.delete();//delete all files
                 }else if(f.isDirectory()){
-                    DeleteDirWithFile(f);
+                    deleteDirWithFile(f);
                 }
             }
         }
@@ -100,10 +103,68 @@ public class FileUtil {
         file.delete();
     }
 
+    public static boolean deleteFile(String path){
+        File file = new File(path);
+        if(file.exists()&&file.isFile()){
+            file.delete();
+            return true;
+        }
+
+        return false;
+    }
+
+    public void delete(String path) {
+        RuntimeExec.getInstance().executeCommand("rm -rf " + path);
+    }
+
     //=========================copy/move file===========================
     public static void copyFile(String oldPath, String newPath){
         byte[] bytes = readBytes(oldPath);
         getFileFromBytes(bytes, newPath);
+    }
+
+    public static int copy(String src, String dest) {
+        int retVal = 0;
+        InputStream from = null;
+        OutputStream to = null;
+        try {
+            from = new FileInputStream(src);
+            to = new FileOutputStream(dest);
+            byte buffer[] = new byte[1024 * 8];
+            int length;
+            while ((length = from.read(buffer)) != -1) {
+                to.write(buffer, 0, length);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            retVal = -1;
+        } finally {
+            if (from != null) {
+                try {
+                    from.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (to != null) {
+                try {
+                    to.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        File file = new File(dest);
+        if (file.exists()) {
+            file.setLastModified(System.currentTimeMillis());
+        }
+        return retVal;
+    }
+
+    public static void moveFile(String oldPath, String newPath){
+        //先复制文件，然后删除原文件
+        copyFile(oldPath, newPath);
+        deleteFile(oldPath);
     }
 
     //========================get file/dir info============================
@@ -120,7 +181,7 @@ public class FileUtil {
     }
 
     //===========================change file/dir name=======================
-    public static void changeFile_DirName(String path, String oldName, String newName){
+    public static void changeFileDirName(String path, String oldName, String newName){
         File oldFile = new File(path+"/"+oldName);
         File newFile = new File(path+"/"+newName);
 
@@ -131,7 +192,7 @@ public class FileUtil {
     public static void writeToFile(String content, String path, String fileName){
         File file = new File(path+fileName);
         if(!file.exists()){
-            CreateFile(path, fileName);
+            createFile(path, fileName);
         }
 
         RandomAccessFile randomAccessFile;

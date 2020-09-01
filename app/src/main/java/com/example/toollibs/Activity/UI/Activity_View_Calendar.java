@@ -73,7 +73,7 @@ public class Activity_View_Calendar extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                SystemUtil.ShowToast(getApplicationContext(), year + " - "+ month + " - " + dayOfMonth);
+                SystemUtil.showToast(getApplicationContext(), year + " - "+ month + " - " + dayOfMonth);
             }
         });
 

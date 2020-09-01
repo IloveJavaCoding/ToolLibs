@@ -117,10 +117,10 @@ public class Activity_DataBase extends AppCompatActivity {
 
                     if(dbHelper.addStudent(students)){
                         getDataList();
-                        SystemUtil.ShowToast(getApplicationContext(), "Add successful.");
+                        SystemUtil.showToast(getApplicationContext(), "Add successful.");
                         clear();
                     }else{
-                        SystemUtil.ShowToast(getApplicationContext(), "Add fail!!!");
+                        SystemUtil.showToast(getApplicationContext(), "Add fail!!!");
                     }
                 }
             }
@@ -170,10 +170,10 @@ public class Activity_DataBase extends AppCompatActivity {
         TimeSelector timeSelector = new TimeSelector(this, new TimeSelector.ResultHandler() {
             @Override
             public void handle(Date time) {
-                age = DateUtil.GetAge(time);
-                etBirth.setText(DateUtil.Date2String(time, "yyyy-MM-dd"));
+                age = DateUtil.getAge(time);
+                etBirth.setText(DateUtil.date2String(time, "yyyy-MM-dd"));
             }
-        }, minTime, DateUtil.Date2String(Calendar.getInstance().getTime(), "yyyy-MM-dd HH:mm"));
+        }, minTime, DateUtil.date2String(Calendar.getInstance().getTime(), "yyyy-MM-dd HH:mm"));
         timeSelector.setMode(TimeSelector.MODE.YMD);
         timeSelector.show();
         timeSelector.setIsLoop(false);

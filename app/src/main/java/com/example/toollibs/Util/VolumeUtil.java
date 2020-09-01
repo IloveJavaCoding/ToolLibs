@@ -7,7 +7,7 @@ import android.util.Log;
 public class VolumeUtil {
     private static final String TAG = "VOLUME_UTIL";
 
-    public static  int getVolume(Context context){
+    public static int getVolume(Context context){
         AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         return manager.getStreamVolume(AudioManager.STREAM_MUSIC);
     }

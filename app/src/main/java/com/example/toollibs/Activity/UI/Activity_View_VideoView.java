@@ -85,7 +85,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         long duration = MediaUtil.getDuration(this, R.raw.yys);
         setBackground(null);
         seekBar.setMax((int)duration);
-        tvDuration.setText(DateUtil.FormatTime(duration));
+        tvDuration.setText(DateUtil.formatTime(duration));
 
         isFull = false;
         verticalSeekBar.setMax(getMaxVolume());
@@ -234,7 +234,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
                 imgControl.setVisibility(View.INVISIBLE);
             }else if(msg.what==SEND_TIME_CODE){
                 seekBar.setProgress((int) msg.obj);
-                tvCurrentTime.setText(DateUtil.FormatTime((int) msg.obj));
+                tvCurrentTime.setText(DateUtil.formatTime((int) msg.obj));
             }else if(msg.what==HIDE_VOICE_CONTROL_CODE){
                 verticalSeekBar.setVisibility(View.INVISIBLE);
             }
@@ -308,7 +308,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         }else{
             Log.d("tag", "get out full screen");
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-            RelativeLayout.LayoutParams lp = new  RelativeLayout.LayoutParams(SystemUtil.GetScreenDM(getApplicationContext()).widthPixels,660);
+            RelativeLayout.LayoutParams lp = new  RelativeLayout.LayoutParams(SystemUtil.getScreenDM(getApplicationContext()).widthPixels,660);
             lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             videoLayout.setLayoutParams(lp);
             isFull = false;
@@ -338,7 +338,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         videoView.setVideoPath(videoFile.getPath());
         setBackground(null);
         seekBar.setMax((int)videoFile.getDuration());
-        tvDuration.setText(DateUtil.FormatTime(videoFile.getDuration()));
+        tvDuration.setText(DateUtil.formatTime(videoFile.getDuration()));
     }
 
     @Override

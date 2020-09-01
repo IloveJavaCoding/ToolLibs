@@ -67,7 +67,7 @@ public class Activity_Bar_ProcessBar extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.item1:
-                SystemUtil.ShowToast(getApplicationContext(), "item1");
+                SystemUtil.showToast(getApplicationContext(), "item1");
                 break;
         }
         return super.onOptionsItemSelected(item);

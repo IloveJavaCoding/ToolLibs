@@ -44,7 +44,7 @@ public class Demo_Live_Activity extends AppCompatActivity {
     }
 
     private void setData() {
-        DisplayMetrics dm = SystemUtil.GetScreenDM(getApplicationContext());
+        DisplayMetrics dm = SystemUtil.getScreenDM(getApplicationContext());
         wight = dm.widthPixels;
         high = dm.heightPixels;
 

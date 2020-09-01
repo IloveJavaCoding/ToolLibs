@@ -106,7 +106,7 @@ public class Activity_Dialog_Notification extends AppCompatActivity implements V
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                SystemUtil.ShowToast(getApplicationContext(),"Confirm");
+                SystemUtil.showToast(getApplicationContext(),"Confirm");
             }
         });
 
@@ -129,7 +129,7 @@ public class Activity_Dialog_Notification extends AppCompatActivity implements V
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                SystemUtil.ShowToast(getApplicationContext(),"Confirm");
+                SystemUtil.showToast(getApplicationContext(),"Confirm");
             }
         });
 
@@ -172,10 +172,10 @@ public class Activity_Dialog_Notification extends AppCompatActivity implements V
             public void onClick(View view) {
                 String input = etInput.getText().toString();
                 if(!TextUtils.isEmpty(input)){
-                    SystemUtil.ShowToast(getApplicationContext(),"Your name is " + input);
+                    SystemUtil.showToast(getApplicationContext(),"Your name is " + input);
                     dialog.dismiss();
                 }else{
-                    SystemUtil.ShowToast(getApplicationContext(),"Please input your name!!!");
+                    SystemUtil.showToast(getApplicationContext(),"Please input your name!!!");
                 }
             }
         });
@@ -191,7 +191,7 @@ public class Activity_Dialog_Notification extends AppCompatActivity implements V
         Window window = dialog.getWindow();
         window.setGravity(Gravity.BOTTOM);//location -- bottom
         WindowManager.LayoutParams lp = window.getAttributes();
-        lp.width = SystemUtil.GetScreenDM(this).widthPixels;
+        lp.width = SystemUtil.getScreenDM(this).widthPixels;
         window.setAttributes(lp);
 
         //operations
@@ -213,10 +213,10 @@ public class Activity_Dialog_Notification extends AppCompatActivity implements V
             public void onClick(View view) {
                 String input = etInput.getText().toString();
                 if(!TextUtils.isEmpty(input)){
-                    SystemUtil.ShowToast(getApplicationContext(),"Your name is " + input);
+                    SystemUtil.showToast(getApplicationContext(),"Your name is " + input);
                     dialog.dismiss();
                 }else{
-                    SystemUtil.ShowToast(getApplicationContext(),"Please input your name!!!");
+                    SystemUtil.showToast(getApplicationContext(),"Please input your name!!!");
                 }
             }
         });

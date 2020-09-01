@@ -58,7 +58,7 @@ public class GridView_BookAdapter extends BaseAdapter {
         if(data.get(position).getAlbum().equals("null")){
             bitmap = BitmapUtil.getBitmapFromRes(context, R.drawable.img_book_cover);
         }else{
-             bitmap = BitmapUtil.GetBitmapFromFile(data.get(position).getAlbum());
+             bitmap = BitmapUtil.getBitmapFromFile(data.get(position).getAlbum());
         }
         imgCover.setImageBitmap(bitmap);
 

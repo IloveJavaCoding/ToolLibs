@@ -87,7 +87,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
 
     private void setData() {
         layout.setBackground(new BitmapDrawable(getResources(), BitmapUtil.fastBlurBitmap(this, BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran), 200)));
-        tvTotalTime.setText(DateUtil.FormatTime(mediaPlayer.getDuration()));
+        tvTotalTime.setText(DateUtil.formatTime(mediaPlayer.getDuration()));
         seekBar.setMax(mediaPlayer.getDuration());
     }
 
@@ -178,7 +178,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
             super.handleMessage(msg);
             seekBar.setProgress(msg.what);
             lrcView.seekTo(msg.what);
-            tvCurTime.setText(DateUtil.FormatTime(msg.what));
+            tvCurTime.setText(DateUtil.formatTime(msg.what));
         }
     };
 

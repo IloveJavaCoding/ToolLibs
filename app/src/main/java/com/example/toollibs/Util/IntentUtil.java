@@ -88,14 +88,14 @@ public class IntentUtil {
     //=====================dial, sms, email======================
     //go to dial app
     //<intent-filter>
-    //  <action android:name="android.intent.action.DIAL"/>
+    //<action android:name="android.intent.action.DIAL"/>
     //</intent-filter>
     public static void go2Dial(Activity activity){
         Intent intent = new Intent(Intent.ACTION_DIAL);
         activity.startActivity(intent);
     }
 
-    //  <uses-permission android:name="android.permission.CALL_PHONE" />
+    //<uses-permission android:name="android.permission.CALL_PHONE" />
     public static void dialNumber(Activity activity, String number){
         Uri uri = Uri.parse("tel:" + number);
         Intent intent = new Intent(Intent.ACTION_DIAL, uri);

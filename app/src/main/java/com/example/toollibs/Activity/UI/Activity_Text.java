@@ -183,7 +183,7 @@ public class Activity_Text extends AppCompatActivity {
                             .hideSoftInputFromWindow(etEnter.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                     //do something
-                    SystemUtil.ShowToast(getApplicationContext(), etEnter.getText().toString());
+                    SystemUtil.showToast(getApplicationContext(), etEnter.getText().toString());
                     return true;
                 }
                 return false;
@@ -207,7 +207,7 @@ public class Activity_Text extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //i --> index of array
                 data1 = strArray[i];
-                SystemUtil.ShowToast(getApplicationContext(),data1);
+                SystemUtil.showToast(getApplicationContext(),data1);
             }
 
             @Override
@@ -220,7 +220,7 @@ public class Activity_Text extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 data2 = (int) list.get(i);
-                SystemUtil.ShowToast(getApplicationContext(), data2+"");
+                SystemUtil.showToast(getApplicationContext(), data2+"");
             }
 
             @Override

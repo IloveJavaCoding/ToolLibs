@@ -82,7 +82,7 @@ public class Activity_Button extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SystemUtil.ShowToast(getApplicationContext(), "Click");
+                SystemUtil.showToast(getApplicationContext(), "Click");
             }
         });
 
@@ -147,7 +147,7 @@ public class Activity_Button extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    SystemUtil.ShowToast(getApplicationContext(), checkBox1.getText().toString());
+                    SystemUtil.showToast(getApplicationContext(), checkBox1.getText().toString());
                 }
             }
         });
@@ -156,7 +156,7 @@ public class Activity_Button extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    SystemUtil.ShowToast(getApplicationContext(), checkBox2.getText().toString());
+                    SystemUtil.showToast(getApplicationContext(), checkBox2.getText().toString());
                 }
             }
         });
@@ -165,7 +165,7 @@ public class Activity_Button extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    SystemUtil.ShowToast(getApplicationContext(), checkBox3.getText().toString());
+                    SystemUtil.showToast(getApplicationContext(), checkBox3.getText().toString());
                 }
             }
         });
@@ -174,7 +174,7 @@ public class Activity_Button extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    SystemUtil.ShowToast(getApplicationContext(), checkBox4.getText().toString());
+                    SystemUtil.showToast(getApplicationContext(), checkBox4.getText().toString());
                 }
             }
         });
@@ -183,7 +183,7 @@ public class Activity_Button extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    SystemUtil.ShowToast(getApplicationContext(), checkBox5.getText().toString());
+                    SystemUtil.showToast(getApplicationContext(), checkBox5.getText().toString());
                 }
             }
         });
@@ -193,9 +193,9 @@ public class Activity_Button extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     //checked
-                    SystemUtil.ShowToast(getApplicationContext(), "Open");
+                    SystemUtil.showToast(getApplicationContext(), "Open");
                 }else{
-                    SystemUtil.ShowToast(getApplicationContext(), "Off");
+                    SystemUtil.showToast(getApplicationContext(), "Off");
                 }
             }
         });
@@ -205,9 +205,9 @@ public class Activity_Button extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     //checked
-                    SystemUtil.ShowToast(getApplicationContext(), "Open");
+                    SystemUtil.showToast(getApplicationContext(), "Open");
                 }else{
-                    SystemUtil.ShowToast(getApplicationContext(), "Off");
+                    SystemUtil.showToast(getApplicationContext(), "Off");
                 }
             }
         });
@@ -216,9 +216,9 @@ public class Activity_Button extends AppCompatActivity {
             @Override
             public void onisCheckedChange(Boolean state) {
                 if(state){
-                    SystemUtil.ShowToast(getApplicationContext(), "Open");
+                    SystemUtil.showToast(getApplicationContext(), "Open");
                 }else{
-                    SystemUtil.ShowToast(getApplicationContext(), "Off");
+                    SystemUtil.showToast(getApplicationContext(), "Off");
                 }
             }
         });
@@ -228,9 +228,9 @@ public class Activity_Button extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     //checked
-                    SystemUtil.ShowToast(getApplicationContext(), "Open");
+                    SystemUtil.showToast(getApplicationContext(), "Open");
                 }else{
-                    SystemUtil.ShowToast(getApplicationContext(), "Off");
+                    SystemUtil.showToast(getApplicationContext(), "Off");
                 }
             }
         });

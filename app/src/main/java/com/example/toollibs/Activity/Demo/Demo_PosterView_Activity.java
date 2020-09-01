@@ -60,14 +60,14 @@ public class Demo_PosterView_Activity extends AppCompatActivity {
         banner1.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                SystemUtil.ShowToast(getApplicationContext(), "click " + position);
+                SystemUtil.showToast(getApplicationContext(), "click " + position);
             }
         });
 
         banner2.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                SystemUtil.ShowToast(getApplicationContext(), "click " + position);
+                SystemUtil.showToast(getApplicationContext(), "click " + position);
             }
         });
     }

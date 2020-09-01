@@ -82,8 +82,8 @@ public class TimeSelector {
         this.handler = resultHandler;
         startCalendar = Calendar.getInstance();
         endCalendar = Calendar.getInstance();
-        startCalendar.setTime(DateUtil.String2Date(startDate, FORMAT_STR));
-        endCalendar.setTime(DateUtil.String2Date(endDate, FORMAT_STR));
+        startCalendar.setTime(DateUtil.string2Date(startDate, FORMAT_STR));
+        endCalendar.setTime(DateUtil.string2Date(endDate, FORMAT_STR));
 
         initDialog();//initial self defined dialog(show time)
         initView();//initial the components on the dialog
@@ -100,7 +100,7 @@ public class TimeSelector {
             Window window = selectorDialog.getWindow();
             window.setGravity(Gravity.BOTTOM);//location -- bottom
             WindowManager.LayoutParams lp = window.getAttributes();
-            lp.width = SystemUtil.GetScreenDM(context).widthPixels;
+            lp.width = SystemUtil.getScreenDM(context).widthPixels;
             window.setAttributes(lp);
         }
     }
@@ -346,9 +346,9 @@ public class TimeSelector {
         pvMinute.setData(minute);
 
         Date now =  Calendar.getInstance().getTime();//default shows the date of today
-        pvYear.setSelected(DateUtil.Date2String(now,"yyyy"));
-        pvMonth.setSelected(DateUtil.Date2String(now, "MM"));
-        pvDay.setSelected(DateUtil.Date2String(now, "dd"));
+        pvYear.setSelected(DateUtil.date2String(now,"yyyy"));
+        pvMonth.setSelected(DateUtil.date2String(now, "MM"));
+        pvDay.setSelected(DateUtil.date2String(now, "dd"));
         pvHour.setSelected(0);
         pvMinute.setSelected(0);
         executeScroll();

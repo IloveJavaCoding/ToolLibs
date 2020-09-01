@@ -124,7 +124,7 @@ public class Demo_Time_Activity extends AppCompatActivity {
             @Override
             public void handle(Date time) {
                 date = time;
-                alarmTime = DateUtil.Date2String(time, "yyyy-MM-dd HH:mm");
+                alarmTime = DateUtil.date2String(time, "yyyy-MM-dd HH:mm");
                 tvAlarm.setText(alarmTime);
                 Log.d("tag", "save time......");
                 SettingData.saveAlarmTime(getApplicationContext(), alarmTime);

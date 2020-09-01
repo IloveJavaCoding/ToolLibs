@@ -157,7 +157,7 @@ public class Demo_File_Selector_Activity  extends AppCompatActivity implements L
                 //judge curPath is root or not
                 if (curPath.equals(rootPath)) {
                     //do nothing
-                    SystemUtil.ShowToast(getApplicationContext(), "已是根目录");
+                    SystemUtil.showToast(getApplicationContext(), "已是根目录");
                 }else{
                     //back to last layer
                     resetData(curPath.substring(0, curPath.lastIndexOf("/")));
@@ -170,7 +170,7 @@ public class Demo_File_Selector_Activity  extends AppCompatActivity implements L
             public void onClick(View v) {
                 if(curPath.equals(rootPath)){
                     //do nothing
-                    SystemUtil.ShowToast(getApplicationContext(), "已是根目录");
+                    SystemUtil.showToast(getApplicationContext(), "已是根目录");
                 }else{
                     //back to root
                     resetData(rootPath);
@@ -185,7 +185,7 @@ public class Demo_File_Selector_Activity  extends AppCompatActivity implements L
         switch (v.getId()){
             case R.id.cbChoose:
                 if(isChecked){
-                    SystemUtil.ShowToast(getApplicationContext(), "choose " + (position+1));
+                    SystemUtil.showToast(getApplicationContext(), "choose " + (position+1));
                     index.add(position);
                 }else{
                     index.remove(position);

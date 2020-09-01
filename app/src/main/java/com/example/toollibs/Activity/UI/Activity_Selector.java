@@ -38,7 +38,7 @@ public class Activity_Selector extends AppCompatActivity {
             datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
                 @Override
                 public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    SystemUtil.ShowToast(getApplicationContext(), year + " - " + monthOfYear + " - " + dayOfMonth);
+                    SystemUtil.showToast(getApplicationContext(), year + " - " + monthOfYear + " - " + dayOfMonth);
                 }
             });
         }
@@ -46,7 +46,7 @@ public class Activity_Selector extends AppCompatActivity {
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                SystemUtil.ShowToast(getApplicationContext(), hourOfDay + " : " + minute);
+                SystemUtil.showToast(getApplicationContext(), hourOfDay + " : " + minute);
             }
         });
     }

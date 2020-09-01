@@ -112,7 +112,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
             super.handleMessage(msg);
             switch (msg.what){
                 case OPEN_URL_FAIL://no return
-                    SystemUtil.ShowToast(getApplicationContext(), "Please check your URL, then try again!");
+                    SystemUtil.showToast(getApplicationContext(), "Please check your URL, then try again!");
                     break;
                 case OPEN_URL_SUCCESS:
                     curBitmap = (Bitmap) msg.obj;
@@ -130,7 +130,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
                 break;
             case R.id.bZoomIn:
                 if(curBitmap.getWidth()<51){
-                    SystemUtil.ShowToast(getApplicationContext(),"Can not be smaller!");
+                    SystemUtil.showToast(getApplicationContext(),"Can not be smaller!");
                 }else{
                     curBitmap = BitmapUtil.scaleBitmap(curBitmap, 0.75f);
                     imageView.setImageBitmap(curBitmap);
@@ -138,7 +138,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
                 break;
             case R.id.bZoomOut:
                 if(curBitmap.getWidth()>1001){
-                    SystemUtil.ShowToast(getApplicationContext(),"Can not be bigger!");
+                    SystemUtil.showToast(getApplicationContext(),"Can not be bigger!");
                 }else{
                     curBitmap = BitmapUtil.scaleBitmap(curBitmap, 1.25f);
                     imageView.setImageBitmap(curBitmap);
@@ -154,7 +154,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
                 openAlbum();
                 break;
             case R.id.bCamera:
-                if(!SystemUtil.CheckPermission(this, NEEDED_PERMISSIONS)){
+                if(!SystemUtil.checkPermission(this, NEEDED_PERMISSIONS)){
                     Log.d("Tag", "提示是否要授权");
                     ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
                     return;
@@ -226,7 +226,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
             startActivityForResult(intent,GO_CAMERA_CODE);
             Log.d("Tag", "jump to camera");
         } else {
-            SystemUtil.ShowToast(this, "没有SD卡");
+            SystemUtil.showToast(this, "没有SD卡");
         }
     }
 
@@ -248,7 +248,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
     }
 
     protected Uri getTempUri() {
-        File file = getExternalFilesDir(FileUtil.GetAppRootPth(getApplicationContext()));
+        File file = getExternalFilesDir(FileUtil.getAppRootPth(getApplicationContext()));
         File f = new File(file, "temp.jpg");
         return Uri.fromFile(f);
     }
@@ -293,7 +293,7 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
                 //get all requested permissions
 
             } else {
-                SystemUtil.ShowToast(getApplicationContext(),"Permission denied!");
+                SystemUtil.showToast(getApplicationContext(),"Permission denied!");
                 finish();
             }
         }

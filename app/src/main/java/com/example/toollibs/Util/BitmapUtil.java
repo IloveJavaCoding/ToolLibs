@@ -39,7 +39,7 @@ import java.util.TreeMap;
 
 public class BitmapUtil {
     //get bitmap read from file
-    public static Bitmap GetBitmapFromFile(String path){
+    public static Bitmap getBitmapFromFile(String path){
         if(TextUtils.isEmpty(path)){
             return null;
         }
@@ -62,7 +62,7 @@ public class BitmapUtil {
     }
 
     //save bitmap to local
-    public static void Bitmap2Local(Bitmap bitmap, String path, String fileName){
+    public static void bitmap2Local(Bitmap bitmap, String path, String fileName){
         File file = new File(path+"/"+fileName);
         if(file.exists()){
             file.delete();
@@ -78,7 +78,7 @@ public class BitmapUtil {
         }
     }
 
-    public static void Bitmap2Local(Bitmap bitmap, String path){
+    public static void bitmap2Local(Bitmap bitmap, String path){
         File file = new File(path);
         if(file.exists()){
             file.delete();

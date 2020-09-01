@@ -51,7 +51,7 @@ public class Demo_Simple_Reader extends AppCompatActivity {
     }
 
     private void createDir() {
-        prePath = FileUtil.GetAppRootPth(this)+ File.separator+coverPath;
+        prePath = FileUtil.getAppRootPth(this)+ File.separator+coverPath;
         FileUtil.createDirs(prePath);
     }
 

@@ -63,7 +63,7 @@ public class Fragment_ListView extends Fragment implements ListView_Adapter.Inte
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //focus curtain line
-                SystemUtil.ShowToast(getContext(), list.get(i));
+                SystemUtil.showToast(getContext(), list.get(i));
             }
         });
 

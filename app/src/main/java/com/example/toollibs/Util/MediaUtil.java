@@ -159,7 +159,6 @@ public class MediaUtil {
      * 通过内容提供器来获取图片缩略图
      缺点:必须更新媒体库才能看到最新的缩略图
      * @param context
-     * @param cr
      * @param Imagepath
      * @return
      */

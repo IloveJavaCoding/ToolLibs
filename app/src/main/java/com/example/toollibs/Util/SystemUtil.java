@@ -41,6 +41,7 @@ import com.example.toollibs.Activity.RuntimeExec;
 import com.example.toollibs.R;
 import com.example.toollibs.SelfClass.FlowInfo;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
@@ -48,29 +49,31 @@ import java.util.Locale;
 public class SystemUtil {
     private static InputMethodManager inputMethodManager;
 
-    //=================keyboard control===============================
-    public static void ShowKeyBoard(EditText et){
+    //=========================keyboard control===============================
+    public static void showKeyBoard(EditText et){
         et.setFocusable(true);
         et.requestFocus();
         inputMethodManager = (InputMethodManager) et.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(et,InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
-    public static void CloseKeyBoard(EditText et){
-        inputMethodManager.hideSoftInputFromWindow(et.getWindowToken(),0);
+    public static void closeKeyBoard(EditText et){
+        if(inputMethodManager!=null){
+            inputMethodManager.hideSoftInputFromWindow(et.getWindowToken(),0);
+        }
     }
 
     //======================system notices======================
-    public static void ShowToast(Context context, String msg){
+    public static void showToast(Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
     }
 
-    public static void ShowLongToast(Context context, String msg){
+    public static void showLongToast(Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
     }
 
     //======================window attributes=========================
-    public static DisplayMetrics GetScreenDM(Context context) {
+    public static DisplayMetrics getScreenDM(Context context) {
         WindowManager manager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         manager.getDefaultDisplay().getMetrics(dm);
@@ -86,13 +89,13 @@ public class SystemUtil {
         Bitmap bmp = dView.getDrawingCache();
         if (bmp != null)
         {
-            String sdCardPath = FileUtil.GetAppRootPth(activity);
-            BitmapUtil.Bitmap2Local(bmp, sdCardPath, fileName);
+            String sdCardPath = FileUtil.getAppRootPth(activity);
+            BitmapUtil.bitmap2Local(bmp, sdCardPath, fileName);
         }
     }
 
     public static void screenShot(Activity activity, String fileName){
-        String path = FileUtil.GetAppRootPth(activity) + File.separator + fileName;
+        String path = FileUtil.getAppRootPth(activity) + File.separator + fileName;
         RuntimeExec.takeScreenShot(path);
     }
 
@@ -106,7 +109,7 @@ public class SystemUtil {
     //重启应用
     public static void restartApp(Context context) {
         final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//Intent.FLAG_ACTIVITY_CLEAR_TASK;
         context.startActivity(intent);
     }
 
@@ -117,7 +120,7 @@ public class SystemUtil {
     }
 
     //=============================permission check=======================
-    public static boolean CheckPermission(Context context, String[] permissions){
+    public static boolean checkPermission(Context context, String[] permissions){
         if (permissions == null || permissions.length == 0) {
             return true;
         }
@@ -511,5 +514,4 @@ public class SystemUtil {
     public static void releaseWakeLock(PowerManager.WakeLock wakeLock){
         wakeLock.release();
     }
-
 }
