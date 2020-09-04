@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -18,14 +16,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.toollibs.Activity.Events.RefershLrcLine;
-import com.example.toollibs.Activity.Events.SentTotalLineEvent;
-import com.example.toollibs.OverWriteClass.LrcView;
 import com.example.toollibs.OverWriteClass.MyLrcView;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.DateUtil;
 import com.example.toollibs.Util.FileUtil;
-import com.example.toollibs.Util.MediaUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -86,7 +81,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     }
 
     private void setData() {
-        layout.setBackground(new BitmapDrawable(getResources(), BitmapUtil.fastBlurBitmap(this, BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran), 200)));
+        layout.setBackground(new BitmapDrawable(getResources(), BitmapUtil.fastBlurBitmap(BitmapUtil.getBitmapFromRes(this, R.drawable.img_mengran), 200)));
         tvTotalTime.setText(DateUtil.formatTime(mediaPlayer.getDuration()));
         seekBar.setMax(mediaPlayer.getDuration());
     }

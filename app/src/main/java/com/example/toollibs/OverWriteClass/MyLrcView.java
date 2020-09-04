@@ -16,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.OverScroller;
 
-import com.example.toollibs.Activity.Events.RefershBookTagEvent;
 import com.example.toollibs.Activity.Events.RefershLrcLine;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
@@ -34,7 +33,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.LogRecord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -272,7 +270,7 @@ public class MyLrcView extends View {
     }
 
     public void setBackground(Bitmap background) {
-        this.background = BitmapUtil.fastBlurBitmap(context, background, 200);
+        this.background = BitmapUtil.fastBlurBitmap(background, 200);
     }
 
     private void reset(){

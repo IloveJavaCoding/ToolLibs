@@ -72,15 +72,6 @@ public class SystemUtil {
         Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
     }
 
-    //======================window attributes=========================
-    public static DisplayMetrics getScreenDM(Context context) {
-        WindowManager manager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        manager.getDefaultDisplay().getMetrics(dm);
-
-        return dm;  //dm.widthPixels;  //dm.heightPixels;
-    }
-
     //======================screen cap===========================
     public static void screenCap(Activity activity, String fileName){
         View dView = activity.getWindow().getDecorView();
@@ -131,7 +122,7 @@ public class SystemUtil {
         return allGranted;
     }
 
-    //=================================vibrator=============================
+    //==========================================vibrator=============================
     public static void vibrator(Context context){
         AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         int ringerMode = am.getRingerMode();
@@ -141,7 +132,7 @@ public class SystemUtil {
         }
     }
 
-    //=========================network type==============================
+    //=======================================network type==============================
     public static String getNetWorkTypeString(Context context){
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager!=null){
@@ -161,7 +152,7 @@ public class SystemUtil {
         return "";
     }
 
-    //=================get system memory info======================
+    //================================get system memory info====================================
     public static long getSystemStore(Context context, String type){
         File file = Environment.getExternalStorageDirectory();
         if (file.exists()){

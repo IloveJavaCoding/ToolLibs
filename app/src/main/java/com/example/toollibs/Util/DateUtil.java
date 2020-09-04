@@ -1,6 +1,8 @@
 package com.example.toollibs.Util;
 
 import android.app.AlarmManager;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -132,5 +134,45 @@ public class DateUtil {
     public static void setTimeZone(Context context, String timeZone){
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         manager.setTimeZone(timeZone);
+    }
+
+    /**
+     * 日期选择器, 直接创建一个DatePickerDialog对话框实例，并将它显示出来， 系统的
+     * @param context    上下文
+     * @param themeResId 弹窗风格
+     * @param l          日期选择监听
+     * @param calendar   日历对象, 用于赋值初始时间
+     */
+    public static void showDatePicker(Context context,
+                                      int themeResId,
+                                      DatePickerDialog.OnDateSetListener l,
+                                      Calendar calendar) {
+        new DatePickerDialog(context
+                , themeResId //风格
+                , l // 监听
+                , calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))// 设置初始日期
+                .show();
+    }
+
+    /**
+     * 时间选择器, 创建一个TimePickerDialog实例，并把它显示出来， 系统的
+     *
+     * @param context    上下文
+     * @param themeResId 弹窗风格
+     * @param l          时间选择监听
+     * @param calendar   日历对象, 用于赋值初始时间
+     */
+    public static void showTimePicker(Context context,
+                                      int themeResId,
+                                      TimePickerDialog.OnTimeSetListener l,
+                                      Calendar calendar) {
+        new TimePickerDialog(context
+                , themeResId // 设置风格
+                , l // 绑定监听器
+                , calendar.get(Calendar.HOUR_OF_DAY)
+                , calendar.get(Calendar.MINUTE)
+                // true表示采用24小时制
+                , true)
+                .show();
     }
 }

@@ -1,11 +1,14 @@
 package com.example.toollibs.Util;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -59,14 +62,90 @@ public class ConvertUtil {
         return (int) (dipValue * scale + 0.5f);
     }
 
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
     //sp to px
     public static int sp2px(Context context, float spValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.getResources().getDisplayMetrics());
+    }
+
+    public static int px2dip(Context context, float pxValue) {
+        return (int) (pxValue / context.getResources().getDisplayMetrics().density + 0.5f);
+    }
+
+    /**
+     * 根据屏幕密度, 将dp(device independent pixels 无关像素点) 转 px( 像素)
+     */
+    public static int dp2px(Context context, float dp) {
+        if (context != null) {
+            Resources mResources = context.getResources();
+            if (mResources != null) {
+                DisplayMetrics metrics = mResources.getDisplayMetrics();
+                if (metrics != null) {
+                    return (int) (dp * (metrics.densityDpi / 160f));
+                }
+            }
+        }
+        return 0;
+    }
+    /**
+     * 根据屏幕密度, 将 px( 像素) 转 dp(device independent pixels 无关像素点)
+     */
+    public static int px2dp(Context context, float px) {
+        if (context != null) {
+            Resources mResources = context.getResources();
+            if (mResources != null) {
+                DisplayMetrics metrics = mResources.getDisplayMetrics();
+                if (metrics != null) {
+                    return (int) (px / (metrics.densityDpi / 160f));
+                }
+            }
+        }
+        return 0;
+    }
+
+    public static int dp2px(Context context, int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+    }
+
+    public static float px2sp1(Context context, int size) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, size, context.getResources().getDisplayMetrics());
+    }
+
+    public static float sp2px1(Context context, int size) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, size, context.getResources().getDisplayMetrics());
+    }
+
+    /**
+     * 根据手机的分辨率从 sp 的单位 转成为 px(像素)
+     */
+    public static int sp2pix(Context context, float sp) {
+        if (context != null ) {
+            Resources mResources = context.getResources();
+            if (mResources != null) {
+                DisplayMetrics mMetrics = mResources.getDisplayMetrics();
+                if (mMetrics != null) {
+                    final float scale = mMetrics.scaledDensity;
+                    return (int) (sp  * sp + 0.5f);
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 sp
+     */
+    public static int px2sp(Context context, float px) {
+        if (context != null ) {
+            Resources mResources = context.getResources();
+            if (mResources != null) {
+                DisplayMetrics mMetrics = mResources.getDisplayMetrics();
+                if (mMetrics != null) {
+                    final float scale = mMetrics.scaledDensity;
+                    return (int) (px / scale + 0.5f);
+                }
+            }
+        }
+        return 0;
     }
 
     //温度： 华氏 ~ 摄氏度 Fahrenheit, Centigrade
@@ -257,5 +336,37 @@ public class ConvertUtil {
             break;
         }
         return isGbk;
+    }
+
+    //========================================================================
+    public static String getFormatSize(float size) {
+        double kiloByte = size / 1024;
+        if (kiloByte < 1) {
+            return "0Byte";
+        }
+
+        double megaByte = kiloByte / 1024;
+        if (megaByte < 1) {
+            BigDecimal result1 = new BigDecimal(Double.toString(kiloByte));
+            return result1.setScale(2, BigDecimal.ROUND_HALF_UP)
+                    .toPlainString() + "KB";
+        }
+
+        double gigaByte = megaByte / 1024;
+        if (gigaByte < 1) {
+            BigDecimal result2 = new BigDecimal(Double.toString(megaByte));
+            return result2.setScale(2, BigDecimal.ROUND_HALF_UP)
+                    .toPlainString() + "MB";
+        }
+
+        double teraBytes = gigaByte / 1024;
+        if (teraBytes < 1) {
+            BigDecimal result3 = new BigDecimal(Double.toString(gigaByte));
+            return result3.setScale(2, BigDecimal.ROUND_HALF_UP)
+                    .toPlainString() + "GB";
+        }
+        BigDecimal result4 = new BigDecimal(teraBytes);
+        return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString()
+                + "TB";
     }
 }
