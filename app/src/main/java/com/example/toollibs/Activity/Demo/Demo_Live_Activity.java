@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.R;
+import com.example.toollibs.Util.ScreenUtil;
 import com.example.toollibs.Util.SystemUtil;
 import com.example.toollibs.Util.VolumeUtil;
 
@@ -44,7 +45,7 @@ public class Demo_Live_Activity extends AppCompatActivity {
     }
 
     private void setData() {
-        DisplayMetrics dm = SystemUtil.getScreenDM(getApplicationContext());
+        DisplayMetrics dm = ScreenUtil.getScreenDM(getApplicationContext());
         wight = dm.widthPixels;
         high = dm.heightPixels;
 

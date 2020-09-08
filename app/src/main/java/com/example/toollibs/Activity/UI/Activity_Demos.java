@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.toollibs.Activity.Demo.DemoTimingTask_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Effect_View_Activity;
 import com.example.toollibs.Activity.Demo.Demo_File_Selector_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Live_Activity;
+import com.example.toollibs.Activity.Demo.Demo_Loop_Task_Activity;
 import com.example.toollibs.Activity.Demo.Demo_PosterView_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Scroll_Lrc_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Simple_Player_Activity;
@@ -18,7 +20,8 @@ import com.example.toollibs.Activity.Demo.Demo_TimerSelector_Activity;
 import com.example.toollibs.R;
 
 public class Activity_Demos extends AppCompatActivity implements View.OnClickListener {
-    private Button bAlarm, bPoster, bTimeSelector, bLive, bPlayer, bLrc, bEffect, bReader, bFileSelector;
+    private Button bAlarm, bTimingTask, bLoopTask, bPoster, bTimeSelector, bLive, bPlayer,
+            bLrc, bEffect, bReader, bFileSelector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +33,12 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
 
     private void init() {
         bAlarm = findViewById(R.id.bAlarm);
+        bTimingTask = findViewById(R.id.bTimingTask);
+        bLoopTask = findViewById(R.id.bLoopTask);
         bPoster = findViewById(R.id.bPoster);
         bTimeSelector = findViewById(R.id.bTimeSelectors);
         bLive = findViewById(R.id.bLive);
+
         bPlayer = findViewById(R.id.bSimplePlayer);
         bLrc = findViewById(R.id.bLrc);
         bEffect = findViewById(R.id.bEffectView);
@@ -42,9 +48,12 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
 
     private void setListener() {
         bAlarm.setOnClickListener(this);
+        bTimingTask.setOnClickListener(this);
+        bLoopTask.setOnClickListener(this);
         bPoster.setOnClickListener(this);
         bTimeSelector.setOnClickListener(this);
         bLive.setOnClickListener(this);
+
         bPlayer.setOnClickListener(this);
         bLrc.setOnClickListener(this);
         bEffect.setOnClickListener(this);
@@ -59,12 +68,19 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
             case R.id.bPoster:
                 intent = new Intent(this, Demo_PosterView_Activity.class);
                 break;
+            case R.id.bTimingTask:
+                intent = new Intent(this, DemoTimingTask_Activity.class);
+                break;
+            case R.id.bLoopTask:
+                intent = new Intent(this, Demo_Loop_Task_Activity.class);
+                break;
             case R.id.bTimeSelectors:
                 intent = new Intent(this, Demo_TimerSelector_Activity.class);
                 break;
             case R.id.bAlarm:
                 intent = new Intent(this, Demo_Time_Activity.class);
                 break;
+
             case R.id.bLive:
                 intent = new Intent(this, Demo_Live_Activity.class);
                 break;

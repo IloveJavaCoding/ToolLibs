@@ -21,7 +21,6 @@
             android:textColor="@color/colorBlack" />
 
         <com.youth.banner.Banner
-            android:layout_marginTop="@dimen/margin_10"
             android:id="@+id/bannerWeb"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
@@ -41,8 +40,26 @@
             android:textColor="@color/colorBlack" />
 
         <com.youth.banner.Banner
-            android:layout_marginTop="@dimen/margin_10"
             android:id="@+id/bannerLocal"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_5"
+            android:text="My Image View"
+            android:textSize="@dimen/text_size_20"
+            android:textColor="@color/colorBlack" />
+
+        <com.example.toollibs.OverWriteClass.MyImageView
+            android:id="@+id/myImageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
     </LinearLayout>

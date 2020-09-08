@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import com.example.toollibs.R;
+import com.example.toollibs.Util.ScreenUtil;
 import com.example.toollibs.Util.SystemUtil;
 
 public class TimeSelector {
@@ -100,7 +101,7 @@ public class TimeSelector {
             Window window = selectorDialog.getWindow();
             window.setGravity(Gravity.BOTTOM);//location -- bottom
             WindowManager.LayoutParams lp = window.getAttributes();
-            lp.width = SystemUtil.getScreenDM(context).widthPixels;
+            lp.width = ScreenUtil.getScreenDM(context).widthPixels;
             window.setAttributes(lp);
         }
     }

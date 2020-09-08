@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.example.toollibs.OverWriteClass.EditTextDelIcon;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
+import com.example.toollibs.Util.ScreenUtil;
 import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_Dialog_Notification extends AppCompatActivity implements View.OnClickListener{
@@ -191,7 +192,7 @@ public class Activity_Dialog_Notification extends AppCompatActivity implements V
         Window window = dialog.getWindow();
         window.setGravity(Gravity.BOTTOM);//location -- bottom
         WindowManager.LayoutParams lp = window.getAttributes();
-        lp.width = SystemUtil.getScreenDM(this).widthPixels;
+        lp.width = ScreenUtil.getScreenDM(this).widthPixels;
         window.setAttributes(lp);
 
         //operations

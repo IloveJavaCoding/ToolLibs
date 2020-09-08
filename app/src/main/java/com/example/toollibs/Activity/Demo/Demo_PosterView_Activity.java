@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.toollibs.OverWriteClass.GlideImageLoader;
+import com.example.toollibs.OverWriteClass.MyImageView;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
+import com.example.toollibs.Util.Helper.ImageHelper;
 import com.example.toollibs.Util.SystemUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -16,6 +18,7 @@ import java.util.List;
 
 public class Demo_PosterView_Activity extends AppCompatActivity {
     private Banner banner1, banner2;
+    private MyImageView imageView;
 
     private List<String> imageUrl;
     private List<Bitmap> imageBitmap;
@@ -32,6 +35,7 @@ public class Demo_PosterView_Activity extends AppCompatActivity {
     private void init() {
         banner1 = findViewById(R.id.bannerWeb);
         banner2 = findViewById(R.id.bannerLocal);
+        imageView = findViewById(R.id.myImageView);
     }
 
     private void setDate() {
@@ -54,6 +58,9 @@ public class Demo_PosterView_Activity extends AppCompatActivity {
         banner2.setImages(imageBitmap);
         banner2.setDelayTime(3000);//default 5seconds
         banner2.start();
+
+        ImageHelper.setImgUri(imageView, imageUrl, 0);
+        ImageHelper.setAnimation(imageView, ImageHelper.ANIM_TYPE_FADE_IN, ImageHelper.ANIM_TYPE_LEFT_OUT);
     }
 
     private void setListener() {

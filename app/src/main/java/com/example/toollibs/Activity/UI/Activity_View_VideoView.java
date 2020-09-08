@@ -30,6 +30,7 @@ import com.example.toollibs.R;
 import com.example.toollibs.SelfClass.VideoFile;
 import com.example.toollibs.Util.DateUtil;
 import com.example.toollibs.Util.MediaUtil;
+import com.example.toollibs.Util.ScreenUtil;
 import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_View_VideoView extends AppCompatActivity implements View.OnClickListener {
@@ -308,7 +309,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         }else{
             Log.d("tag", "get out full screen");
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-            RelativeLayout.LayoutParams lp = new  RelativeLayout.LayoutParams(SystemUtil.getScreenDM(getApplicationContext()).widthPixels,660);
+            RelativeLayout.LayoutParams lp = new  RelativeLayout.LayoutParams(ScreenUtil.getScreenDM(getApplicationContext()).widthPixels,660);
             lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             videoLayout.setLayoutParams(lp);
             isFull = false;

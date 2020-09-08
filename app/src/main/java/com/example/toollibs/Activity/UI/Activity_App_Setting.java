@@ -5,28 +5,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.Activity.Config.SettingData;
 import com.example.toollibs.R;
-import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.DialogUtil;
-import com.example.toollibs.Util.LanguageHelper;
+import com.example.toollibs.Util.Helper.LanguageHelper;
 import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_App_Setting extends AppCompatActivity implements View.OnClickListener {
