@@ -193,9 +193,9 @@ public class Activity_View_ImageView extends AppCompatActivity implements View.O
                 Bitmap bitmap;
                 if(TextUtils.isEmpty(input)){
                     String url = "https://pic.baike.soso.com/ugc/baikepic2/8366/20160729193243-1422261970.jpg/0";
-                    bitmap = InternetUtil.GetBitmapFromUrl(url);
+                    bitmap = InternetUtil.getBitmapFromUrl(url);
                 }else{
-                    bitmap = InternetUtil.GetBitmapFromUrl(input);
+                    bitmap = InternetUtil.getBitmapFromUrl(input);
                 }
                 Log.d("Tag", "open url: "+ input);
                 Message msg = Message.obtain();

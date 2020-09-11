@@ -18,8 +18,9 @@ import java.net.URLConnection;
  * to connect the internet, it must be run in a background thread
  */
 public class InternetUtil {
-    //deal image link
-    public static Bitmap GetBitmapFromUrl(String imgUrl){
+    private static final String TAG = "InternetUtil";
+    //从有效图片URL连接获取数据流，解析为bitmap便于显示
+    public static Bitmap getBitmapFromUrl(String imgUrl){
         Bitmap bitmap = null;
         try {
             URL url = new URL(imgUrl);
@@ -36,12 +37,13 @@ public class InternetUtil {
         return bitmap;
     }
 
-    public static void DownloadImgFromUrl(String imgUrl, String path, String fileName) {
-        Bitmap bitmap = GetBitmapFromUrl((imgUrl));
+    //将图片url先解析成bitmap, 然后保存到本地
+    public static void downloadImgFromUrl(String imgUrl, String path, String fileName) {
+        Bitmap bitmap = getBitmapFromUrl((imgUrl));
         BitmapUtil.bitmap2Local(bitmap, path, fileName);
     }
 
-    //download file from url
+    //从有效资源文件url下载资源到本地（类型不限）
     public static void downloadFile(String strUrl, String path, String fileName) {
         File file = new File(path+File.separator+fileName);
 
@@ -50,7 +52,6 @@ public class InternetUtil {
         } else {
             try {
                 URL url = new URL(strUrl);
-                //URLConnection conn = url.openConnection();
 
                 //===============================================
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();;
@@ -58,7 +59,7 @@ public class InternetUtil {
                 int code = http.getResponseCode();
                 if(code!=200){
                     //connect error
-                    Log.d("tag", "connect failed!!!");
+                    Log.d(TAG, "connect failed!!!");
                     return;
                 }
                 //length of file
@@ -73,7 +74,7 @@ public class InternetUtil {
                 while ((len = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, len);
                 }
-                Log.d("tag", "download successful!");
+                Log.d(TAG, "download successful!");
                 outputStream.close();
                 inputStream.close();
             } catch (Exception e) {
