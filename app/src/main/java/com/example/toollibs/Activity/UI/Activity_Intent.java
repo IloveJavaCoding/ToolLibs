@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.toollibs.OverWriteClass.EditTextDelIcon;
+import com.example.toollibs.Activity.Component.VirgoDelIconEditText;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.IntentUtil;
@@ -26,7 +26,7 @@ public class Activity_Intent extends AppCompatActivity implements View.OnClickLi
     private Button bImage, bAudio, bVideo, bText, bDir;
     private TextView tvImage, tvAudio, tvVideo, tvText, tvDir;
 
-    private EditTextDelIcon etInput;
+    private VirgoDelIconEditText etInput;
     private Button bSearch;
 
     private Button bDial1, bEmail, bRecord, bContract;

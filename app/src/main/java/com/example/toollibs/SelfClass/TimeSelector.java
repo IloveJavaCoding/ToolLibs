@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.app.Dialog;
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -12,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.toollibs.OverWriteClass.PickerView;
+import com.example.toollibs.Activity.ComponentThird.PickerView;
 import com.example.toollibs.Util.DateUtil;
 
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ import java.util.Calendar;
 import java.util.Date;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.ScreenUtil;
-import com.example.toollibs.Util.SystemUtil;
 
 public class TimeSelector {
     private ResultHandler handler;//return the chosen time

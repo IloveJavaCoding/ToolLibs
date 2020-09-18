@@ -2,21 +2,12 @@ package com.example.toollibs.Activity.UI;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,16 +17,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.toollibs.OverWriteClass.EditTextDelIcon;
+import com.example.toollibs.Activity.Component.VirgoDelIconEditText;
 import com.example.toollibs.R;
-import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.ScreenUtil;
 import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_Dialog_Notification extends AppCompatActivity implements View.OnClickListener{
     private Button bDialog1, bDialog2, bDialog3, bDialog4;
     private Button bNotification;
-    private EditTextDelIcon etInput;
+    private VirgoDelIconEditText etInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -7,7 +7,11 @@ import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -368,5 +372,27 @@ public class ConvertUtil {
         BigDecimal result4 = new BigDecimal(teraBytes);
         return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString()
                 + "TB";
+    }
+
+    //=============================2/4 json====================================
+    //需添加gson.jar
+    public static Object getObject(String json, Type class1) {
+        try {
+            Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+            Object object = gson.fromJson(json.trim(), class1);
+            return object;
+        } catch (Exception var4) {
+            var4.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String toJson(Object object) {
+        try {
+            Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+            return gson.toJson(object);
+        } catch (Exception var2) {
+            return "";
+        }
     }
 }

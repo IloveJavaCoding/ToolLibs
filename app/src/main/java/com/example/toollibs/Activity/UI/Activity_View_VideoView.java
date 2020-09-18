@@ -25,13 +25,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import com.example.toollibs.OverWriteClass.VerticalSeekBar;
+import com.example.toollibs.Activity.Component.VirgoVerticalSeekBar;
 import com.example.toollibs.R;
 import com.example.toollibs.SelfClass.VideoFile;
 import com.example.toollibs.Util.DateUtil;
 import com.example.toollibs.Util.MediaUtil;
 import com.example.toollibs.Util.ScreenUtil;
-import com.example.toollibs.Util.SystemUtil;
 
 public class Activity_View_VideoView extends AppCompatActivity implements View.OnClickListener {
     private Button bChooseFile;
@@ -39,7 +38,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
     private TextView tvCurrentTime, tvDuration;
     private ImageView imgControl, imgVoice, imgFullScreen;
     private SeekBar seekBar;
-    private VerticalSeekBar verticalSeekBar;
+    private VirgoVerticalSeekBar virgoVerticalSeekBar;
     private LinearLayout linearLayout;
     private RelativeLayout videoLayout, layoutControl;
 
@@ -73,7 +72,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         imgFullScreen = findViewById(R.id.ivFullScreen);
 
         seekBar = findViewById(R.id.seekBar);
-        verticalSeekBar = findViewById(R.id.vsbVoice);
+        virgoVerticalSeekBar = findViewById(R.id.vsbVoice);
         layoutControl = findViewById(R.id.layout_control);
         linearLayout = findViewById(R.id.linearLayout);
         videoLayout = findViewById(R.id.videoLayout);
@@ -89,9 +88,9 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
         tvDuration.setText(DateUtil.formatTime(duration));
 
         isFull = false;
-        verticalSeekBar.setMax(getMaxVolume());
-        verticalSeekBar.setProgress(getVolume());
-        verticalSeekBar.setVisibility(View.INVISIBLE);
+        virgoVerticalSeekBar.setMax(getMaxVolume());
+        virgoVerticalSeekBar.setProgress(getVolume());
+        virgoVerticalSeekBar.setVisibility(View.INVISIBLE);
 
         thread = new Thread(new videoThread());
         thread.start();
@@ -169,19 +168,19 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
             }
         });
 
-        verticalSeekBar.setOnVerticalSeekBarChangeListener(new VerticalSeekBar.OnVerticalSeekBarChangeListener() {
+        virgoVerticalSeekBar.setOnVerticalSeekBarChangeListener(new VirgoVerticalSeekBar.OnVerticalSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(VerticalSeekBar var1, int var2, boolean var3) {
+            public void onProgressChanged(VirgoVerticalSeekBar var1, int var2, boolean var3) {
                 setVideoVolume(var1.getProgress());
             }
 
             @Override
-            public void onStartTrackingTouch(VerticalSeekBar var1) {
+            public void onStartTrackingTouch(VirgoVerticalSeekBar var1) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(VerticalSeekBar var1) {
+            public void onStopTrackingTouch(VirgoVerticalSeekBar var1) {
 
             }
         });
@@ -237,7 +236,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
                 seekBar.setProgress((int) msg.obj);
                 tvCurrentTime.setText(DateUtil.formatTime((int) msg.obj));
             }else if(msg.what==HIDE_VOICE_CONTROL_CODE){
-                verticalSeekBar.setVisibility(View.INVISIBLE);
+                virgoVerticalSeekBar.setVisibility(View.INVISIBLE);
             }
         }
     };
@@ -280,8 +279,8 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
                 }
                 break;
             case R.id.ivSound:
-                verticalSeekBar.setVisibility(View.VISIBLE);
-                verticalSeekBar.setProgress(getVolume());
+                virgoVerticalSeekBar.setVisibility(View.VISIBLE);
+                virgoVerticalSeekBar.setProgress(getVolume());
                 hideVoiceControl();
                 break;
             case R.id.ivFullScreen:

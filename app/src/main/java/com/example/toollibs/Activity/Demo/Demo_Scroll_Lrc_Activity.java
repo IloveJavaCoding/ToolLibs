@@ -16,7 +16,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.toollibs.Activity.Events.RefershLrcLine;
-import com.example.toollibs.OverWriteClass.MyLrcView;
+import com.example.toollibs.Activity.Component.VirgoLrcView;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.DateUtil;
@@ -33,7 +33,7 @@ public class Demo_Scroll_Lrc_Activity extends AppCompatActivity {
     private SeekBar seekBar;
     private LinearLayout layout;
 //    private LrcView lrcView;
-    private MyLrcView lrcView;
+    private VirgoLrcView lrcView;
     private TextView tvCurTime, tvTotalTime;
     private MediaPlayer mediaPlayer;
     private Timer timer;

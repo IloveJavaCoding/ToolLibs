@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.ToggleButton;
 
-import com.example.toollibs.OverWriteClass.SlideToggleButton;
+import com.example.toollibs.Activity.ComponentThird.SlideToggleButton;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.SystemUtil;

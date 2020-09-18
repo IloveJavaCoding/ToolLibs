@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.toollibs.OverWriteClass.MyCanvasView
+    <com.example.toollibs.Activity.Test.MyCanvasView
         android:id="@+id/myCanvas"
         android:layout_width="match_parent"
         android:layout_weight="1"

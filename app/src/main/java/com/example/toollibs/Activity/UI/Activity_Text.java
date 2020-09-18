@@ -32,12 +32,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.example.toollibs.OverWriteClass.EditTextDelIcon;
-import com.example.toollibs.OverWriteClass.MarqueeHorizontal;
-import com.example.toollibs.OverWriteClass.MarqueeVertical;
-import com.example.toollibs.OverWriteClass.SelfPasswordTransformationMethod;
+import com.example.toollibs.Activity.Component.VirgoDelIconEditText;
+import com.example.toollibs.Activity.Component.VirgoMarqueeHorizontal;
+import com.example.toollibs.Activity.Component.VirgoMarqueeVertical;
+import com.example.toollibs.Activity.SelfClass.VirgoPasswordTransformationMethod;
 import com.example.toollibs.R;
-import com.example.toollibs.OverWriteClass.MarqueeHorizontalText;
+import com.example.toollibs.Activity.ComponentThird.MarqueeHorizontalText;
 import com.example.toollibs.Util.SystemUtil;
 
 import java.util.Arrays;
@@ -48,12 +48,12 @@ public class Activity_Text extends AppCompatActivity {
     private TextView tvLamp, tvTest;
     private TextView tvTest1, tvTest2, tvTest3, tvTest4, tvTest5, tvTest6, tvTest7, tvTest8;
     private EditText etPassword, etEnter;
-    private EditTextDelIcon etDel;
+    private VirgoDelIconEditText etDel;
     private Button bEnter;
     private ToggleButton tbControl;
     private MarqueeHorizontalText view;
-    private MarqueeHorizontal horizontal;
-    private MarqueeVertical vertical;
+    private VirgoMarqueeHorizontal horizontal;
+    private VirgoMarqueeVertical vertical;
     private Spinner spinner1, spinner2;
 
     private String data1;
@@ -61,7 +61,7 @@ public class Activity_Text extends AppCompatActivity {
     private String[] strArray;
     private List<Object> list;
 
-    private SelfPasswordTransformationMethod transformationMethod;
+    private VirgoPasswordTransformationMethod transformationMethod;
     private static final String DEFAULT_TEXT = "曾经沧海难为水，除却巫山不是云。取次花丛懒回顾，半缘修道半缘君。" +
             "葡萄美酒夜光杯，欲饮琵琶马上催。醉卧沙场君莫笑。古来征战几人回。";
     private static final String DEFAULT_TEXT2 = "What is faith? If it doesn't endure when we are tested the most?";
@@ -105,7 +105,7 @@ public class Activity_Text extends AppCompatActivity {
     }
 
     private void setData() {
-        transformationMethod = new SelfPasswordTransformationMethod('@');
+        transformationMethod = new VirgoPasswordTransformationMethod('@');
         etPassword.setTransformationMethod(transformationMethod);
 
         tvLamp.setText(DEFAULT_TEXT);

@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.toollibs.OverWriteClass.VerticalSeekBar;
+import com.example.toollibs.Activity.Component.VirgoVerticalSeekBar;
 import com.example.toollibs.R;
 
 public class Activity_Bar_SeekBar extends AppCompatActivity {
@@ -20,7 +20,7 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
     private View view;
     private TextView notice, tvVSB;
     private SeekBar barR, barG, barB;
-    private VerticalSeekBar verticalSeekBar;
+    private VirgoVerticalSeekBar virgoVerticalSeekBar;
     private Integer iR, iG, iB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
         barR = findViewById(R.id.bar_r);
         barG = findViewById(R.id.bar_g);
         barB = findViewById(R.id.bar_b);
-        verticalSeekBar = findViewById(R.id.vSeekBar);
+        virgoVerticalSeekBar = findViewById(R.id.vSeekBar);
 
         setData();
     }
@@ -57,7 +57,7 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
         barG.setMax(255);
         barB.setMax(255);
 
-        verticalSeekBar.setMax(100);
+        virgoVerticalSeekBar.setMax(100);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             barR.getThumb().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);//滑块
@@ -135,19 +135,19 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
             }
         });
 
-        verticalSeekBar.setOnVerticalSeekBarChangeListener(new VerticalSeekBar.OnVerticalSeekBarChangeListener() {
+        virgoVerticalSeekBar.setOnVerticalSeekBarChangeListener(new VirgoVerticalSeekBar.OnVerticalSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(VerticalSeekBar var1, int var2, boolean var3) {
+            public void onProgressChanged(VirgoVerticalSeekBar var1, int var2, boolean var3) {
 
             }
 
             @Override
-            public void onStartTrackingTouch(VerticalSeekBar var1) {
+            public void onStartTrackingTouch(VirgoVerticalSeekBar var1) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(VerticalSeekBar var1) {
+            public void onStopTrackingTouch(VirgoVerticalSeekBar var1) {
                 Log.d("tag", "seek bar change...");
                 tvVSB.setText(""+var1.getProgress());
             }

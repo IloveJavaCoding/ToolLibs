@@ -4,11 +4,11 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.toollibs.OverWriteClass.GlideImageLoader;
-import com.example.toollibs.OverWriteClass.MyImageView;
+import com.example.toollibs.Util.Helper.GlideImageHelper;
+import com.example.toollibs.Activity.Component.VirgoImageView;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
-import com.example.toollibs.Util.Helper.ImageHelper;
+import com.example.toollibs.Util.Helper.VirgoImageHelper;
 import com.example.toollibs.Util.SystemUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Demo_PosterView_Activity extends AppCompatActivity {
     private Banner banner1, banner2;
-    private MyImageView imageView;
+    private VirgoImageView imageView;
 
     private List<String> imageUrl;
     private List<Bitmap> imageBitmap;
@@ -49,18 +49,18 @@ public class Demo_PosterView_Activity extends AppCompatActivity {
         imageBitmap.add(BitmapUtil.getBitmapFromRes(this, R.drawable.img_bg2));
         imageBitmap.add(BitmapUtil.getBitmapFromRes(this, R.drawable.img_bg3));
 
-        banner1.setImageLoader(new GlideImageLoader(1));
+        banner1.setImageLoader(new GlideImageHelper(1));
         banner1.setImages(imageUrl);
         banner1.setDelayTime(5000);//default 5seconds
         banner1.start();
 
-        banner2.setImageLoader(new GlideImageLoader(2));
+        banner2.setImageLoader(new GlideImageHelper(2));
         banner2.setImages(imageBitmap);
         banner2.setDelayTime(3000);//default 5seconds
         banner2.start();
 
-        ImageHelper.setImgUri(imageView, imageUrl, 0);
-        ImageHelper.setAnimation(imageView, ImageHelper.ANIM_TYPE_FADE_IN, ImageHelper.ANIM_TYPE_LEFT_OUT);
+        VirgoImageHelper.setImgUri(imageView, imageUrl, 0);
+        VirgoImageHelper.setAnimation(imageView, VirgoImageHelper.ANIM_TYPE_FADE_IN, VirgoImageHelper.ANIM_TYPE_LEFT_OUT);
     }
 
     private void setListener() {

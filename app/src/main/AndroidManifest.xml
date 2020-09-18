@@ -53,6 +53,7 @@
         <activity android:name=".Activity.Demo.Demo_Simple_Player_Activity" />
         <activity android:name=".Activity.Demo.Demo_Scroll_Lrc_Activity" />
         <activity android:name=".Activity.Demo.Demo_File_Selector_Activity" />
+        <activity android:name=".Activity.Demo.Demo_Get_Weather_Activity"/>
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

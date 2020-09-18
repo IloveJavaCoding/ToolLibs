@@ -1,9 +1,7 @@
 package com.example.toollibs.Activity.UI;
 
 import android.Manifest;
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,7 +15,6 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.solver.GoalRow;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -26,7 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.toollibs.OverWriteClass.EditTextDelIcon;
+import com.example.toollibs.Activity.Component.VirgoDelIconEditText;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 import com.example.toollibs.Util.FileUtil;
@@ -35,12 +32,11 @@ import com.example.toollibs.Util.SystemUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Activity_View_ImageView extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView;
     private Button bSearch, bZoomIn, bZoomOut, bRotate, bAlbum, bCamera, bCircle, bAnimator;
-    private EditTextDelIcon etInput;
+    private VirgoDelIconEditText etInput;
 
     private Bitmap curBitmap;
     private Uri imageUris;

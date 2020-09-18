@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.example.toollibs.Activity.Demo.DemoTimingTask_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Effect_View_Activity;
 import com.example.toollibs.Activity.Demo.Demo_File_Selector_Activity;
+import com.example.toollibs.Activity.Demo.Demo_Get_Weather_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Live_Activity;
 import com.example.toollibs.Activity.Demo.Demo_Loop_Task_Activity;
 import com.example.toollibs.Activity.Demo.Demo_PosterView_Activity;
@@ -21,7 +22,7 @@ import com.example.toollibs.R;
 
 public class Activity_Demos extends AppCompatActivity implements View.OnClickListener {
     private Button bAlarm, bTimingTask, bLoopTask, bPoster, bTimeSelector, bLive, bPlayer,
-            bLrc, bEffect, bReader, bFileSelector;
+            bLrc, bEffect, bReader, bFileSelector, bWeather;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,7 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bEffect = findViewById(R.id.bEffectView);
         bReader = findViewById(R.id.bReader);
         bFileSelector = findViewById(R.id.bFileSelector);
+        bWeather = findViewById(R.id.bWeather);
     }
 
     private void setListener() {
@@ -59,6 +61,7 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bEffect.setOnClickListener(this);
         bReader.setOnClickListener(this);
         bFileSelector.setOnClickListener(this);
+        bWeather.setOnClickListener(this);
     }
 
     @Override
@@ -99,6 +102,9 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.bReader:
                 intent = new Intent(this, Demo_Simple_Reader.class);
+                break;
+            case R.id.bWeather:
+                intent = new Intent(this, Demo_Get_Weather_Activity.class);
                 break;
 
         }

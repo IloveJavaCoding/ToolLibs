@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
 
-    <com.example.toollibs.OverWriteClass.EffectView
+    <com.example.toollibs.Activity.ComponentThird.EffectView
         android:id="@+id/effectView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

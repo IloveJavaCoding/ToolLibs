@@ -11,8 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.toollibs.OverWriteClass.Drawable.VisualizerHelper;
-import com.example.toollibs.OverWriteClass.EffectView;
+import com.example.toollibs.Activity.ComponentThird.EffectView;
 import com.example.toollibs.R;
 import com.example.toollibs.Util.BitmapUtil;
 

@@ -12,32 +12,27 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.toollibs.Activity.Bean.Books;
-import com.example.toollibs.Activity.Config.Constant;
 import com.example.toollibs.Activity.Config.SettingData;
 import com.example.toollibs.Activity.DataBase.DBHelper;
 import com.example.toollibs.Activity.Events.ClickEvent;
 import com.example.toollibs.Activity.Events.RefershBookTagEvent;
 import com.example.toollibs.Activity.Events.SentTotalLineEvent;
-import com.example.toollibs.OverWriteClass.BookView;
-import com.example.toollibs.OverWriteClass.OnDoubleClickListener;
+import com.example.toollibs.Activity.Component.VirgoBookView;
 import com.example.toollibs.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.io.Reader;
 
 public class ReaderActivity extends AppCompatActivity {
     private final String TAG = "READER";
     private LinearLayout layout, layoutControl;
     private ImageView imgBack;
     private TextView tvName, tvProcess;
-    private BookView bookView;
+    private VirgoBookView bookView;
     private SeekBar seekBar;
     private RadioGroup radioGroup;
 
@@ -150,11 +145,11 @@ public class ReaderActivity extends AppCompatActivity {
                 switch (i){
                     case R.id.rbSlip:
                         bookView.toSlipMode();
-                        SettingData.saveReadMode(getApplicationContext(), BookView.MODE_SLIP);
+                        SettingData.saveReadMode(getApplicationContext(), VirgoBookView.MODE_SLIP);
                         break;
                     case R.id.rbPage:
                         bookView.toPageMode();
-                        SettingData.saveReadMode(getApplicationContext(), BookView.MODE_PAGE);
+                        SettingData.saveReadMode(getApplicationContext(), VirgoBookView.MODE_PAGE);
                         break;
                 }
             }

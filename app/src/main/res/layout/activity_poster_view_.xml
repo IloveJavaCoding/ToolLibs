@@ -58,7 +58,7 @@
             android:textSize="@dimen/text_size_20"
             android:textColor="@color/colorBlack" />
 
-        <com.example.toollibs.OverWriteClass.MyImageView
+        <com.example.toollibs.Activity.Component.VirgoImageView
             android:id="@+id/myImageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>

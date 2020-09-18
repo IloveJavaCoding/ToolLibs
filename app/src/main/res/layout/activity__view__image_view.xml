@@ -28,7 +28,7 @@
         android:padding="@dimen/padding_15"
         android:orientation="horizontal">
 
-        <com.example.toollibs.OverWriteClass.EditTextDelIcon
+        <com.example.toollibs.Activity.Component.VirgoDelIconEditText
             android:id="@+id/delInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
