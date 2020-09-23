@@ -68,7 +68,7 @@
                 android:paddingRight="20dp"
                 android:paddingTop="15dp">
 
-                <com.example.toollibs.Activity.ComponentThird.PickerView
+                <com.nepalese.toollibs.Activity.ComponentThird.PickerView
                     android:id="@+id/pvYear"
                     android:layout_width="0dp"
                     android:layout_height="160dp"
@@ -83,7 +83,7 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/text_size_18" />
 
-                <com.example.toollibs.Activity.ComponentThird.PickerView
+                <com.nepalese.toollibs.Activity.ComponentThird.PickerView
                     android:id="@+id/pvMonth"
                     android:layout_width="0dp"
                     android:layout_height="160dp"
@@ -99,7 +99,7 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/text_size_18" />
 
-                <com.example.toollibs.Activity.ComponentThird.PickerView
+                <com.nepalese.toollibs.Activity.ComponentThird.PickerView
                     android:id="@+id/pvDay"
                     android:layout_width="0dp"
                     android:layout_height="160dp"
@@ -114,7 +114,7 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/text_size_18" />
 
-                <com.example.toollibs.Activity.ComponentThird.PickerView
+                <com.nepalese.toollibs.Activity.ComponentThird.PickerView
                     android:id="@+id/pvHour"
                     android:layout_width="0dp"
                     android:layout_height="160dp"
@@ -130,7 +130,7 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/text_size_18" />
 
-                <com.example.toollibs.Activity.ComponentThird.PickerView
+                <com.nepalese.toollibs.Activity.ComponentThird.PickerView
                     android:id="@+id/pvMinute"
                     android:layout_width="0dp"
                     android:layout_height="160dp"

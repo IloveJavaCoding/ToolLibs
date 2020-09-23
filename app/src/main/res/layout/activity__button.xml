@@ -233,7 +233,7 @@
                     android:textOff=""
                     android:checked="true"/>
 
-                <com.example.toollibs.Activity.ComponentThird.SlideToggleButton
+                <com.nepalese.toollibs.Activity.ComponentThird.SlideToggleButton
                     android:id="@+id/stbSlide"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
