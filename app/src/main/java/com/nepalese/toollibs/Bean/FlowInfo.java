@@ -1,12 +1,17 @@
 package com.nepalese.toollibs.Bean;
 
-public class FlowInfo {
+public class FlowInfo extends BaseBean{
     private String packageName;
     private String appNAme;
     private long upKb;
     private long downKb;
 
     public FlowInfo() {
+    }
+
+    @Override
+    String getString() {
+        return null;
     }
 
     public FlowInfo(String packageName, String appNAme, long upKb, long downKb) {

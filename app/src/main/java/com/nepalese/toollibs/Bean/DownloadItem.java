@@ -4,7 +4,7 @@ package com.nepalese.toollibs.Bean;
  * @author nepalese on 2020/9/23 17:13
  * @usage
  */
-public class DownloadItem {
+public class DownloadItem extends BaseBean{
     private String url;
     private String fileName;
     private String savePath;
@@ -25,5 +25,10 @@ public class DownloadItem {
 
     public String getSavePath() {
         return savePath;
+    }
+
+    @Override
+    String getString() {
+        return null;
     }
 }

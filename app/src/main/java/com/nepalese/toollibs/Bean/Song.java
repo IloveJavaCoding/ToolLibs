@@ -1,6 +1,6 @@
 package com.nepalese.toollibs.Bean;
 
-public class Song {
+public class Song extends BaseBean{
     private String title;
     private String displayName;
     private String artist;
@@ -9,6 +9,11 @@ public class Song {
     private int duration;
 
     public Song() {
+    }
+
+    @Override
+    String getString() {
+        return null;
     }
 
     public Song(String title, String displayName, String artist, String album, String path, int duration) {

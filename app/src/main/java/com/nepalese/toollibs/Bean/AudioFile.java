@@ -1,6 +1,6 @@
 package com.nepalese.toollibs.Bean;
 
-public class AudioFile {
+public class AudioFile extends BaseBean{
     private long sId;
     private String sName;
     private String sDName;
@@ -81,5 +81,10 @@ public class AudioFile {
 
     public void setsLength(int sLength) {
         this.sLength = sLength;
+    }
+
+    @Override
+    String getString() {
+        return null;
     }
 }

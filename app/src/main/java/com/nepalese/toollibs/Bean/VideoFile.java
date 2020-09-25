@@ -1,6 +1,6 @@
 package com.nepalese.toollibs.Bean;
 
-public class VideoFile {
+public class VideoFile extends BaseBean{
     private int id;
     private String name;//video name
     private String display;
@@ -108,5 +108,10 @@ public class VideoFile {
 
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+
+    @Override
+    String getString() {
+        return null;
     }
 }

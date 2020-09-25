@@ -1,14 +1,12 @@
 package com.nepalese.toollibs.Bean;
 
-import com.nepalese.toollibs.Util.ConvertUtil;
-
 import java.util.List;
 
 /**
  * @author nepalese on 2020/9/18 17:05
  * @usage
  */
-public class WeatherInfo {
+public class WeatherInfo extends BaseBean{
     private List<HeWeather6Bean> HeWeather6;
 
     public List<HeWeather6Bean> getHeWeather6() {
@@ -313,7 +311,8 @@ public class WeatherInfo {
         }
     }
 
-    public String toJson() {
-        return ConvertUtil.toJson(this);
+    @Override
+    String getString() {
+        return null;
     }
 }

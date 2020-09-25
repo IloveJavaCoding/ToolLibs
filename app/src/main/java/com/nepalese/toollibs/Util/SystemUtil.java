@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.nepalese.toollibs.Activity.Config.Constant;
 import com.nepalese.toollibs.Activity.RuntimeExec;
+import com.nepalese.toollibs.Bean.AppInfo;
 import com.nepalese.toollibs.Bean.FlowInfo;
 
 import java.io.File;
@@ -160,6 +162,29 @@ public class SystemUtil {
             return getPackageInfo(context).getLongVersionCode();
         }
         return -1;
+    }
+
+    /**
+     * 获取apk包的信息：版本号，名称，图标等
+     * @param absPath apk包的绝对路径
+     * @param context
+     */
+    public static AppInfo getApkInfo(String absPath, Context context) {
+        PackageManager pm = context.getPackageManager();
+        PackageInfo pkgInfo = pm.getPackageArchiveInfo(absPath, PackageManager.GET_ACTIVITIES);
+        if (pkgInfo != null) {
+            ApplicationInfo appInfo = pkgInfo.applicationInfo;
+            appInfo.sourceDir = absPath;
+            appInfo.publicSourceDir = absPath;
+            AppInfo app = new AppInfo();
+            app.setName(pm.getApplicationLabel(appInfo).toString());
+            app.setPackageName(appInfo.packageName);
+            app.setVersionName(pkgInfo.versionName);
+            app.setVersionCode(pkgInfo.versionCode);
+            app.setIcon(pm.getApplicationIcon(appInfo));
+            return app;
+        }
+        return null;
     }
 
     //==========================获取APP当月流量消耗情况================================

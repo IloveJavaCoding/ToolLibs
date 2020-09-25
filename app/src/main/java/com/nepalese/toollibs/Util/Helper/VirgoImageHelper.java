@@ -13,7 +13,7 @@ import java.util.List;
  * @usage
  */
 public class VirgoImageHelper {
-    private static final String TAG = "ImageHelper";
+    private static final String TAG = "VirgoImageHelper";
 
     public static final int ANIM_TYPE_FADE_IN = 0;
     public static final int ANIM_TYPE_FADE_OUT = 1;

@@ -12,6 +12,10 @@ public class Constant {
     public static final String[] WEEK = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     public static final String[] MONTH = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
+    //upgrade apk
+    public static final String APK_DIR = "virgo";
+    public static final String APK_NAME = "ToolLibs.apk";
+
     //live
     public static final String CITY = "city";
     public static final String FREQUENCY = "frequency";

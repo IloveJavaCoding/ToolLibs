@@ -3,6 +3,9 @@ package com.nepalese.toollibs.Activity.Service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,12 +17,16 @@ import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
+import com.nepalese.toollibs.Activity.Config.Constant;
 import com.nepalese.toollibs.Activity.Events.DownloadResourceEvent;
 import com.nepalese.toollibs.Activity.MainActivity;
 import com.nepalese.toollibs.Activity.Manager.AmapLocationManager;
+import com.nepalese.toollibs.Bean.AppInfo;
 import com.nepalese.toollibs.Bean.DownloadItem;
+import com.nepalese.toollibs.BuildConfig;
 import com.nepalese.toollibs.Util.DateUtil;
 import com.nepalese.toollibs.Util.Helper.DownloadHelper;
+import com.nepalese.toollibs.Util.SystemUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -132,11 +139,38 @@ public class CoreService extends Service {
     //@param data 插入 U 盘根目录
     private void onMounted(String data) {
         Log.d(TAG, "onMounted: " + data);
+        upgradeApk(data);
         //todo
     }
 
     private void onUnMounted(String data) {
         //todo
+    }
+
+    //apk 升级
+    private void upgradeApk(String path){
+        String apkPath = path + "/" + Constant.APK_DIR + "/" + Constant.APK_NAME;
+        AppInfo app = SystemUtil.getApkInfo(apkPath, context);
+        if(app != null){
+            Log.d(TAG, "found new apk: " + apkPath +  "\tpackageName: "
+                    + app.getPackageName() +  "\tversion:" + app.getVersionName());
+            if (doAppUpgrade(apkPath, app.getPackageName(), app.getVersionName())){
+                return;
+            }
+        }
+    }
+
+    private boolean doAppUpgrade(String filePath,String packageName,String versionName){
+        String versionCurrent = SystemUtil.getVersionName(context);
+        //软件包一致且版本号高于当前版本
+        if (BuildConfig.APPLICATION_ID.equals(packageName) && versionCurrent.compareTo(versionName) < 0) {
+            Log.i(TAG, "run: filePath+" + filePath);
+            SystemUtil.installApkSilence(filePath);
+            return true;
+        } else {
+            Log.e(TAG, "doAppUpgrade: upgrade fail!");
+        }
+        return false;
     }
 
     //开启定位
