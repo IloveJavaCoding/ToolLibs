@@ -48,7 +48,7 @@ public class SystemUtil {
     //重启应用
     public static void restartApp(Context context) {
         final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//Intent.FLAG_ACTIVITY_CLEAR_TASK;
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);//Intent.FLAG_ACTIVITY_CLEAR_TASK;
         context.startActivity(intent);
     }
 
@@ -137,7 +137,6 @@ public class SystemUtil {
 
     //=================================get apk code and name===============================
     private static PackageInfo getPackageInfo(Context context){
-        // 获取package管理者  需要上下文
         PackageManager packageManager = context.getPackageManager();
         //获取包名的方法
         String packageName = context.getPackageName();

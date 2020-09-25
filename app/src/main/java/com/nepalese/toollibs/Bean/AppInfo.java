@@ -61,9 +61,4 @@ public class AppInfo extends BaseBean {
     public void setPosition(int position) {
         this.position = position;
     }
-
-    @Override
-    String getString() {
-        return null;
-    }
 }

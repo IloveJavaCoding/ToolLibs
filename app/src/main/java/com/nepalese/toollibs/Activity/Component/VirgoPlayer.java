@@ -1,4 +1,4 @@
-package com.nepalese.toollibs.Activity.Demo;
+package com.nepalese.toollibs.Activity.Component;
 
 import android.media.MediaPlayer;
 import android.util.Log;
@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements IPlayback, MediaPlayer.OnCompletionListener{
+public class VirgoPlayer implements IPlayback, MediaPlayer.OnCompletionListener{
     private static final String TAG = "Player";
 
-    private static volatile Player instance;
+    private static volatile VirgoPlayer instance;
     private MediaPlayer mediaPlayer;
     private List<Song> songs;
     private List<Callback> mCallbacks = new ArrayList<>(2);
@@ -22,17 +22,17 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener{
     private boolean isPaused = false;
     private int currentIndex = 0;
 
-    private Player() {
+    private VirgoPlayer() {
         mediaPlayer = new MediaPlayer();
         songs = new ArrayList<>();
         mediaPlayer.setOnCompletionListener(this);
     }
 
-    public static Player getInstance() {
+    public static VirgoPlayer getInstance() {
         if (instance == null) {
-            synchronized (Player.class) {
+            synchronized (VirgoPlayer.class) {
                 if (instance == null) {
-                    instance = new Player();
+                    instance = new VirgoPlayer();
                 }
             }
         }

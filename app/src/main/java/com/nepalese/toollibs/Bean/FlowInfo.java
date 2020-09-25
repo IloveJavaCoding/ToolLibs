@@ -9,11 +9,6 @@ public class FlowInfo extends BaseBean{
     public FlowInfo() {
     }
 
-    @Override
-    String getString() {
-        return null;
-    }
-
     public FlowInfo(String packageName, String appNAme, long upKb, long downKb) {
         this.packageName = packageName;
         this.appNAme = appNAme;

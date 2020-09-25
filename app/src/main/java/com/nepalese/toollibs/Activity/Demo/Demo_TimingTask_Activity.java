@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class DemoTimingTask_Activity extends AppCompatActivity implements View.OnClickListener {
+public class Demo_TimingTask_Activity extends AppCompatActivity implements View.OnClickListener {
     private final String ACTION_TASK = "com.example.toollibs.alarm.task";
     private final String OUTCOME = "完成任务！";
     private final String FORMAT = "yyyy-mm-dd hh:MM:ss";

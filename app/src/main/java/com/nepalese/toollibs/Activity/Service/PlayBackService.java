@@ -16,7 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.nepalese.toollibs.Activity.Demo.Demo_Simple_Player_Activity;
-import com.nepalese.toollibs.Activity.Demo.Player;
+import com.nepalese.toollibs.Activity.Component.VirgoPlayer;
 import com.nepalese.toollibs.Activity.Interface.IPlayback;
 import com.nepalese.toollibs.R;
 import com.nepalese.toollibs.Bean.Song;
@@ -32,7 +32,7 @@ public class PlayBackService extends Service implements IPlayback, IPlayback.Cal
 
     private static final int NOTIFICATION_ID = 2;
     private RemoteViews mContentViewBig, mContentViewSmall;
-    private Player mPlayer;
+    private VirgoPlayer mVirgoPlayer;
     private final Binder mBinder = new LocalBinder();
 
     public class LocalBinder extends Binder {
@@ -49,8 +49,8 @@ public class PlayBackService extends Service implements IPlayback, IPlayback.Cal
     @Override
     public void onCreate() {
         super.onCreate();
-        mPlayer = Player.getInstance();
-        mPlayer.registerCallback(this);
+        mVirgoPlayer = VirgoPlayer.getInstance();
+        mVirgoPlayer.registerCallback(this);
     }
 
     @Override
@@ -93,82 +93,82 @@ public class PlayBackService extends Service implements IPlayback, IPlayback.Cal
 
     @Override
     public void setPlayList(List<Song> songs) {
-        mPlayer.setPlayList(songs);
+        mVirgoPlayer.setPlayList(songs);
     }
 
     @Override
     public boolean play() {
-        return mPlayer.play();
+        return mVirgoPlayer.play();
     }
 
     @Override
     public boolean play(int index) {
-        return mPlayer.play(index);
+        return mVirgoPlayer.play(index);
     }
 
     @Override
     public boolean play(List<Song> songs, int startIndex) {
-        return mPlayer.play(songs, startIndex);
+        return mVirgoPlayer.play(songs, startIndex);
     }
 
     @Override
     public boolean play(Song song) {
-        return mPlayer.play(song);
+        return mVirgoPlayer.play(song);
     }
 
     @Override
     public boolean playLast() {
-        return mPlayer.playLast();
+        return mVirgoPlayer.playLast();
     }
 
     @Override
     public boolean playNext() {
-        return mPlayer.playNext();
+        return mVirgoPlayer.playNext();
     }
 
     @Override
     public boolean pause() {
-        return mPlayer.pause();
+        return mVirgoPlayer.pause();
     }
 
     @Override
     public boolean isPlaying() {
-        return mPlayer.isPlaying();
+        return mVirgoPlayer.isPlaying();
     }
 
     @Override
     public int getProgress() {
-        return mPlayer.getProgress();
+        return mVirgoPlayer.getProgress();
     }
 
     @Override
     public Song getPlayingSong() {
-        return mPlayer.getPlayingSong();
+        return mVirgoPlayer.getPlayingSong();
     }
 
     @Override
     public boolean seekTo(int progress) {
-        return mPlayer.seekTo(progress);
+        return mVirgoPlayer.seekTo(progress);
     }
 
     @Override
     public void registerCallback(Callback callback) {
-        mPlayer.registerCallback(callback);
+        mVirgoPlayer.registerCallback(callback);
     }
 
     @Override
     public void unregisterCallback(Callback callback) {
-        mPlayer.unregisterCallback(callback);
+        mVirgoPlayer.unregisterCallback(callback);
     }
 
     @Override
     public void removeCallbacks() {
-        mPlayer.removeCallbacks();
+        mVirgoPlayer.removeCallbacks();
     }
 
     @Override
     public void releasePlayer() {
-        mPlayer.releasePlayer();
+        mVirgoPlayer.releasePlayer();
         super.onDestroy();
     }
 
@@ -272,7 +272,7 @@ public class PlayBackService extends Service implements IPlayback, IPlayback.Cal
     }
 
     private void updateRemoteViews(RemoteViews remoteView) {
-        Song currentSong = mPlayer.getPlayingSong();
+        Song currentSong = mVirgoPlayer.getPlayingSong();
         if (currentSong != null) {
             remoteView.setTextViewText(R.id.text_view_name, currentSong.getDisplayName());
             remoteView.setTextViewText(R.id.text_view_artist, currentSong.getArtist());

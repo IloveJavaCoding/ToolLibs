@@ -310,9 +310,4 @@ public class WeatherInfo extends BaseBean{
             }
         }
     }
-
-    @Override
-    String getString() {
-        return null;
-    }
 }

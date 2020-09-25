@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name="com.nepalese.toollibs.Activity.Demo.Demo_Loop_Task_Activity"></activity>
-        <activity android:name="com.nepalese.toollibs.Activity.Demo.DemoTimingTask_Activity" />
+        <activity android:name="com.nepalese.toollibs.Activity.Demo.Demo_TimingTask_Activity" />
         <activity android:name="com.nepalese.toollibs.Activity.Demo.Demo_Live_Activity" />
         <activity android:name="com.nepalese.toollibs.Activity.UI.Activity_Service" />
         <activity android:name="com.nepalese.toollibs.Activity.UI.Activity_Intent" />
@@ -38,7 +38,7 @@
         <activity android:name="com.nepalese.toollibs.Activity.UI.Activity_Button" />
         <activity android:name="com.nepalese.toollibs.Activity.UI.Activity_Text" />
         <activity
-            android:name="com.nepalese.toollibs.Activity.Demo.Alarm_Activity"
+            android:name="com.nepalese.toollibs.Activity.Demo.Demo_Alarm_Activity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity="" />
@@ -47,7 +47,7 @@
         <activity android:name="com.nepalese.toollibs.Activity.UI.Activity_Bar_SeekBar" />
         <activity android:name="com.nepalese.toollibs.Activity.Demo.Demo_TimerSelector_Activity" />
         <activity android:name="com.nepalese.toollibs.Activity.Demo.ReaderActivity" />
-        <activity android:name="com.nepalese.toollibs.Activity.Demo.Demo_Simple_Reader" />
+        <activity android:name="com.nepalese.toollibs.Activity.Demo.Demo_Simple_Reader_Activity" />
         <activity android:name="com.nepalese.toollibs.Activity.UI.Activity_Dialog_Notification" />
         <activity android:name="com.nepalese.toollibs.Activity.Demo.Demo_PosterView_Activity" />
         <activity android:name="com.nepalese.toollibs.Activity.Demo.Demo_Simple_Player_Activity" />

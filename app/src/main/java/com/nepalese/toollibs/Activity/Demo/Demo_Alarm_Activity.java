@@ -20,7 +20,7 @@ import com.nepalese.toollibs.Util.DateUtil;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Alarm_Activity extends AppCompatActivity {
+public class Demo_Alarm_Activity extends AppCompatActivity {
     private Button bStop, bSnooze;
     private TextView tvCurTime, tvCurDate, tvTag;
 

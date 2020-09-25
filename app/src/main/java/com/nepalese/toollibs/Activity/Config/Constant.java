@@ -1,6 +1,6 @@
 package com.nepalese.toollibs.Activity.Config;
 
-import com.nepalese.toollibs.Activity.Demo.LiveSource;
+import com.nepalese.toollibs.Bean.LiveSource;
 
 public class Constant {
     //string

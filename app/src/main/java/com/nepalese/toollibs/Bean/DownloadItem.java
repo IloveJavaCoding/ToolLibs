@@ -26,9 +26,4 @@ public class DownloadItem extends BaseBean{
     public String getSavePath() {
         return savePath;
     }
-
-    @Override
-    String getString() {
-        return null;
-    }
 }

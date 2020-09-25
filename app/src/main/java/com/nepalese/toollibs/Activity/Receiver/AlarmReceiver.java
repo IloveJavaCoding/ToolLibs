@@ -9,7 +9,7 @@ import android.os.Message;
 
 import com.nepalese.toollibs.Activity.Config.Constant;
 import com.nepalese.toollibs.Activity.Config.SettingData;
-import com.nepalese.toollibs.Activity.Demo.Alarm_Activity;
+import com.nepalese.toollibs.Activity.Demo.Demo_Alarm_Activity;
 import com.nepalese.toollibs.Activity.Service.AlarmService;
 import com.nepalese.toollibs.Util.SystemUtil;
 
@@ -32,7 +32,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         String time = bundle.getString("time");
         sound = bundle.getString("sound");
 
-        intent = new Intent(context, Alarm_Activity.class);
+        intent = new Intent(context, Demo_Alarm_Activity.class);
         intent.putExtras(bundle);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

@@ -109,9 +109,4 @@ public class VideoFile extends BaseBean{
     public void setDuration(long duration) {
         this.duration = duration;
     }
-
-    @Override
-    String getString() {
-        return null;
-    }
 }

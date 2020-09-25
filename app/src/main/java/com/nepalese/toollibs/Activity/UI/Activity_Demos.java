@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.nepalese.toollibs.Activity.Demo.DemoTimingTask_Activity;
+import com.nepalese.toollibs.Activity.Demo.Demo_TimingTask_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_Effect_View_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_File_Selector_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_Get_Weather_Activity;
@@ -15,7 +15,7 @@ import com.nepalese.toollibs.Activity.Demo.Demo_Loop_Task_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_PosterView_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_Scroll_Lrc_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_Simple_Player_Activity;
-import com.nepalese.toollibs.Activity.Demo.Demo_Simple_Reader;
+import com.nepalese.toollibs.Activity.Demo.Demo_Simple_Reader_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_Time_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_TimerSelector_Activity;
 import com.nepalese.toollibs.R;
@@ -72,7 +72,7 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
                 intent = new Intent(this, Demo_PosterView_Activity.class);
                 break;
             case R.id.bTimingTask:
-                intent = new Intent(this, DemoTimingTask_Activity.class);
+                intent = new Intent(this, Demo_TimingTask_Activity.class);
                 break;
             case R.id.bLoopTask:
                 intent = new Intent(this, Demo_Loop_Task_Activity.class);
@@ -101,7 +101,7 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
                 intent = new Intent(this, Demo_Effect_View_Activity.class);
                 break;
             case R.id.bReader:
-                intent = new Intent(this, Demo_Simple_Reader.class);
+                intent = new Intent(this, Demo_Simple_Reader_Activity.class);
                 break;
             case R.id.bWeather:
                 intent = new Intent(this, Demo_Get_Weather_Activity.class);

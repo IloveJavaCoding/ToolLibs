@@ -1,8 +1,9 @@
-package com.nepalese.toollibs.Activity.Demo;
+package com.nepalese.toollibs.Bean;
 
 import com.nepalese.toollibs.Activity.Config.Constant;
+import com.nepalese.toollibs.Bean.BaseBean;
 
-public class LiveSource {
+public class LiveSource extends BaseBean {
     private String city;
     private String frequency;
     private int audPid;

@@ -24,7 +24,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Demo_Simple_Reader extends AppCompatActivity {
+public class Demo_Simple_Reader_Activity extends AppCompatActivity {
     private final String TAG = "SIMPLE_READER";
     private ImageView imgBack, imgImport;
     private GridView gridView;
@@ -104,7 +104,7 @@ public class Demo_Simple_Reader extends AppCompatActivity {
                 //change cover page
                 curIndex = position;
                 Log.d(TAG, "change cover: "+ curIndex);
-                IntentUtil.readImageFile(Demo_Simple_Reader.this, CHANGE_COVER_CODE);
+                IntentUtil.readImageFile(Demo_Simple_Reader_Activity.this, CHANGE_COVER_CODE);
                 return true;
             }
         });

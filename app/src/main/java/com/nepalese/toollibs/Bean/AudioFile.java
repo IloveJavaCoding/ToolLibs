@@ -82,9 +82,4 @@ public class AudioFile extends BaseBean{
     public void setsLength(int sLength) {
         this.sLength = sLength;
     }
-
-    @Override
-    String getString() {
-        return null;
-    }
 }
