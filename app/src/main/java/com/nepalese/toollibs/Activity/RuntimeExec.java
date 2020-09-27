@@ -31,6 +31,7 @@ public class RuntimeExec {
         return instance;
     }
 
+    //一般命令
     public String executeCommand(String... command) {
         StringBuilder builder = new StringBuilder();
         InputStream inputStream = this.executeCommandGetInputStream(command);
@@ -56,6 +57,7 @@ public class RuntimeExec {
         }
     }
 
+    //执行需root权限命令
     public void executeRootCommand(String command) {
         Process process = null;
         DataOutputStream os = null;
@@ -83,6 +85,7 @@ public class RuntimeExec {
         }
     }
 
+    //截屏
     public static void takeScreenShot(String file) {
         Process process = null;
         DataOutputStream os = null;
@@ -129,7 +132,6 @@ public class RuntimeExec {
             try {
                 InputStreamReader isr = new InputStreamReader(this.mInputStream);
                 BufferedReader br = new BufferedReader(isr);
-
                 while(true) {
                     if (br.readLine() != null) {
                         continue;

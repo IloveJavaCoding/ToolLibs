@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MediaUtil {
+    private static final String TAG = "MediaUtil";
     //scan audio file
     public static List<AudioFile> getSongsList(Context context, int limit){
         List<AudioFile> songs = new ArrayList<>();
@@ -100,7 +101,6 @@ public class MediaUtil {
         return songsInfo;
     }
 
-    //=================================
     public static Song getMusic4File(File file) {
         if (file.length() == 0) return null;
 
@@ -138,7 +138,7 @@ public class MediaUtil {
         try {
             metadataRetriever.setDataSource(file.getAbsolutePath());
         } catch (IllegalArgumentException e) {
-            Log.e("tag", "parseAlbum: ", e);
+            Log.e(TAG, "parseAlbum: ", e);
         }
         byte[] albumData = metadataRetriever.getEmbeddedPicture();
         if (albumData != null) {

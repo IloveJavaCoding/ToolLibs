@@ -19,6 +19,63 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ConvertUtil {
+    //string 2 number
+    public static float toFloat(String src) {
+        float retVal = 0.0F;
+
+        try {
+            retVal = Float.parseFloat(src);
+        } catch (Exception var3) {
+        }
+
+        return retVal;
+    }
+
+    public static double toDouble(String src) {
+        double retVal = 0.0D;
+
+        try {
+            retVal = Double.parseDouble(src);
+        } catch (Exception var4) {
+        }
+
+        return retVal;
+    }
+
+    public static int toInt(String src) {
+        int retVal = 0;
+
+        try {
+            retVal = Integer.parseInt(src);
+        } catch (Exception var3) {
+        }
+
+        return retVal;
+    }
+
+    public static int toInt(String src, int defaultVal) {
+        int retVal;
+        try {
+            retVal = Integer.parseInt(src);
+        } catch (Exception var4) {
+            retVal = defaultVal;
+        }
+
+        return retVal;
+    }
+
+    public static long toLong(String src, long defaultVal) {
+        long retVal;
+
+        try {
+            retVal = Integer.parseInt(src);
+        } catch (Exception var6) {
+            retVal = defaultVal;
+        }
+
+        return retVal;
+    }
+
     //字符串转换为16进制字符串
     public static String string2Hex(String str){
         String out = "";
@@ -75,9 +132,7 @@ public class ConvertUtil {
         return (int) (pxValue / context.getResources().getDisplayMetrics().density + 0.5f);
     }
 
-    /**
-     * 根据屏幕密度, 将dp(device independent pixels 无关像素点) 转 px( 像素)
-     */
+    //根据屏幕密度, 将dp(device independent pixels 无关像素点) 转 px( 像素)
     public static int dp2px(Context context, float dp) {
         if (context != null) {
             Resources mResources = context.getResources();
@@ -90,9 +145,8 @@ public class ConvertUtil {
         }
         return 0;
     }
-    /**
-     * 根据屏幕密度, 将 px( 像素) 转 dp(device independent pixels 无关像素点)
-     */
+
+    // 根据屏幕密度, 将 px( 像素) 转 dp(device independent pixels 无关像素点)
     public static int px2dp(Context context, float px) {
         if (context != null) {
             Resources mResources = context.getResources();
@@ -118,9 +172,7 @@ public class ConvertUtil {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, size, context.getResources().getDisplayMetrics());
     }
 
-    /**
-     * 根据手机的分辨率从 sp 的单位 转成为 px(像素)
-     */
+    // 根据手机的分辨率从 sp 的单位 转成为 px(像素)
     public static int sp2pix(Context context, float sp) {
         if (context != null ) {
             Resources mResources = context.getResources();
@@ -135,9 +187,7 @@ public class ConvertUtil {
         return 0;
     }
 
-    /**
-     * 根据手机的分辨率从 px(像素) 的单位 转成为 sp
-     */
+    //根据手机的分辨率从 px(像素) 的单位 转成为 sp
     public static int px2sp(Context context, float px) {
         if (context != null ) {
             Resources mResources = context.getResources();

@@ -26,21 +26,7 @@ import java.lang.reflect.Method;
 public class ScreenUtil {
     private static final String TAG = "ScreenUtil";
 
-    //==============================横、竖屏 app===================================
-    public static void setOrientation(int orientation){
-        switch (orientation){
-            case Constant.ORIENTATION_LANDSCAPE:
-                RuntimeExec.getInstance().executeCommand("setprop persist.sys.screenorientation landscape");
-                RuntimeExec.getInstance().executeCommand("reboot");
-                break;
-            case Constant.ORIENTATION_PORTRAIT:
-                RuntimeExec.getInstance().executeCommand("setprop persist.sys.screenorientation portrait");
-                RuntimeExec.getInstance().executeCommand("reboot");
-                break;
-        }
-    }
-
-    //======================screen cap===========================
+    //==============================screen cap===================================
     public static void screenCap(Activity activity, String fileName){
         View dView = activity.getWindow().getDecorView();
         dView.setDrawingCacheEnabled(true);

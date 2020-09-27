@@ -2,6 +2,7 @@ package com.nepalese.toollibs.Util;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -10,12 +11,18 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.TrafficStats;
+import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
+import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -25,11 +32,19 @@ import com.nepalese.toollibs.Bean.AppInfo;
 import com.nepalese.toollibs.Bean.FlowInfo;
 
 import java.io.File;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
 public class SystemUtil {
-    //======================system notices======================
+    //=================================system notices=====================================
     public static void showToast(Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
     }
@@ -58,7 +73,7 @@ public class SystemUtil {
         RuntimeExec.getInstance().executeCommand(cmd);
     }
 
-    //=============================permission check=======================
+    //===================================permission check==================================
     public static boolean checkPermission(Context context, String[] permissions){
         if (permissions == null || permissions.length == 0) {
             return true;
@@ -70,7 +85,7 @@ public class SystemUtil {
         return allGranted;
     }
 
-    //==========================================vibrator=============================
+    //=======================================vibrator=============================
     public static void vibrator(Context context){
         AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         int ringerMode = am.getRingerMode();
@@ -214,6 +229,102 @@ public class SystemUtil {
         return flowInfo;
     }
 
+    //===============================获取本地IP==================================
+    public static String getIpAddress(Context context) {
+        ConnectivityManager conMann = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobileNetworkInfo = conMann.getNetworkInfo(0);
+        NetworkInfo wifiNetworkInfo = conMann.getNetworkInfo(1);
+
+        try {
+            Enumeration enumerationNi = NetworkInterface.getNetworkInterfaces();
+
+            label43:
+            while(true) {
+                NetworkInterface networkInterface;
+                String interfaceName;
+                do {
+                    if (!enumerationNi.hasMoreElements()) {
+                        break label43;
+                    }
+
+                    networkInterface = (NetworkInterface)enumerationNi.nextElement();
+                    interfaceName = networkInterface.getDisplayName();
+                } while(!interfaceName.equals("eth0"));
+
+                Enumeration enumIpAddr = networkInterface.getInetAddresses();
+
+                while(enumIpAddr.hasMoreElements()) {
+                    InetAddress inetAddress = (InetAddress)enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+                        return inetAddress.getHostAddress();
+                    }
+                }
+            }
+        } catch (Exception var10) {
+            var10.printStackTrace();
+        }
+
+        String ip;
+        if (wifiNetworkInfo.isConnected()) {
+            WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            int ipAddress = wifiInfo.getIpAddress();
+            ip = intToIp(ipAddress);
+        } else if (mobileNetworkInfo.isConnected()) {
+            ip = getLocalIpAddress();
+        } else {
+            ip = "unknown";
+        }
+
+        return ip;
+    }
+
+    private static String getLocalIpAddress() {
+        try {
+            ArrayList<NetworkInterface> nilist = Collections.list(NetworkInterface.getNetworkInterfaces());
+            Iterator var1 = nilist.iterator();
+
+            while(var1.hasNext()) {
+                NetworkInterface ni = (NetworkInterface)var1.next();
+                ArrayList<InetAddress> ialist = Collections.list(ni.getInetAddresses());
+                Iterator var4 = ialist.iterator();
+
+                while(var4.hasNext()) {
+                    InetAddress address = (InetAddress)var4.next();
+                    if (!address.isLoopbackAddress() && address instanceof Inet4Address) {
+                        return address.getHostAddress();
+                    }
+                }
+            }
+        } catch (SocketException var6) {
+        }
+
+        return "unknown";
+    }
+
+    private static String intToIp(int ipInt) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(ipInt & 255).append(".");
+        sb.append(ipInt >> 8 & 255).append(".");
+        sb.append(ipInt >> 16 & 255).append(".");
+        sb.append(ipInt >> 24 & 255);
+        return sb.toString();
+    }
+
+    //==============================横、竖屏 app===================================
+    public static void setOrientation(int orientation){
+        switch (orientation){
+            case Constant.ORIENTATION_LANDSCAPE:
+                RuntimeExec.getInstance().executeCommand("setprop persist.sys.screenorientation landscape");
+                RuntimeExec.getInstance().executeCommand("reboot");
+                break;
+            case Constant.ORIENTATION_PORTRAIT:
+                RuntimeExec.getInstance().executeCommand("setprop persist.sys.screenorientation portrait");
+                RuntimeExec.getInstance().executeCommand("reboot");
+                break;
+        }
+    }
+
     //==========================静默安装apk============================================
     public static void installApkSilence(final String filePath){
         new Thread(new Runnable() {
@@ -222,6 +333,15 @@ public class SystemUtil {
                 RuntimeExec.getInstance().executeRootCommand(RuntimeExec.INSTALL + filePath);
             }
         }).start();
+    }
+
+    public static void installApk(Context context, File file) {
+        Uri uri = Uri.fromFile(file);
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        intent.setDataAndType(uri, "application/vnd.android.package-archive");
+        context.startActivity(intent);
     }
 
     //=====================================================================================
