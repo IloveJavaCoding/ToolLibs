@@ -17,7 +17,7 @@
         <attr name="rows" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="BookView">
+    <declare-styleable name="VirgoBookView">
         <attr name="bookTextSize" format="dimension" />
         <attr name="bookTextColor" format="color|reference" />
         <attr name="bgColor" format="color|reference" />
@@ -25,7 +25,7 @@
         <attr name="padValue" format="dimension|reference" />
     </declare-styleable>
 
-    <declare-styleable name="MyLrcView">
+    <declare-styleable name="VirgoLrcView">
         <attr name="lrcTextSizeMain" format="dimension" />
         <attr name="lrcTextSizeSec" format="dimension" />
         <attr name="lrcTextColorMain" format="color|reference" />

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Demo.Demo_Get_Weather_Activity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@color/colorBlack"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgWeather"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/margin_20"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/weather999" />
+
+        <TextView
+            android:id="@+id/tvWeather"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/weather_string_unknown"
+            android:textSize="@dimen/text_size_20"
+            android:textColor="@color/colorWhite"
+            android:focusable="true"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"/>
+
+        <TextView
+            android:id="@+id/tvTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_20"
+            android:layout_gravity="center"
+            android:gravity="right"
+            android:text="@string/weather_temp"
+            android:textSize="@dimen/text_size_20"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_20"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="经度[lng]："/>
+
+        <EditText
+            android:id="@+id/etLng"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_20"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:text="纬度[lat]："/>
+
+        <EditText
+            android:id="@+id/etLat"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_20">
+        <Button
+            android:id="@+id/bGetWeather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Weather"
+            android:textSize="@dimen/text_size_20"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+</LinearLayout>

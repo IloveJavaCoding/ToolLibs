@@ -226,7 +226,7 @@
                 android:padding="@dimen/padding_10"
                 android:orientation="horizontal">
 
-                <com.example.toollibs.OverWriteClass.EditTextDelIcon
+                <com.nepalese.toollibs.Activity.Component.VirgoDelIconEditText
                     android:id="@+id/etDel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
