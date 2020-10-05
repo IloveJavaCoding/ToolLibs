@@ -19,6 +19,7 @@ public class Demo_Loop_Task_Activity extends AppCompatActivity implements View.O
     private static final long INTERVAL_THREAD = 5 * 1000l;
     private static final long INTERVAL_HANDLER = 7 * 1000l;
     private static final int MSG_CODE_TASK = 0;
+    private static final int MSG_CODE_ADD_LOG = 1;
 
     private TextView tvLog;
     private Button bStartTimer, bStartThread, bStartHandler;
@@ -106,7 +107,10 @@ public class Demo_Loop_Task_Activity extends AppCompatActivity implements View.O
         builder.append(log);
         builder.append("\n");
 
-        tvLog.setText(builder.toString());
+        Message message = Message.obtain();
+        message.what = MSG_CODE_ADD_LOG;
+        message.obj = builder.toString();
+        handler.sendMessage(message);
     }
 
     //获取随机数: [0,4]
@@ -135,11 +139,11 @@ public class Demo_Loop_Task_Activity extends AppCompatActivity implements View.O
 
     private void stopTimer() {
         if(timer!=null || timerTask!=null){
-            addLog("Stop Timer Task...");
             timer.cancel();
             timer = null;
             timerTask.cancel();
             timerTask = null;
+            addLog("Stop Timer Task...");
         }else{
             addLog("The Timer Task hasn't started!");
         }
@@ -150,14 +154,15 @@ public class Demo_Loop_Task_Activity extends AppCompatActivity implements View.O
         if(cancelThread){
             cancelThread = false;
         }
+        //无法在非ui线程中直接控制ui
         new Thread(){
             @Override
             public void run() {
                 super.run();
                 while(!cancelThread){
                     try {
-                        Thread.sleep(INTERVAL_THREAD);
                         addLog("Thread: " + cont[getRandom()] + ", " + DateUtil.long2String(System.currentTimeMillis(), FORMAT));
+                        Thread.sleep(INTERVAL_THREAD);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -168,21 +173,21 @@ public class Demo_Loop_Task_Activity extends AppCompatActivity implements View.O
 
     private void stopThread() {
         if(!cancelThread){
-            addLog("Stop Thread Task...");
             cancelThread = true;
+            addLog("Stop Thread Task...");
         }else{
             addLog("The Thread Task hasn't started!");
         }
     }
 
     private void startHandler() {
-        addLog("Start Handler Task...");
         handler.post(task);
+        addLog("Start Handler Task...");
     }
 
     private void stopHandler() {
-        addLog("Stop Thread Task...");
         handler.removeCallbacks(task);
+        addLog("Stop Handler Task...");
     }
 
     private Runnable task = new Runnable() {
@@ -200,6 +205,9 @@ public class Demo_Loop_Task_Activity extends AppCompatActivity implements View.O
             switch (msg.what){
                 case MSG_CODE_TASK:
                     addLog("Handler: " + cont[getRandom()] + ", " + DateUtil.long2String(System.currentTimeMillis(), FORMAT));
+                    break;
+                case MSG_CODE_ADD_LOG:
+                    tvLog.setText((String)msg.obj);
                     break;
             }
         }

@@ -2,6 +2,7 @@ package com.nepalese.toollibs.Activity.Demo;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,18 +22,22 @@ import android.widget.TimePicker;
 import com.nepalese.toollibs.R;
 import com.nepalese.toollibs.Util.DateUtil;
 import com.nepalese.toollibs.Util.DialogUtil;
+import com.nepalese.toollibs.Util.SystemUtil;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Demo_TimingTask_Activity extends AppCompatActivity implements View.OnClickListener {
-    private final String ACTION_TASK = "com.example.toollibs.alarm.task";
+    private static final String TAG = "Demo_TimingTask_Activit";
+    private final String ACTION_TASK = "com.nepalese.toollibs.alarm.task";
     private final String OUTCOME = "完成任务！";
-    private final String FORMAT = "yyyy-mm-dd hh:MM:ss";
+    private final String FORMAT = "yyyy-MM-dd hh:mm:ss";
 
     private final int MSG_CODE_TASK = 0;
     private final int REQUEST_CODE_ALARM = 1;
+    private final int MSG_CODE_ADD_LOG = 1;
 
     private Context context;
     private TextView tvTime, tvLog;
@@ -46,16 +52,16 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo_timing_task);
 
+        registerReceiver();//开启alarm监听
         init();
         setListener();
-        registerReceiver();//开启alarm监听
     }
 
     private void init() {
         context = getApplicationContext();
         builder = new StringBuilder();
 
-        tvTime = findViewById(R.id.tvTime);
+        tvTime = findViewById(R.id.tvSelectTime);
         tvLog = findViewById(R.id.tvLog);
 
         bTimer = findViewById(R.id.bTimer);
@@ -75,7 +81,7 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tvTime:
+            case R.id.tvSelectTime:
                 pickTime();
                 break;
             case R.id.bTimer:
@@ -99,29 +105,18 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
     }
 
     private void pickTime() {
-        TimePicker timePicker = new TimePicker(context);
-        timePicker.setIs24HourView(true);
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+        Calendar calendar = Calendar.getInstance();
+        int h = calendar.get(Calendar.HOUR_OF_DAY);
+        int m = calendar.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                addLog("Pick Time: "+ hourOfDay+" : "+ minute);
-                hour = hourOfDay;
-                min = minute;
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                hour = i;
+                min = i1;
+                tvTime.setText(hour+" : " + min);
             }
-        });
-        DialogUtil.showViewDialog(context, "Pick Time", timePicker, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        dialog.dismiss();
-                        break;
-                    case DialogInterface.BUTTON_POSITIVE:
-                        tvTime.setText(hour + " : " + min);
-                        break;
-                }
-            }
-        });
+        },h,m,true);
+        timePickerDialog.show();
     }
 
     private void startTimer() {
@@ -234,7 +229,10 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
         builder.append(log);
         builder.append("\n");
 
-        tvLog.setText(builder.toString());
+        Message message = Message.obtain();
+        message.what = MSG_CODE_ADD_LOG;
+        message.obj = builder.toString();
+        handler.sendMessage(message);
     }
 
     private Handler handler = new Handler(){
@@ -244,6 +242,9 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
             switch (msg.what){
                 case MSG_CODE_TASK:
                     addLog("Handler: " + OUTCOME + ", " + DateUtil.long2String(System.currentTimeMillis(), FORMAT));
+                    break;
+                case MSG_CODE_ADD_LOG:
+                    tvLog.setText((String)msg.obj);
                     break;
             }
         }
@@ -256,6 +257,7 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
             IntentFilter filter = new IntentFilter();
             filter.addAction(ACTION_TASK);
             registerReceiver(alarmTask, filter);
+            Log.i(TAG, "registerReceiver");
         }
     }
 
@@ -264,6 +266,7 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
         if (isRegister) {
             isRegister = false;
             unregisterReceiver(alarmTask);
+            Log.i(TAG, "unRegisterReceiver");
         }
     }
 

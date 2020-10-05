@@ -11,6 +11,7 @@ import com.nepalese.toollibs.Activity.Config.Constant;
 import com.nepalese.toollibs.Activity.Config.SettingData;
 import com.nepalese.toollibs.Activity.Demo.Demo_Alarm_Activity;
 import com.nepalese.toollibs.Activity.Service.AlarmService;
+import com.nepalese.toollibs.Util.NotificationUtil;
 import com.nepalese.toollibs.Util.SystemUtil;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -36,7 +37,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         intent.putExtras(bundle);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        SystemUtil.sendNotification(context, "channel1", intent, "Alarm", time, 1);
+        NotificationUtil.sendNotification(context, "channel1", intent, "Alarm", time, 1);
         //play music
         handler.sendEmptyMessage(START_SERVICE_CODE);
     }

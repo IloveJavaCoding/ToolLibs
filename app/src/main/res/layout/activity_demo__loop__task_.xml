@@ -90,21 +90,20 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_10"
-        android:orientation="horizontal">
+        android:layout_marginTop="@dimen/margin_10">
 
         <TextView
             android:id="@+id/tvLog"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="@dimen/padding_15"
             android:hint="log"
             android:background="@color/colorGery_Half"
             android:textSize="@dimen/text_size_20"
             android:textColor="@color/colorBlack"/>
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
