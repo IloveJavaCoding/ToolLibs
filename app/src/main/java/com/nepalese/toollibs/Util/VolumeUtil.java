@@ -2,6 +2,7 @@ package com.nepalese.toollibs.Util;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.os.Build;
 import android.util.Log;
 
 public class VolumeUtil {
@@ -35,6 +36,23 @@ public class VolumeUtil {
         }
     }
 
+    //判断是否处于静音模式
+    public static boolean isMuteSystem(Context context){
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        if (audioManager!=null){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//23
+                return audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
+            }else{
+                int volume = getCurrentVolume(context);
+                if(volume==0){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     //获取当前媒体音量
     public static int getCurrentVolume(Context context){
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -50,7 +68,7 @@ public class VolumeUtil {
         if (audioManager!=null){
             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
                     AudioManager.ADJUST_RAISE,
-                    AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);// AudioManager.FLAG_SHOW_UI 显示系统音量条
         }
     }
 

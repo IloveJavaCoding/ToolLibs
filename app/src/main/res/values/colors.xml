@@ -23,4 +23,13 @@
     <color name="colorTY_Half">#8066CCFF</color>
 
     <color name="colorDark">#B3600904</color>
+
+    <color name="color_XHR">#FAF9DE</color>
+    <color name="color_QYH">#FFF2E2</color>
+    <color name="color_YZH">#FDE6E0</color>
+    <color name="color_QCL">#E3EDCD</color>
+    <color name="color_HTL">#DCE2F1</color>
+    <color name="color_GJZ">#E9EBFE</color>
+    <color name="color_JGH">#EAEAEF</color>
+
 </resources>

@@ -24,6 +24,7 @@ import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.nepalese.toollibs.Activity.Config.Constant;
@@ -32,18 +33,23 @@ import com.nepalese.toollibs.Bean.AppInfo;
 import com.nepalese.toollibs.Bean.FlowInfo;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class SystemUtil {
+    private static final String TAG = "SystemUtil";
     //=================================system notices=====================================
     public static void showToast(Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
@@ -51,6 +57,28 @@ public class SystemUtil {
 
     public static void showLongToast(Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
+    }
+
+    //==================================同步时间==========================================
+    private void timeSynchronization(Date ServiceTime){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String datetime=sdf.format(ServiceTime);
+        Log.i(TAG, "timeSynchronization: " + datetime);
+
+        ArrayList<String> envlist = new ArrayList<>();
+        Map<String, String> env = System.getenv();
+        for (String envName : env.keySet()) {
+            envlist.add(envName + "=" + env.get(envName));
+        }
+        String[] envp = envlist.toArray(new String[0]);
+        String command;
+        command = "date -s\""+datetime+"\"";
+        try {
+            Runtime.getRuntime().exec(new String[] { "su", "-c", command }, envp);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     //===============================reboot========================================
@@ -63,7 +91,7 @@ public class SystemUtil {
     //重启应用
     public static void restartApp(Context context) {
         final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);//Intent.FLAG_ACTIVITY_CLEAR_TASK;
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
     }
 
