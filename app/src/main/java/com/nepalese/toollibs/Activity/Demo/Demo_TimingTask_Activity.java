@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -21,11 +20,8 @@ import android.widget.TimePicker;
 
 import com.nepalese.toollibs.R;
 import com.nepalese.toollibs.Util.DateUtil;
-import com.nepalese.toollibs.Util.DialogUtil;
-import com.nepalese.toollibs.Util.SystemUtil;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -104,6 +100,7 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
         }
     }
 
+    //简单时间选择对话框，仅hour 和 minute;
     private void pickTime() {
         Calendar calendar = Calendar.getInstance();
         int h = calendar.get(Calendar.HOUR_OF_DAY);
@@ -213,6 +210,7 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
 //                new Intent(ACTION_TASK), PendingIntent.FLAG_UPDATE_CURRENT));
     }
 
+    //计算目标时间与当前时差
     private long getTimeDiff(int hour, int min){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);//24-hour clock
@@ -225,6 +223,7 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
         return mm - now;
     }
 
+    //由于在子线程无法更新UI, 一致使用handler发送UI更新消息；
     private void addLog(String log){
         builder.append(log);
         builder.append("\n");
@@ -244,6 +243,7 @@ public class Demo_TimingTask_Activity extends AppCompatActivity implements View.
                     addLog("Handler: " + OUTCOME + ", " + DateUtil.long2String(System.currentTimeMillis(), FORMAT));
                     break;
                 case MSG_CODE_ADD_LOG:
+                    //log 更新
                     tvLog.setText((String)msg.obj);
                     break;
             }

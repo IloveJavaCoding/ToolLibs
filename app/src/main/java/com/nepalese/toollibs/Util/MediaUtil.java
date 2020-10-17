@@ -1,5 +1,6 @@
 package com.nepalese.toollibs.Util;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -9,11 +10,15 @@ import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.Message;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.nepalese.toollibs.R;
 import com.nepalese.toollibs.Bean.AudioFile;
 import com.nepalese.toollibs.Bean.Song;
@@ -27,7 +32,10 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MediaUtil {
@@ -319,5 +327,79 @@ public class MediaUtil {
     public static long getDuration(Context context, int i){
         MediaPlayer mediaPlayer = MediaPlayer.create(context, i);
         return  mediaPlayer.getDuration();
+    }
+
+    public static void initImage(Activity activity, String url, ImageView view, int defaultResId) {
+        Glide.with(activity).load(url).into(view);
+    }
+
+    public static void initVideo(Activity activity, String url, ImageView view, int defaultResId) {
+        Glide.with(activity).load(url).thumbnail(0.5F).into(view);
+    }
+
+    /**
+     * 获取视频第一帧 -> bitmap; api>10,
+     * return 视频分辨率
+     * type: 0->file; 1->url
+    */
+    private int[] getVideoSize(Context context, String path, int type) {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        if(type==0){
+            //1. 本地文件
+            retriever.setDataSource(context, Uri.fromFile(new File(path)));
+        }else if(type==1){
+            //2. 网络文件
+            retriever.setDataSource(path, new HashMap());
+        }
+
+        if(retriever==null){
+            Log.e(TAG, "judgeVideoSize: 视频路径解析失败！");
+            return null;
+        }
+
+        String height = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT); // 视频高度
+        String width = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH); // 视频宽度
+//        String rotation = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION); // 视频旋转方向
+        Log.d(TAG, "judgeVideoSize: w: " + width + "\th: " + height);
+        return new int[]{Integer.parseInt(width), Integer.parseInt(height)};
+    }
+
+    /* : 检测当前url是否有效可连, 需在子线程进行
+     * @param url 需校验的url
+     * @param maxTry 最大尝试次数
+     * @return
+     */
+    public boolean validUrl(String urlStr, int maxTry) {
+        if(urlStr == null || urlStr.length()<=0) {
+            return false;
+        }
+
+        int count = 1;
+        int code;
+        HttpURLConnection connection;
+
+        while(count<=maxTry) {
+            try {
+                URL url = new URL(urlStr);
+                connection = (HttpURLConnection) url.openConnection();
+                code = connection.getResponseCode();
+                Log.d(TAG, "validUrl: count: " + count + "\tcode: " + code);
+
+                if(code==200) {
+                    //有效url
+                    return true;
+                }
+                //code != 200
+                count++;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                //出现异常
+                count++;
+                continue;
+            }
+        }
+        Log.e(TAG, "url is invalid: " + urlStr);
+        return false;
     }
 }

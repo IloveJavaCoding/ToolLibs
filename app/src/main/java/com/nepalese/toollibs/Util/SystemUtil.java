@@ -25,6 +25,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.nepalese.toollibs.Activity.Config.Constant;
@@ -57,6 +58,15 @@ public class SystemUtil {
 
     public static void showLongToast(Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
+    }
+
+    public static void setBackground(View view, int res_id) {
+        int padding_left = view.getPaddingLeft();
+        int padding_right = view.getPaddingRight();
+        int padding_top = view.getPaddingTop();
+        int padding_bottom = view.getPaddingBottom();
+        view.setBackgroundResource(res_id);
+        view.setPadding(padding_left, padding_top, padding_right, padding_bottom);
     }
 
     //==================================同步时间==========================================
