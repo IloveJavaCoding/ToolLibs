@@ -91,6 +91,8 @@
                     android:layout_width="255dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:progressTint="@color/colorGreen"
+                    android:thumbTint="@color/colorGreen"
                     android:paddingTop="10dp" />
 
                 <EditText
@@ -122,6 +124,9 @@
                     android:layout_width="255dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:maxHeight="2dp"
+                    android:thumb="@drawable/ic_thumb_bike"
+                    android:progressDrawable="@drawable/ic_seekbar_stytle"
                     android:paddingTop="10dp" />
 
                 <EditText

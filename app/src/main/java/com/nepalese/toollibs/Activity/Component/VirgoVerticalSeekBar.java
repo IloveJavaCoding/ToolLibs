@@ -9,8 +9,8 @@ import android.view.MotionEvent;
 public class VirgoVerticalSeekBar extends android.support.v7.widget.AppCompatSeekBar {
     private static final String TAG = "VirgoVerticalSeekBar";
 
-    private OnVerticalSeekBarChangeListener listener;
-    private int process;
+    private OnVerticalSeekBarChangeListener listener;//回调监听
+    private int process;//进度
 
     public VirgoVerticalSeekBar(Context context) {
         this(context, null);
@@ -94,10 +94,10 @@ public class VirgoVerticalSeekBar extends android.support.v7.widget.AppCompatSee
     }
 
     public interface OnVerticalSeekBarChangeListener {
-        void onProgressChanged(VirgoVerticalSeekBar var1, int var2, boolean var3);
+        void onProgressChanged(VirgoVerticalSeekBar verticalSeekBar, int process, boolean fromUser);
 
-        void onStartTrackingTouch(VirgoVerticalSeekBar var1);
+        void onStartTrackingTouch(VirgoVerticalSeekBar verticalSeekBar);
 
-        void onStopTrackingTouch(VirgoVerticalSeekBar var1);
+        void onStopTrackingTouch(VirgoVerticalSeekBar verticalSeekBar);
     }
 }

@@ -63,11 +63,11 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
             barR.getThumb().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);//滑块
             barR.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);//进度条
 
-            barG.getThumb().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
-            barG.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
-
-            barB.getThumb().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
-            barB.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
+//            barG.getThumb().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
+//            barG.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
+//
+//            barB.getThumb().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
+//            barB.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
         }
     }
 
@@ -137,19 +137,18 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
 
         virgoVerticalSeekBar.setOnVerticalSeekBarChangeListener(new VirgoVerticalSeekBar.OnVerticalSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(VirgoVerticalSeekBar var1, int var2, boolean var3) {
-
+            public void onProgressChanged(VirgoVerticalSeekBar var1, int progress, boolean fromUser) {
+                tvVSB.setText(""+progress);
             }
 
             @Override
             public void onStartTrackingTouch(VirgoVerticalSeekBar var1) {
-
+                tvVSB.setText("StartTracking");
             }
 
             @Override
             public void onStopTrackingTouch(VirgoVerticalSeekBar var1) {
-                Log.d("tag", "seek bar change...");
-                tvVSB.setText(""+var1.getProgress());
+                tvVSB.setText("Stop "+var1.getProgress());
             }
         });
 

@@ -1,0 +1,28 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background"> <!--背景颜色-->
+        <shape>
+            <corners android:radius="1dp"/>
+            <solid android:color="@color/colorTY_Little"/>
+        </shape>
+    </item>
+
+    <item android:id="@android:id/secondaryProgress"> <!--滑块颜色: 若另设置样式，则被覆盖-->
+        <clip>
+            <shape>
+                <corners android:radius="1dp"/>
+                <solid android:color="@color/colorTY_Half" />
+            </shape>
+        </clip>
+    </item>
+
+    <item android:id="@android:id/progress"> <!--进度条颜色-->
+        <clip>
+            <shape>
+                <corners android:radius="1dp"/>
+                <gradient
+                    android:startColor="#4facfe"
+                    android:endColor="#00f2fe"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>
