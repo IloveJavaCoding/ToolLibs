@@ -25,7 +25,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import com.nepalese.toollibs.Activity.Component.VirgoVerticalSeekBar;
+import com.nepalese.toollibs.Activity.Component.VerticalSeekBar;
 import com.nepalese.toollibs.R;
 import com.nepalese.toollibs.Bean.VideoFile;
 import com.nepalese.toollibs.Util.DateUtil;
@@ -38,7 +38,7 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
     private TextView tvCurrentTime, tvDuration;
     private ImageView imgControl, imgVoice, imgFullScreen;
     private SeekBar seekBar;
-    private VirgoVerticalSeekBar virgoVerticalSeekBar;
+    private VerticalSeekBar virgoVerticalSeekBar;
     private LinearLayout linearLayout;
     private RelativeLayout videoLayout, layoutControl;
 
@@ -168,19 +168,19 @@ public class Activity_View_VideoView extends AppCompatActivity implements View.O
             }
         });
 
-        virgoVerticalSeekBar.setOnVerticalSeekBarChangeListener(new VirgoVerticalSeekBar.OnVerticalSeekBarChangeListener() {
+        virgoVerticalSeekBar.setOnVerticalSeekBarChangeListener(new VerticalSeekBar.OnVerticalSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(VirgoVerticalSeekBar var1, int var2, boolean var3) {
+            public void onProgressChanged(VerticalSeekBar var1, int var2, boolean var3) {
                 setVideoVolume(var1.getProgress());
             }
 
             @Override
-            public void onStartTrackingTouch(VirgoVerticalSeekBar var1) {
+            public void onStartTrackingTouch(VerticalSeekBar var1) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(VirgoVerticalSeekBar var1) {
+            public void onStopTrackingTouch(VerticalSeekBar var1) {
 
             }
         });

@@ -28,8 +28,6 @@ public class InternetUtil {
             bitmap = BitmapFactory.decodeStream(inputStream);
             inputStream.close();
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

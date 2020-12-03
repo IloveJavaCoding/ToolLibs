@@ -6,13 +6,12 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.nepalese.toollibs.Activity.Component.VirgoVerticalSeekBar;
+import com.nepalese.toollibs.Activity.Component.VerticalSeekBar;
 import com.nepalese.toollibs.R;
 
 public class Activity_Bar_SeekBar extends AppCompatActivity {
@@ -20,7 +19,7 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
     private View view;
     private TextView notice, tvVSB;
     private SeekBar barR, barG, barB;
-    private VirgoVerticalSeekBar virgoVerticalSeekBar;
+    private VerticalSeekBar virgoVerticalSeekBar;
     private Integer iR, iG, iB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,20 +134,20 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
             }
         });
 
-        virgoVerticalSeekBar.setOnVerticalSeekBarChangeListener(new VirgoVerticalSeekBar.OnVerticalSeekBarChangeListener() {
+        virgoVerticalSeekBar.setOnVerticalSeekBarChangeListener(new VerticalSeekBar.OnVerticalSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(VirgoVerticalSeekBar var1, int progress, boolean fromUser) {
+            public void onProgressChanged(VerticalSeekBar var1, int progress, boolean fromUser) {
                 tvVSB.setText(""+progress);
             }
 
             @Override
-            public void onStartTrackingTouch(VirgoVerticalSeekBar var1) {
+            public void onStartTrackingTouch(VerticalSeekBar var1) {
                 tvVSB.setText("StartTracking");
             }
 
             @Override
-            public void onStopTrackingTouch(VirgoVerticalSeekBar var1) {
-                tvVSB.setText("Stop "+var1.getProgress());
+            public void onStopTrackingTouch(VerticalSeekBar var1) {
+                tvVSB.setText(" "+var1.getProgress());
             }
         });
 

@@ -30,11 +30,11 @@
 
         <com.nepalese.toollibs.Activity.Component.VirgoDelIconEditText
             android:id="@+id/delInput"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="url"
-            android:paddingLeft="@dimen/padding_10"
+            android:paddingStart="@dimen/padding_10"
             android:paddingBottom="@dimen/padding_5"
             android:paddingTop="@dimen/padding_5"
             android:ellipsize="middle"

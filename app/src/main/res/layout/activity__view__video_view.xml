@@ -79,7 +79,7 @@
                 android:src="@drawable/icon_video_voice"
                 android:scaleType="fitCenter" />
 
-            <com.nepalese.toollibs.Activity.Component.VirgoVerticalSeekBar
+            <com.nepalese.toollibs.Activity.Component.VerticalSeekBar
                 android:id="@+id/vsbVoice"
                 android:layout_width="10dp"
                 android:layout_height="100dp"

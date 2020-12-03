@@ -6,44 +6,38 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
-public class VirgoVerticalSeekBar extends android.support.v7.widget.AppCompatSeekBar {
-    private static final String TAG = "VirgoVerticalSeekBar";
+/**
+ * @author nepalese on 2020/12/3 11:03
+ * @usage
+ */
+public class VerticalSeekBar extends android.support.v7.widget.AppCompatSeekBar {
+    private static final String TAG = "VerticalSeekBar";
 
-    private OnVerticalSeekBarChangeListener listener;//回调监听
+    public VerticalSeekBar(Context context) {
+        super(context);
+    }
+
     private int process;//进度
+    private OnVerticalSeekBarChangeListener listener;//回调监听
 
-    public VirgoVerticalSeekBar(Context context) {
-        this(context, null);
+    public void setOnVerticalSeekBarChangeListener(OnVerticalSeekBarChangeListener verticalSeekBarChangeListener){
+        listener = verticalSeekBarChangeListener;
     }
 
-    public VirgoVerticalSeekBar(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+    public VerticalSeekBar(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    public VirgoVerticalSeekBar(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public VerticalSeekBar(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
-    public void setOnVerticalSeekBarChangeListener(OnVerticalSeekBarChangeListener l){
-        listener = l;
-    }
-
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(h, w, oldh, oldw);
-    }
-
-    @Override
-    protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(heightMeasureSpec, widthMeasureSpec);
-        setMeasuredDimension(getMeasuredHeight(), getMeasuredWidth());
-    }
-
-    protected void onDraw(Canvas c) {
+    protected void onDraw(Canvas canvas) {
         //将SeekBar转转90度
-        c.rotate(-90);
+        canvas.rotate(-90);
         //将旋转后的视图移动回来
-        c.translate(-getHeight(),0);
-        super.onDraw(c);
+        canvas.translate(-getHeight(),0);
+        super.onDraw(canvas);
     }
 
     @Override
@@ -94,10 +88,10 @@ public class VirgoVerticalSeekBar extends android.support.v7.widget.AppCompatSee
     }
 
     public interface OnVerticalSeekBarChangeListener {
-        void onProgressChanged(VirgoVerticalSeekBar verticalSeekBar, int process, boolean fromUser);
+        void onProgressChanged(VerticalSeekBar verticalSeekBar, int process, boolean fromUser);
 
-        void onStartTrackingTouch(VirgoVerticalSeekBar verticalSeekBar);
+        void onStartTrackingTouch(VerticalSeekBar verticalSeekBar);
 
-        void onStopTrackingTouch(VirgoVerticalSeekBar verticalSeekBar);
+        void onStopTrackingTouch(VerticalSeekBar verticalSeekBar);
     }
 }

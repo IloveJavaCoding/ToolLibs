@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Demo.Demo_QR_Code_Activity"></activity>
+        <activity android:name=".Activity.Demo.Demo_QR_Code_Activity" />
         <activity android:name=".Activity.Demo.Demo_Loop_Task_Activity" />
         <activity android:name=".Activity.Demo.Demo_TimingTask_Activity" />
         <activity android:name=".Activity.Demo.Demo_Live_Activity" />

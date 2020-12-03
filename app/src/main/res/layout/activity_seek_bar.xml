@@ -144,23 +144,27 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_margin="@dimen/margin_10">
+        android:layout_margin="@dimen/margin_10"
+        android:padding="10dp">
 
-        <com.nepalese.toollibs.Activity.Component.VirgoVerticalSeekBar
+        <com.nepalese.toollibs.Activity.Component.VerticalSeekBar
             android:id="@+id/vSeekBar"
-            android:layout_width="wrap_content"
+            android:padding="@dimen/padding_5"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/margin_15"/>
+            android:progressTint="@color/colorRed"
+            android:thumbTint="@color/colorYellow"/>
 
         <TextView
             android:id="@+id/tvVSB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
             android:padding="@dimen/padding_5"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/vSeekBar" />
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
 </LinearLayout>

@@ -148,6 +148,38 @@
                         android:textColor="@drawable/selector_text"
                         android:button="@drawable/radio_button_style"/>
                 </RadioGroup>
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_local"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:checked="true"
+                        android:button="@null"
+                        android:layout_margin="@dimen/margin_10"
+                        android:text="本地"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_size_16"
+                        android:textColor="@drawable/selector_text"
+                        android:drawableTop="@drawable/radio_button_style"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_online"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/margin_10"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="在线"
+                        android:textSize="@dimen/text_size_16"
+                        android:textColor="@drawable/selector_text"
+                        android:drawableTop="@drawable/radio_button_style"/>
+                </RadioGroup>
             </LinearLayout>
 
             <LinearLayout
