@@ -35,6 +35,7 @@ import android.widget.ToggleButton;
 import com.nepalese.toollibs.Activity.Component.VirgoDelIconEditText;
 import com.nepalese.toollibs.Activity.Component.VirgoMarqueeHorizontal;
 import com.nepalese.toollibs.Activity.Component.VirgoMarqueeVertical;
+import com.nepalese.toollibs.Activity.ComponentThird.MarqueeTextView;
 import com.nepalese.toollibs.Activity.SelfClass.VirgoPasswordTransformationMethod;
 import com.nepalese.toollibs.R;
 import com.nepalese.toollibs.Activity.ComponentThird.MarqueeHorizontalText;
@@ -52,6 +53,7 @@ public class Activity_Text extends AppCompatActivity {
     private Button bEnter;
     private ToggleButton tbControl;
     private MarqueeHorizontalText view;
+    private MarqueeTextView marqueeTextView;
     private VirgoMarqueeHorizontal horizontal;
     private VirgoMarqueeVertical vertical;
     private Spinner spinner1, spinner2;
@@ -62,8 +64,12 @@ public class Activity_Text extends AppCompatActivity {
     private List<Object> list;
 
     private VirgoPasswordTransformationMethod transformationMethod;
-    private static final String DEFAULT_TEXT = "曾经沧海难为水，除却巫山不是云。取次花丛懒回顾，半缘修道半缘君。" +
+    private static final String DEFAULT_TEXT =
+            "曾经沧海难为水，除却巫山不是云。取次花丛懒回顾，半缘修道半缘君。" +
+            "葡萄美酒夜光杯，欲饮琵琶马上催。醉卧沙场君莫笑。古来征战几人回。" +
+            "曾经沧海难为水，除却巫山不是云。取次花丛懒回顾，半缘修道半缘君。" +
             "葡萄美酒夜光杯，欲饮琵琶马上催。醉卧沙场君莫笑。古来征战几人回。";
+
     private static final String DEFAULT_TEXT2 = "What is faith? If it doesn't endure when we are tested the most?";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +90,7 @@ public class Activity_Text extends AppCompatActivity {
         bEnter = findViewById(R.id.bEnter);
         tbControl = findViewById(R.id.tbControl);
         view = findViewById(R.id.view);
+        marqueeTextView = findViewById(R.id.marqueeTV);
         horizontal = findViewById(R.id.marqueeH);
         vertical = findViewById(R.id.marqueeV);
 
@@ -132,9 +139,18 @@ public class Activity_Text extends AppCompatActivity {
         intAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(intAdapter);
 
+        setMarqueeTextView();
         setMarquee(view);
         setHorizontal();
         setVertical();
+    }
+
+    private void setMarqueeTextView(){
+        marqueeTextView.setSpeed(3);
+        marqueeTextView.setBackgroundColor(Color.BLACK);
+        marqueeTextView.setTextColor(Color.WHITE);
+        marqueeTextView.setTextSize(18);
+        marqueeTextView.setText(DEFAULT_TEXT);
     }
 
     private void setVertical() {

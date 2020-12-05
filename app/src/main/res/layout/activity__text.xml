@@ -27,6 +27,12 @@
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever" />
 
+            <com.nepalese.toollibs.Activity.ComponentThird.MarqueeTextView
+                android:id="@+id/marqueeTV"
+                android:layout_marginTop="@dimen/margin_3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

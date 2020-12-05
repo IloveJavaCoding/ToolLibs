@@ -19,7 +19,7 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
     private View view;
     private TextView notice, tvVSB;
     private SeekBar barR, barG, barB;
-    private VerticalSeekBar virgoVerticalSeekBar;
+    private VerticalSeekBar verticalSeekBar;
     private Integer iR, iG, iB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
         barR = findViewById(R.id.bar_r);
         barG = findViewById(R.id.bar_g);
         barB = findViewById(R.id.bar_b);
-        virgoVerticalSeekBar = findViewById(R.id.vSeekBar);
+        verticalSeekBar = findViewById(R.id.vSeekBar);
 
         setData();
     }
@@ -56,7 +56,7 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
         barG.setMax(255);
         barB.setMax(255);
 
-        virgoVerticalSeekBar.setMax(100);
+        verticalSeekBar.setMax(100);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             barR.getThumb().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);//滑块
@@ -134,7 +134,7 @@ public class Activity_Bar_SeekBar extends AppCompatActivity {
             }
         });
 
-        virgoVerticalSeekBar.setOnVerticalSeekBarChangeListener(new VerticalSeekBar.OnVerticalSeekBarChangeListener() {
+        verticalSeekBar.setOnVerticalSeekBarChangeListener(new VerticalSeekBar.OnVerticalSeekBarChangeListener() {
             @Override
             public void onProgressChanged(VerticalSeekBar var1, int progress, boolean fromUser) {
                 tvVSB.setText(""+progress);
