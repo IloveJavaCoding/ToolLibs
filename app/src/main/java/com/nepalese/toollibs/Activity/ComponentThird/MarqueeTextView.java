@@ -388,7 +388,7 @@ public class MarqueeTextView extends SurfaceView implements SurfaceHolder.Callba
                 String cacheStr = formatStr.substring(start, end);
 
                 float len1 = Layout.getDesiredWidth(cacheStr, 0, cacheStr.length(), paint);
-                MarqueeBean bean = new MarqueeBean(cacheStr, len);
+                MarqueeBean bean = new MarqueeBean(cacheStr, len1);
 //                bean.setLen1(len1);
 //                float len2 = getTextWidth(paint, cacheStr);
 //                bean.setLen2(len2);

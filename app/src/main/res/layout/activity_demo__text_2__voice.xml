@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_10"
+    tools:context=".Demo_Text_2_Voice">
+
+    <EditText
+        android:id="@+id/enterYouText"
+        android:background="@drawable/edit_text_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_10"
+        android:padding="@dimen/padding_5"
+        android:text="Too young to simple"
+        android:textColor="@color/colorBlack"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/padding_10"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="语调: "
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size_18"/>
+
+            <TextView
+                android:id="@+id/tvPitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(1)"
+                android:textColor="@color/colorGreen"
+                android:textSize="@dimen/text_size_18"
+                android:layout_margin="@dimen/margin_5"/>
+
+            <SeekBar
+                android:id="@+id/sbPitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progressTint="@color/colorGreen"
+                android:thumbTint="@color/colorGreen"
+                android:max="20"
+                android:progress="10"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="语速: "
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size_18"/>
+
+            <TextView
+                android:id="@+id/tvSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(1)"
+                android:textColor="@color/colorBlue"
+                android:textSize="@dimen/text_size_18"
+                android:layout_margin="@dimen/margin_5"/>
+
+            <SeekBar
+                android:id="@+id/sbSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progressTint="@color/colorBlue"
+                android:thumbTint="@color/colorBlue"
+                android:max="20"
+                android:progress="10"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:background="@drawable/selector_button"
+            android:enabled="false"
+            android:textColor="@color/colorWhite"
+            android:text="SPEAK" />
+    </LinearLayout>
+</RelativeLayout>

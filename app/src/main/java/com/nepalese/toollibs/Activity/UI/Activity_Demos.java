@@ -19,11 +19,12 @@ import com.nepalese.toollibs.Activity.Demo.Demo_Simple_Player_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_Simple_Reader_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_Time_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_TimerSelector_Activity;
+import com.nepalese.toollibs.Demo_Text_2_Voice;
 import com.nepalese.toollibs.R;
 
 public class Activity_Demos extends AppCompatActivity implements View.OnClickListener {
     private Button bAlarm, bTimingTask, bLoopTask, bPoster, bTimeSelector, bLive, bPlayer,
-            bLrc, bEffect, bReader, bFileSelector, bWeather, bQRCode;
+            bLrc, bEffect, bReader, bFileSelector, bWeather, bQRCode, bText2Voice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bFileSelector = findViewById(R.id.bFileSelector);
         bWeather = findViewById(R.id.bWeather);
         bQRCode = findViewById(R.id.bQRCode);
+        bText2Voice = findViewById(R.id.bText2Voice);
     }
 
     private void setListener() {
@@ -65,6 +67,7 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bFileSelector.setOnClickListener(this);
         bWeather.setOnClickListener(this);
         bQRCode.setOnClickListener(this);
+        bText2Voice.setOnClickListener(this);
     }
 
     @Override
@@ -111,6 +114,9 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.bQRCode:
                 intent = new Intent(this, Demo_QR_Code_Activity.class);
+                break;
+            case R.id.bText2Voice:
+                intent = new Intent(this, Demo_Text_2_Voice.class);
                 break;
 
         }
