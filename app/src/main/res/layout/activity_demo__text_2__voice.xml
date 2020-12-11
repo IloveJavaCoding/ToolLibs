@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:progressTint="@color/colorGreen"
                 android:thumbTint="@color/colorGreen"
-                android:max="20"
+                android:max="100"
                 android:progress="10"/>
         </LinearLayout>
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:progressTint="@color/colorBlue"
                 android:thumbTint="@color/colorBlue"
-                android:max="20"
+                android:max="100"
                 android:progress="10"/>
         </LinearLayout>
 
