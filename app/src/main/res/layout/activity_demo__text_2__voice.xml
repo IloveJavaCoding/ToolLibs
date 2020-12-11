@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/padding_10"
-    tools:context=".Demo_Text_2_Voice">
+    tools:context=".Activity.Demo.Demo_Text_2_Voice">
 
     <EditText
         android:id="@+id/enterYouText"

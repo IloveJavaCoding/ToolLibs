@@ -44,6 +44,13 @@ public class ScreenUtil {
         RuntimeExec.takeScreenShot(path);
     }
 
+    public static Bitmap captureScreen(Activity activity) {
+        activity.getWindow().getDecorView().setDrawingCacheEnabled(true);
+        Bitmap bmp=activity.getWindow().getDecorView().getDrawingCache();
+        activity.getWindow().getDecorView().setDrawingCacheEnabled(false);
+        return bmp;
+    }
+
     /**
      * 获取屏幕显示指标对象
      * @return DisplayMetrics //dm.widthPixels;  //dm.heightPixels;

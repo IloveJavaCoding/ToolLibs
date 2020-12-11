@@ -1,4 +1,4 @@
-package com.nepalese.toollibs;
+package com.nepalese.toollibs.Activity.Demo;
 
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.nepalese.toollibs.R;
 
 import java.util.Locale;
 

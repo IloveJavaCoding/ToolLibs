@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".Activity.Demo.Demo_Marge2Bitmap_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgSrc1"
+                android:layout_width="160dp"
+                android:layout_height="90dp"
+                android:background="@color/colorBlack"/>
+
+            <TextView
+                android:id="@+id/tvSizeSec1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_5"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size_18"
+                android:text="w*h"/>
+
+            <Button
+                android:id="@+id/bChoose1"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/selector_button"
+                android:textSize="@dimen/text_size_16"
+                android:textColor="@color/colorWhite"
+                android:text="Choose1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgSrc2"
+                android:layout_width="160dp"
+                android:layout_height="90dp"
+                android:background="@color/colorBlack"/>
+
+            <TextView
+                android:id="@+id/tvSizeSec2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_5"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size_18"
+                android:text="w*h"/>
+
+            <Button
+                android:id="@+id/bChoose2"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/selector_button"
+                android:textSize="@dimen/text_size_16"
+                android:textColor="@color/colorWhite"
+                android:text="Choose2"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgMarge"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_20"
+        android:layout_width="160dp"
+        android:layout_height="180dp"
+        android:background="@color/colorRed"/>
+
+    <Button
+        android:id="@+id/bMarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_button"
+        android:textColor="@color/colorWhite"
+        android:layout_margin="@dimen/margin_20"
+        android:textSize="@dimen/text_size_18"
+        android:text="Marge"/>
+</LinearLayout>
