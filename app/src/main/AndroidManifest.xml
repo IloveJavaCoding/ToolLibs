@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Demo.Demo_Marge2Bitmap_Activity"></activity>
+        <activity android:name=".Demo_Two_Recycle_Activity"></activity>
+        <activity android:name=".Activity.Demo.Demo_Marge2Bitmap_Activity" />
         <activity android:name=".Activity.Demo.Demo_Text_2_Voice" />
         <activity android:name=".Activity.Demo.Demo_QR_Code_Activity" />
         <activity android:name=".Activity.Demo.Demo_Loop_Task_Activity" />
@@ -114,8 +115,8 @@
         </service>
     </application>
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 用于开机启动 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 用于开机启动 -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

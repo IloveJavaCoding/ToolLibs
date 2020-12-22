@@ -21,11 +21,12 @@ import com.nepalese.toollibs.Activity.Demo.Demo_Simple_Reader_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_Time_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_TimerSelector_Activity;
 import com.nepalese.toollibs.Activity.Demo.Demo_Marge2Bitmap_Activity;
+import com.nepalese.toollibs.Demo_Two_Recycle_Activity;
 import com.nepalese.toollibs.R;
 
 public class Activity_Demos extends AppCompatActivity implements View.OnClickListener {
     private Button bAlarm, bTimingTask, bLoopTask, bPoster, bTimeSelector, bLive, bPlayer,
-            bLrc, bEffect, bReader, bFileSelector, bWeather, bQRCode, bText2Voice, bMarge2Image;
+            bLrc, bEffect, bReader, bFileSelector, bWeather, bQRCode, bText2Voice, bMarge2Image, b2Recycle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,8 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bQRCode = findViewById(R.id.bQRCode);
         bText2Voice = findViewById(R.id.bText2Voice);
         bMarge2Image = findViewById(R.id.bMarge2Image);
+
+        b2Recycle = findViewById(R.id.b2Recycle);
     }
 
     private void setListener() {
@@ -69,8 +72,10 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
         bFileSelector.setOnClickListener(this);
         bWeather.setOnClickListener(this);
         bQRCode.setOnClickListener(this);
+
         bText2Voice.setOnClickListener(this);
         bMarge2Image.setOnClickListener(this);
+        b2Recycle.setOnClickListener(this);
     }
 
     @Override
@@ -124,6 +129,9 @@ public class Activity_Demos extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.bMarge2Image:
                 intent = new Intent(this, Demo_Marge2Bitmap_Activity.class);
+                break;
+            case R.id.b2Recycle:
+                intent = new Intent(this, Demo_Two_Recycle_Activity.class);
                 break;
         }
         startActivity(intent);
