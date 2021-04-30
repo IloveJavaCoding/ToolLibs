@@ -130,7 +130,6 @@ public class TimeSelector {
         });
     }
 
-
     public void show() {
         if (startCalendar.getTime().getTime() >= endCalendar.getTime().getTime()) {
             Toast.makeText(context, "start>end", Toast.LENGTH_LONG).show();
