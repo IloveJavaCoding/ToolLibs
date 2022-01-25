@@ -153,6 +153,7 @@ public class Demo_Text_2_Voice extends AppCompatActivity implements TextToSpeech
 
         String text = etInput.getText().toString();
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, uttId);
+//        tts.synthesizeToFile()
     }
 
     //初始化

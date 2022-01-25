@@ -45,9 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Manifest.permission.INTERNET,
             Manifest.permission.ACCESS_NETWORK_STATE,
             Manifest.permission.ACCESS_WIFI_STATE,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.CALL_PHONE
-
+            Manifest.permission.ACCESS_COARSE_LOCATION
     };
     private static final int ACTION_REQUEST_PERMISSIONS = 0x001;
     @Override

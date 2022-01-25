@@ -19,8 +19,7 @@ android {
         release {
             keyAlias 'key0'
             keyPassword 'zsl142857'
-            storeFile file('D:\\MyData\\AndroidStudio\\ToolLibs\\app\\keyPath\\toollibs2020.jks')
-//D:\MyData\AndroidStudio\ToolLibs\app\keyPath\toollibs2020.jks
+            storeFile file('../keyPath/toollibs2020.jks')
             storePassword 'zsl142857'
         }
     }
